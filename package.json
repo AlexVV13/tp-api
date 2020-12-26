@@ -10,17 +10,10 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
-    "@babel/preset-env": "^7.12.11",
-    "@babel/register": "^7.12.10",
-    "babel-polyfill": "^6.26.0",
-    "chai": "^4.2.0",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-mocha": "^8.0.0",
-    "eslint-plugin-prettier": "^3.3.0",
-    "prettier": "^2.2.1"
+    "eslint-plugin-prettier": "^3.3.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
