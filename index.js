@@ -1,6 +1,6 @@
 //Import all parks here
-const parks = require('./lib/parks/index');
+const tpapi = require('./lib/parks/index');
 
 //Fetch POIS
-parks.Efteling.getData();
+tpapi.Parks.Efteling.getData(); //Get All data for efteling, you could also run getCalendar() or getWaitTime()
 

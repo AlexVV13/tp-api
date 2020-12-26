@@ -52,10 +52,10 @@ Run index.js for all parks </br>
 Or create an .js file for yourself and do the following: </br>
 ```javascript
 //Import the park
-const Parks = require('./data/parks/index')
+const tpapi = require('./data/parks/index')
 
 //Run whatever you want
-Parks.${parkName}.getData();
+tpapi.Parks.${parkName}.getData();
 ```
    
 ## Currently Working Parks
