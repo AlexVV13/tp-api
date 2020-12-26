@@ -1,6 +1,6 @@
 //Import all parks here
-const Efteling = require('./lib/parks/efteling/efteling');
+const parks = require('./lib/parks/index');
 
 //Fetch POIS
-Efteling.getData();
+parks.Efteling.getData();
 
