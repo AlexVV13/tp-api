@@ -2,5 +2,5 @@
 const tpapi = require('./lib/parks/index');
 
 //Fetch POIS
-tpapi.Parks.Efteling.getData(); //Get All data for efteling, you could also run getCalendar() or getWaitTime()
+tpapi.Parks.WalibiHolland.getWaitTime(); //Get All data for efteling, you could also run getCalendar() or getWaitTime()
 
