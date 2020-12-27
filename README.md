@@ -33,7 +33,7 @@ This is a module which fetches queue times and operating hours, and returns it a
 
 ## Install
 
-    npm install themeparks --save
+    npm install @alexvv13/tpapi --save
     
 
 ## ENV
