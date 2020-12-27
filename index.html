@@ -39,7 +39,7 @@
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="themeparks-api">Themeparks-API</h1><p>Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don&apos;t expect anything too cool tho.<br>
 <a href="https://alexvv13.github.io/tp-api" title="API Documentation">API documentation</a> <br>
 <a href="https://www.npmjs.com/package/@alexvv13/tpapi" title="NPM Package">NPM Package</a> <br>
-Current Version: 1.0.9<br></p>
+Current Version: 1.0.10<br></p>
 <h2 id="about">About</h2><p>This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it&apos;s not perfect, but it works. It&apos;s just being build to work and return data, not to be efficient anyway.</p>
 <h2 id="table-of-contents">Table of Contents</h2><p><a href="#about">About</a><br>
 <a href="#table-of-contents">Table of Contents</a><br>
@@ -74,7 +74,7 @@ Current Version: 1.0.9<br></p>
 NOTE: If you use commonjs, it&apos;s REQUIRED to use the .mjs extension INSTEAD of .js! <br>
 Or create an .js file for yourself and do the following: <br></p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">// Import all parks here
-import tpapi from &apos;./lib/parks/index.js&apos;;
+import tpapi from &apos;@alexvv13/tpapi&apos;;
 
 const park = new tpapi.parks.Efteling();
 
@@ -87,14 +87,14 @@ park.getWaitTime().then((rideTimes) =&gt; {
 </code></pre>
 <p>Example output (Shortened to keep it readable)</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">{
-    &quot;name&quot;: &quot;Villa Volta&quot;,
-    &quot;id&quot;: &quot;villavolta&quot;,
+    &quot;name&quot;: &quot;Stoomcarrousel&quot;,
+    &quot;id&quot;: &quot;Efteling_stoomcarrousel&quot;,
     &quot;waitTime&quot;: &quot;0&quot;,
     &quot;state&quot;: &quot;Closed&quot;,
     &quot;active&quot;: &quot;false&quot;,
     &quot;location&quot;: {
-        &quot;latitude&quot;: &quot;51.653255&quot;,
-        &quot;longitude&quot;: &quot;5.047484&quot;
+        &quot;latitude&quot;: &quot;51.651211&quot;,
+        &quot;longitude&quot;: &quot;5.048955&quot;
     },
     &quot;meta&quot;: {
         &quot;type&quot;: &quot;attraction&quot;,
@@ -104,7 +104,7 @@ park.getWaitTime().then((rideTimes) =&gt; {
 },
 {
     &quot;name&quot;: &quot;Vogel Rok&quot;,
-    &quot;id&quot;: &quot;vogelrok&quot;,
+    &quot;id&quot;: &quot;Efteling_vogelrok&quot;,
     &quot;waitTime&quot;: &quot;0&quot;,
     &quot;state&quot;: &quot;Closed&quot;,
     &quot;active&quot;: &quot;false&quot;,
@@ -115,22 +115,6 @@ park.getWaitTime().then((rideTimes) =&gt; {
     &quot;meta&quot;: {
         &quot;type&quot;: &quot;attraction&quot;,
         &quot;area&quot;: &quot;Reizenrijk&quot;,
-        &quot;single_rider&quot;: &quot;false&quot;
-    }
-},
-{
-    &quot;name&quot;: &quot;Volk van Laaf&quot;,
-    &quot;id&quot;: &quot;volkvanlaaf&quot;,
-    &quot;waitTime&quot;: &quot;0&quot;,
-    &quot;state&quot;: &quot;Closed&quot;,
-    &quot;active&quot;: &quot;false&quot;,
-    &quot;location&quot;: {
-        &quot;latitude&quot;: &quot;51.653275&quot;,
-        &quot;longitude&quot;: &quot;5.048892&quot;
-    },
-    &quot;meta&quot;: {
-        &quot;type&quot;: &quot;attraction&quot;,
-        &quot;area&quot;: &quot;Marerijk&quot;,
         &quot;single_rider&quot;: &quot;false&quot;
     }
 }</code>
