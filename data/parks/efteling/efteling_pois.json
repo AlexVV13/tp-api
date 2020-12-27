@@ -2,9 +2,9 @@
     "1": {
         "name": "Warme Winter Weide",
         "id": "1",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.65176249",
             "longitude": "5.05039737"
@@ -18,9 +18,9 @@
     "avonturendoolhof": {
         "name": "Avonturendoolhof",
         "id": "avonturendoolhof",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.651535",
             "longitude": "5.052409"
@@ -34,9 +34,9 @@
     "baron1898": {
         "name": "Baron 1898",
         "id": "baron1898",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.64827",
             "longitude": "5.050988"
@@ -50,9 +50,9 @@
     "fabula": {
         "name": "Fabula",
         "id": "fabula",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.64905115",
             "longitude": "5.04819117"
@@ -66,9 +66,9 @@
     "maxmoritz": {
         "name": "Max & Moritz",
         "id": "maxmoritz",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.647963",
             "longitude": "5.047662"
@@ -82,9 +82,9 @@
     "carnavalfestival": {
         "name": "Carnaval Festival",
         "id": "carnavalfestival",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.652302",
             "longitude": "5.052267"
@@ -98,9 +98,9 @@
     "carrouselsantonpieckplein": {
         "name": "Anton Pieck Plein",
         "id": "carrouselsantonpieckplein",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.652733",
             "longitude": "5.049869"
@@ -114,9 +114,9 @@
     "doudetuffer": {
         "name": "De Oude Tufferbaan",
         "id": "doudetuffer",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.648869",
             "longitude": "5.053921"
@@ -130,9 +130,9 @@
     "devliegendehollander": {
         "name": "De Vliegende Hollander",
         "id": "devliegendehollander",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.647411",
             "longitude": "5.052354"
@@ -146,9 +146,9 @@
     "diorama": {
         "name": "Diorama",
         "id": "diorama",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.650894",
             "longitude": "5.048583"
@@ -162,9 +162,9 @@
     "droomvlucht": {
         "name": "Droomvlucht",
         "id": "droomvlucht",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.65266",
             "longitude": "5.046748"
@@ -178,9 +178,9 @@
     "eftelingmuseum": {
         "name": "Efteling Museum",
         "id": "eftelingmuseum",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.652092",
             "longitude": "5.049548"
@@ -194,9 +194,9 @@
     "fatamorgana": {
         "name": "Fata Morgana",
         "id": "fatamorgana",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.647053",
             "longitude": "5.045715"
@@ -210,9 +210,9 @@
     "gamegallery": {
         "name": "Game Gallery",
         "id": "gamegallery",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.648235",
             "longitude": "5.053014"
@@ -226,9 +226,9 @@
     "gondoletta": {
         "name": "Gondoletta",
         "id": "gondoletta",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.650581",
             "longitude": "5.051335"
@@ -242,9 +242,9 @@
     "halvemaen": {
         "name": "Halve Maen",
         "id": "halvemaen",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.64864",
             "longitude": "5.05309"
@@ -258,9 +258,9 @@
     "jorisendedraak": {
         "name": "Joris en de Draak",
         "id": "jorisendedraak",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.646866",
             "longitude": "5.052788"
@@ -274,9 +274,9 @@
     "kinderspoor": {
         "name": "Kinderspoor",
         "id": "kinderspoor",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.649727",
             "longitude": "5.053526"
@@ -290,9 +290,9 @@
     "kindervreugd": {
         "name": "Kindervreugd",
         "id": "kindervreugd",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.653088",
             "longitude": "5.047781"
@@ -306,9 +306,9 @@
     "kleuterhof": {
         "name": "Kleuterhof",
         "id": "kleuterhof",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.651745",
             "longitude": "5.053839"
@@ -322,9 +322,9 @@
     "volkvanlaafmonorail": {
         "name": "Monorail",
         "id": "volkvanlaafmonorail",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.652953",
             "longitude": "5.048818"
@@ -338,9 +338,9 @@
     "monsieurcannibale": {
         "name": "Monsieur Cannibale",
         "id": "monsieurcannibale",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.651783",
             "longitude": "5.052033"
@@ -354,9 +354,9 @@
     "pagode": {
         "name": "Pagode",
         "id": "pagode",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.650455",
             "longitude": "5.050758"
@@ -370,9 +370,9 @@
     "pirana": {
         "name": "Piraña",
         "id": "pirana",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.647141",
             "longitude": "5.049112"
@@ -386,9 +386,9 @@
     "python": {
         "name": "Python",
         "id": "python",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.647575",
             "longitude": "5.053534"
@@ -402,9 +402,9 @@
     "spookslot": {
         "name": "Spookslot",
         "id": "spookslot",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.648823",
             "longitude": "5.048554"
@@ -418,9 +418,9 @@
     "sprookjesbos": {
         "name": "Fairytale Forest",
         "id": "sprookjesbos",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.651142",
             "longitude": "5.048003"
@@ -434,9 +434,9 @@
     "stoomcarrousel": {
         "name": "Stoomcarrousel",
         "id": "stoomcarrousel",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.651211",
             "longitude": "5.048955"
@@ -450,9 +450,9 @@
     "stoomtreinr": {
         "name": "Stoomtrein",
         "id": "stoomtreinr",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.647948",
             "longitude": "5.054342"
@@ -466,9 +466,9 @@
     "stoomtreinm": {
         "name": "Stoomtrein",
         "id": "stoomtreinm",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.652279",
             "longitude": "5.047405"
@@ -482,9 +482,9 @@
     "symbolica": {
         "name": "Symbolica",
         "id": "symbolica",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.649918",
             "longitude": "5.049548"
@@ -498,9 +498,9 @@
     "villavolta": {
         "name": "Villa Volta",
         "id": "villavolta",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.653255",
             "longitude": "5.047484"
@@ -514,9 +514,9 @@
     "vogelrok": {
         "name": "Vogel Rok",
         "id": "vogelrok",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.652187",
             "longitude": "5.052811"
@@ -530,9 +530,9 @@
     "volkvanlaaf": {
         "name": "Volk van Laaf",
         "id": "volkvanlaaf",
-        "waitTime": null,
-        "state": null,
-        "active": null,
+        "waitTime": "0",
+        "state": "Closed",
+        "active": "false",
         "location": {
             "latitude": "51.653275",
             "longitude": "5.048892"
