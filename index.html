@@ -36,9 +36,10 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="themeparks-api">Themeparks-API</h1><p>Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don&apos;t expect anything too cool tho.
-<a href="https://alexvv13.github.io/tp-api" title="API Documentation">API documentation</a>
-Current Version: 1.0.4</p>
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="themeparks-api">Themeparks-API</h1><p>Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don&apos;t expect anything too cool tho.<br>
+<a href="https://alexvv13.github.io/tp-api" title="API Documentation">API documentation</a> <br>
+<a href="https://www.npmjs.com/package/@alexvv13/tpapi" title="NPM Package">NPM Package</a> <br>
+Current Version: 1.0.7<br></p>
 <h2 id="about">About</h2><p>This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it&apos;s not perfect, but it works. It&apos;s just being build to work and return data, not to be efficient anyway.</p>
 <h2 id="table-of-contents">Table of Contents</h2><p><a href="#about">About</a><br>
 <a href="#table-of-contents">Table of Contents</a><br>
@@ -79,6 +80,37 @@ const park = new tpapi.parks.EuropaPark();
 
 // Fetch POIS
 park.getWaitTime(); // Fetch the queues for, in this example, EuropaPark</code>
+</code></pre>
+<p>Example output (Shortened to keep it readable)</p>
+<pre><code class="lang-json"><code class="source-code prettyprint">{
+  &apos;5003&apos;: {
+    name: &apos;VirtualLine: Arthur&apos;,
+    id: &apos;Europapark_5003&apos;,
+    waitTime: null,
+    state: null,
+    active: null,
+    location: { latitude: 48.26387625, longitude: 7.72408623 },
+    meta: { area: &apos;Kingdom of the Minimoys&apos;, type: &apos;attraction&apos;, single_rider: &apos;false&apos; }
+  },
+  &apos;5004&apos;: {
+    name: &apos;VirtualLine: Eurosat - CanCan Coaster&apos;,
+    id: &apos;Europapark_5004&apos;,
+    waitTime: null,
+    state: null,
+    active: null,
+    location: { latitude: 48.267345, longitude: 7.72113 },
+    meta: { area: &apos;France&apos;, type: &apos;attraction&apos;, single_rider: &apos;false&apos; }
+  },
+  &apos;5005&apos;: {
+    name: &apos;VirtualLine: Piraten in Batavia&apos;,
+    id: &apos;Europapark_5005&apos;,
+    waitTime: null,
+    state: null,
+    active: null,
+    location: { latitude: 48.26371636, longitude: 7.7203537 },
+    meta: { area: &apos;Netherlands&apos;, type: &apos;attraction&apos;, single_rider: &apos;false&apos; }
+  }
+}</code>
 </code></pre>
 <h2 id="currently-working-parks">Currently Working Parks</h2><table>
 <thead>
