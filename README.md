@@ -59,6 +59,39 @@ const park = new tpapi.parks.EuropaPark();
 // Fetch POIS
 park.getWaitTime(); // Fetch the queues for, in this example, EuropaPark
 ```
+
+Example output (Shortened to keep it readable)
+```json
+{
+  '5003': {
+    name: 'VirtualLine: Arthur',
+    id: 'Europapark_5003',
+    waitTime: null,
+    state: null,
+    active: null,
+    location: { latitude: 48.26387625, longitude: 7.72408623 },
+    meta: { area: 'Kingdom of the Minimoys', type: 'attraction', single_rider: 'false' }
+  },
+  '5004': {
+    name: 'VirtualLine: Eurosat - CanCan Coaster',
+    id: 'Europapark_5004',
+    waitTime: null,
+    state: null,
+    active: null,
+    location: { latitude: 48.267345, longitude: 7.72113 },
+    meta: { area: 'France', type: 'attraction', single_rider: 'false' }
+  },
+  '5005': {
+    name: 'VirtualLine: Piraten in Batavia',
+    id: 'Europapark_5005',
+    waitTime: null,
+    state: null,
+    active: null,
+    location: { latitude: 48.26371636, longitude: 7.7203537 },
+    meta: { area: 'Netherlands', type: 'attraction', single_rider: 'false' }
+  }
+}
+```
    
 ## Currently Working Parks
 Park Name | Live Queues | Park Hours
