@@ -103,7 +103,7 @@ Europa-Park |:heavy_check_mark:|:heavy_multiplication_x:
 
 ## Tasks
 - [ ] Add more parks
-- [ ] Multi language support
+- [X] Multi language support
 - [ ] Multiple Queue entities support
 
 
