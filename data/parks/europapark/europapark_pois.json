@@ -1,0 +1,1826 @@
+{
+    "2": {
+        "name": "Panorama Train Station Germany",
+        "id": "Europapark_2",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26796,
+            "longitude": 7.723254
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "3": {
+        "name": "EP Express Station - Alexanderplatz",
+        "id": "Europapark_3",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26888354,
+            "longitude": 7.72201145
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "4": {
+        "name": "Vintage Cars",
+        "id": "Europapark_4",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.267366,
+            "longitude": 7.723695
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "5": {
+        "name": "Elf Ride",
+        "id": "Europapark_5",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.267435,
+            "longitude": 7.722708
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "9": {
+        "name": "Voletarium",
+        "id": "Europapark_9",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.269182,
+            "longitude": 7.72243004
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "100": {
+        "name": "Ghost Castle",
+        "id": "Europapark_100",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26784026,
+            "longitude": 7.72196878
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "101": {
+        "name": "Piccolo Mondo",
+        "id": "Europapark_101",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26744872,
+            "longitude": 7.72193018
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "102": {
+        "name": "Volo da Vinci",
+        "id": "Europapark_102",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.267662,
+            "longitude": 7.722291
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "150": {
+        "name": "Quipse Paddle Boats",
+        "id": "Europapark_150",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266206,
+            "longitude": 7.722663
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "151": {
+        "name": "Tower Tow",
+        "id": "Europapark_151",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266199,
+            "longitude": 7.722692
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "152": {
+        "name": "Spinning Dragons",
+        "id": "Europapark_152",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26630942,
+            "longitude": 7.72290385
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "153": {
+        "name": "Little Lamb's Land",
+        "id": "Europapark_153",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26617039,
+            "longitude": 7.72297741
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "155": {
+        "name": "Old Mac Donald's Tractor Fun",
+        "id": "Europapark_155",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266401,
+            "longitude": 7.723051
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "156": {
+        "name": "Paul's Playboat",
+        "id": "Europapark_156",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266465,
+            "longitude": 7.723354
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "157": {
+        "name": "Ba-a-a Express",
+        "id": "Europapark_157",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26623696,
+            "longitude": 7.72322337
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "158": {
+        "name": "Sheep Rock",
+        "id": "Europapark_158",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26653038,
+            "longitude": 7.72362554
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "159": {
+        "name": "Dancing Dingie",
+        "id": "Europapark_159",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266518,
+            "longitude": 7.723905
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "160": {
+        "name": "BIG-Bobby-Car Circuit",
+        "id": "Europapark_160",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266648,
+            "longitude": 7.723648
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "163": {
+        "name": "Limerick Castle",
+        "id": "Europapark_163",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.2661,
+            "longitude": 7.723581
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "200": {
+        "name": "Eurosat - CanCan Coaster",
+        "id": "Europapark_200",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.267345,
+            "longitude": 7.72113
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "201": {
+        "name": "Madame Freudenreich Curiosités",
+        "id": "Europapark_201",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26719018,
+            "longitude": 7.72106173
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "202": {
+        "name": "Euro-Tower",
+        "id": "Europapark_202",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.267138,
+            "longitude": 7.721954
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "203": {
+        "name": "Puppet Boat Ride",
+        "id": "Europapark_203",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266966,
+            "longitude": 7.722999
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "204": {
+        "name": "Jim Button – Journey through Morrowland",
+        "id": "Europapark_204",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.267232,
+            "longitude": 7.722759
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "207": {
+        "name": "Eurosat Coastiality",
+        "id": "Europapark_207",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26748407,
+            "longitude": 7.72055613
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "250": {
+        "name": "Silver Star",
+        "id": "Europapark_250",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.267746,
+            "longitude": 7.720779
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "255": {
+        "name": "FIS Snowkidz – Children’s ski school",
+        "id": "Europapark_255",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.2680653,
+            "longitude": 7.72116377
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "350": {
+        "name": "Swiss Bob Run",
+        "id": "Europapark_350",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266435,
+            "longitude": 7.721336
+        },
+        "meta": {
+            "area": "Switzerland",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "351": {
+        "name": "Matterhorn-Blitz",
+        "id": "Europapark_351",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266913,
+            "longitude": 7.72049
+        },
+        "meta": {
+            "area": "Switzerland",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "352": {
+        "name": "Jungfrau Glacier Flight",
+        "id": "Europapark_352",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266884,
+            "longitude": 7.720711
+        },
+        "meta": {
+            "area": "Switzerland",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "400": {
+        "name": "Water Rollercoaster Poseidon",
+        "id": "Europapark_400",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26657683,
+            "longitude": 7.71944295
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "401": {
+        "name": "Cassandra's Curse",
+        "id": "Europapark_401",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266309,
+            "longitude": 7.71955
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "402": {
+        "name": "EP Express Station - Greece",
+        "id": "Europapark_402",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266316,
+            "longitude": 7.720023
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "403": {
+        "name": "Pegasus - The YoungStar Coaster",
+        "id": "Europapark_403",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.267786,
+            "longitude": 7.719351
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "404": {
+        "name": "Atlantis Adventure",
+        "id": "Europapark_404",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.266235,
+            "longitude": 7.72031
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "405": {
+        "name": "Flight of Icarus",
+        "id": "Europapark_405",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.2659369,
+            "longitude": 7.72009301
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "450": {
+        "name": "Panorama Train Station Paddington",
+        "id": "Europapark_450",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26526313,
+            "longitude": 7.72198224
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "451": {
+        "name": "The British Carousel",
+        "id": "Europapark_451",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.264753,
+            "longitude": 7.721534
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "452": {
+        "name": "Silverstone Race Track",
+        "id": "Europapark_452",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.264853,
+            "longitude": 7.72134
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "453": {
+        "name": "London Bus",
+        "id": "Europapark_453",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26538878,
+            "longitude": 7.72230324
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "454": {
+        "name": "Crazy Taxi",
+        "id": "Europapark_454",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26553,
+            "longitude": 7.722307
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "456": {
+        "name": "Monorail Luxembourg",
+        "id": "Europapark_456",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.264495,
+            "longitude": 7.720607
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "457": {
+        "name": "Laser Adventure - School of Adventurers",
+        "id": "Europapark_457",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.265329,
+            "longitude": 7.722128
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "495": {
+        "name": "Arena of Football - Be Part of It!",
+        "id": "Europapark_495",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.265583,
+            "longitude": 7.721263
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "500": {
+        "name": "Euro-Mir",
+        "id": "Europapark_500",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26506782,
+            "longitude": 7.72018199
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "501": {
+        "name": "Panorama Train Station Russia",
+        "id": "Europapark_501",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.265055,
+            "longitude": 7.720598
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "503": {
+        "name": "Sleigh Ride Snowflake",
+        "id": "Europapark_503",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26518754,
+            "longitude": 7.72045036
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "504": {
+        "name": "Lada Autodrom",
+        "id": "Europapark_504",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.264771,
+            "longitude": 7.720618
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "550": {
+        "name": "Pirates in Batavia",
+        "id": "Europapark_550",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26357079,
+            "longitude": 7.72040079
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "551": {
+        "name": "Koffiekopjes",
+        "id": "Europapark_551",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26389425,
+            "longitude": 7.72047363
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "552": {
+        "name": "Flying Dutchman",
+        "id": "Europapark_552",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26394581,
+            "longitude": 7.72076801
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "553": {
+        "name": "Mini-Scooters",
+        "id": "Europapark_553",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.263763,
+            "longitude": 7.72093
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "554": {
+        "name": "Red Baron",
+        "id": "Europapark_554",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26407,
+            "longitude": 7.721007
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "560": {
+        "name": "Ball Pool",
+        "id": "Europapark_560",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.263969,
+            "longitude": 7.720456
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "562": {
+        "name": "Rocking Bridge & Chute",
+        "id": "Europapark_562",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26408853,
+            "longitude": 7.72083142
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "600": {
+        "name": "Jungle Rafts",
+        "id": "Europapark_600",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.263501,
+            "longitude": 7.721808
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "601": {
+        "name": "African Queen",
+        "id": "Europapark_601",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.262991,
+            "longitude": 7.722783
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "602": {
+        "name": "Dwarf City",
+        "id": "Europapark_602",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26411,
+            "longitude": 7.722967
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "650": {
+        "name": "Fjord-Rafting",
+        "id": "Europapark_650",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.262793,
+            "longitude": 7.719901
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "651": {
+        "name": "Vindjammer",
+        "id": "Europapark_651",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26271,
+            "longitude": 7.720726
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "654": {
+        "name": "Skitty World Nordic",
+        "id": "Europapark_654",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.262522,
+            "longitude": 7.720602
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "665": {
+        "name": "Snorri Touren",
+        "id": "Europapark_665",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26286332,
+            "longitude": 7.72016747
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "700": {
+        "name": "Tirol Log Flume",
+        "id": "Europapark_700",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.262636,
+            "longitude": 7.722091
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "701": {
+        "name": "Alpine Coaster \"Enzian\"",
+        "id": "Europapark_701",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.262209,
+            "longitude": 7.722644
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "702": {
+        "name": "Vienna Wave Swing",
+        "id": "Europapark_702",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26234046,
+            "longitude": 7.7229756
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "703": {
+        "name": "Alpenexpress Coastiality",
+        "id": "Europapark_703",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26205137,
+            "longitude": 7.72250316
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "706": {
+        "name": "Alpenexpress Coastiality+ Pass entrance",
+        "id": "Europapark_706",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.261965,
+            "longitude": 7.722778
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "711": {
+        "name": "Würmchen Wies'n Playground",
+        "id": "Europapark_711",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.262655,
+            "longitude": 7.722871
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "750": {
+        "name": "Panorama Train Station Spain",
+        "id": "Europapark_750",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.2616,
+            "longitude": 7.722934
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "751": {
+        "name": "EP-Express Station - Spain",
+        "id": "Europapark_751",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.261939,
+            "longitude": 7.721789
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "752": {
+        "name": "Feria Swing",
+        "id": "Europapark_752",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.261475,
+            "longitude": 7.723023
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "753": {
+        "name": "Kolumbusjolle",
+        "id": "Europapark_753",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.261595,
+            "longitude": 7.723112
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "761": {
+        "name": "Adventure Playground",
+        "id": "Europapark_761",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26125,
+            "longitude": 7.722918
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "800": {
+        "name": "Atlantica SuperSplash",
+        "id": "Europapark_800",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.262055,
+            "longitude": 7.721479
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "801": {
+        "name": "Casa da Aventura",
+        "id": "Europapark_801",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.262139,
+            "longitude": 7.721784
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "815": {
+        "name": "Ferris wheel 'Bellevue'",
+        "id": "Europapark_815",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.262384,
+            "longitude": 7.721246
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "850": {
+        "name": "blue fire Megacoaster powered by Nord Stream 2",
+        "id": "Europapark_850",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26268732,
+            "longitude": 7.71888132
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "851": {
+        "name": "Whale Adventures - Northern Lights",
+        "id": "Europapark_851",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26177,
+            "longitude": 7.719226
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "852": {
+        "name": "Monorail Iceland",
+        "id": "Europapark_852",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.261982,
+            "longitude": 7.719834
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "853": {
+        "name": "WODAN - Timburcoaster",
+        "id": "Europapark_853",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26167104,
+            "longitude": 7.71856683
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "854": {
+        "name": "Children's carousel",
+        "id": "Europapark_854",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.262651,
+            "longitude": 7.718994
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "862": {
+        "name": "Lítill Island - Hansgrohe water playground",
+        "id": "Europapark_862",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.261591,
+            "longitude": 7.720083
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "900": {
+        "name": "ARTHUR",
+        "id": "Europapark_900",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26379411,
+            "longitude": 7.72375497
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "901": {
+        "name": "Poppy Towers",
+        "id": "Europapark_901",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26412847,
+            "longitude": 7.72388692
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "902": {
+        "name": "Mul-Muls Carousel",
+        "id": "Europapark_902",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26418039,
+            "longitude": 7.72417125
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "903": {
+        "name": "Mino’s Playground",
+        "id": "Europapark_903",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.264058,
+            "longitude": 7.723999
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "905": {
+        "name": "Root Slides",
+        "id": "Europapark_905",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26399814,
+            "longitude": 7.7243222
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "986": {
+        "name": "EP Express Station - Hotels",
+        "id": "Europapark_986",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26056,
+            "longitude": 7.722623
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1001": {
+        "name": "Dugdrob",
+        "id": "Europapark_1001",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26026465,
+            "longitude": 7.73881154
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1002": {
+        "name": "Hugin",
+        "id": "Europapark_1002",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.2603343,
+            "longitude": 7.73865866
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1003": {
+        "name": "Munin",
+        "id": "Europapark_1003",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26012181,
+            "longitude": 7.73858758
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1004": {
+        "name": "Snorri's Saga",
+        "id": "Europapark_1004",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26043875,
+            "longitude": 7.73975702
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1005": {
+        "name": "Stormvind",
+        "id": "Europapark_1005",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26044232,
+            "longitude": 7.74141866
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1006": {
+        "name": "Svalgur Rytt",
+        "id": "Europapark_1006",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26053965,
+            "longitude": 7.74074944
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1007": {
+        "name": "Två Fall",
+        "id": "Europapark_1007",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26055661,
+            "longitude": 7.7413516
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1008": {
+        "name": "Vildfål",
+        "id": "Europapark_1008",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26013251,
+            "longitude": 7.73889739
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1009": {
+        "name": "Vildstrøm",
+        "id": "Europapark_1009",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26013609,
+            "longitude": 7.73910659
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1010": {
+        "name": "Vinter Rytt",
+        "id": "Europapark_1010",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.2602709,
+            "longitude": 7.74133014
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1011": {
+        "name": "Överstor",
+        "id": "Europapark_1011",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.2601343,
+            "longitude": 7.74046244
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1012": {
+        "name": "Översnabb",
+        "id": "Europapark_1012",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26008164,
+            "longitude": 7.74021836
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1013": {
+        "name": "Skog Lagune",
+        "id": "Europapark_1013",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26015305,
+            "longitude": 7.74067031
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1014": {
+        "name": "Tommelplums",
+        "id": "Europapark_1014",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26040719,
+            "longitude": 7.73933112
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1015": {
+        "name": "Surf Fjørd",
+        "id": "Europapark_1015",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26051108,
+            "longitude": 7.74025994
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1016": {
+        "name": "Kullerbuller",
+        "id": "Europapark_1016",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26050662,
+            "longitude": 7.73949417
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1017": {
+        "name": "Frigg Tempel",
+        "id": "Europapark_1017",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.25973163,
+            "longitude": 7.74016874
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1018": {
+        "name": "Isbrekker",
+        "id": "Europapark_1018",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26018519,
+            "longitude": 7.74105521
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1019": {
+        "name": "Schabernakker",
+        "id": "Europapark_1019",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26056554,
+            "longitude": 7.73967789
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "1020": {
+        "name": "Översnurra",
+        "id": "Europapark_1020",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26019592,
+            "longitude": 7.74036588
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "5000": {
+        "name": "VirtualLine: blue fire Megacoaster powered by Nord Stream 2",
+        "id": "Europapark_5000",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26257258,
+            "longitude": 7.71879284
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "5001": {
+        "name": "VirtualLine: WODAN - Timburcoaster",
+        "id": "Europapark_5001",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26170139,
+            "longitude": 7.7184059
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "5002": {
+        "name": "VirtualLine: Euro-Mir",
+        "id": "Europapark_5002",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26511692,
+            "longitude": 7.71998618
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "5003": {
+        "name": "VirtualLine: Arthur",
+        "id": "Europapark_5003",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26387625,
+            "longitude": 7.72408623
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "5004": {
+        "name": "VirtualLine: Eurosat - CanCan Coaster",
+        "id": "Europapark_5004",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.267345,
+            "longitude": 7.72113
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    },
+    "5005": {
+        "name": "VirtualLine: Pirates in Batavia",
+        "id": "Europapark_5005",
+        "waitTime": null,
+        "state": null,
+        "active": null,
+        "location": {
+            "latitude": 48.26371636,
+            "longitude": 7.7203537
+        },
+        "meta": {
+            "area": "Germany",
+            "type": "attraction",
+            "single_rider": "false"
+        }
+    }
+}
