@@ -30,6 +30,7 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
 </ul>
 </div>
@@ -44,19 +45,27 @@ import Efteling from &apos;./efteling/efteling.js&apos;;
 // Compagnie des Alpes
 import WalibiHolland from &apos;./walibi/walibiholland.js&apos;;
 // EuropaPark
-// import EuropaPark from &apos;./parks/europapark/europapark.js&apos;;
+import EuropaPark from &apos;./europapark/europapark.js&apos;;
 
 /**
 * Export all parks as string
 */
 export default {
   parks: {
+    // Efteling
     Efteling,
+    // Compagnie des Alpes
     WalibiHolland,
+    // EuropaPark
+    EuropaPark,
   },
   allParks: [
+    // Efteling
     Efteling,
+    // Compagnie des Alpes
     WalibiHolland,
+    // Europa-Park
+    EuropaPark,
   ],
 };
 </code></pre>

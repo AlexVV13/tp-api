@@ -6,6 +6,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "tp-api/lib/parks/europapark/europapark.js~europapark",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html",
+    "<span>EuropaPark</span> <span class=\"search-result-import-path\">tp-api/lib/parks/europapark/europapark.js</span>",
+    "class"
+  ],
+  [
     "tp-api/lib/parks/walibi/walibiholland.js~walibiholland",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html",
     "<span>WalibiHolland</span> <span class=\"search-result-import-path\">tp-api/lib/parks/walibi/walibiholland.js</span>",
@@ -400,6 +406,120 @@ window.esdocSearchIndex = [
     "file/lib/parks/europapark/europapark.js.html",
     "lib/parks/europapark/europapark.js",
     "file"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#apibase",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-apiBase",
+    "lib/parks/europapark/europapark.js~EuropaPark#apiBase",
+    "member"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#constructor",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-constructor-constructor",
+    "lib/parks/europapark/europapark.js~EuropaPark#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#getcalendar",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getCalendar",
+    "lib/parks/europapark/europapark.js~EuropaPark#getCalendar",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#getdata",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getData",
+    "lib/parks/europapark/europapark.js~EuropaPark#getData",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#getophours",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getOpHours",
+    "lib/parks/europapark/europapark.js~EuropaPark#getOpHours",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#getpois",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getPOIS",
+    "lib/parks/europapark/europapark.js~EuropaPark#getPOIS",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#getqueue",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getQueue",
+    "lib/parks/europapark/europapark.js~EuropaPark#getQueue",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#getwaittime",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getWaitTime",
+    "lib/parks/europapark/europapark.js~EuropaPark#getWaitTime",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#langoptions",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-langoptions",
+    "lib/parks/europapark/europapark.js~EuropaPark#langoptions",
+    "member"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#language",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-language",
+    "lib/parks/europapark/europapark.js~EuropaPark#language",
+    "member"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#latutude",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-latutude",
+    "lib/parks/europapark/europapark.js~EuropaPark#latutude",
+    "member"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#login",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-login",
+    "lib/parks/europapark/europapark.js~EuropaPark#login",
+    "member"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#loginep",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-loginEP",
+    "lib/parks/europapark/europapark.js~EuropaPark#loginEP",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#loginurl",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-loginurl",
+    "lib/parks/europapark/europapark.js~EuropaPark#loginurl",
+    "member"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#longitude",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-longitude",
+    "lib/parks/europapark/europapark.js~EuropaPark#longitude",
+    "member"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#name",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-name",
+    "lib/parks/europapark/europapark.js~EuropaPark#name",
+    "member"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#refresh",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-refresh",
+    "lib/parks/europapark/europapark.js~EuropaPark#refresh",
+    "member"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#refreshep",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-refreshEP",
+    "lib/parks/europapark/europapark.js~EuropaPark#refreshEP",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#timezone",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-timezone",
+    "lib/parks/europapark/europapark.js~EuropaPark#timezone",
+    "member"
   ],
   [
     "lib/parks/index.js",

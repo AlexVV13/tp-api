@@ -903,7 +903,7 @@
     "__docId__": 67,
     "kind": "file",
     "name": "lib/parks/europapark/europapark.js",
-    "content": "// const moment = require('moment-timezone');\nconst fetch = require('node-fetch');\nconst fs = require('fs');\n\nrequire('dotenv').config();\n\n// Configure the variables\nconst login = process.env.EUROPAPARK_LOGINSTRING;\nconst loginurl = process.env.EUROPAPARK_LOGIN;\n// const refreshurl = process.env.EUROPAPARK_REFRESHURL;\nconst apiBase = process.env.EUROPAPARK_APIBASE;\n\n// EuropaPark park options\nconst options = {\n  name: 'EuropaPark',\n  timezone: 'Europe/Berlin',\n  latitude: 51.64990915659694,\n  longitude: 5.043561458587647,\n};\n\n// Load the EuropaPark poidata\n// const poidata = ('./data/parks/europapark/europapark_pois.json');\n// const poimock = ('./data/parks/europapark/europapark_poi_mock.json');\n\n/**\n* Get EuropaPark data\n* This data contains park data such as latlon\n*/\nasync function getPark() {\n  return Promise.resolve(\n      options,\n  ).then(function(value) {\n    console.log(value);\n  });\n};\n\n/**\n* Login to the EP API\n* Don't call this function unless you know what you're doing, in most cases other functions will handle it for you\n*/\nasync function loginEP() {\n  console.log(login);\n  return fetch(apiBase +\n    loginurl,\n  {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json',\n    },\n    body: {\n      login,\n    },\n  },\n  )\n      .then((res) => res.json())\n      .then((loginData) => {\n        console.log(loginData);\n      });\n}\n\n/**\n* Get All POIS of Dummy\n* This data contains all the POIS in Dummy\n*/\nasync function getPOIS() {\n  return fetch(apiUrl,\n      {\n        method: 'GET',\n        headers: {\n          Authorization: apiKey,\n        },\n      },\n  )\n      .then((res) => res.json())\n      .then((rideData) => {\n        const poi = [];\n        rideData.forEach((ride) => {\n          // Do stuff with the ridedata\n          // POI Object with queues\n          const poiData = {\n            name: ride.name,\n            id: ride.shortId,\n            state: ride.state,\n            active: ride.active,\n            waitTime: ride.waitTime,\n            meta: {\n              type: 'attraction',\n            },\n          };\n          poi.push(poiData);\n        });\n        fs.writeFile('./data/parks/dummy/dummy_pois.json', JSON.stringify(poi, null, 4), function(err) {\n          if (err) return console.log(err);\n        });\n        fs.writeFile('./data/parks/dummy/dummy_poi_mock.json', JSON.stringify(rideData, null, 4), function(err) {\n          if (err) return console.log(err);\n        });\n        return Promise.resolve(poi); // Although we saved them in a json file, we'll just return them for the queue attach function which will run next if you called getQueue()\n      });\n}\n\n/**\n* Get All Operating Hours of Dummy\n* This data contains all the Operating Hours in Dummy\n*/\nasync function getOpHours() {\n  return fetch(\n      apiBase,\n      {\n        method: 'GET',\n      },\n  )\n      .then((res) => res.json())\n      .then((json) => {\n        const Calendar = [];\n        // Execute Calendar stuff here\n        return Promise.resolve(Calendar);\n      });\n}\n\n/**\n* Get All Data of Dummy\n* This data contains all Dummy's data, which is fetched earlier\n*/\nasync function getData() {\n  return await Promise.all([getPOIS(), getOpHours()]).then((rides) => {\n    console.log(JSON.stringify(rides, null, 4));\n  });\n}\n\n/**\n* Get All Calendar Data of Dummy\n* This data contains all the calendar data of Dummy\n*/\nasync function getCalendar() {\n  return await getOpHours().then((calendar) => {\n    console.log(calendar);\n  });\n}\n\n/**\n* Get All Queues of Dummy\n* This data contains all the Queues in Dummy, limited to their fast-lane services\n*/\nasync function getWaitTime() {\n  return await getPOIS().then((rides) => {\n    console.log(rides);\n  });\n}\n\nmodule.exports.getPark = getPark;\nmodule.exports.loginEP = loginEP;\nmodule.exports.getPOIS = getPOIS;\nmodule.exports.getOpHours = getOpHours;\nmodule.exports.getData = getData;\nmodule.exports.getCalendar = getCalendar;\nmodule.exports.getWaitTime = getWaitTime;\n",
+    "content": "import fetch from 'node-fetch';\nimport fs from 'fs';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* EuropaPark Park Object\n*/\nexport class EuropaPark {\n  /**\n   * Create a new EuropaPark Park object\n   * @param {object} options\n   */\n  constructor() {\n    this.name = 'Europa-Park';\n\n    // Setting the parks entrance as latlon\n    this.latutude = 48.266140769976715;\n    this.longitude = 7.722050520358709;\n\n    this.timezone = 'Europe/Berlin';\n\n    this.apiBase = process.env.EUROPAPARK_APIBASE;\n    this.login = process.env.EUROPAPARK_LOGINSTRING;\n    this.loginurl = process.env.EUROPAPARK_LOGIN;\n    this.refresh = process.env.EUROPAPARK_REFRESH;\n\n    this.language = process.env.LANGUAGE;\n\n    if (!this.apiBase) throw new Error('Missing EuropaPark apibase!');\n    if (!this.login) throw new Error('Missing EuropaPark login credentials');\n    if (!this.loginurl) throw new Error('Missing EuropaPark login URL!');\n    if (!this.refresh) throw new Error('Missing EuropaPark refresh url!');\n    if (!this.language) {\n      this.language = 'en';\n    }\n\n    this.langoptions = `{'en', 'fr', 'de'}`;\n  }\n\n  // Load the Europapark poidata\n  // const poidata = ('./data/parks/europapark/europapark_pois.json')\n  // const poimock = ('./data/parks/europapark/europapark_poi_mock.json')\n\n  /**\n  * Login to EuropaPark API\n  * NEVER call this method without calling refresh() or getPOIS()!\n  * @return {string} EuropaPark refresh token\n  */\n  async loginEP() {\n    return fetch(this.apiBase +\n      this.loginurl,\n    {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: this.login,\n    },\n    )\n        .then((res) => res.json())\n        .then((login) => {\n          const refreshtoken = {'refresh_token': login.refresh_token};\n          return Promise.resolve(refreshtoken);\n        });\n  }\n\n  /**\n  * Refresh your just obtained ep token\n  * Tokens are 6 hrs valid, however there's no point in just calling this function without queues or sth else\n  * @return {string} EuropaPark JWT Token\n  */\n  async refreshEP() {\n    return await this.loginEP().then((refreshtoken) => fetch(this.apiBase +\n        this.refresh,\n    {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify(refreshtoken),\n    },\n    )\n        .then((res) => res.json())\n        .then((jwt) => {\n          const jwttoken = 'Bearer ' + jwt.token;\n          return Promise.resolve(jwttoken);\n        }),\n    );\n  };\n\n  /**\n  * Get All POIS of EuropaPark\n  * This data contains all the POIS in EuropaPark\n  */\n  async getPOIS() {\n    return await this.refreshEP().then((jwttoken) => {\n      fetch(this.apiBase +\n        `pois/${this.language}`,\n      {\n        headers: {\n          'Content-Type': 'application/json',\n          'JWTAuthorization': jwttoken,\n        },\n      },\n      )\n          .then((res) => res.json())\n          .then((rideData) => {\n            const poi = {};\n            rideData.pois.forEach((ride) => {\n              if (ride.type === 'attraction' && ride.code !== null) { // Return rides and pois which haven't null\n                if (ride.name.indexOf('Queue - ') === 0) return; // Ignore the Queue Pointers\n                let area = 'Germany'; // Really, this is the strangest empire thing ever\n                if (ride.areaId == 26) {\n                  area = 'Switzerland';\n                }\n                poi[ride.code] = {\n                  name: ride.name,\n                  id: 'Europapark_' + ride.code,\n                  waitTime: null,\n                  state: null,\n                  active: null,\n                  location: {\n                    latitude: ride.latitude,\n                    longitude: ride.longitude,\n                  },\n                  meta: {\n                    area: area,\n                    type: ride.type,\n                    single_rider: 'false',\n                  },\n                };\n              };\n            });\n            fs.writeFile('./data/parks/europapark/europapark_pois.json', JSON.stringify(poi, null, 4), function(err) {\n              if (err) return console.log(err);\n            });\n            fs.writeFile('./data/parks/europapark/europapark_poi_mock.json', JSON.stringify(rideData.pois, null, 4), function(err) {\n              if (err) return console.log(err);\n            });\n            console.log(poi);\n            return Promise.resolve(poi);\n          });\n    });\n  };\n\n  /**\n  * Get All Queues of EuropaPark\n  * This data contains all the Queues in EuropaPark, attached with pois above.\n  */\n  async getQueue() {\n    return await Promise.all([this.getPOIS(), this.refreshEP()]).then((rideData) => {\n      fetch(this.apiBase +\n        `waitingtimes`,\n      {\n        method: 'GET',\n        headers: {\n          'Content-Type': 'application/json',\n          'JWTAuthorization': rideData[1],\n        },\n      },\n      )\n          .then((res) => res.json())\n          .then((poiData) => {\n            console.log(rideData[0]);\n          });\n    });\n  }\n\n  /**\n  * Get All Operating Hours of EuropaPark\n  * This data contains all the Operating Hours in EuropaPark, fetched with currentyear.\n  */\n  async getOpHours() {\n    return fetch(\n        this.apiBase +\n          `europapark/opentime/`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n\n  /**\n  * Get All Data of EuropaPark\n  * This data contains all EP's data, which is fetched earlier\n  */\n  async getData() {\n    return await Promise.all([this.getPOIS(), this.getOpHours()]).then((rides) => {\n      console.log(JSON.stringify(rides, null, 4));\n    });\n  }\n\n  /**\n  * Get All Calendar Data of EuropaPark\n  * This data contains all the calendar data of EuropaPark\n  */\n  async getCalendar() {\n    return await this.getOpHours().then((calendar) => {\n      console.log(calendar);\n    });\n  }\n\n  /**\n  * Get All Queues of EuropaPark\n  * This data contains all the Queues in EuropaPark\n  */\n  async getWaitTime() {\n    return await this.getPOIS().then((rides) => {\n      console.log(rides);\n    });\n  }\n};\n\nexport default EuropaPark;\n",
     "static": true,
     "longname": "/home/runner/work/tp-api/tp-api/lib/parks/europapark/europapark.js",
     "access": "public",
@@ -912,296 +912,377 @@
   },
   {
     "__docId__": 68,
-    "kind": "variable",
-    "name": "fetch",
+    "kind": "class",
+    "name": "EuropaPark",
     "memberof": "lib/parks/europapark/europapark.js",
     "static": true,
-    "longname": "lib/parks/europapark/europapark.js~fetch",
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark",
     "access": "public",
-    "export": false,
+    "export": true,
     "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 2,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+    "importStyle": "{EuropaPark}",
+    "description": "EuropaPark Park Object",
+    "lineNumber": 10,
+    "interface": false
   },
   {
     "__docId__": 69,
-    "kind": "variable",
-    "name": "fs",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~fs",
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#constructor",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 3,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+    "description": "Create a new EuropaPark Park object",
+    "lineNumber": 15,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": ""
+      }
+    ]
   },
   {
     "__docId__": 70,
-    "kind": "variable",
-    "name": "login",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~login",
+    "kind": "member",
+    "name": "name",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#name",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
     "description": null,
-    "lineNumber": 8,
+    "lineNumber": 16,
     "undocument": true,
     "type": {
       "types": [
-        "*"
+        "string"
       ]
-    },
-    "ignore": true
+    }
   },
   {
     "__docId__": 71,
-    "kind": "variable",
-    "name": "loginurl",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~loginurl",
+    "kind": "member",
+    "name": "latutude",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#latutude",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
     "description": null,
-    "lineNumber": 9,
+    "lineNumber": 19,
     "undocument": true,
     "type": {
       "types": [
-        "*"
+        "number"
       ]
-    },
-    "ignore": true
+    }
   },
   {
     "__docId__": 72,
-    "kind": "variable",
-    "name": "apiBase",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~apiBase",
+    "kind": "member",
+    "name": "longitude",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#longitude",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 20,
     "undocument": true,
     "type": {
       "types": [
-        "*"
+        "number"
       ]
-    },
-    "ignore": true
+    }
   },
   {
     "__docId__": 73,
-    "kind": "variable",
-    "name": "options",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~options",
+    "kind": "member",
+    "name": "timezone",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#timezone",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
     "description": null,
-    "lineNumber": 14,
+    "lineNumber": 22,
     "undocument": true,
     "type": {
       "types": [
-        "{\"name\": string, \"timezone\": string, \"latitude\": number, \"longitude\": number}"
+        "string"
       ]
-    },
-    "ignore": true
+    }
   },
   {
     "__docId__": 74,
-    "kind": "function",
-    "name": "getPark",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "generator": false,
-    "async": true,
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~getPark",
+    "kind": "member",
+    "name": "apiBase",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#apiBase",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
-    "description": "Get EuropaPark data<br />This data contains park data such as latlon",
-    "lineNumber": 29,
-    "params": [],
-    "return": {
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "type": {
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
     "__docId__": 75,
-    "kind": "function",
-    "name": "loginEP",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "generator": false,
-    "async": true,
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~loginEP",
+    "kind": "member",
+    "name": "login",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#login",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
-    "description": "Login to the EP API<br />Don't call this function unless you know what you're doing, in most cases other functions will handle it for you",
-    "lineNumber": 41,
-    "params": [],
-    "return": {
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "type": {
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
     "__docId__": 76,
-    "kind": "function",
-    "name": "getPOIS",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "generator": false,
-    "async": true,
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~getPOIS",
+    "kind": "member",
+    "name": "loginurl",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#loginurl",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
-    "description": "Get All POIS of Dummy<br />This data contains all the POIS in Dummy",
-    "lineNumber": 65,
-    "params": [],
-    "return": {
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true,
+    "type": {
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
     "__docId__": 77,
-    "kind": "function",
-    "name": "getOpHours",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "generator": false,
-    "async": true,
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~getOpHours",
+    "kind": "member",
+    "name": "refresh",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#refresh",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
-    "description": "Get All Operating Hours of Dummy<br />This data contains all the Operating Hours in Dummy",
-    "lineNumber": 106,
-    "params": [],
-    "return": {
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "type": {
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
     "__docId__": 78,
-    "kind": "function",
-    "name": "getData",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "generator": false,
-    "async": true,
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~getData",
+    "kind": "member",
+    "name": "language",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#language",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
-    "description": "Get All Data of Dummy<br />This data contains all Dummy's data, which is fetched earlier",
-    "lineNumber": 125,
-    "params": [],
-    "return": {
+    "description": null,
+    "lineNumber": 29,
+    "undocument": true,
+    "type": {
       "types": [
         "*"
       ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 79,
-    "kind": "function",
-    "name": "getCalendar",
-    "memberof": "lib/parks/europapark/europapark.js",
-    "generator": false,
-    "async": true,
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~getCalendar",
-    "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
-    "description": "Get All Calendar Data of Dummy<br />This data contains all the calendar data of Dummy",
-    "lineNumber": 135,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+    }
   },
   {
     "__docId__": 80,
-    "kind": "function",
-    "name": "getWaitTime",
-    "memberof": "lib/parks/europapark/europapark.js",
+    "kind": "member",
+    "name": "langoptions",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#langoptions",
+    "access": "public",
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 81,
+    "kind": "method",
+    "name": "loginEP",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
     "generator": false,
     "async": true,
-    "static": true,
-    "longname": "lib/parks/europapark/europapark.js~getWaitTime",
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#loginEP",
     "access": "public",
-    "export": false,
-    "importPath": "tp-api/lib/parks/europapark/europapark.js",
-    "importStyle": null,
-    "description": "Get All Queues of Dummy<br />This data contains all the Queues in Dummy, limited to their fast-lane services",
-    "lineNumber": 145,
+    "description": "Login to EuropaPark API<br />NEVER call this method without calling refresh() or getPOIS()!",
+    "lineNumber": 51,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "EuropaPark refresh token"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
+    "name": "refreshEP",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#refreshEP",
+    "access": "public",
+    "description": "Refresh your just obtained ep token<br />Tokens are 6 hrs valid, however there's no point in just calling this function without queues or sth else",
+    "lineNumber": 74,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "EuropaPark JWT Token"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 83,
+    "kind": "method",
+    "name": "getPOIS",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#getPOIS",
+    "access": "public",
+    "description": "Get All POIS of EuropaPark<br />This data contains all the POIS in EuropaPark",
+    "lineNumber": 97,
     "params": [],
     "return": {
       "types": [
         "*"
       ]
-    },
-    "ignore": true
+    }
   },
   {
-    "__docId__": 81,
+    "__docId__": 84,
+    "kind": "method",
+    "name": "getQueue",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#getQueue",
+    "access": "public",
+    "description": "Get All Queues of EuropaPark<br />This data contains all the Queues in EuropaPark, attached with pois above.",
+    "lineNumber": 152,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 85,
+    "kind": "method",
+    "name": "getOpHours",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#getOpHours",
+    "access": "public",
+    "description": "Get All Operating Hours of EuropaPark<br />This data contains all the Operating Hours in EuropaPark, fetched with currentyear.",
+    "lineNumber": 175,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 86,
+    "kind": "method",
+    "name": "getData",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#getData",
+    "access": "public",
+    "description": "Get All Data of EuropaPark<br />This data contains all EP's data, which is fetched earlier",
+    "lineNumber": 195,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 87,
+    "kind": "method",
+    "name": "getCalendar",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#getCalendar",
+    "access": "public",
+    "description": "Get All Calendar Data of EuropaPark<br />This data contains all the calendar data of EuropaPark",
+    "lineNumber": 205,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 88,
+    "kind": "method",
+    "name": "getWaitTime",
+    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/europapark/europapark.js~EuropaPark#getWaitTime",
+    "access": "public",
+    "description": "Get All Queues of EuropaPark<br />This data contains all the Queues in EuropaPark",
+    "lineNumber": 215,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 89,
     "kind": "file",
     "name": "lib/parks/index.js",
-    "content": "/**\n* Import all the parks included in the library\n*/\n// Efteling\nimport Efteling from './efteling/efteling.js';\n// Compagnie des Alpes\nimport WalibiHolland from './walibi/walibiholland.js';\n// EuropaPark\n// import EuropaPark from './parks/europapark/europapark.js';\n\n/**\n* Export all parks as string\n*/\nexport default {\n  parks: {\n    Efteling,\n    WalibiHolland,\n  },\n  allParks: [\n    Efteling,\n    WalibiHolland,\n  ],\n};\n",
+    "content": "/**\n* Import all the parks included in the library\n*/\n// Efteling\nimport Efteling from './efteling/efteling.js';\n// Compagnie des Alpes\nimport WalibiHolland from './walibi/walibiholland.js';\n// EuropaPark\nimport EuropaPark from './europapark/europapark.js';\n\n/**\n* Export all parks as string\n*/\nexport default {\n  parks: {\n    // Efteling\n    Efteling,\n    // Compagnie des Alpes\n    WalibiHolland,\n    // EuropaPark\n    EuropaPark,\n  },\n  allParks: [\n    // Efteling\n    Efteling,\n    // Compagnie des Alpes\n    WalibiHolland,\n    // Europa-Park\n    EuropaPark,\n  ],\n};\n",
     "static": true,
     "longname": "/home/runner/work/tp-api/tp-api/lib/parks/index.js",
     "access": "public",
@@ -1209,10 +1290,10 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 82,
+    "__docId__": 90,
     "kind": "file",
     "name": "lib/parks/walibi/walibiholland.js",
-    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport fs from 'fs';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Holland Park Object\n*/\nexport class WalibiHolland {\n  /**\n   * Create a new WalibiHolland Park object\n   * @param {object} options\n   */\n  constructor() {\n    this.name = 'Walibi Holland';\n\n    // I'll just use their fountain at the entrance for this\n    this.latutude = 52.4390338;\n    this.longitude = 5.7665651;\n\n    this.timezone = 'Europe/Amsterdam';\n\n    this.apiUrl = process.env.WALIBIHOLLAND_APIURL;\n    this.apiBase = process.env.WALIBIHOLLAND_APIBASE;\n\n    this.language = process.env.LANGUAGE;\n\n    if (!this.apiUrl) throw new Error('Missing Walibi Holland search url!');\n    if (!this.apiBase) throw new Error('Missing Walibi Holland apiKey!');\n    if (!this.language) {\n      this.language = 'en';\n    }\n  }\n\n  // Load the Walibi Holland poidata\n  // const poidata = ('./data/parks/walibi/walibiholland_pois.json')\n  // const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')\n\n  /**\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  */\n  async getPOIS() {\n    return fetch(this.apiUrl,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.forEach((ride) => {\n            let waitTime = '0';\n            let state = 'Closed';\n            let active = 'false';\n            if (ride.name !== 'Dummy1') { // They have a dummy ride to sell single shots in their fast-lane, mind=blown\n              if (ride.useVirtualQueue == 'true') { // VirtQueue enabled\n                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let's round them.\n              } else { // No virtQueue found, use the normal queue instead\n                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60\n              }\n              if (ride.state === 'closed_indefinitely') { // Closed but not closed but still closed\n                state = 'Closed';\n                active = 'false';\n              } // Declare other states when park reopens\n              // POI Object with queues\n              const poiData = {\n                name: ride.name,\n                id: ride.shortId,\n                state: state,\n                active: active,\n                waitTime: waitTime,\n                meta: {\n                  type: 'attraction',\n                },\n              };\n              poi.push(poiData);\n            }\n          });\n          fs.writeFile('./data/parks/walibi/walibiholland_pois.json', JSON.stringify(poi, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          fs.writeFile('./data/parks/walibi/walibiholland_poi_mock.json', JSON.stringify(rideData, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          return Promise.resolve(poi); // Although we saved them in a json file, we'll just return them for the queue attach function which will run next if you called getQueue()\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n\n  /**\n  * Get All Data of Walibi Holland\n  * This data contains all Walibi's data, which is fetched earlier\n  */\n  async getData() {\n    return await Promise.all([this.getPOIS(), this.getOpHours()]).then((rides) => {\n      console.log(JSON.stringify(rides, null, 4));\n    });\n  }\n\n  /**\n  * Get All Calendar Data of Walibi Holland\n  * This data contains all the calendar data of Walibi Holland\n  */\n  async getCalendar() {\n    return await this.getOpHours().then((calendar) => {\n      console.log(calendar);\n    });\n  }\n\n  /**\n  * Get All Queues of Walibi Holland\n  * This data contains all the Queues in Walibi Holland, limited to their fast-lane services\n  */\n  async getWaitTime() {\n    return await this.getPOIS().then((rides) => {\n      console.log(rides);\n    });\n  }\n};\n\nexport default WalibiHolland;\n",
+    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport fs from 'fs';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Holland Park Object\n*/\nexport class WalibiHolland {\n  /**\n   * Create a new WalibiHolland Park object\n   * @param {object} options\n   */\n  constructor() {\n    this.name = 'Walibi Holland';\n\n    // I'll just use their fountain at the entrance for this\n    this.latutude = 52.4390338;\n    this.longitude = 5.7665651;\n\n    this.timezone = 'Europe/Amsterdam';\n\n    this.apiUrl = process.env.WALIBIHOLLAND_APIURL;\n    this.apiBase = process.env.WALIBIHOLLAND_APIBASE;\n\n    this.language = process.env.LANGUAGE;\n\n    if (!this.apiUrl) throw new Error('Missing Walibi Holland search url!');\n    if (!this.apiBase) throw new Error('Missing Walibi Holland api base!');\n    if (!this.language) {\n      this.language = 'en';\n    }\n  }\n\n  // Load the Walibi Holland poidata\n  // const poidata = ('./data/parks/walibi/walibiholland_pois.json')\n  // const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')\n\n  /**\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  */\n  async getPOIS() {\n    return fetch(this.apiUrl,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.forEach((ride) => {\n            let waitTime = '0';\n            let state = 'Closed';\n            let active = 'false';\n            if (ride.name !== 'Dummy1') { // They have a dummy ride to sell single shots in their fast-lane, mind=blown\n              if (ride.useVirtualQueue == 'true') { // VirtQueue enabled\n                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let's round them.\n              } else { // No virtQueue found, use the normal queue instead\n                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60\n              }\n              if (ride.state === 'closed_indefinitely') { // Closed but not closed but still closed\n                state = 'Closed';\n                active = 'false';\n              } // Declare other states when park reopens\n              // POI Object with queues\n              const poiData = {\n                name: ride.name,\n                id: ride.shortId,\n                state: state,\n                active: active,\n                waitTime: waitTime,\n                meta: {\n                  type: 'attraction',\n                },\n              };\n              poi.push(poiData);\n            }\n          });\n          fs.writeFile('./data/parks/walibi/walibiholland_pois.json', JSON.stringify(poi, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          fs.writeFile('./data/parks/walibi/walibiholland_poi_mock.json', JSON.stringify(rideData, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          return Promise.resolve(poi); // Although we saved them in a json file, we'll just return them for the queue attach function which will run next if you called getQueue()\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n\n  /**\n  * Get All Data of Walibi Holland\n  * This data contains all Walibi's data, which is fetched earlier\n  */\n  async getData() {\n    return await Promise.all([this.getPOIS(), this.getOpHours()]).then((rides) => {\n      console.log(JSON.stringify(rides, null, 4));\n    });\n  }\n\n  /**\n  * Get All Calendar Data of Walibi Holland\n  * This data contains all the calendar data of Walibi Holland\n  */\n  async getCalendar() {\n    return await this.getOpHours().then((calendar) => {\n      console.log(calendar);\n    });\n  }\n\n  /**\n  * Get All Queues of Walibi Holland\n  * This data contains all the Queues in Walibi Holland, limited to their fast-lane services\n  */\n  async getWaitTime() {\n    return await this.getPOIS().then((rides) => {\n      console.log(rides);\n    });\n  }\n};\n\nexport default WalibiHolland;\n",
     "static": true,
     "longname": "/home/runner/work/tp-api/tp-api/lib/parks/walibi/walibiholland.js",
     "access": "public",
@@ -1220,7 +1301,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 83,
+    "__docId__": 91,
     "kind": "class",
     "name": "WalibiHolland",
     "memberof": "lib/parks/walibi/walibiholland.js",
@@ -1235,7 +1316,7 @@
     "interface": false
   },
   {
-    "__docId__": 84,
+    "__docId__": 92,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1260,7 +1341,7 @@
     ]
   },
   {
-    "__docId__": 85,
+    "__docId__": 93,
     "kind": "member",
     "name": "name",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1277,7 +1358,7 @@
     }
   },
   {
-    "__docId__": 86,
+    "__docId__": 94,
     "kind": "member",
     "name": "latutude",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1294,7 +1375,7 @@
     }
   },
   {
-    "__docId__": 87,
+    "__docId__": 95,
     "kind": "member",
     "name": "longitude",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1311,7 +1392,7 @@
     }
   },
   {
-    "__docId__": 88,
+    "__docId__": 96,
     "kind": "member",
     "name": "timezone",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1328,7 +1409,7 @@
     }
   },
   {
-    "__docId__": 89,
+    "__docId__": 97,
     "kind": "member",
     "name": "apiUrl",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1345,7 +1426,7 @@
     }
   },
   {
-    "__docId__": 90,
+    "__docId__": 98,
     "kind": "member",
     "name": "apiBase",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1362,7 +1443,7 @@
     }
   },
   {
-    "__docId__": 91,
+    "__docId__": 99,
     "kind": "member",
     "name": "language",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1379,7 +1460,7 @@
     }
   },
   {
-    "__docId__": 93,
+    "__docId__": 101,
     "kind": "method",
     "name": "getPOIS",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1398,7 +1479,7 @@
     }
   },
   {
-    "__docId__": 94,
+    "__docId__": 102,
     "kind": "method",
     "name": "getOpHours",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1417,7 +1498,7 @@
     }
   },
   {
-    "__docId__": 95,
+    "__docId__": 103,
     "kind": "method",
     "name": "getData",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1436,7 +1517,7 @@
     }
   },
   {
-    "__docId__": 96,
+    "__docId__": 104,
     "kind": "method",
     "name": "getCalendar",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1455,7 +1536,7 @@
     }
   },
   {
-    "__docId__": 97,
+    "__docId__": 105,
     "kind": "method",
     "name": "getWaitTime",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",

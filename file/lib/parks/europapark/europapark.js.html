@@ -30,169 +30,235 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/europapark/europapark.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// const moment = require(&apos;moment-timezone&apos;);
-const fetch = require(&apos;node-fetch&apos;);
-const fs = require(&apos;fs&apos;);
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fetch from &apos;node-fetch&apos;;
+import fs from &apos;fs&apos;;
 
-require(&apos;dotenv&apos;).config();
-
-// Configure the variables
-const login = process.env.EUROPAPARK_LOGINSTRING;
-const loginurl = process.env.EUROPAPARK_LOGIN;
-// const refreshurl = process.env.EUROPAPARK_REFRESHURL;
-const apiBase = process.env.EUROPAPARK_APIBASE;
-
-// EuropaPark park options
-const options = {
-  name: &apos;EuropaPark&apos;,
-  timezone: &apos;Europe/Berlin&apos;,
-  latitude: 51.64990915659694,
-  longitude: 5.043561458587647,
-};
-
-// Load the EuropaPark poidata
-// const poidata = (&apos;./data/parks/europapark/europapark_pois.json&apos;);
-// const poimock = (&apos;./data/parks/europapark/europapark_poi_mock.json&apos;);
+import dotenv from &apos;dotenv&apos;;
+dotenv.config();
 
 /**
-* Get EuropaPark data
-* This data contains park data such as latlon
+* EuropaPark Park Object
 */
-async function getPark() {
-  return Promise.resolve(
-      options,
-  ).then(function(value) {
-    console.log(value);
-  });
-};
+export class EuropaPark {
+  /**
+   * Create a new EuropaPark Park object
+   * @param {object} options
+   */
+  constructor() {
+    this.name = &apos;Europa-Park&apos;;
 
-/**
-* Login to the EP API
-* Don&apos;t call this function unless you know what you&apos;re doing, in most cases other functions will handle it for you
-*/
-async function loginEP() {
-  console.log(login);
-  return fetch(apiBase +
-    loginurl,
-  {
-    method: &apos;POST&apos;,
-    headers: {
-      &apos;Content-Type&apos;: &apos;application/json&apos;,
+    // Setting the parks entrance as latlon
+    this.latutude = 48.266140769976715;
+    this.longitude = 7.722050520358709;
+
+    this.timezone = &apos;Europe/Berlin&apos;;
+
+    this.apiBase = process.env.EUROPAPARK_APIBASE;
+    this.login = process.env.EUROPAPARK_LOGINSTRING;
+    this.loginurl = process.env.EUROPAPARK_LOGIN;
+    this.refresh = process.env.EUROPAPARK_REFRESH;
+
+    this.language = process.env.LANGUAGE;
+
+    if (!this.apiBase) throw new Error(&apos;Missing EuropaPark apibase!&apos;);
+    if (!this.login) throw new Error(&apos;Missing EuropaPark login credentials&apos;);
+    if (!this.loginurl) throw new Error(&apos;Missing EuropaPark login URL!&apos;);
+    if (!this.refresh) throw new Error(&apos;Missing EuropaPark refresh url!&apos;);
+    if (!this.language) {
+      this.language = &apos;en&apos;;
+    }
+
+    this.langoptions = `{&apos;en&apos;, &apos;fr&apos;, &apos;de&apos;}`;
+  }
+
+  // Load the Europapark poidata
+  // const poidata = (&apos;./data/parks/europapark/europapark_pois.json&apos;)
+  // const poimock = (&apos;./data/parks/europapark/europapark_poi_mock.json&apos;)
+
+  /**
+  * Login to EuropaPark API
+  * NEVER call this method without calling refresh() or getPOIS()!
+  * @return {string} EuropaPark refresh token
+  */
+  async loginEP() {
+    return fetch(this.apiBase +
+      this.loginurl,
+    {
+      method: &apos;POST&apos;,
+      headers: {
+        &apos;Content-Type&apos;: &apos;application/json&apos;,
+      },
+      body: this.login,
     },
-    body: {
-      login,
-    },
-  },
-  )
-      .then((res) =&gt; res.json())
-      .then((loginData) =&gt; {
-        console.log(loginData);
-      });
-}
+    )
+        .then((res) =&gt; res.json())
+        .then((login) =&gt; {
+          const refreshtoken = {&apos;refresh_token&apos;: login.refresh_token};
+          return Promise.resolve(refreshtoken);
+        });
+  }
 
-/**
-* Get All POIS of Dummy
-* This data contains all the POIS in Dummy
-*/
-async function getPOIS() {
-  return fetch(apiUrl,
+  /**
+  * Refresh your just obtained ep token
+  * Tokens are 6 hrs valid, however there&apos;s no point in just calling this function without queues or sth else
+  * @return {string} EuropaPark JWT Token
+  */
+  async refreshEP() {
+    return await this.loginEP().then((refreshtoken) =&gt; fetch(this.apiBase +
+        this.refresh,
+    {
+      method: &apos;POST&apos;,
+      headers: {
+        &apos;Content-Type&apos;: &apos;application/json&apos;,
+      },
+      body: JSON.stringify(refreshtoken),
+    },
+    )
+        .then((res) =&gt; res.json())
+        .then((jwt) =&gt; {
+          const jwttoken = &apos;Bearer &apos; + jwt.token;
+          return Promise.resolve(jwttoken);
+        }),
+    );
+  };
+
+  /**
+  * Get All POIS of EuropaPark
+  * This data contains all the POIS in EuropaPark
+  */
+  async getPOIS() {
+    return await this.refreshEP().then((jwttoken) =&gt; {
+      fetch(this.apiBase +
+        `pois/${this.language}`,
+      {
+        headers: {
+          &apos;Content-Type&apos;: &apos;application/json&apos;,
+          &apos;JWTAuthorization&apos;: jwttoken,
+        },
+      },
+      )
+          .then((res) =&gt; res.json())
+          .then((rideData) =&gt; {
+            const poi = {};
+            rideData.pois.forEach((ride) =&gt; {
+              if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null) { // Return rides and pois which haven&apos;t null
+                if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers
+                let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
+                if (ride.areaId == 26) {
+                  area = &apos;Switzerland&apos;;
+                }
+                poi[ride.code] = {
+                  name: ride.name,
+                  id: &apos;Europapark_&apos; + ride.code,
+                  waitTime: null,
+                  state: null,
+                  active: null,
+                  location: {
+                    latitude: ride.latitude,
+                    longitude: ride.longitude,
+                  },
+                  meta: {
+                    area: area,
+                    type: ride.type,
+                    single_rider: &apos;false&apos;,
+                  },
+                };
+              };
+            });
+            fs.writeFile(&apos;./data/parks/europapark/europapark_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
+              if (err) return console.log(err);
+            });
+            fs.writeFile(&apos;./data/parks/europapark/europapark_poi_mock.json&apos;, JSON.stringify(rideData.pois, null, 4), function(err) {
+              if (err) return console.log(err);
+            });
+            console.log(poi);
+            return Promise.resolve(poi);
+          });
+    });
+  };
+
+  /**
+  * Get All Queues of EuropaPark
+  * This data contains all the Queues in EuropaPark, attached with pois above.
+  */
+  async getQueue() {
+    return await Promise.all([this.getPOIS(), this.refreshEP()]).then((rideData) =&gt; {
+      fetch(this.apiBase +
+        `waitingtimes`,
       {
         method: &apos;GET&apos;,
         headers: {
-          Authorization: apiKey,
+          &apos;Content-Type&apos;: &apos;application/json&apos;,
+          &apos;JWTAuthorization&apos;: rideData[1],
         },
       },
-  )
-      .then((res) =&gt; res.json())
-      .then((rideData) =&gt; {
-        const poi = [];
-        rideData.forEach((ride) =&gt; {
-          // Do stuff with the ridedata
-          // POI Object with queues
-          const poiData = {
-            name: ride.name,
-            id: ride.shortId,
-            state: ride.state,
-            active: ride.active,
-            waitTime: ride.waitTime,
-            meta: {
-              type: &apos;attraction&apos;,
-            },
-          };
-          poi.push(poiData);
+      )
+          .then((res) =&gt; res.json())
+          .then((poiData) =&gt; {
+            console.log(rideData[0]);
+          });
+    });
+  }
+
+  /**
+  * Get All Operating Hours of EuropaPark
+  * This data contains all the Operating Hours in EuropaPark, fetched with currentyear.
+  */
+  async getOpHours() {
+    return fetch(
+        this.apiBase +
+          `europapark/opentime/`,
+        {
+          method: &apos;GET&apos;,
+        },
+    )
+        .then((res) =&gt; res.json())
+        .then((json) =&gt; {
+          const Calendar = [];
+          // Execute Calendar stuff here
+          return Promise.resolve(Calendar);
         });
-        fs.writeFile(&apos;./data/parks/dummy/dummy_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
-          if (err) return console.log(err);
-        });
-        fs.writeFile(&apos;./data/parks/dummy/dummy_poi_mock.json&apos;, JSON.stringify(rideData, null, 4), function(err) {
-          if (err) return console.log(err);
-        });
-        return Promise.resolve(poi); // Although we saved them in a json file, we&apos;ll just return them for the queue attach function which will run next if you called getQueue()
-      });
-}
+  }
 
-/**
-* Get All Operating Hours of Dummy
-* This data contains all the Operating Hours in Dummy
-*/
-async function getOpHours() {
-  return fetch(
-      apiBase,
-      {
-        method: &apos;GET&apos;,
-      },
-  )
-      .then((res) =&gt; res.json())
-      .then((json) =&gt; {
-        const Calendar = [];
-        // Execute Calendar stuff here
-        return Promise.resolve(Calendar);
-      });
-}
+  /**
+  * Get All Data of EuropaPark
+  * This data contains all EP&apos;s data, which is fetched earlier
+  */
+  async getData() {
+    return await Promise.all([this.getPOIS(), this.getOpHours()]).then((rides) =&gt; {
+      console.log(JSON.stringify(rides, null, 4));
+    });
+  }
 
-/**
-* Get All Data of Dummy
-* This data contains all Dummy&apos;s data, which is fetched earlier
-*/
-async function getData() {
-  return await Promise.all([getPOIS(), getOpHours()]).then((rides) =&gt; {
-    console.log(JSON.stringify(rides, null, 4));
-  });
-}
+  /**
+  * Get All Calendar Data of EuropaPark
+  * This data contains all the calendar data of EuropaPark
+  */
+  async getCalendar() {
+    return await this.getOpHours().then((calendar) =&gt; {
+      console.log(calendar);
+    });
+  }
 
-/**
-* Get All Calendar Data of Dummy
-* This data contains all the calendar data of Dummy
-*/
-async function getCalendar() {
-  return await getOpHours().then((calendar) =&gt; {
-    console.log(calendar);
-  });
-}
+  /**
+  * Get All Queues of EuropaPark
+  * This data contains all the Queues in EuropaPark
+  */
+  async getWaitTime() {
+    return await this.getPOIS().then((rides) =&gt; {
+      console.log(rides);
+    });
+  }
+};
 
-/**
-* Get All Queues of Dummy
-* This data contains all the Queues in Dummy, limited to their fast-lane services
-*/
-async function getWaitTime() {
-  return await getPOIS().then((rides) =&gt; {
-    console.log(rides);
-  });
-}
-
-module.exports.getPark = getPark;
-module.exports.loginEP = loginEP;
-module.exports.getPOIS = getPOIS;
-module.exports.getOpHours = getOpHours;
-module.exports.getData = getData;
-module.exports.getCalendar = getCalendar;
-module.exports.getWaitTime = getWaitTime;
+export default EuropaPark;
 </code></pre>
 
 </div>
