@@ -1,0 +1,8 @@
+{
+    "files.eol": "\n",
+    "eslint.alwaysShowStatus": true,
+    "eslint.format.enable": true,
+    "editor.tabSize": 2,
+    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+    "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+}
