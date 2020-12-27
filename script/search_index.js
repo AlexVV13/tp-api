@@ -372,9 +372,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/parks/efteling/efteling.js~efteling#latutude",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-latutude",
-    "lib/parks/efteling/efteling.js~Efteling#latutude",
+    "lib/parks/efteling/efteling.js~efteling#latitude",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-latitude",
+    "lib/parks/efteling/efteling.js~Efteling#latitude",
     "member"
   ],
   [
