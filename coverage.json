@@ -1,10 +1,10 @@
 {
-  "coverage": "49.01%",
-  "expectCount": 51,
+  "coverage": "47.16%",
+  "expectCount": 53,
   "actualCount": 25,
   "files": {
     "lib/parks/efteling/efteling.js": {
-      "expectCount": 17,
+      "expectCount": 18,
       "actualCount": 8,
       "undocumentLines": [
         17,
@@ -15,7 +15,8 @@
         27,
         28,
         29,
-        31
+        32,
+        42
       ]
     },
     "lib/parks/europapark/europapark.js": {
@@ -30,12 +31,12 @@
         25,
         26,
         27,
-        29,
-        39
+        30,
+        40
       ]
     },
     "lib/parks/walibi/walibiholland.js": {
-      "expectCount": 14,
+      "expectCount": 15,
       "actualCount": 7,
       "undocumentLines": [
         17,
@@ -44,7 +45,8 @@
         23,
         25,
         26,
-        28
+        29,
+        37
       ]
     }
   }

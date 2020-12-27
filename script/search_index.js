@@ -360,9 +360,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/parks/efteling/efteling.js~efteling#language",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-language",
-    "lib/parks/efteling/efteling.js~Efteling#language",
+    "lib/parks/efteling/efteling.js~efteling#langoptions",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-langoptions",
+    "lib/parks/efteling/efteling.js~Efteling#langoptions",
+    "member"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#languages",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-languages",
+    "lib/parks/efteling/efteling.js~Efteling#languages",
     "member"
   ],
   [
@@ -462,9 +468,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/parks/europapark/europapark.js~europapark#language",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-language",
-    "lib/parks/europapark/europapark.js~EuropaPark#language",
+    "lib/parks/europapark/europapark.js~europapark#languages",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-languages",
+    "lib/parks/europapark/europapark.js~EuropaPark#languages",
     "member"
   ],
   [
@@ -582,9 +588,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/parks/walibi/walibiholland.js~walibiholland#language",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-language",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#language",
+    "lib/parks/walibi/walibiholland.js~walibiholland#langoptions",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-langoptions",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#langoptions",
+    "member"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#languages",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-languages",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#languages",
     "member"
   ],
   [

@@ -67,15 +67,18 @@ export class Efteling {
     this.waitTimesURL = process.env.EFTELING_WAITTIMES_URL;
     this.histURL = process.env.EFTELING_HIST_URL;
 
-    this.language = process.env.LANGUAGE;
+    // New Lang Variable, this is hard since os&apos;es exports these itself (Windows uses LANG, Linux language etc)
+    this.languages = process.env.LANGUAGES;
 
     if (!this.searchURL) throw new Error(&apos;Missing Efteling search url!&apos;);
     if (!this.apiKey) throw new Error(&apos;Missing Efteling apiKey!&apos;);
     if (!this.waitTimesURL) throw new Error(&apos;Missing Efteling waittimes url!&apos;);
     if (!this.histURL) throw new Error(&apos;Missing Efteling Operating Hours url!&apos;);
-    if (!this.language) {
-      this.language = &apos;en&apos;;
+    if (!this.languages) {
+      this.languages = &apos;en&apos;;
     }
+
+    this.langoptions = `{&apos;en&apos;, &apos;fr&apos;, &apos;de&apos;, &apos;nl&apos;}`;
   }
 
   // Load the Efteling poidata
@@ -89,7 +92,7 @@ export class Efteling {
   */
   async getPOIS() {
     return fetch(this.searchURL +
-      `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$${this.language}&apos;))`,
+      `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$${this.languages}&apos;))`,
     {
       method: &apos;GET&apos;,
       headers: {

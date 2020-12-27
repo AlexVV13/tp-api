@@ -65,14 +65,15 @@ export class EuropaPark {
     this.loginurl = process.env.EUROPAPARK_LOGIN;
     this.refresh = process.env.EUROPAPARK_REFRESH;
 
-    this.language = process.env.LANGUAGE;
+    // New Lang Variable, this is hard since os&apos;es exports these itself (Windows uses LANG, Linux language etc)
+    this.languages = process.env.LANGUAGES;
 
     if (!this.apiBase) throw new Error(&apos;Missing EuropaPark apibase!&apos;);
     if (!this.login) throw new Error(&apos;Missing EuropaPark login credentials&apos;);
     if (!this.loginurl) throw new Error(&apos;Missing EuropaPark login URL!&apos;);
     if (!this.refresh) throw new Error(&apos;Missing EuropaPark refresh url!&apos;);
-    if (!this.language) {
-      this.language = &apos;en&apos;;
+    if (!this.languages) {
+      this.languages = &apos;en&apos;;
     }
 
     this.langoptions = `{&apos;en&apos;, &apos;fr&apos;, &apos;de&apos;}`;
@@ -137,7 +138,7 @@ export class EuropaPark {
     const jwttoken = await this.refreshEP();
 
     return fetch(this.apiBase +
-      `pois/${this.language}`,
+      `pois/${this.languages}`,
     {
       headers: {
         &apos;Content-Type&apos;: &apos;application/json&apos;,

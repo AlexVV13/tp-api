@@ -64,13 +64,16 @@ export class WalibiHolland {
     this.apiUrl = process.env.WALIBIHOLLAND_APIURL;
     this.apiBase = process.env.WALIBIHOLLAND_APIBASE;
 
-    this.language = process.env.LANGUAGE;
+    // New Lang Variable, this is hard since os&apos;es exports these itself (Windows uses LANG, Linux language etc)
+    this.languages = process.env.LANGUAGES;
 
     if (!this.apiUrl) throw new Error(&apos;Missing Walibi Holland search url!&apos;);
     if (!this.apiBase) throw new Error(&apos;Missing Walibi Holland api base!&apos;);
-    if (!this.language) {
-      this.language = &apos;en&apos;;
+    if (!this.languages) {
+      this.languages = &apos;en&apos;;
     }
+
+    this.langoptions = `{&apos;en&apos;, de&apos;, &apos;nl&apos;}`;
   }
 
   // Load the Walibi Holland poidata
