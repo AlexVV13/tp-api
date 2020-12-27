@@ -1,20 +1,20 @@
 window.esdocSearchIndex = [
   [
-    "tp-api/lib/parks/efteling/efteling.js~efteling",
+    "@alexvv13/tpapi/lib/parks/efteling/efteling.js~efteling",
     "class/lib/parks/efteling/efteling.js~Efteling.html",
-    "<span>Efteling</span> <span class=\"search-result-import-path\">tp-api/lib/parks/efteling/efteling.js</span>",
+    "<span>Efteling</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/efteling/efteling.js</span>",
     "class"
   ],
   [
-    "tp-api/lib/parks/europapark/europapark.js~europapark",
+    "@alexvv13/tpapi/lib/parks/europapark/europapark.js~europapark",
     "class/lib/parks/europapark/europapark.js~EuropaPark.html",
-    "<span>EuropaPark</span> <span class=\"search-result-import-path\">tp-api/lib/parks/europapark/europapark.js</span>",
+    "<span>EuropaPark</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/europapark/europapark.js</span>",
     "class"
   ],
   [
-    "tp-api/lib/parks/walibi/walibiholland.js~walibiholland",
+    "@alexvv13/tpapi/lib/parks/walibi/walibiholland.js~walibiholland",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html",
-    "<span>WalibiHolland</span> <span class=\"search-result-import-path\">tp-api/lib/parks/walibi/walibiholland.js</span>",
+    "<span>WalibiHolland</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibiholland.js</span>",
     "class"
   ],
   [

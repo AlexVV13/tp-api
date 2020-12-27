@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/parks/europapark/europapark.js | tp-api</title>
+  <title data-ice="title">lib/parks/europapark/europapark.js | @alexvv13/tpapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Api to fetch themepark data, such as queues, operating hours etc"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="tp-api"><meta property="twitter:description" content="Api to fetch themepark data, such as queues, operating hours etc"></head>
+<meta name="description" content="Api to fetch themepark data, such as queues, operating hours etc"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@alexvv13/tpapi"><meta property="twitter:description" content="Api to fetch themepark data, such as queues, operating hours etc"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -134,54 +134,53 @@ export class EuropaPark {
   * This data contains all the POIS in EuropaPark
   */
   async getPOIS() {
-    return await this.refreshEP().then((jwttoken) =&gt; {
-      fetch(this.apiBase +
-        `pois/${this.language}`,
-      {
-        headers: {
-          &apos;Content-Type&apos;: &apos;application/json&apos;,
-          &apos;JWTAuthorization&apos;: jwttoken,
-        },
+    const jwttoken = await this.refreshEP();
+
+    return fetch(this.apiBase +
+      `pois/${this.language}`,
+    {
+      headers: {
+        &apos;Content-Type&apos;: &apos;application/json&apos;,
+        &apos;JWTAuthorization&apos;: jwttoken,
       },
-      )
-          .then((res) =&gt; res.json())
-          .then((rideData) =&gt; {
-            const poi = {};
-            rideData.pois.forEach((ride) =&gt; {
-              if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null) { // Return rides and pois which haven&apos;t null
-                if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers
-                let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
-                if (ride.areaId == 26) {
-                  area = &apos;Switzerland&apos;;
-                }
-                poi[ride.code] = {
-                  name: ride.name,
-                  id: &apos;Europapark_&apos; + ride.code,
-                  waitTime: null,
-                  state: null,
-                  active: null,
-                  location: {
-                    latitude: ride.latitude,
-                    longitude: ride.longitude,
-                  },
-                  meta: {
-                    area: area,
-                    type: ride.type,
-                    single_rider: &apos;false&apos;,
-                  },
-                };
+    },
+    )
+        .then((res) =&gt; res.json())
+        .then((rideData) =&gt; {
+          const poi = {};
+          rideData.pois.forEach((ride) =&gt; {
+            if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null) { // Return rides and pois which haven&apos;t null
+              if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers
+              let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
+              if (ride.areaId == 26) {
+                area = &apos;Switzerland&apos;;
+              }
+              poi[ride.code] = {
+                name: ride.name,
+                id: &apos;Europapark_&apos; + ride.code,
+                waitTime: null,
+                state: null,
+                active: null,
+                location: {
+                  latitude: ride.latitude,
+                  longitude: ride.longitude,
+                },
+                meta: {
+                  area: area,
+                  type: ride.type,
+                  single_rider: &apos;false&apos;,
+                },
               };
-            });
-            fs.writeFile(&apos;./data/parks/europapark/europapark_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
-              if (err) return console.log(err);
-            });
-            fs.writeFile(&apos;./data/parks/europapark/europapark_poi_mock.json&apos;, JSON.stringify(rideData.pois, null, 4), function(err) {
-              if (err) return console.log(err);
-            });
-            console.log(poi);
-            return Promise.resolve(poi);
+            };
           });
-    });
+          fs.writeFile(&apos;./data/parks/europapark/europapark_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
+            if (err) return console.log(err);
+          });
+          fs.writeFile(&apos;./data/parks/europapark/europapark_poi_mock.json&apos;, JSON.stringify(rideData.pois, null, 4), function(err) {
+            if (err) return console.log(err);
+          });
+          return Promise.resolve(poi);
+        });
   };
 
   /**
@@ -189,23 +188,85 @@ export class EuropaPark {
   * This data contains all the Queues in EuropaPark, attached with pois above.
   */
   async getQueue() {
-    return await Promise.all([this.getPOIS(), this.refreshEP()]).then((rideData) =&gt; {
-      fetch(this.apiBase +
-        `waitingtimes`,
-      {
-        method: &apos;GET&apos;,
-        headers: {
-          &apos;Content-Type&apos;: &apos;application/json&apos;,
-          &apos;JWTAuthorization&apos;: rideData[1],
-        },
+    const token = await this.refreshEP();
+    const rideData = await this.getPOIS();
+
+    return fetch(this.apiBase +
+      `waitingtimes`,
+    {
+      method: &apos;GET&apos;,
+      headers: {
+        &apos;Content-Type&apos;: &apos;application/json&apos;,
+        &apos;JWTAuthorization&apos;: token,
       },
-      )
-          .then((res) =&gt; res.json())
-          .then((poiData) =&gt; {
-            console.log(rideData[0]);
+    },
+    )
+        .then((res) =&gt; res.json())
+        .then((poiData) =&gt; {
+          const rides = [];
+          poiData.waitingtimes.forEach((ridetime) =&gt; {
+            if (ridetime.code) {
+            // Declare default for rides that doesn&apos;t fetch right now
+              let waitTime = &apos;0&apos;;
+              let state = &apos;Closed&apos;;
+              let active = &apos;false&apos;;
+
+              if (ridetime.time &gt; 0 &amp;&amp; ridetime.time &lt; 91) {
+                waitTime = ridetime.time;
+                state = &apos;Operating&apos;;
+                active = &apos;true&apos;;
+              } else if (ridetime.time === 91) {
+                waitTime = 91;
+                state = &apos;Operating&apos;;
+                active = &apos;true&apos;;
+              } else if (ridetime.time === 333 || ridetime.time === 666 || ridetime.time === 777) {
+                waitTime = 0;
+                state = &apos;Closed&apos;;
+                active = &apos;false&apos;;
+              } else if (ridetime.status === 444 || ridetime.time === 555 || ridetime.time === 999) {
+                waitTime = 0;
+                state = &apos;Down&apos;;
+                active = &apos;false&apos;;
+              } else if (ridetime.time === 222) {
+                waitTime = 0;
+                state = &apos;Refurbishment&apos;;
+                active = &apos;false&apos;;
+              }
+
+              if (rideData[ridetime.code]) { // Skip null variables
+                Object.keys(rideData[ridetime.code]).forEach((k) =&gt; {
+                  if (k === &apos;waitTime&apos;) {
+                    rideData[ridetime.code].waitTime = waitTime;
+                  } else if (k === &apos;state&apos;) {
+                    rideData[ridetime.code].state = state;
+                  } else if (k === &apos;active&apos;) {
+                    rideData[ridetime.code].active = active;
+                  }
+
+                  const rideobj = {
+                    name: rideData[ridetime.code].name,
+                    id: rideData[ridetime.code].id,
+                    waitTime: rideData[ridetime.code].waitTime,
+                    state: rideData[ridetime.code].state,
+                    active: rideData[ridetime.code].active,
+                    location: {
+                      latitude: rideData[ridetime.code].location.latitude,
+                      longitude: rideData[ridetime.code].location.longitude,
+                    },
+                    meta: {
+                      type: rideData[ridetime.code].meta.type,
+                      area: rideData[ridetime.code].meta.area,
+                    },
+                  };
+                  rides.push(rideobj);
+                });
+              }
+
+              return Promise.resolve(rides);
+            }
           });
-    });
-  }
+        });
+  };
 
   /**
   * Get All Operating Hours of EuropaPark

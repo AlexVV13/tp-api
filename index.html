@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl">
-  <title data-ice="title">Home | tp-api</title>
+  <title data-ice="title">Home | @alexvv13/tpapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Api to fetch themepark data, such as queues, operating hours etc"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="tp-api"><meta property="twitter:description" content="Api to fetch themepark data, such as queues, operating hours etc"></head>
+<meta name="description" content="Api to fetch themepark data, such as queues, operating hours etc"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@alexvv13/tpapi"><meta property="twitter:description" content="Api to fetch themepark data, such as queues, operating hours etc"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -37,7 +37,8 @@
 </nav>
 
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="themeparks-api">Themeparks-API</h1><p>Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don&apos;t expect anything too cool tho.
-<a href="https://alexvv13.github.io/tp-api" title="API Documentation">API documentation</a></p>
+<a href="https://alexvv13.github.io/tp-api" title="API Documentation">API documentation</a>
+Current Version: 1.0.3</p>
 <h2 id="about">About</h2><p>This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it&apos;s not perfect, but it works. It&apos;s just being build to work and return data, not to be efficient anyway.</p>
 <h2 id="table-of-contents">Table of Contents</h2><p><a href="#about">About</a><br>
 <a href="#table-of-contents">Table of Contents</a><br>
@@ -64,18 +65,20 @@
 <li>A working pc perhaps</li>
 </ul>
 <h2 id="setup">Setup</h2><h3 id="clone-the-repository">Clone the repository</h3><p>First, clone the repository</p>
-<pre><code><code class="source-code prettyprint">$ git clone https://github.com/AlexVV13/tp-api.git</code>
+<pre><code><code class="source-code prettyprint">$ npm i @alexvv13/tpapi</code>
 </code></pre><p>Now the repository is cloned in your document root, install the dependencies now</p>
 <h3 id="dependencies">Dependencies</h3><p>First, install the dependencies, this can be easily achieved by running npm:<br></p>
 <pre><code><code class="source-code prettyprint">$ npm i</code>
 </code></pre><h3 id="env">ENV</h3><p>After that, fill in the .env fields, using some research this could be an easy task. </p>
 <h2 id="usage">Usage</h2><h3 id="running-the-script">Running the script</h3><p>Run index.js for all parks <br>
 Or create an .js file for yourself and do the following: <br></p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">//Import the park
-const tpapi = require(&apos;./data/parks/index&apos;)
+<pre><code class="lang-javascript"><code class="source-code prettyprint">// Import all parks here
+import tpapi from &apos;./lib/parks/index.js&apos;;
 
-//Run whatever you want
-tpapi.Parks.${parkName}.getData();</code>
+const park = new tpapi.parks.EuropaPark(); 
+
+// Fetch POIS
+park.getWaitTime(); // Fetch the queues for, in this example, EuropaPark</code>
 </code></pre>
 <h2 id="currently-working-parks">Currently Working Parks</h2><table>
 <thead>
@@ -94,6 +97,11 @@ tpapi.Parks.${parkName}.getData();</code>
 <tr>
 <td>Walibi Holland</td>
 <td>:heavy_check_mark:</td>
+<td>:heavy_multiplication_x:</td>
+</tr>
+<tr>
+<td>Europa-Park</td>
+<td>:heavy_check_mark</td>
 <td>:heavy_multiplication_x:</td>
 </tr>
 </tbody>
