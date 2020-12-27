@@ -74,6 +74,7 @@ export class Efteling {
   /**
   * Get Efteling POI data
   * This data contains general ride names, descriptions etc.
+  * @return {string} All Efteling POIS without queuetimes
   */
   async getPOIS() {
     return fetch(this.searchURL +
@@ -138,6 +139,7 @@ export class Efteling {
   /**
   * Get Efteling QueueTimes data
   * This data contains the queue data, we&apos;ll assign them to the earlier fetched pois
+  * @return {string} All Efteling POIS with queuetimes
   */
   async getQueue() {
     return await this.getPOIS().then((rideData) =&gt; fetch(this.waitTimesURL,
@@ -215,6 +217,7 @@ export class Efteling {
   /**
   * Get Efteling Park Hours data
   * This data contains the hours data, used to display the operating hours of Efteling
+  * @return {string} All Efteling Operating Hours for 1mo
   */
   async getOpHours() {
     const currentYear = moment().format(&apos;YYYY&apos;);
@@ -270,6 +273,7 @@ export class Efteling {
   /**
   * Get All Efteling data in console
   * This data contains all the data of Efteling, returned as json object
+  * @return {string} All Efteling POIS with queuetimes and operating hours
   */
   async getData() {
     return await Promise.all([this.getQueue(), this.getOpHours()]).then((rides) =&gt; {
@@ -280,6 +284,7 @@ export class Efteling {
   /**
   * Get Efteling Park Hours data in console
   * This data contains the hours data, used to display the operating hours of Efteling
+  * @return {string} All Efteling Operating Hours
   */
   async getCalendar() {
     return await this.getOpHours().then((calendar) =&gt; {
@@ -290,6 +295,7 @@ export class Efteling {
   /**
   * Get Efteling Queuetimes data in console
   * This data contains the queuetimes data, used to display the queuetimes of Efteling
+  * @return {string} All Efteling POIS with QueueTimes
   */
   async getWaitTime() {
     return await this.getQueue().then((rides) =&gt; {
