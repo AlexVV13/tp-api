@@ -45,6 +45,7 @@ const searchURL = process.env.EFTELING_SEARCH_URL;
 const apiKey = process.env.EFTELING_API_KEY;
 const waitTimesURL = process.env.EFTELING_WAITTIMES_URL;
 const histURL = process.env.EFTELING_HIST_URL;
+const language = process.env.LANGUAGE;
 
 // Create Efteling park options such as latlon and timezone
 const options = {
@@ -54,9 +55,15 @@ const options = {
   longitude: 5.043561458587647,
 };
 
+// Last edited time of mocks
+const getFileUpdatedDate = (path) =&gt; {
+  const stats = fs.statSync(path);
+  return stats.mtime;
+};
+
 // Load the Efteling poidata
-// const poidata = (&apos;./data/parks/efteling/efteling_pois.json&apos;) Temporarily out because of ESLint
-// const poimock = (&apos;./data/parks/efteling/efteling_poi_mock.json&apos;)
+const poidata = (&apos;./data/parks/efteling/efteling_pois.json&apos;);
+const poimock = (&apos;./data/parks/efteling/efteling_poi_mock.json&apos;);
 
 /**
 * Get Efteling data
@@ -76,7 +83,7 @@ async function getPark() {
 */
 async function getPOIS() {
   return fetch(searchURL +
-    `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$en&apos;))`,
+    `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$${language}&apos;))`,
   {
     method: &apos;GET&apos;,
     headers: {
@@ -123,12 +130,16 @@ async function getPOIS() {
             };
           }
         });
-        fs.writeFile(&apos;./data/parks/efteling/efteling_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
-          if (err) return console.log(err);
-        });
-        fs.writeFile(&apos;./data/parks/efteling/efteling_poi_mock.json&apos;, JSON.stringify(rideData.hits.hit, null, 4), function(err) {
-          if (err) return console.log(err);
-        });
+        if (moment().diff(getFileUpdatedDate(poidata), &apos;hours&apos;) &gt;= &apos;24&apos;) { // Refresh cache every 24 hours
+          fs.writeFile(&apos;./data/parks/efteling/efteling_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
+            if (err) return console.log(err);
+          });
+        };
+        if (moment().diff(getFileUpdatedDate(poimock), &apos;hours&apos;) &gt;= &apos;24&apos;) { // Refresh cache every 24 hours
+          fs.writeFile(&apos;./data/parks/efteling/efteling_poi_mock.json&apos;, JSON.stringify(rideData.hits.hit, null, 4), function(err) {
+            if (err) return console.log(err);
+          });
+        };
         return Promise.resolve(poi);
       });
 }
