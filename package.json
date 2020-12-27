@@ -1,13 +1,13 @@
 {
   "name": "@alexvv13/tpapi",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "description": "Api to fetch themepark data, such as queues, operating hours etc",
   "engines": {
     "npm": ">=6",
     "node": ">=14"
   },
-  "main": "lib/index.js",
+  "main": "lib/parks/index.js",
   "dependencies": {
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",

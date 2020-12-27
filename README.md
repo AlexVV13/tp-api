@@ -1,7 +1,7 @@
 # Themeparks-API
 Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don't expect anything too cool tho.
 [API documentation](https://alexvv13.github.io/tp-api "API Documentation")
-Current Version: 1.0.3
+Current Version: 1.0.4
 
 ## About
 This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it's not perfect, but it works. It's just being build to work and return data, not to be efficient anyway.
@@ -54,7 +54,7 @@ Run index.js for all parks </br>
 Or create an .js file for yourself and do the following: </br>
 ```javascript
 // Import all parks here
-import tpapi from './lib/parks/index.js';
+import tpapi from '@alexvv13/tpapi'; // Or use require: const tpapi = require('@alexvv13/tpapi');
 
 const park = new tpapi.parks.EuropaPark(); 
 
