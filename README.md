@@ -2,7 +2,7 @@
 Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don't expect anything too cool tho.</br>
 [API documentation](https://alexvv13.github.io/tp-api "API Documentation") </br>
 [NPM Package](https://www.npmjs.com/package/@alexvv13/tpapi "NPM Package") </br>
-Current Version: 1.0.8</br>
+Current Version: 1.0.9</br>
 
 ## About
 This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it's not perfect, but it works. It's just being build to work and return data, not to be efficient anyway.
@@ -53,44 +53,67 @@ NOTE: If you use commonjs, it's REQUIRED to use the .mjs extension INSTEAD of .j
 Or create an .js file for yourself and do the following: </br>
 ```javascript
 // Import all parks here
-import tpapi from '@alexvv13/tpapi'; // 
+import tpapi from './lib/parks/index.js';
 
-const park = new tpapi.parks.EuropaPark(); 
+const park = new tpapi.parks.Efteling();
 
-// Fetch POIS
-park.getWaitTime(); // Fetch the queues for, in this example, EuropaPark
+// Fetch POIS Example usage of Efteling
+park.getWaitTime().then((rideTimes) => {
+  console.log(rideTimes);
+});
+
+// You can also call getCalendar() or getData()
 ```
 
 Example output (Shortened to keep it readable)
 ```javascript
 {
-  '5003': {
-    name: 'VirtualLine: Arthur',
-    id: 'Europapark_5003',
-    waitTime: null,
-    state: null,
-    active: null,
-    location: { latitude: 48.26387625, longitude: 7.72408623 },
-    meta: { area: 'Kingdom of the Minimoys', type: 'attraction', single_rider: 'false' }
-  },
-  '5004': {
-    name: 'VirtualLine: Eurosat - CanCan Coaster',
-    id: 'Europapark_5004',
-    waitTime: null,
-    state: null,
-    active: null,
-    location: { latitude: 48.267345, longitude: 7.72113 },
-    meta: { area: 'France', type: 'attraction', single_rider: 'false' }
-  },
-  '5005': {
-    name: 'VirtualLine: Piraten in Batavia',
-    id: 'Europapark_5005',
-    waitTime: null,
-    state: null,
-    active: null,
-    location: { latitude: 48.26371636, longitude: 7.7203537 },
-    meta: { area: 'Netherlands', type: 'attraction', single_rider: 'false' }
-  }
+    "name": "Villa Volta",
+    "id": "villavolta",
+    "waitTime": "0",
+    "state": "Closed",
+    "active": "false",
+    "location": {
+        "latitude": "51.653255",
+        "longitude": "5.047484"
+    },
+    "meta": {
+        "type": "attraction",
+        "area": "Marerijk",
+        "single_rider": "false"
+    }
+},
+{
+    "name": "Vogel Rok",
+    "id": "vogelrok",
+    "waitTime": "0",
+    "state": "Closed",
+    "active": "false",
+    "location": {
+        "latitude": "51.652187",
+        "longitude": "5.052811"
+    },
+    "meta": {
+        "type": "attraction",
+        "area": "Reizenrijk",
+        "single_rider": "false"
+    }
+},
+{
+    "name": "Volk van Laaf",
+    "id": "volkvanlaaf",
+    "waitTime": "0",
+    "state": "Closed",
+    "active": "false",
+    "location": {
+        "latitude": "51.653275",
+        "longitude": "5.048892"
+    },
+    "meta": {
+        "type": "attraction",
+        "area": "Marerijk",
+        "single_rider": "false"
+    }
 }
 ```
    
