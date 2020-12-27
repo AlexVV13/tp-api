@@ -206,66 +206,57 @@ export class EuropaPark {
         .then((poiData) =&gt; {
           const rides = [];
           poiData.waitingtimes.forEach((ridetime) =&gt; {
-            if (ridetime.code) {
-            // Declare default for rides that doesn&apos;t fetch right now
-              let waitTime = &apos;0&apos;;
-              let state = &apos;Closed&apos;;
-              let active = &apos;false&apos;;
+          // Declare default for rides that doesn&apos;t fetch right now
+            let waitTime = &apos;0&apos;;
+            let state = &apos;Closed&apos;;
+            let active = &apos;false&apos;;
 
-              if (ridetime.time &gt; 0 &amp;&amp; ridetime.time &lt; 91) {
-                waitTime = ridetime.time;
-                state = &apos;Operating&apos;;
-                active = &apos;true&apos;;
-              } else if (ridetime.time === 91) {
-                waitTime = 91;
-                state = &apos;Operating&apos;;
-                active = &apos;true&apos;;
-              } else if (ridetime.time === 333 || ridetime.time === 666 || ridetime.time === 777) {
-                waitTime = 0;
-                state = &apos;Closed&apos;;
-                active = &apos;false&apos;;
-              } else if (ridetime.status === 444 || ridetime.time === 555 || ridetime.time === 999) {
-                waitTime = 0;
-                state = &apos;Down&apos;;
-                active = &apos;false&apos;;
-              } else if (ridetime.time === 222) {
-                waitTime = 0;
-                state = &apos;Refurbishment&apos;;
-                active = &apos;false&apos;;
-              }
+            if (ridetime.time &gt; 0 &amp;&amp; ridetime.time &lt; 91) {
+              waitTime = ridetime.time;
+              state = &apos;Operating&apos;;
+              active = &apos;true&apos;;
+            } else if (ridetime.time === 91) {
+              waitTime = 91;
+              state = &apos;Operating&apos;;
+              active = &apos;true&apos;;
+            } else if (ridetime.time === 333 || ridetime.time === 666 || ridetime.time === 777) {
+              waitTime = 0;
+              state = &apos;Closed&apos;;
+              active = &apos;false&apos;;
+            } else if (ridetime.status === 444 || ridetime.time === 555 || ridetime.time === 999) {
+              waitTime = 0;
+              state = &apos;Down&apos;;
+              active = &apos;false&apos;;
+            } else if (ridetime.time === 222) {
+              waitTime = 0;
+              state = &apos;Refurbishment&apos;;
+              active = &apos;false&apos;;
+            }
 
-              if (rideData[ridetime.code]) { // Skip null variables
-                Object.keys(rideData[ridetime.code]).forEach((k) =&gt; {
-                  if (k === &apos;waitTime&apos;) {
-                    rideData[ridetime.code].waitTime = waitTime;
-                  } else if (k === &apos;state&apos;) {
-                    rideData[ridetime.code].state = state;
-                  } else if (k === &apos;active&apos;) {
-                    rideData[ridetime.code].active = active;
-                  }
+            if (rideData[ridetime.code]) { // Skip null variables
+              rideData[ridetime.code].waitTime = waitTime;
+              rideData[ridetime.code].state = state;
+              rideData[ridetime.code].active = active;
 
-                  const rideobj = {
-                    name: rideData[ridetime.code].name,
-                    id: rideData[ridetime.code].id,
-                    waitTime: rideData[ridetime.code].waitTime,
-                    state: rideData[ridetime.code].state,
-                    active: rideData[ridetime.code].active,
-                    location: {
-                      latitude: rideData[ridetime.code].location.latitude,
-                      longitude: rideData[ridetime.code].location.longitude,
-                    },
-                    meta: {
-                      type: rideData[ridetime.code].meta.type,
-                      area: rideData[ridetime.code].meta.area,
-                    },
-                  };
-                  rides.push(rideobj);
-                });
-              }
-
-              return Promise.resolve(rides);
+              const rideobj = {
+                name: rideData[ridetime.code].name,
+                id: rideData[ridetime.code].id,
+                waitTime: rideData[ridetime.code].waitTime,
+                state: rideData[ridetime.code].state,
+                active: rideData[ridetime.code].active,
+                location: {
+                  latitude: rideData[ridetime.code].location.latitude,
+                  longitude: rideData[ridetime.code].location.longitude,
+                },
+                meta: {
+                  type: rideData[ridetime.code].meta.type,
+                  area: rideData[ridetime.code].meta.area,
+                },
+              };
+              rides.push(rideobj);
             }
           });
+          return Promise.resolve(rides);
         });
   };
 
@@ -292,31 +283,33 @@ export class EuropaPark {
   /**
   * Get All Data of EuropaPark
   * This data contains all EP&apos;s data, which is fetched earlier
+  * @return {string} all park data
   */
   async getData() {
-    return await Promise.all([this.getPOIS(), this.getOpHours()]).then((rides) =&gt; {
-      console.log(JSON.stringify(rides, null, 4));
-    });
+    const rides = await this.getQueue();
+    const hours = await this.getOpHours();
+
+    const string = JSON.stringify({rides, hours}, null, 4);
+
+    return Promise.resolve(string);
   }
 
   /**
   * Get All Calendar Data of EuropaPark
   * This data contains all the calendar data of EuropaPark
+  * @return {string} operating hours
   */
-  async getCalendar() {
-    return await this.getOpHours().then((calendar) =&gt; {
-      console.log(calendar);
-    });
+  getCalendar() {
+    return this.getOpHours().then((hours) =&gt; Promise.resolve(hours));
   }
 
   /**
   * Get All Queues of EuropaPark
   * This data contains all the Queues in EuropaPark
+  * @return {string} WaitTimes
   */
-  async getWaitTime() {
-    return await this.getPOIS().then((rides) =&gt; {
-      console.log(rides);
-    });
+  getWaitTime() {
+    return this.getQueue().then((rides) =&gt; Promise.resolve(rides));
   }
 };
 

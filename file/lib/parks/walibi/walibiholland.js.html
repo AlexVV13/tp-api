@@ -155,31 +155,33 @@ export class WalibiHolland {
   /**
   * Get All Data of Walibi Holland
   * This data contains all Walibi&apos;s data, which is fetched earlier
+  * @return {string} all park data
   */
   async getData() {
-    return await Promise.all([this.getPOIS(), this.getOpHours()]).then((rides) =&gt; {
-      console.log(JSON.stringify(rides, null, 4));
-    });
+    const rides = await this.getPOIS();
+    const hours = await this.getOpHours();
+
+    const string = JSON.stringify({rides, hours}, null, 4);
+
+    return Promise.resolve(string);
   }
 
   /**
   * Get All Calendar Data of Walibi Holland
   * This data contains all the calendar data of Walibi Holland
+  * @return {string} operating hours
   */
-  async getCalendar() {
-    return await this.getOpHours().then((calendar) =&gt; {
-      console.log(calendar);
-    });
+  getCalendar() {
+    return this.getOpHours().then((hours) =&gt; Promise.resolve(hours));
   }
 
   /**
   * Get All Queues of Walibi Holland
-  * This data contains all the Queues in Walibi Holland, limited to their fast-lane services
+  * This data contains all the Queues in Walibi Holland
+  * @return {string} WaitTimes
   */
-  async getWaitTime() {
-    return await this.getPOIS().then((rides) =&gt; {
-      console.log(rides);
-    });
+  getWaitTime() {
+    return this.getPOIS().then((rides) =&gt; Promise.resolve(rides));
   }
 };
 

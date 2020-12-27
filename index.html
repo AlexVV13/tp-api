@@ -39,7 +39,7 @@
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="themeparks-api">Themeparks-API</h1><p>Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don&apos;t expect anything too cool tho.<br>
 <a href="https://alexvv13.github.io/tp-api" title="API Documentation">API documentation</a> <br>
 <a href="https://www.npmjs.com/package/@alexvv13/tpapi" title="NPM Package">NPM Package</a> <br>
-Current Version: 1.0.8<br></p>
+Current Version: 1.0.9<br></p>
 <h2 id="about">About</h2><p>This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it&apos;s not perfect, but it works. It&apos;s just being build to work and return data, not to be efficient anyway.</p>
 <h2 id="table-of-contents">Table of Contents</h2><p><a href="#about">About</a><br>
 <a href="#table-of-contents">Table of Contents</a><br>
@@ -74,42 +74,65 @@ Current Version: 1.0.8<br></p>
 NOTE: If you use commonjs, it&apos;s REQUIRED to use the .mjs extension INSTEAD of .js! <br>
 Or create an .js file for yourself and do the following: <br></p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">// Import all parks here
-import tpapi from &apos;@alexvv13/tpapi&apos;; // 
+import tpapi from &apos;./lib/parks/index.js&apos;;
 
-const park = new tpapi.parks.EuropaPark(); 
+const park = new tpapi.parks.Efteling();
 
-// Fetch POIS
-park.getWaitTime(); // Fetch the queues for, in this example, EuropaPark</code>
+// Fetch POIS Example usage of Efteling
+park.getWaitTime().then((rideTimes) =&gt; {
+  console.log(rideTimes);
+});
+
+// You can also call getCalendar() or getData()</code>
 </code></pre>
 <p>Example output (Shortened to keep it readable)</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">{
-  &apos;5003&apos;: {
-    name: &apos;VirtualLine: Arthur&apos;,
-    id: &apos;Europapark_5003&apos;,
-    waitTime: null,
-    state: null,
-    active: null,
-    location: { latitude: 48.26387625, longitude: 7.72408623 },
-    meta: { area: &apos;Kingdom of the Minimoys&apos;, type: &apos;attraction&apos;, single_rider: &apos;false&apos; }
-  },
-  &apos;5004&apos;: {
-    name: &apos;VirtualLine: Eurosat - CanCan Coaster&apos;,
-    id: &apos;Europapark_5004&apos;,
-    waitTime: null,
-    state: null,
-    active: null,
-    location: { latitude: 48.267345, longitude: 7.72113 },
-    meta: { area: &apos;France&apos;, type: &apos;attraction&apos;, single_rider: &apos;false&apos; }
-  },
-  &apos;5005&apos;: {
-    name: &apos;VirtualLine: Piraten in Batavia&apos;,
-    id: &apos;Europapark_5005&apos;,
-    waitTime: null,
-    state: null,
-    active: null,
-    location: { latitude: 48.26371636, longitude: 7.7203537 },
-    meta: { area: &apos;Netherlands&apos;, type: &apos;attraction&apos;, single_rider: &apos;false&apos; }
-  }
+    &quot;name&quot;: &quot;Villa Volta&quot;,
+    &quot;id&quot;: &quot;villavolta&quot;,
+    &quot;waitTime&quot;: &quot;0&quot;,
+    &quot;state&quot;: &quot;Closed&quot;,
+    &quot;active&quot;: &quot;false&quot;,
+    &quot;location&quot;: {
+        &quot;latitude&quot;: &quot;51.653255&quot;,
+        &quot;longitude&quot;: &quot;5.047484&quot;
+    },
+    &quot;meta&quot;: {
+        &quot;type&quot;: &quot;attraction&quot;,
+        &quot;area&quot;: &quot;Marerijk&quot;,
+        &quot;single_rider&quot;: &quot;false&quot;
+    }
+},
+{
+    &quot;name&quot;: &quot;Vogel Rok&quot;,
+    &quot;id&quot;: &quot;vogelrok&quot;,
+    &quot;waitTime&quot;: &quot;0&quot;,
+    &quot;state&quot;: &quot;Closed&quot;,
+    &quot;active&quot;: &quot;false&quot;,
+    &quot;location&quot;: {
+        &quot;latitude&quot;: &quot;51.652187&quot;,
+        &quot;longitude&quot;: &quot;5.052811&quot;
+    },
+    &quot;meta&quot;: {
+        &quot;type&quot;: &quot;attraction&quot;,
+        &quot;area&quot;: &quot;Reizenrijk&quot;,
+        &quot;single_rider&quot;: &quot;false&quot;
+    }
+},
+{
+    &quot;name&quot;: &quot;Volk van Laaf&quot;,
+    &quot;id&quot;: &quot;volkvanlaaf&quot;,
+    &quot;waitTime&quot;: &quot;0&quot;,
+    &quot;state&quot;: &quot;Closed&quot;,
+    &quot;active&quot;: &quot;false&quot;,
+    &quot;location&quot;: {
+        &quot;latitude&quot;: &quot;51.653275&quot;,
+        &quot;longitude&quot;: &quot;5.048892&quot;
+    },
+    &quot;meta&quot;: {
+        &quot;type&quot;: &quot;attraction&quot;,
+        &quot;area&quot;: &quot;Marerijk&quot;,
+        &quot;single_rider&quot;: &quot;false&quot;
+    }
 }</code>
 </code></pre>
 <h2 id="currently-working-parks">Currently Working Parks</h2><table>
