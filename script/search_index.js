@@ -474,9 +474,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/parks/europapark/europapark.js~europapark#latutude",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-latutude",
-    "lib/parks/europapark/europapark.js~EuropaPark#latutude",
+    "lib/parks/europapark/europapark.js~europapark#latitude",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-latitude",
+    "lib/parks/europapark/europapark.js~EuropaPark#latitude",
     "member"
   ],
   [
