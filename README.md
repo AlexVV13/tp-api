@@ -62,7 +62,7 @@ park.getWaitTime(); // Fetch the queues for, in this example, EuropaPark
 ```
 
 Example output (Shortened to keep it readable)
-```json
+```javascript
 {
   '5003': {
     name: 'VirtualLine: Arthur',
