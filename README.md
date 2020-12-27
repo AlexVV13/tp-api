@@ -41,20 +41,18 @@ $ npm i @alexvv13/tpapi
 ``` 
 Now the repository is cloned in your document root, install the dependencies now
 ### Dependencies
-First, install the dependencies, this can be easily achieved by running npm:</br>
-``` 
-$ npm i
-``` 
+Dependencies are now being installed with the package
 ### ENV
-After that, fill in the .env fields, using some research this could be an easy task. 
+In the directory where you're using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example
 
 ## Usage
 ### Running the script
 Run index.js for all parks </br>
+NOTE: If you use commonjs, it's REQUIRED to use the .mjs extension INSTEAD of .js! </br>
 Or create an .js file for yourself and do the following: </br>
 ```javascript
 // Import all parks here
-import tpapi from '@alexvv13/tpapi'; // Or use require: const tpapi = require('@alexvv13/tpapi');
+import tpapi from '@alexvv13/tpapi'; // 
 
 const park = new tpapi.parks.EuropaPark(); 
 
