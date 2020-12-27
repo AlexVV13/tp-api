@@ -38,7 +38,7 @@
 
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="themeparks-api">Themeparks-API</h1><p>Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don&apos;t expect anything too cool tho.
 <a href="https://alexvv13.github.io/tp-api" title="API Documentation">API documentation</a>
-Current Version: 1.0.3</p>
+Current Version: 1.0.4</p>
 <h2 id="about">About</h2><p>This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it&apos;s not perfect, but it works. It&apos;s just being build to work and return data, not to be efficient anyway.</p>
 <h2 id="table-of-contents">Table of Contents</h2><p><a href="#about">About</a><br>
 <a href="#table-of-contents">Table of Contents</a><br>
@@ -73,7 +73,7 @@ Current Version: 1.0.3</p>
 <h2 id="usage">Usage</h2><h3 id="running-the-script">Running the script</h3><p>Run index.js for all parks <br>
 Or create an .js file for yourself and do the following: <br></p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">// Import all parks here
-import tpapi from &apos;./lib/parks/index.js&apos;;
+import tpapi from &apos;@alexvv13/tpapi&apos;; // Or use require: const tpapi = require(&apos;@alexvv13/tpapi&apos;);
 
 const park = new tpapi.parks.EuropaPark(); 
 
