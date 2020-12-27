@@ -1,8 +1,12 @@
 {
   "name": "tp-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Api to fetch themepark data, such as queues, operating hours etc",
-  "main": "index.js",
+  "engines": {
+    "npm": ">=6",
+    "node": ">=14"
+  },
+  "main": "lib/index.js",
   "dependencies": {
     "dotenv": "^8.2.0",
     "file-system": "^2.2.2",
@@ -14,10 +18,18 @@
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-mocha": "^8.0.0",
     "eslint-plugin-prettier": "^3.3.0"
+    "@babel/traverse": "^7.11.0",
+    "esdoc": "^1.1.0",
+    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
+    "esdoc-standard-plugin": "^1.0.0",
+    "eslint-config-google": "^0.14.0"
   },
   "scripts": {
     "test": "eslint ./lib/**",
     "docs": "esdoc"
+  },
+  "exports": {
+    ".": "./lib/index.js",
   },
   "repository": {
     "type": "git",
