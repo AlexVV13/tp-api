@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "tp-api/lib/parks/efteling/efteling.js~efteling",
+    "class/lib/parks/efteling/efteling.js~Efteling.html",
+    "<span>Efteling</span> <span class=\"search-result-import-path\">tp-api/lib/parks/efteling/efteling.js</span>",
+    "class"
+  ],
+  [
     "lib/.external-ecmascript.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "lib/.external-ecmascript.js~Array",
@@ -285,6 +291,114 @@ window.esdocSearchIndex = [
     "lib/parks/efteling/efteling.js",
     "file/lib/parks/efteling/efteling.js.html",
     "lib/parks/efteling/efteling.js",
+    "file"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#apikey",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-apiKey",
+    "lib/parks/efteling/efteling.js~Efteling#apiKey",
+    "member"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#constructor",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-constructor-constructor",
+    "lib/parks/efteling/efteling.js~Efteling#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#getcalendar",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getCalendar",
+    "lib/parks/efteling/efteling.js~Efteling#getCalendar",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#getdata",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getData",
+    "lib/parks/efteling/efteling.js~Efteling#getData",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#getophours",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getOpHours",
+    "lib/parks/efteling/efteling.js~Efteling#getOpHours",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#getpois",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getPOIS",
+    "lib/parks/efteling/efteling.js~Efteling#getPOIS",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#getpark",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getPark",
+    "lib/parks/efteling/efteling.js~Efteling#getPark",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#getqueue",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getQueue",
+    "lib/parks/efteling/efteling.js~Efteling#getQueue",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#getwaittime",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getWaitTime",
+    "lib/parks/efteling/efteling.js~Efteling#getWaitTime",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#histurl",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-histURL",
+    "lib/parks/efteling/efteling.js~Efteling#histURL",
+    "member"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#language",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-language",
+    "lib/parks/efteling/efteling.js~Efteling#language",
+    "member"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#latutude",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-latutude",
+    "lib/parks/efteling/efteling.js~Efteling#latutude",
+    "member"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#longitude",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-longitude",
+    "lib/parks/efteling/efteling.js~Efteling#longitude",
+    "member"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#name",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-name",
+    "lib/parks/efteling/efteling.js~Efteling#name",
+    "member"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#searchurl",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-searchURL",
+    "lib/parks/efteling/efteling.js~Efteling#searchURL",
+    "member"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#timezone",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-timezone",
+    "lib/parks/efteling/efteling.js~Efteling#timezone",
+    "member"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#waittimesurl",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-waitTimesURL",
+    "lib/parks/efteling/efteling.js~Efteling#waitTimesURL",
+    "member"
+  ],
+  [
+    "lib/parks/europapark/europapark.js",
+    "file/lib/parks/europapark/europapark.js.html",
+    "lib/parks/europapark/europapark.js",
     "file"
   ],
   [

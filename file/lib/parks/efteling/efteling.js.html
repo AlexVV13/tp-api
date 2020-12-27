@@ -29,173 +29,168 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  </ul>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
+</ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/efteling/efteling.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const moment = require(&apos;moment-timezone&apos;);
-const fetch = require(&apos;node-fetch&apos;);
-const fs = require(&apos;fs&apos;);
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
+import fetch from &apos;node-fetch&apos;;
+import fs from &apos;fs&apos;;
 
-require(&apos;dotenv&apos;).config();
-
-// Configure the variables
-const searchURL = process.env.EFTELING_SEARCH_URL;
-const apiKey = process.env.EFTELING_API_KEY;
-const waitTimesURL = process.env.EFTELING_WAITTIMES_URL;
-const histURL = process.env.EFTELING_HIST_URL;
-const language = process.env.LANGUAGE;
-
-// Create Efteling park options such as latlon and timezone
-const options = {
-  name: &apos;Efteling&apos;,
-  timezone: &apos;Europe/Amsterdam&apos;,
-  latitude: 51.64990915659694,
-  longitude: 5.043561458587647,
-  supported_languages: {
-    en: &apos;yes&apos;,
-    de: &apos;yes&apos;,
-    fr: &apos;yes&apos;,
-    nl: &apos;yes&apos;,
-    upperCase: &apos;no&apos;,
-  },
-};
-
-// Last edited time of mocks
-const getFileUpdatedDate = (path) =&gt; {
-  const stats = fs.statSync(path);
-  return stats.mtime;
-};
-
-// Load the Efteling poidata
-const poidata = (&apos;./data/parks/efteling/efteling_pois.json&apos;);
-const poimock = (&apos;./data/parks/efteling/efteling_poi_mock.json&apos;);
+import dotenv from &apos;dotenv&apos;;
+dotenv.config();
 
 /**
-* Get Efteling data
-* This data contains park data such as latlon
+* Efteling Park Object
 */
-async function getPark() {
-  return Promise.resolve(
-      options,
-  ).then(function(value) {
-    console.log(value);
-  });
-};
+export class Efteling {
+  /**
+   * Create a new Efteling Park object
+   * @param {object} options
+   */
+  constructor() {
+    this.name = &apos;Efteling&apos;;
 
-/**
-* Get Efteling POI data
-* This data contains general ride names, descriptions etc.
-*/
-async function getPOIS() {
-  return fetch(searchURL +
-    `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$${language}&apos;))`,
-  {
-    method: &apos;GET&apos;,
-    headers: {
-      Authorization: apiKey,
+    this.latutude = 48.266140769976715;
+    this.longitude = 7.722050520358709;
+
+    this.timezone = &apos;Europe/Amsterdam&apos;;
+
+    this.searchURL = process.env.EFTELING_SEARCH_URL;
+    this.apiKey = process.env.EFTELING_API_KEY;
+    this.waitTimesURL = process.env.EFTELING_WAITTIMES_URL;
+    this.histURL = process.env.EFTELING_HIST_URL;
+
+    this.language = process.env.LANGUAGE;
+  }
+
+  // Load the Efteling poidata
+  // const poidata = (&apos;./data/parks/efteling/efteling_pois.json&apos;);
+  // const poimock = (&apos;./data/parks/efteling/efteling_poi_mock.json&apos;);
+
+  /**
+  * Get Efteling data
+  * This data contains park data such as latlon
+  */
+  async getPark() {
+    return Promise.resolve(
+        options,
+    ).then(function(value) {
+      console.log(value);
+    });
+  };
+
+  /**
+  * Get Efteling POI data
+  * This data contains general ride names, descriptions etc.
+  */
+  async getPOIS() {
+    return fetch(this.searchURL +
+      `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$${this.language}&apos;))`,
+    {
+      method: &apos;GET&apos;,
+      headers: {
+        Authorization: this.apiKey,
+      },
     },
-  },
-  )
-      .then((res) =&gt; res.json())
-      .then((rideData) =&gt; {
-        const poi = {};
-        rideData.hits.hit.forEach((ride) =&gt; {
-          if (ride.fields.category === &apos;attraction&apos; &amp;&amp; ride.fields.hide_in_app !== &apos;false&apos;) {
-            if (ride.fields.alternateid &amp;&amp; ride.fields.alternateid.indexOf(&apos;singlerider&apos;)) {
-              singlerider = &apos;true&apos;; // Initial single rider implementation
-            } else {
-              singlerider = &apos;false&apos;;
-            }
-            // Split the language specific part out
-            const ids = ride.id;
-            const idSplit = ids.split(&apos;-&apos;);
-            const id = idSplit[0];
-            // Split latlon
-            const latlon = ride.fields.latlon;
-            const latlonSplit = latlon.split(&apos;,&apos;);
-            const lat = latlonSplit[0];
-            const lon = latlonSplit[1];
+    )
+        .then((res) =&gt; res.json())
+        .then((rideData) =&gt; {
+          const poi = {};
+          let singlerider = &apos;false&apos;; // Let singlerider be false as default
+          rideData.hits.hit.forEach((ride) =&gt; {
+            if (ride.fields.category === &apos;attraction&apos; &amp;&amp; ride.fields.hide_in_app !== &apos;false&apos;) {
+              if (ride.fields.alternateid &amp;&amp; ride.fields.alternateid.indexOf(&apos;singlerider&apos;)) {
+                singlerider = &apos;true&apos;; // Initial single rider implementation
+              } else {
+                singlerider = &apos;false&apos;;
+              }
+              // Split the language specific part out
+              const ids = ride.id;
+              const idSplit = ids.split(&apos;-&apos;);
+              const id = idSplit[0];
+              // Split latlon
+              const latlon = ride.fields.latlon;
+              const latlonSplit = latlon.split(&apos;,&apos;);
+              const lat = latlonSplit[0];
+              const lon = latlonSplit[1];
 
-            // Poi Object
-            poi[id] = {
-              name: ride.fields.name,
-              id: id,
-              waitTime: null,
-              state: null,
-              active: null,
-              location: {
-                latitude: lat,
-                longitude: lon,
-              },
-              meta: {
-                single_rider: singlerider,
-                type: ride.fields.category,
-                area: ride.fields.empire,
-              },
-            };
-          }
-        });
-        if (moment().diff(getFileUpdatedDate(poidata), &apos;hours&apos;) &gt;= &apos;24&apos;) { // Refresh cache every 24 hours
+              // Poi Object
+              poi[id] = {
+                name: ride.fields.name,
+                id: id,
+                waitTime: null,
+                state: null,
+                active: null,
+                location: {
+                  latitude: lat,
+                  longitude: lon,
+                },
+                meta: {
+                  single_rider: singlerider,
+                  type: ride.fields.category,
+                  area: ride.fields.empire,
+                },
+              };
+            }
+          });
           fs.writeFile(&apos;./data/parks/efteling/efteling_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
             if (err) return console.log(err);
           });
-        };
-        if (moment().diff(getFileUpdatedDate(poimock), &apos;hours&apos;) &gt;= &apos;24&apos;) { // Refresh cache every 24 hours
           fs.writeFile(&apos;./data/parks/efteling/efteling_poi_mock.json&apos;, JSON.stringify(rideData.hits.hit, null, 4), function(err) {
             if (err) return console.log(err);
           });
-        };
-        return Promise.resolve(poi);
-      });
-}
+          return Promise.resolve(poi);
+        });
+  }
 
-/**
-* Get Efteling QueueTimes data
-* This data contains the queue data, we&apos;ll assign them to the earlier fetched pois
-*/
-async function getQueue() {
-  return await getPOIS().then((rideData) =&gt; fetch(waitTimesURL,
-      {
-        method: &apos;GET&apos;,
-      },
-  )
-      .then((res) =&gt; res.json())
-      .then((json) =&gt; {
-        const rides = [];
-        // Park is closed, and nothing is returned, attach that here.
-        if (!json.AttractionInfo.length) {
-          Object.keys(rideData).forEach((ride) =&gt; {
-          // Update the variables to the closed rides
-            rideData[ride].waitTime = &apos;0&apos;;
-            rideData[ride].state = &apos;Closed&apos;;
-            rideData[ride].active = &apos;false&apos;;
-            // Create the ride Object
-            const rideobj = {
-              name: rideData[ride].name,
-              id: rideData[ride].id,
-              waitTime: rideData[ride].waitTime,
-              state: rideData[ride].state,
-              active: rideData[ride].active,
-              location: {
-                latitude: rideData[ride].location.latitude,
-                longitude: rideData[ride].location.longitude,
-              },
-              meta: {
-                type: rideData[ride].meta.type,
-                area: rideData[ride].meta.area,
-                single_rider: rideData[ride].meta.single_rider,
-              },
-            };
-            rides.push(rideobj);
-          });
+  /**
+  * Get Efteling QueueTimes data
+  * This data contains the queue data, we&apos;ll assign them to the earlier fetched pois
+  */
+  async getQueue() {
+    return await this.getPOIS().then((rideData) =&gt; fetch(this.waitTimesURL,
+        {
+          method: &apos;GET&apos;,
+        },
+    )
+        .then((res) =&gt; res.json())
+        .then((json) =&gt; {
+          const rides = [];
+          // Park is closed, and nothing is returned, attach that here.
+          if (!json.AttractionInfo.length) {
+            Object.keys(rideData).forEach((ride) =&gt; {
+            // Update the variables to the closed rides
+              rideData[ride].waitTime = &apos;0&apos;;
+              rideData[ride].state = &apos;Closed&apos;;
+              rideData[ride].active = &apos;false&apos;;
+              // Create the ride Object
+              const rideobj = {
+                name: rideData[ride].name,
+                id: rideData[ride].id,
+                waitTime: rideData[ride].waitTime,
+                state: rideData[ride].state,
+                active: rideData[ride].active,
+                location: {
+                  latitude: rideData[ride].location.latitude,
+                  longitude: rideData[ride].location.longitude,
+                },
+                meta: {
+                  type: rideData[ride].meta.type,
+                  area: rideData[ride].meta.area,
+                  single_rider: rideData[ride].meta.single_rider,
+                },
+              };
+              rides.push(rideobj);
+            });
 
-          return Promise.resolve(rides);
-        }
+            return Promise.resolve(rides);
+          }
 
-        // If there are rides listed, fetch them here.
-        json.AttractionInfo.forEach((ridetime) =&gt; {
+          // If there are rides listed, fetch them here.
+          json.AttractionInfo.forEach((ridetime) =&gt; {
           /* let id = ridetime.id;
           let waittime = ridetime.waitingtime;
           let state = ridetime.state;
@@ -223,103 +218,99 @@ async function getQueue() {
           }
           rides.push(rideobj)
         }) */
-        });
-      }),
-  );
-};
-
-/**
-* Get Efteling Park Hours data
-* This data contains the hours data, used to display the operating hours of Efteling
-*/
-async function getOpHours() {
-  const currentYear = moment().format(&apos;YYYY&apos;);
-  const currentMonth = moment().format(&apos;MM&apos;);
-
-  return fetch(
-      histURL +
-      `${currentYear}/${currentMonth}`,
-      {
-        method: &apos;GET&apos;,
-      },
-  )
-      .then((res) =&gt; res.json())
-      .then((json) =&gt; {
-        const Calendar = [];
-        if (!json.OpeningHours.length) {
-          // Park is closed, do nothing but returning today as empty string
-          const hours = {
-            date: moment().format(&apos;YYYY-MM-DD&apos;),
-            type: &apos;Closed&apos;,
-            openingTime: moment(&apos;23:59&apos;, &apos;HH:mm a&apos;).format(),
-            closingTime: moment(&apos;23:59&apos;, &apos;HH:mm a&apos;).format(),
-            special: [],
-          };
-          Calendar.push(hours);
-        } else {
-          // Return the actual opening hours
-          json.OpeningHours.forEach((cal) =&gt; {
-            let date = moment.tz(`${cal.Date}`, &apos;YYYY-MM-DD&apos;, &apos;Europe/Amsterdam&apos;);
-            date = moment(date).format(&apos;YYYY-MM-DD&apos;);
-            cal.OpeningHours.forEach((cal1) =&gt; {
-              let open = moment.tz(`${date}${cal1.Open}`, &apos;YYYY-MM-DDHH:mm&apos;, &apos;Europe/Amsterdam&apos;);
-              open = moment(open).format();
-              let close = moment.tz(`${date}${cal1.Close}`, &apos;YYYY-MM-DDHH:mm&apos;, &apos;Europe/Amsterdam&apos;);
-              close = moment(close).format();
-              const type = &apos;Operating&apos;;
-
-              const hours = {
-                closingTime: close,
-                openingTime: open,
-                type: type,
-                special: [],
-                date: date,
-              };
-              Calendar.push(hours);
-            });
           });
-        };
-        return Promise.resolve(Calendar);
-      });
+        }),
+    );
+  };
+
+  /**
+  * Get Efteling Park Hours data
+  * This data contains the hours data, used to display the operating hours of Efteling
+  */
+  async getOpHours() {
+    const currentYear = moment().format(&apos;YYYY&apos;);
+    const currentMonth = moment().format(&apos;MM&apos;);
+
+    return fetch(
+        this.histURL +
+        `${currentYear}/${currentMonth}`,
+        {
+          method: &apos;GET&apos;,
+        },
+    )
+        .then((res) =&gt; res.json())
+        .then((json) =&gt; {
+          const Calendar = [];
+          if (!json.OpeningHours.length) {
+          // Park is closed, do nothing but returning today as empty string
+            const hours = {
+              date: moment().format(&apos;YYYY-MM-DD&apos;),
+              type: &apos;Closed&apos;,
+              openingTime: moment(&apos;23:59&apos;, &apos;HH:mm a&apos;).format(),
+              closingTime: moment(&apos;23:59&apos;, &apos;HH:mm a&apos;).format(),
+              special: [],
+            };
+            Calendar.push(hours);
+          } else {
+          // Return the actual opening hours
+            json.OpeningHours.forEach((cal) =&gt; {
+              let date = moment.tz(`${cal.Date}`, &apos;YYYY-MM-DD&apos;, &apos;Europe/Amsterdam&apos;);
+              date = moment(date).format(&apos;YYYY-MM-DD&apos;);
+              cal.OpeningHours.forEach((cal1) =&gt; {
+                let open = moment.tz(`${date}${cal1.Open}`, &apos;YYYY-MM-DDHH:mm&apos;, &apos;Europe/Amsterdam&apos;);
+                open = moment(open).format();
+                let close = moment.tz(`${date}${cal1.Close}`, &apos;YYYY-MM-DDHH:mm&apos;, &apos;Europe/Amsterdam&apos;);
+                close = moment(close).format();
+                const type = &apos;Operating&apos;;
+
+                const hours = {
+                  closingTime: close,
+                  openingTime: open,
+                  type: type,
+                  special: [],
+                  date: date,
+                };
+                Calendar.push(hours);
+              });
+            });
+          };
+          return Promise.resolve(Calendar);
+        });
+  }
+
+  /**
+  * Get All Efteling data in console
+  * This data contains all the data of Efteling, returned as json object
+  */
+  async getData() {
+    return await Promise.all([this.getQueue(), this.getOpHours()]).then((rides) =&gt; {
+      console.log(JSON.stringify(rides, null, 4));
+    });
+  }
+
+  /**
+  * Get Efteling Park Hours data in console
+  * This data contains the hours data, used to display the operating hours of Efteling
+  */
+  async getCalendar() {
+    return await this.getOpHours().then((calendar) =&gt; {
+      console.log(calendar);
+    });
+  }
+
+  /**
+  * Get Efteling Queuetimes data in console
+  * This data contains the queuetimes data, used to display the queuetimes of Efteling
+  */
+  async getWaitTime() {
+    return await this.getQueue().then((rides) =&gt; {
+      console.log(rides);
+    });
+  };
 }
 
-/**
-* Get All Efteling data in console
-* This data contains all the data of Efteling, returned as json object
-*/
-async function getData() {
-  return await Promise.all([getQueue(), getOpHours()]).then((rides) =&gt; {
-    console.log(JSON.stringify(rides, null, 4));
-  });
-}
+export default Efteling;
 
-/**
-* Get Efteling Park Hours data in console
-* This data contains the hours data, used to display the operating hours of Efteling
-*/
-async function getCalendar() {
-  return await getOpHours().then((calendar) =&gt; {
-    console.log(calendar);
-  });
-}
-
-/**
-* Get Efteling Queuetimes data in console
-* This data contains the queuetimes data, used to display the queuetimes of Efteling
-*/
-async function getWaitTime() {
-  return await getQueue().then((rides) =&gt; {
-    console.log(rides);
-  });
-}
-
-module.exports.getPark = getPark;
-module.exports.getPOIS = getPOIS;
-module.exports.getQueue = getQueue;
-module.exports.getOpHours = getOpHours;
-module.exports.getData = getData;
-module.exports.getCalendar = getCalendar;
-module.exports.getWaitTime = getWaitTime;
 </code></pre>
 
 </div>

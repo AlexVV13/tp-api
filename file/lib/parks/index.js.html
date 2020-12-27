@@ -29,22 +29,27 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  </ul>
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
+</ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/index.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// Import parks
 // Efteling
-const Efteling = require(&apos;./efteling/efteling&apos;);
+import Efteling from &apos;./efteling/efteling.js&apos;;
 // Compagnie des Alpes
-const WalibiHolland = require(&apos;./walibi/walibiholland&apos;);
+// import WalibiHolland from &apos;./parks/walibi/walibiholland.js&apos;;
+// EuropaPark
+// import EuropaPark from &apos;./parks/europapark/europapark.js&apos;;
 
-module.exports.Parks = {
-  // Efteling
-  Efteling,
-  // Compagnie des Alpes
-  WalibiHolland,
+export default {
+  parks: {
+    Efteling,
+  },
+  allParks: [
+    Efteling,
+  ],
 };
 </code></pre>
 

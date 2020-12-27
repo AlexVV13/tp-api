@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/parks/walibi/walibiholland.js | tp-api</title>
+  <title data-ice="title">lib/parks/europapark/europapark.js | tp-api</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -34,39 +34,33 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/walibi/walibiholland.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const moment = require(&apos;moment-timezone&apos;);
+<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/europapark/europapark.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// const moment = require(&apos;moment-timezone&apos;);
 const fetch = require(&apos;node-fetch&apos;);
 const fs = require(&apos;fs&apos;);
 
 require(&apos;dotenv&apos;).config();
 
 // Configure the variables
-const apiBase = process.env.WALIBIHOLLAND_APIBASE;
-const apiUrl = process.env.WALIBIHOLLAND_APIURL;
-// Implementing language here is useless, because we&apos;re not fetching ride descriptions.
+const login = process.env.EUROPAPARK_LOGINSTRING;
+const loginurl = process.env.EUROPAPARK_LOGIN;
+// const refreshurl = process.env.EUROPAPARK_REFRESHURL;
+const apiBase = process.env.EUROPAPARK_APIBASE;
 
-// Walibi park options
+// EuropaPark park options
 const options = {
-  name: &apos;Walibi Holland&apos;,
-  timezone: &apos;Europe/Amsterdam&apos;,
+  name: &apos;EuropaPark&apos;,
+  timezone: &apos;Europe/Berlin&apos;,
   latitude: 51.64990915659694,
   longitude: 5.043561458587647,
-  supported_languages: {
-    en: &apos;yes&apos;,
-    de: &apos;yes&apos;,
-    fr: &apos;no&apos;,
-    nl: &apos;yes&apos;,
-    upperCase: &apos;no&apos;,
-  },
 };
 
-// Load the Walibi Holland poidata
-// const poidata = (&apos;./data/parks/walibi/walibiholland_pois.json&apos;)
-// const poimock = (&apos;./data/parks/walibi/walibiholland_poi_mock.json&apos;)
+// Load the EuropaPark poidata
+// const poidata = (&apos;./data/parks/europapark/europapark_pois.json&apos;);
+// const poimock = (&apos;./data/parks/europapark/europapark_poi_mock.json&apos;);
 
 /**
-* Get Walibi Holland data
+* Get EuropaPark data
 * This data contains park data such as latlon
 */
 async function getPark() {
@@ -78,47 +72,64 @@ async function getPark() {
 };
 
 /**
-* Get All POIS of Walibi Holland
-* This data contains all the POIS in Walibi Holland, limited to their fast-lane services
+* Login to the EP API
+* Don&apos;t call this function unless you know what you&apos;re doing, in most cases other functions will handle it for you
+*/
+async function loginEP() {
+  console.log(login);
+  return fetch(apiBase +
+    loginurl,
+  {
+    method: &apos;POST&apos;,
+    headers: {
+      &apos;Content-Type&apos;: &apos;application/json&apos;,
+    },
+    body: {
+      login,
+    },
+  },
+  )
+      .then((res) =&gt; res.json())
+      .then((loginData) =&gt; {
+        console.log(loginData);
+      });
+}
+
+/**
+* Get All POIS of Dummy
+* This data contains all the POIS in Dummy
 */
 async function getPOIS() {
   return fetch(apiUrl,
       {
         method: &apos;GET&apos;,
+        headers: {
+          Authorization: apiKey,
+        },
       },
   )
       .then((res) =&gt; res.json())
       .then((rideData) =&gt; {
         const poi = [];
         rideData.forEach((ride) =&gt; {
-          if (ride.name !== &apos;Dummy1&apos;) { // They have a dummy ride to sell single shots in their fast-lane, mind=blown
-            if (ride.useVirtualQueue == &apos;true&apos;) { // VirtQueue enabled
-              waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let&apos;s round them.
-            } else { // No virtQueue found, use the normal queue instead
-              waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60
-            }
-            if (ride.state === &apos;closed_indefinitely&apos;) { // Closed but not closed but still closed
-              state = &apos;Closed&apos;;
-              active = &apos;false&apos;;
-            } // Declare other states when park reopens
-            // POI Object with queues
-            const poiData = {
-              name: ride.name,
-              id: ride.shortId,
-              state: state,
-              active: active,
-              waitTime: waitTime,
-              meta: {
-                type: &apos;attraction&apos;,
-              },
-            };
-            poi.push(poiData);
-          }
+          // Do stuff with the ridedata
+          // POI Object with queues
+          const poiData = {
+            name: ride.name,
+            id: ride.shortId,
+            state: ride.state,
+            active: ride.active,
+            waitTime: ride.waitTime,
+            meta: {
+              type: &apos;attraction&apos;,
+            },
+          };
+          poi.push(poiData);
         });
-        fs.writeFile(&apos;./data/parks/walibi/walibiholland_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
+        fs.writeFile(&apos;./data/parks/dummy/dummy_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
           if (err) return console.log(err);
         });
-        fs.writeFile(&apos;./data/parks/walibi/walibiholland_poi_mock.json&apos;, JSON.stringify(rideData, null, 4), function(err) {
+        fs.writeFile(&apos;./data/parks/dummy/dummy_poi_mock.json&apos;, JSON.stringify(rideData, null, 4), function(err) {
           if (err) return console.log(err);
         });
         return Promise.resolve(poi); // Although we saved them in a json file, we&apos;ll just return them for the queue attach function which will run next if you called getQueue()
@@ -126,14 +137,12 @@ async function getPOIS() {
 }
 
 /**
-* Get All Operating Hours of Walibi Holland
-* This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.
+* Get All Operating Hours of Dummy
+* This data contains all the Operating Hours in Dummy
 */
 async function getOpHours() {
-  const currentYear = moment().format(&apos;YYYY&apos;);
   return fetch(
-      apiBase +
-        `/calendar/${currentYear}?_format=json`,
+      apiBase,
       {
         method: &apos;GET&apos;,
       },
@@ -147,8 +156,8 @@ async function getOpHours() {
 }
 
 /**
-* Get All Data of Walibi Holland
-* This data contains all Walibi&apos;s data, which is fetched earlier
+* Get All Data of Dummy
+* This data contains all Dummy&apos;s data, which is fetched earlier
 */
 async function getData() {
   return await Promise.all([getPOIS(), getOpHours()]).then((rides) =&gt; {
@@ -157,8 +166,8 @@ async function getData() {
 }
 
 /**
-* Get All Calendar Data of Walibi Holland
-* This data contains all the calendar data of Walibi Holland
+* Get All Calendar Data of Dummy
+* This data contains all the calendar data of Dummy
 */
 async function getCalendar() {
   return await getOpHours().then((calendar) =&gt; {
@@ -167,8 +176,8 @@ async function getCalendar() {
 }
 
 /**
-* Get All Queues of Walibi Holland
-* This data contains all the Queues in Walibi Holland, limited to their fast-lane services
+* Get All Queues of Dummy
+* This data contains all the Queues in Dummy, limited to their fast-lane services
 */
 async function getWaitTime() {
   return await getPOIS().then((rides) =&gt; {
@@ -177,6 +186,7 @@ async function getWaitTime() {
 }
 
 module.exports.getPark = getPark;
+module.exports.loginEP = loginEP;
 module.exports.getPOIS = getPOIS;
 module.exports.getOpHours = getOpHours;
 module.exports.getData = getData;
