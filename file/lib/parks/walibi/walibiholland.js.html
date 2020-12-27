@@ -30,158 +30,147 @@
   <ul>
     
   <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/walibi/walibiholland.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const moment = require(&apos;moment-timezone&apos;);
-const fetch = require(&apos;node-fetch&apos;);
-const fs = require(&apos;fs&apos;);
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
+import fetch from &apos;node-fetch&apos;;
+import fs from &apos;fs&apos;;
 
-require(&apos;dotenv&apos;).config();
-
-// Configure the variables
-const apiBase = process.env.WALIBIHOLLAND_APIBASE;
-const apiUrl = process.env.WALIBIHOLLAND_APIURL;
-// Implementing language here is useless, because we&apos;re not fetching ride descriptions.
-
-// Walibi park options
-const options = {
-  name: &apos;Walibi Holland&apos;,
-  timezone: &apos;Europe/Amsterdam&apos;,
-  latitude: 51.64990915659694,
-  longitude: 5.043561458587647,
-  supported_languages: {
-    en: &apos;yes&apos;,
-    de: &apos;yes&apos;,
-    fr: &apos;no&apos;,
-    nl: &apos;yes&apos;,
-    upperCase: &apos;no&apos;,
-  },
-};
-
-// Load the Walibi Holland poidata
-// const poidata = (&apos;./data/parks/walibi/walibiholland_pois.json&apos;)
-// const poimock = (&apos;./data/parks/walibi/walibiholland_poi_mock.json&apos;)
+import dotenv from &apos;dotenv&apos;;
+dotenv.config();
 
 /**
-* Get Walibi Holland data
-* This data contains park data such as latlon
+* Walibi Holland Park Object
 */
-async function getPark() {
-  return Promise.resolve(
-      options,
-  ).then(function(value) {
-    console.log(value);
-  });
-};
+export class WalibiHolland {
+  /**
+   * Create a new WalibiHolland Park object
+   * @param {object} options
+   */
+  constructor() {
+    this.name = &apos;Walibi Holland&apos;;
 
-/**
-* Get All POIS of Walibi Holland
-* This data contains all the POIS in Walibi Holland, limited to their fast-lane services
-*/
-async function getPOIS() {
-  return fetch(apiUrl,
-      {
-        method: &apos;GET&apos;,
-      },
-  )
-      .then((res) =&gt; res.json())
-      .then((rideData) =&gt; {
-        const poi = [];
-        rideData.forEach((ride) =&gt; {
-          if (ride.name !== &apos;Dummy1&apos;) { // They have a dummy ride to sell single shots in their fast-lane, mind=blown
-            if (ride.useVirtualQueue == &apos;true&apos;) { // VirtQueue enabled
-              waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let&apos;s round them.
-            } else { // No virtQueue found, use the normal queue instead
-              waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60
+    this.latutude = 48.266140769976715;
+    this.longitude = 7.722050520358709;
+
+    this.timezone = &apos;Europe/Amsterdam&apos;;
+
+    this.apiUrl = process.env.WALIBIHOLLAND_APIURL;
+    this.apiBase = process.env.WALIBIHOLLAND_APIBASE;
+  }
+
+  // Load the Walibi Holland poidata
+  // const poidata = (&apos;./data/parks/walibi/walibiholland_pois.json&apos;)
+  // const poimock = (&apos;./data/parks/walibi/walibiholland_poi_mock.json&apos;)
+
+  /**
+  * Get All POIS of Walibi Holland
+  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services
+  */
+  async getPOIS() {
+    return fetch(this.apiUrl,
+        {
+          method: &apos;GET&apos;,
+        },
+    )
+        .then((res) =&gt; res.json())
+        .then((rideData) =&gt; {
+          const poi = [];
+          rideData.forEach((ride) =&gt; {
+            let waitTime = &apos;0&apos;;
+            let state = &apos;Closed&apos;;
+            let active = &apos;false&apos;;
+            if (ride.name !== &apos;Dummy1&apos;) { // They have a dummy ride to sell single shots in their fast-lane, mind=blown
+              if (ride.useVirtualQueue == &apos;true&apos;) { // VirtQueue enabled
+                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let&apos;s round them.
+              } else { // No virtQueue found, use the normal queue instead
+                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60
+              }
+              if (ride.state === &apos;closed_indefinitely&apos;) { // Closed but not closed but still closed
+                state = &apos;Closed&apos;;
+                active = &apos;false&apos;;
+              } // Declare other states when park reopens
+              // POI Object with queues
+              const poiData = {
+                name: ride.name,
+                id: ride.shortId,
+                state: state,
+                active: active,
+                waitTime: waitTime,
+                meta: {
+                  type: &apos;attraction&apos;,
+                },
+              };
+              poi.push(poiData);
             }
-            if (ride.state === &apos;closed_indefinitely&apos;) { // Closed but not closed but still closed
-              state = &apos;Closed&apos;;
-              active = &apos;false&apos;;
-            } // Declare other states when park reopens
-            // POI Object with queues
-            const poiData = {
-              name: ride.name,
-              id: ride.shortId,
-              state: state,
-              active: active,
-              waitTime: waitTime,
-              meta: {
-                type: &apos;attraction&apos;,
-              },
-            };
-            poi.push(poiData);
-          }
+          });
+          fs.writeFile(&apos;./data/parks/walibi/walibiholland_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
+            if (err) return console.log(err);
+          });
+          fs.writeFile(&apos;./data/parks/walibi/walibiholland_poi_mock.json&apos;, JSON.stringify(rideData, null, 4), function(err) {
+            if (err) return console.log(err);
+          });
+          return Promise.resolve(poi); // Although we saved them in a json file, we&apos;ll just return them for the queue attach function which will run next if you called getQueue()
         });
-        fs.writeFile(&apos;./data/parks/walibi/walibiholland_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
-          if (err) return console.log(err);
+  }
+
+  /**
+  * Get All Operating Hours of Walibi Holland
+  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.
+  */
+  async getOpHours() {
+    const currentYear = moment().format(&apos;YYYY&apos;);
+    return fetch(
+        this.apiBase +
+          `/calendar/${currentYear}?_format=json`,
+        {
+          method: &apos;GET&apos;,
+        },
+    )
+        .then((res) =&gt; res.json())
+        .then((json) =&gt; {
+          const Calendar = [];
+          // Execute Calendar stuff here
+          return Promise.resolve(Calendar);
         });
-        fs.writeFile(&apos;./data/parks/walibi/walibiholland_poi_mock.json&apos;, JSON.stringify(rideData, null, 4), function(err) {
-          if (err) return console.log(err);
-        });
-        return Promise.resolve(poi); // Although we saved them in a json file, we&apos;ll just return them for the queue attach function which will run next if you called getQueue()
-      });
-}
+  }
 
-/**
-* Get All Operating Hours of Walibi Holland
-* This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.
-*/
-async function getOpHours() {
-  const currentYear = moment().format(&apos;YYYY&apos;);
-  return fetch(
-      apiBase +
-        `/calendar/${currentYear}?_format=json`,
-      {
-        method: &apos;GET&apos;,
-      },
-  )
-      .then((res) =&gt; res.json())
-      .then((json) =&gt; {
-        const Calendar = [];
-        // Execute Calendar stuff here
-        return Promise.resolve(Calendar);
-      });
-}
+  /**
+  * Get All Data of Walibi Holland
+  * This data contains all Walibi&apos;s data, which is fetched earlier
+  */
+  async getData() {
+    return await Promise.all([this.getPOIS(), this.getOpHours()]).then((rides) =&gt; {
+      console.log(JSON.stringify(rides, null, 4));
+    });
+  }
 
-/**
-* Get All Data of Walibi Holland
-* This data contains all Walibi&apos;s data, which is fetched earlier
-*/
-async function getData() {
-  return await Promise.all([getPOIS(), getOpHours()]).then((rides) =&gt; {
-    console.log(JSON.stringify(rides, null, 4));
-  });
-}
+  /**
+  * Get All Calendar Data of Walibi Holland
+  * This data contains all the calendar data of Walibi Holland
+  */
+  async getCalendar() {
+    return await this.getOpHours().then((calendar) =&gt; {
+      console.log(calendar);
+    });
+  }
 
-/**
-* Get All Calendar Data of Walibi Holland
-* This data contains all the calendar data of Walibi Holland
-*/
-async function getCalendar() {
-  return await getOpHours().then((calendar) =&gt; {
-    console.log(calendar);
-  });
-}
+  /**
+  * Get All Queues of Walibi Holland
+  * This data contains all the Queues in Walibi Holland, limited to their fast-lane services
+  */
+  async getWaitTime() {
+    return await this.getPOIS().then((rides) =&gt; {
+      console.log(rides);
+    });
+  }
+};
 
-/**
-* Get All Queues of Walibi Holland
-* This data contains all the Queues in Walibi Holland, limited to their fast-lane services
-*/
-async function getWaitTime() {
-  return await getPOIS().then((rides) =&gt; {
-    console.log(rides);
-  });
-}
-
-module.exports.getPark = getPark;
-module.exports.getPOIS = getPOIS;
-module.exports.getOpHours = getOpHours;
-module.exports.getData = getData;
-module.exports.getCalendar = getCalendar;
-module.exports.getWaitTime = getWaitTime;
+export default WalibiHolland;
 </code></pre>
 
 </div>

@@ -6,6 +6,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "tp-api/lib/parks/walibi/walibiholland.js~walibiholland",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html",
+    "<span>WalibiHolland</span> <span class=\"search-result-import-path\">tp-api/lib/parks/walibi/walibiholland.js</span>",
+    "class"
+  ],
+  [
     "lib/.external-ecmascript.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "lib/.external-ecmascript.js~Array",
@@ -330,12 +336,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/parks/efteling/efteling.js~efteling#getpark",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getPark",
-    "lib/parks/efteling/efteling.js~Efteling#getPark",
-    "method"
-  ],
-  [
     "lib/parks/efteling/efteling.js~efteling#getqueue",
     "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getQueue",
     "lib/parks/efteling/efteling.js~Efteling#getQueue",
@@ -412,5 +412,77 @@ window.esdocSearchIndex = [
     "file/lib/parks/walibi/walibiholland.js.html",
     "lib/parks/walibi/walibiholland.js",
     "file"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#apibase",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-apiBase",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#apiBase",
+    "member"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#apiurl",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-apiUrl",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#apiUrl",
+    "member"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#constructor",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-constructor-constructor",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#getcalendar",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getCalendar",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#getCalendar",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#getdata",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getData",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#getData",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#getophours",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getOpHours",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#getOpHours",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#getpois",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getPOIS",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#getPOIS",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#getwaittime",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getWaitTime",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#getWaitTime",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#latutude",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-latutude",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#latutude",
+    "member"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#longitude",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-longitude",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#longitude",
+    "member"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#name",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-name",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#name",
+    "member"
+  ],
+  [
+    "lib/parks/walibi/walibiholland.js~walibiholland#timezone",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-timezone",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#timezone",
+    "member"
   ]
 ]

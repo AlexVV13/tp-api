@@ -4,8 +4,8 @@
   "actualCount": 22,
   "files": {
     "lib/parks/efteling/efteling.js": {
-      "expectCount": 18,
-      "actualCount": 9,
+      "expectCount": 17,
+      "actualCount": 8,
       "undocumentLines": [
         17,
         19,
@@ -31,15 +31,15 @@
       ]
     },
     "lib/parks/walibi/walibiholland.js": {
-      "expectCount": 12,
-      "actualCount": 6,
+      "expectCount": 13,
+      "actualCount": 7,
       "undocumentLines": [
-        1,
-        2,
-        3,
-        8,
-        9,
-        13
+        17,
+        19,
+        20,
+        22,
+        24,
+        25
       ]
     }
   }
