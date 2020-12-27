@@ -9,18 +9,18 @@ This is a module which fetches queue times and operating hours, and returns it a
 
 ## Table of Contents
 [About](#about)</br>
-[Table of Contents](#table-of-contents)</br>
-[Requirements](#requirements)</br>
-[  -Applications](#applications)</br>
-[  -Node Modules](#node-modules)</br>
-[  -Other](#other)</br>
-[Setup](#setup)</br>
-[  -Dependencies](#dependencies)</br>
-[  -ENV](#env)</br>
-[Usage](#usage)</br>
-[  -Viewing](#viewing)</br>
-[Park List](#currently-working-parks)</br>
-[Tasks](#tasks)</br>
+[Table of Contents](#table-of-contents) </br>
+[Requirements](#requirements) </br>
+[  -Applications](#applications) </br>
+[  -Node Modules](#node-modules) </br>
+[  -Other](#other) </br>
+[Setup](#setup) </br>
+[  -Dependencies](#dependencies) </br>
+[  -ENV](#env) </br>
+[Usage](#usage) </br>
+[  -Viewing](#viewing) </br>
+[Park List](#currently-working-parks) </br>
+[Tasks](#tasks) </br>
 
 ## Requirements
 ### Applications
@@ -58,8 +58,8 @@ import tpapi from '@alexvv13/tpapi';
 const park = new tpapi.parks.Efteling();
 
 // Fetch POIS Example usage of Efteling
-park.getWaitTime().then((rideTimes) => {
-  console.log(rideTimes);
+park.getWaitTime().then((poiData) => {
+  console.log(poiData);
 });
 
 // You can also call getCalendar() or getData()
