@@ -42,18 +42,18 @@
 Current Version: 1.0.10<br></p>
 <h2 id="about">About</h2><p>This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it&apos;s not perfect, but it works. It&apos;s just being build to work and return data, not to be efficient anyway.</p>
 <h2 id="table-of-contents">Table of Contents</h2><p><a href="#about">About</a><br>
-<a href="#table-of-contents">Table of Contents</a><br>
-<a href="#requirements">Requirements</a><br>
-<a href="#applications">  -Applications</a><br>
-<a href="#node-modules">  -Node Modules</a><br>
-<a href="#other">  -Other</a><br>
-<a href="#setup">Setup</a><br>
-<a href="#dependencies">  -Dependencies</a><br>
-<a href="#env">  -ENV</a><br>
-<a href="#usage">Usage</a><br>
-<a href="#viewing">  -Viewing</a><br>
-<a href="#currently-working-parks">Park List</a><br>
-<a href="#tasks">Tasks</a><br></p>
+<a href="#table-of-contents">Table of Contents</a> <br>
+<a href="#requirements">Requirements</a> <br>
+<a href="#applications">  -Applications</a> <br>
+<a href="#node-modules">  -Node Modules</a> <br>
+<a href="#other">  -Other</a> <br>
+<a href="#setup">Setup</a> <br>
+<a href="#dependencies">  -Dependencies</a> <br>
+<a href="#env">  -ENV</a> <br>
+<a href="#usage">Usage</a> <br>
+<a href="#viewing">  -Viewing</a> <br>
+<a href="#currently-working-parks">Park List</a> <br>
+<a href="#tasks">Tasks</a> <br></p>
 <h2 id="requirements">Requirements</h2><h3 id="applications">Applications</h3><ul>
 <li>Git</li>
 <li>Latest version of Nodejs</li>
@@ -79,8 +79,8 @@ import tpapi from &apos;@alexvv13/tpapi&apos;;
 const park = new tpapi.parks.Efteling();
 
 // Fetch POIS Example usage of Efteling
-park.getWaitTime().then((rideTimes) =&gt; {
-  console.log(rideTimes);
+park.getWaitTime().then((poiData) =&gt; {
+  console.log(poiData);
 });
 
 // You can also call getCalendar() or getData()</code>
