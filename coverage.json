@@ -1,6 +1,6 @@
 {
-  "coverage": "51.16%",
-  "expectCount": 43,
+  "coverage": "50%",
+  "expectCount": 44,
   "actualCount": 22,
   "files": {
     "lib/parks/efteling/efteling.js": {
@@ -31,15 +31,16 @@
       ]
     },
     "lib/parks/walibi/walibiholland.js": {
-      "expectCount": 13,
+      "expectCount": 14,
       "actualCount": 7,
       "undocumentLines": [
         17,
-        19,
         20,
-        22,
-        24,
-        25
+        21,
+        23,
+        25,
+        26,
+        28
       ]
     }
   }

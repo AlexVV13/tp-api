@@ -1212,7 +1212,7 @@
     "__docId__": 82,
     "kind": "file",
     "name": "lib/parks/walibi/walibiholland.js",
-    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport fs from 'fs';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Holland Park Object\n*/\nexport class WalibiHolland {\n  /**\n   * Create a new WalibiHolland Park object\n   * @param {object} options\n   */\n  constructor() {\n    this.name = 'Walibi Holland';\n\n    this.latutude = 48.266140769976715;\n    this.longitude = 7.722050520358709;\n\n    this.timezone = 'Europe/Amsterdam';\n\n    this.apiUrl = process.env.WALIBIHOLLAND_APIURL;\n    this.apiBase = process.env.WALIBIHOLLAND_APIBASE;\n  }\n\n  // Load the Walibi Holland poidata\n  // const poidata = ('./data/parks/walibi/walibiholland_pois.json')\n  // const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')\n\n  /**\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  */\n  async getPOIS() {\n    return fetch(this.apiUrl,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.forEach((ride) => {\n            let waitTime = '0';\n            let state = 'Closed';\n            let active = 'false';\n            if (ride.name !== 'Dummy1') { // They have a dummy ride to sell single shots in their fast-lane, mind=blown\n              if (ride.useVirtualQueue == 'true') { // VirtQueue enabled\n                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let's round them.\n              } else { // No virtQueue found, use the normal queue instead\n                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60\n              }\n              if (ride.state === 'closed_indefinitely') { // Closed but not closed but still closed\n                state = 'Closed';\n                active = 'false';\n              } // Declare other states when park reopens\n              // POI Object with queues\n              const poiData = {\n                name: ride.name,\n                id: ride.shortId,\n                state: state,\n                active: active,\n                waitTime: waitTime,\n                meta: {\n                  type: 'attraction',\n                },\n              };\n              poi.push(poiData);\n            }\n          });\n          fs.writeFile('./data/parks/walibi/walibiholland_pois.json', JSON.stringify(poi, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          fs.writeFile('./data/parks/walibi/walibiholland_poi_mock.json', JSON.stringify(rideData, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          return Promise.resolve(poi); // Although we saved them in a json file, we'll just return them for the queue attach function which will run next if you called getQueue()\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n\n  /**\n  * Get All Data of Walibi Holland\n  * This data contains all Walibi's data, which is fetched earlier\n  */\n  async getData() {\n    return await Promise.all([this.getPOIS(), this.getOpHours()]).then((rides) => {\n      console.log(JSON.stringify(rides, null, 4));\n    });\n  }\n\n  /**\n  * Get All Calendar Data of Walibi Holland\n  * This data contains all the calendar data of Walibi Holland\n  */\n  async getCalendar() {\n    return await this.getOpHours().then((calendar) => {\n      console.log(calendar);\n    });\n  }\n\n  /**\n  * Get All Queues of Walibi Holland\n  * This data contains all the Queues in Walibi Holland, limited to their fast-lane services\n  */\n  async getWaitTime() {\n    return await this.getPOIS().then((rides) => {\n      console.log(rides);\n    });\n  }\n};\n\nexport default WalibiHolland;\n",
+    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport fs from 'fs';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Holland Park Object\n*/\nexport class WalibiHolland {\n  /**\n   * Create a new WalibiHolland Park object\n   * @param {object} options\n   */\n  constructor() {\n    this.name = 'Walibi Holland';\n\n    // I'll just use their fountain at the entrance for this\n    this.latutude = 52.4390338;\n    this.longitude = 5.7665651;\n\n    this.timezone = 'Europe/Amsterdam';\n\n    this.apiUrl = process.env.WALIBIHOLLAND_APIURL;\n    this.apiBase = process.env.WALIBIHOLLAND_APIBASE;\n\n    this.language = process.env.LANGUAGE;\n\n    if (!this.apiUrl) throw new Error('Missing Walibi Holland search url!');\n    if (!this.apiBase) throw new Error('Missing Walibi Holland apiKey!');\n    if (!this.language) {\n      this.language = 'en';\n    }\n  }\n\n  // Load the Walibi Holland poidata\n  // const poidata = ('./data/parks/walibi/walibiholland_pois.json')\n  // const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')\n\n  /**\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  */\n  async getPOIS() {\n    return fetch(this.apiUrl,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.forEach((ride) => {\n            let waitTime = '0';\n            let state = 'Closed';\n            let active = 'false';\n            if (ride.name !== 'Dummy1') { // They have a dummy ride to sell single shots in their fast-lane, mind=blown\n              if (ride.useVirtualQueue == 'true') { // VirtQueue enabled\n                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let's round them.\n              } else { // No virtQueue found, use the normal queue instead\n                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60\n              }\n              if (ride.state === 'closed_indefinitely') { // Closed but not closed but still closed\n                state = 'Closed';\n                active = 'false';\n              } // Declare other states when park reopens\n              // POI Object with queues\n              const poiData = {\n                name: ride.name,\n                id: ride.shortId,\n                state: state,\n                active: active,\n                waitTime: waitTime,\n                meta: {\n                  type: 'attraction',\n                },\n              };\n              poi.push(poiData);\n            }\n          });\n          fs.writeFile('./data/parks/walibi/walibiholland_pois.json', JSON.stringify(poi, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          fs.writeFile('./data/parks/walibi/walibiholland_poi_mock.json', JSON.stringify(rideData, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          return Promise.resolve(poi); // Although we saved them in a json file, we'll just return them for the queue attach function which will run next if you called getQueue()\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n\n  /**\n  * Get All Data of Walibi Holland\n  * This data contains all Walibi's data, which is fetched earlier\n  */\n  async getData() {\n    return await Promise.all([this.getPOIS(), this.getOpHours()]).then((rides) => {\n      console.log(JSON.stringify(rides, null, 4));\n    });\n  }\n\n  /**\n  * Get All Calendar Data of Walibi Holland\n  * This data contains all the calendar data of Walibi Holland\n  */\n  async getCalendar() {\n    return await this.getOpHours().then((calendar) => {\n      console.log(calendar);\n    });\n  }\n\n  /**\n  * Get All Queues of Walibi Holland\n  * This data contains all the Queues in Walibi Holland, limited to their fast-lane services\n  */\n  async getWaitTime() {\n    return await this.getPOIS().then((rides) => {\n      console.log(rides);\n    });\n  }\n};\n\nexport default WalibiHolland;\n",
     "static": true,
     "longname": "/home/runner/work/tp-api/tp-api/lib/parks/walibi/walibiholland.js",
     "access": "public",
@@ -1285,7 +1285,7 @@
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#latutude",
     "access": "public",
     "description": null,
-    "lineNumber": 19,
+    "lineNumber": 20,
     "undocument": true,
     "type": {
       "types": [
@@ -1302,7 +1302,7 @@
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#longitude",
     "access": "public",
     "description": null,
-    "lineNumber": 20,
+    "lineNumber": 21,
     "undocument": true,
     "type": {
       "types": [
@@ -1319,7 +1319,7 @@
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#timezone",
     "access": "public",
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 23,
     "undocument": true,
     "type": {
       "types": [
@@ -1336,7 +1336,7 @@
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#apiUrl",
     "access": "public",
     "description": null,
-    "lineNumber": 24,
+    "lineNumber": 25,
     "undocument": true,
     "type": {
       "types": [
@@ -1353,7 +1353,7 @@
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#apiBase",
     "access": "public",
     "description": null,
-    "lineNumber": 25,
+    "lineNumber": 26,
     "undocument": true,
     "type": {
       "types": [
@@ -1363,6 +1363,23 @@
   },
   {
     "__docId__": 91,
+    "kind": "member",
+    "name": "language",
+    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
+    "static": false,
+    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#language",
+    "access": "public",
+    "description": null,
+    "lineNumber": 28,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 93,
     "kind": "method",
     "name": "getPOIS",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1372,45 +1389,7 @@
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getPOIS",
     "access": "public",
     "description": "Get All POIS of Walibi Holland<br />This data contains all the POIS in Walibi Holland, limited to their fast-lane services",
-    "lineNumber": 36,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 92,
-    "kind": "method",
-    "name": "getOpHours",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "generator": false,
-    "async": true,
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getOpHours",
-    "access": "public",
-    "description": "Get All Operating Hours of Walibi Holland<br />This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.",
-    "lineNumber": 87,
-    "params": [],
-    "return": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 93,
-    "kind": "method",
-    "name": "getData",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "generator": false,
-    "async": true,
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getData",
-    "access": "public",
-    "description": "Get All Data of Walibi Holland<br />This data contains all Walibi's data, which is fetched earlier",
-    "lineNumber": 108,
+    "lineNumber": 45,
     "params": [],
     "return": {
       "types": [
@@ -1421,15 +1400,15 @@
   {
     "__docId__": 94,
     "kind": "method",
-    "name": "getCalendar",
+    "name": "getOpHours",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
     "generator": false,
     "async": true,
     "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getCalendar",
+    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getOpHours",
     "access": "public",
-    "description": "Get All Calendar Data of Walibi Holland<br />This data contains all the calendar data of Walibi Holland",
-    "lineNumber": 118,
+    "description": "Get All Operating Hours of Walibi Holland<br />This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.",
+    "lineNumber": 96,
     "params": [],
     "return": {
       "types": [
@@ -1440,6 +1419,44 @@
   {
     "__docId__": 95,
     "kind": "method",
+    "name": "getData",
+    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getData",
+    "access": "public",
+    "description": "Get All Data of Walibi Holland<br />This data contains all Walibi's data, which is fetched earlier",
+    "lineNumber": 117,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 96,
+    "kind": "method",
+    "name": "getCalendar",
+    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getCalendar",
+    "access": "public",
+    "description": "Get All Calendar Data of Walibi Holland<br />This data contains all the calendar data of Walibi Holland",
+    "lineNumber": 127,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 97,
+    "kind": "method",
     "name": "getWaitTime",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
     "generator": false,
@@ -1448,7 +1465,7 @@
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getWaitTime",
     "access": "public",
     "description": "Get All Queues of Walibi Holland<br />This data contains all the Queues in Walibi Holland, limited to their fast-lane services",
-    "lineNumber": 128,
+    "lineNumber": 137,
     "params": [],
     "return": {
       "types": [

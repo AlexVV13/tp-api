@@ -54,13 +54,22 @@ export class WalibiHolland {
   constructor() {
     this.name = &apos;Walibi Holland&apos;;
 
-    this.latutude = 48.266140769976715;
-    this.longitude = 7.722050520358709;
+    // I&apos;ll just use their fountain at the entrance for this
+    this.latutude = 52.4390338;
+    this.longitude = 5.7665651;
 
     this.timezone = &apos;Europe/Amsterdam&apos;;
 
     this.apiUrl = process.env.WALIBIHOLLAND_APIURL;
     this.apiBase = process.env.WALIBIHOLLAND_APIBASE;
+
+    this.language = process.env.LANGUAGE;
+
+    if (!this.apiUrl) throw new Error(&apos;Missing Walibi Holland search url!&apos;);
+    if (!this.apiBase) throw new Error(&apos;Missing Walibi Holland apiKey!&apos;);
+    if (!this.language) {
+      this.language = &apos;en&apos;;
+    }
   }
 
   // Load the Walibi Holland poidata

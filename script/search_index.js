@@ -462,6 +462,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/walibi/walibiholland.js~walibiholland#language",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-language",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#language",
+    "member"
+  ],
+  [
     "lib/parks/walibi/walibiholland.js~walibiholland#latutude",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-latutude",
     "lib/parks/walibi/walibiholland.js~WalibiHolland#latutude",
