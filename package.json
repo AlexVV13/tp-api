@@ -29,7 +29,7 @@
     "docs": "esdoc"
   },
   "exports": {
-    ".": "./lib/index.js",
+    ".": "./lib/index.js"
   },
   "repository": {
     "type": "git",
