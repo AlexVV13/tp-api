@@ -1,6 +1,6 @@
-//Import all parks here
+// Import all parks here
 const tpapi = require('./lib/parks/index');
 
-//Fetch POIS
-tpapi.Parks.Efteling.getWaitTime(); //Get All data for efteling, you could also run getCalendar() or getWaitTime()
+// Fetch POIS
+tpapi.Parks.WalibiHolland.getData(); // Get All data for efteling, you could also run getCalendar() or getWaitTime()
 

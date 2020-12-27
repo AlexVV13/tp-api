@@ -11,6 +11,7 @@ module.exports = {
     'sourceType': 'module',
   },
   'rules': {
-    'max-len': [2, {'code': 120, 'ignoreUrls': true}],
+    'max-len': [2, {'code': 180, 'ignoreUrls': true}],
+    'linebreak-style': 0,
   },
 };
