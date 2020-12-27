@@ -67,7 +67,7 @@ Park Name | Live Queues | Park Hours
 ------------ | ------------- | ----------
 Efteling |:heavy_check_mark:|:heavy_check_mark:
 Walibi Holland |:heavy_check_mark:|:heavy_multiplication_x:
-Europa-Park |:heavy_check_mark|:heavy_multiplication_x:
+Europa-Park |:heavy_check_mark:|:heavy_multiplication_x:
 
 ## Tasks
 - [ ] Add more parks
