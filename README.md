@@ -2,7 +2,7 @@
 Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don't expect anything too cool tho.</br>
 [API documentation](https://alexvv13.github.io/tp-api "API Documentation") </br>
 [NPM Package](https://www.npmjs.com/package/@alexvv13/tpapi "NPM Package") </br>
-Current Version: 1.0.9</br>
+Current Version: 1.0.10</br>
 
 ## About
 This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it's not perfect, but it works. It's just being build to work and return data, not to be efficient anyway.
@@ -53,7 +53,7 @@ NOTE: If you use commonjs, it's REQUIRED to use the .mjs extension INSTEAD of .j
 Or create an .js file for yourself and do the following: </br>
 ```javascript
 // Import all parks here
-import tpapi from './lib/parks/index.js';
+import tpapi from '@alexvv13/tpapi';
 
 const park = new tpapi.parks.Efteling();
 
@@ -68,14 +68,14 @@ park.getWaitTime().then((rideTimes) => {
 Example output (Shortened to keep it readable)
 ```javascript
 {
-    "name": "Villa Volta",
-    "id": "villavolta",
+    "name": "Stoomcarrousel",
+    "id": "Efteling_stoomcarrousel",
     "waitTime": "0",
     "state": "Closed",
     "active": "false",
     "location": {
-        "latitude": "51.653255",
-        "longitude": "5.047484"
+        "latitude": "51.651211",
+        "longitude": "5.048955"
     },
     "meta": {
         "type": "attraction",
@@ -85,7 +85,7 @@ Example output (Shortened to keep it readable)
 },
 {
     "name": "Vogel Rok",
-    "id": "vogelrok",
+    "id": "Efteling_vogelrok",
     "waitTime": "0",
     "state": "Closed",
     "active": "false",
@@ -96,22 +96,6 @@ Example output (Shortened to keep it readable)
     "meta": {
         "type": "attraction",
         "area": "Reizenrijk",
-        "single_rider": "false"
-    }
-},
-{
-    "name": "Volk van Laaf",
-    "id": "volkvanlaaf",
-    "waitTime": "0",
-    "state": "Closed",
-    "active": "false",
-    "location": {
-        "latitude": "51.653275",
-        "longitude": "5.048892"
-    },
-    "meta": {
-        "type": "attraction",
-        "area": "Marerijk",
         "single_rider": "false"
     }
 }
