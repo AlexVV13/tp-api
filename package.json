@@ -1,6 +1,6 @@
 {
-  "name": "tp-api",
-  "version": "1.0.1",
+  "name": "@alexvv13/tpapi",
+  "version": "1.0.3",
   "type": "module",
   "description": "Api to fetch themepark data, such as queues, operating hours etc",
   "engines": {
@@ -50,5 +50,8 @@
   "bugs": {
     "url": "https://github.com/AlexVV13/tp-api/issues"
   },
-  "homepage": "https://github.com/AlexVV13/tp-api#readme"
+  "homepage": "https://github.com/AlexVV13/tp-api#readme",
+  "directories": {
+    "lib": "lib"
+  }
 }

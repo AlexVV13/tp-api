@@ -1,6 +1,7 @@
 # Themeparks-API
 Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don't expect anything too cool tho.
 [API documentation](https://alexvv13.github.io/tp-api "API Documentation")
+Current Version: 1.0.3
 
 ## About
 This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it's not perfect, but it works. It's just being build to work and return data, not to be efficient anyway.
@@ -36,7 +37,7 @@ This is a module which fetches queue times and operating hours, and returns it a
 ### Clone the repository
 First, clone the repository
 ``` 
-$ git clone https://github.com/AlexVV13/tp-api.git
+$ npm i @alexvv13/tpapi
 ``` 
 Now the repository is cloned in your document root, install the dependencies now
 ### Dependencies
@@ -52,11 +53,13 @@ After that, fill in the .env fields, using some research this could be an easy t
 Run index.js for all parks </br>
 Or create an .js file for yourself and do the following: </br>
 ```javascript
-//Import the park
-const tpapi = require('./data/parks/index')
+// Import all parks here
+import tpapi from './lib/parks/index.js';
 
-//Run whatever you want
-tpapi.Parks.${parkName}.getData();
+const park = new tpapi.parks.EuropaPark(); 
+
+// Fetch POIS
+park.getWaitTime(); // Fetch the queues for, in this example, EuropaPark
 ```
    
 ## Currently Working Parks
@@ -64,6 +67,7 @@ Park Name | Live Queues | Park Hours
 ------------ | ------------- | ----------
 Efteling |:heavy_check_mark:|:heavy_check_mark:
 Walibi Holland |:heavy_check_mark:|:heavy_multiplication_x:
+Europa-Park |:heavy_check_mark|:heavy_multiplication_x:
 
 ## Tasks
 - [ ] Add more parks
