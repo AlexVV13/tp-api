@@ -1201,7 +1201,7 @@
     "__docId__": 81,
     "kind": "file",
     "name": "lib/parks/index.js",
-    "content": "// Import parks\n// Efteling\nimport Efteling from './efteling/efteling.js';\n// Compagnie des Alpes\nimport WalibiHolland from './walibi/walibiholland.js';\n// EuropaPark\n// import EuropaPark from './parks/europapark/europapark.js';\n\nexport default {\n  parks: {\n    Efteling,\n    WalibiHolland,\n  },\n  allParks: [\n    Efteling,\n    WalibiHolland,\n  ],\n};\n",
+    "content": "/**\n* Import all the parks included in the library\n*/\n// Efteling\nimport Efteling from './efteling/efteling.js';\n// Compagnie des Alpes\nimport WalibiHolland from './walibi/walibiholland.js';\n// EuropaPark\n// import EuropaPark from './parks/europapark/europapark.js';\n\n/**\n* Export all parks as string\n*/\nexport default {\n  parks: {\n    Efteling,\n    WalibiHolland,\n  },\n  allParks: [\n    Efteling,\n    WalibiHolland,\n  ],\n};\n",
     "static": true,
     "longname": "/home/runner/work/tp-api/tp-api/lib/parks/index.js",
     "access": "public",

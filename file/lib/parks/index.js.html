@@ -36,7 +36,9 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/index.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// Import parks
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+* Import all the parks included in the library
+*/
 // Efteling
 import Efteling from &apos;./efteling/efteling.js&apos;;
 // Compagnie des Alpes
@@ -44,6 +46,9 @@ import WalibiHolland from &apos;./walibi/walibiholland.js&apos;;
 // EuropaPark
 // import EuropaPark from &apos;./parks/europapark/europapark.js&apos;;
 
+/**
+* Export all parks as string
+*/
 export default {
   parks: {
     Efteling,
