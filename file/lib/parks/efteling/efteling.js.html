@@ -54,17 +54,27 @@ export class Efteling {
   constructor() {
     this.name = &apos;Efteling&apos;;
 
-    this.latutude = 48.266140769976715;
-    this.longitude = 7.722050520358709;
+    // Set the parks entrance as it&apos;s default location
+    this.latutude = 51.65098350641645;
+    this.longitude = 5.049916835374731;
 
     this.timezone = &apos;Europe/Amsterdam&apos;;
 
+    // Load the .ENV variables here
     this.searchURL = process.env.EFTELING_SEARCH_URL;
     this.apiKey = process.env.EFTELING_API_KEY;
     this.waitTimesURL = process.env.EFTELING_WAITTIMES_URL;
     this.histURL = process.env.EFTELING_HIST_URL;
 
     this.language = process.env.LANGUAGE;
+
+    if (!this.searchURL) throw new Error(&apos;Missing Efteling search url!&apos;);
+    if (!this.apiKey) throw new Error(&apos;Missing Efteling apiKey!&apos;);
+    if (!this.waitTimesURL) throw new Error(&apos;Missing Efteling waittimes url!&apos;);
+    if (!this.histURL) throw new Error(&apos;Missing Efteling Operating Hours url!&apos;);
+    if (!this.language) {
+      this.language = &apos;en&apos;;
+    }
   }
 
   // Load the Efteling poidata

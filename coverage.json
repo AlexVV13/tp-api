@@ -8,14 +8,14 @@
       "actualCount": 8,
       "undocumentLines": [
         17,
-        19,
         20,
-        22,
-        24,
-        25,
+        21,
+        23,
         26,
         27,
-        29
+        28,
+        29,
+        31
       ]
     },
     "lib/parks/europapark/europapark.js": {
