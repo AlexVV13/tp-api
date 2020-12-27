@@ -25,9 +25,9 @@ This is a module which fetches queue times and operating hours, and returns it a
 [Changelog](#changelog) </br>
 [Parks available](#parks-available) </br>
 [Features of supported parks](#features-of-the-parks) </br>
+[Result objects](#result-objects) </br>
 [  -Ride waittimes](#ride-waittimes) </br>
 [  -Schedules](#schedules) </br>
-[Result objects](#result-objects) </br>
 [Park object values](#park-object-values) </br>
 [Tasks](#tasks) </br>
 
