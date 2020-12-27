@@ -38,7 +38,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/europapark/europapark.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fetch from &apos;node-fetch&apos;;
-import fs from &apos;fs&apos;;
+// import fs from &apos;fs&apos;;
 
 import dotenv from &apos;dotenv&apos;;
 dotenv.config();
@@ -173,12 +173,12 @@ export class EuropaPark {
               };
             };
           });
-          fs.writeFile(&apos;./data/parks/europapark/europapark_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
+          /* fs.writeFile(&apos;./data/parks/europapark/europapark_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
             if (err) return console.log(err);
           });
           fs.writeFile(&apos;./data/parks/europapark/europapark_poi_mock.json&apos;, JSON.stringify(rideData.pois, null, 4), function(err) {
             if (err) return console.log(err);
-          });
+          }); */
           return Promise.resolve(poi);
         });
   };

@@ -67,13 +67,13 @@ Current Version: 1.0.4</p>
 <h2 id="setup">Setup</h2><h3 id="clone-the-repository">Clone the repository</h3><p>First, clone the repository</p>
 <pre><code><code class="source-code prettyprint">$ npm i @alexvv13/tpapi</code>
 </code></pre><p>Now the repository is cloned in your document root, install the dependencies now</p>
-<h3 id="dependencies">Dependencies</h3><p>First, install the dependencies, this can be easily achieved by running npm:<br></p>
-<pre><code><code class="source-code prettyprint">$ npm i</code>
-</code></pre><h3 id="env">ENV</h3><p>After that, fill in the .env fields, using some research this could be an easy task. </p>
+<h3 id="dependencies">Dependencies</h3><p>Dependencies are now being installed with the package</p>
+<h3 id="env">ENV</h3><p>In the directory where you&apos;re using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example</p>
 <h2 id="usage">Usage</h2><h3 id="running-the-script">Running the script</h3><p>Run index.js for all parks <br>
+NOTE: If you use commonjs, it&apos;s REQUIRED to use the .mjs extension INSTEAD of .js! <br>
 Or create an .js file for yourself and do the following: <br></p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">// Import all parks here
-import tpapi from &apos;@alexvv13/tpapi&apos;; // Or use require: const tpapi = require(&apos;@alexvv13/tpapi&apos;);
+import tpapi from &apos;@alexvv13/tpapi&apos;; // 
 
 const park = new tpapi.parks.EuropaPark(); 
 
