@@ -680,9 +680,9 @@
                                 "line": 20,
                                 "column": 17
                               },
-                              "identifierName": "latutude"
+                              "identifierName": "latitude"
                             },
-                            "name": "latutude"
+                            "name": "latitude"
                           },
                           "computed": false,
                           "leadingComments": null
@@ -8870,7 +8870,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "latutude",
+      "value": "latitude",
       "start": 415,
       "end": 423,
       "loc": {

@@ -600,9 +600,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "lib/parks/walibi/walibiholland.js~walibiholland#latutude",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-latutude",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#latutude",
+    "lib/parks/walibi/walibiholland.js~walibiholland#latitude",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-latitude",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#latitude",
     "member"
   ],
   [
