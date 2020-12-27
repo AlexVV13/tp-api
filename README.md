@@ -69,6 +69,5 @@ Walibi Holland |:heavy_check_mark:|:heavy_multiplication_x:
 - [ ] Add more parks
 - [ ] Multi language support
 - [ ] Multiple Queue entities support
-- [x] Timezone support
 
 
