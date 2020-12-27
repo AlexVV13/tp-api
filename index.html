@@ -36,41 +36,55 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="themeparks-api">Themeparks-API</h1><p>Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don&apos;t expect anything too cool tho.<br>
-<a href="https://alexvv13.github.io/tp-api" title="API Documentation">API documentation</a> <br>
-<a href="https://www.npmjs.com/package/@alexvv13/tpapi" title="NPM Package">NPM Package</a> <br>
-Current Version: 1.0.10<br></p>
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="themeparks-api">Themeparks-API</h1><p>Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don&apos;t expect anything too cool tho.<br></p>
+<p><img src="https://github.com/alexvv13/tp-api/workflows/Unit%20Test/badge.svg" alt="Unit Test">
+<img src="https://github.com/alexvv13/tp-api/workflows/ESDoc/badge.svg" alt="Documentation Build">
+<img src="https://github.com/alexvv13/tp-api/workflows/Node.js%20CI/badge.svg" alt="Node.js CI">
+<a href="https://travis-ci.com/alexvv13/tp-api"><img src="https://api.travis-ci.com/alexvv13/tp-api.svg?branch=master" alt="Build Status"></a>
+<a href="https://badge.fury.io/js/%40alexvv13%2Ftpapi"><img src="https://badge.fury.io/js/%40alexvv13%2Ftpapi.svg" alt="npm version"></a>
+<img src="https://img.shields.io/snyk/vulnerabilities/github/alexvv13/tp-api.svg" alt="Snyk Vulnerabilities for GitHub Repo"></p>
+<p><a href="https://alexvv13.github.io/tp-api" title="API Documentation">API documentation</a> <br>
+<a href="https://www.npmjs.com/package/@alexvv13/tpapi" title="NPM Package">NPM Package</a> <br></p>
 <h2 id="about">About</h2><p>This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it&apos;s not perfect, but it works. It&apos;s just being build to work and return data, not to be efficient anyway.</p>
 <h2 id="table-of-contents">Table of Contents</h2><p><a href="#about">About</a><br>
 <a href="#table-of-contents">Table of Contents</a> <br>
-<a href="#requirements">Requirements</a> <br>
-<a href="#applications">  -Applications</a> <br>
-<a href="#node-modules">  -Node Modules</a> <br>
-<a href="#other">  -Other</a> <br>
-<a href="#setup">Setup</a> <br>
-<a href="#dependencies">  -Dependencies</a> <br>
-<a href="#env">  -ENV</a> <br>
+<a href="#install">Install</a> <br>
+<a href="#env">ENV</a> <br>
 <a href="#usage">Usage</a> <br>
-<a href="#viewing">  -Viewing</a> <br>
-<a href="#currently-working-parks">Park List</a> <br>
+<a href="#running-the-script">  -Running the script</a> <br>
+<a href="#example-output">  -Example output</a> <br>
+<a href="#changelog">Changelog</a> <br>
+<a href="#parks-available">Parks available</a> <br>
+<a href="#features-of-the-parks">Features of supported parks</a> <br>
+<a href="#ride-waittimes">  -Ride waittimes</a> <br>
+<a href="#schedules">  -Schedules</a> <br>
+<a href="#result-objects">Result objects</a> <br>
+<a href="#park-object-values">Park object values</a> <br>
 <a href="#tasks">Tasks</a> <br></p>
-<h2 id="requirements">Requirements</h2><h3 id="applications">Applications</h3><ul>
-<li>Git</li>
-<li>Latest version of Nodejs</li>
-<li>Other applications are dependent on whatever you want.</li>
-</ul>
-<h3 id="node-modules">Node Modules</h3><ul>
-<li>All included in package.json</li>
-</ul>
-<h3 id="other">Other</h3><ul>
-<li>A working pc perhaps</li>
-</ul>
-<h2 id="setup">Setup</h2><h3 id="clone-the-repository">Clone the repository</h3><p>First, clone the repository</p>
-<pre><code><code class="source-code prettyprint">$ npm i @alexvv13/tpapi</code>
-</code></pre><p>Now the repository is cloned in your document root, install the dependencies now</p>
-<h3 id="dependencies">Dependencies</h3><p>Dependencies are now being installed with the package</p>
-<h3 id="env">ENV</h3><p>In the directory where you&apos;re using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example</p>
-<h2 id="usage">Usage</h2><h3 id="running-the-script">Running the script</h3><p>Run index.js for all parks <br>
+<h2 id="install">Install</h2><pre><code><code class="source-code prettyprint">npm install themeparks --save</code>
+</code></pre><h2 id="env">ENV</h2><p>In the directory where you&apos;re using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example, or copy below&apos;s example and fill in the fields yourself</p>
+<pre><code><code class="source-code prettyprint">LANGUAGES= &apos;en&apos;
+LANG_UPPER= &apos;EN&apos;
+
+EFTELING_API_KEY= 
+EFTELING_APP_VERSION= 
+EFTELING_API_VERSION= 
+EFTELING_API_PLATFORM= 
+
+EFTELING_SEARCH_URL= 
+EFTELING_WAITTIMES_URL= 
+EFTELING_HIST_URL= 
+
+EUROPAPARK_APIBASE= 
+EUROPAPARK_LOGINSTRING= 
+EUROPAPARK_LOGIN= 
+EUROPAPARK_REFRESH= 
+
+WALIBIHOLLAND_APIBASE= 
+WALIBIHOLLAND_APIURL= 
+WALIBIBELGIUM_APIBASE=
+WALIBIRA_APIBASE=</code>
+</code></pre><h2 id="usage">Usage</h2><h3 id="running-the-script">Running the script</h3><p>Run index.js for all parks <br>
 NOTE: If you use commonjs, it&apos;s REQUIRED to use the .mjs extension INSTEAD of .js! <br>
 Or create an .js file for yourself and do the following: <br></p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">// Import all parks here
@@ -85,7 +99,7 @@ park.getWaitTime().then((poiData) =&gt; {
 
 // You can also call getCalendar() or getData()</code>
 </code></pre>
-<p>Example output (Shortened to keep it readable)</p>
+<h3 id="example-output">Example output</h3><p>(Shortened to keep it readable)</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">{
     &quot;name&quot;: &quot;Stoomcarrousel&quot;,
     &quot;id&quot;: &quot;Efteling_stoomcarrousel&quot;,
@@ -119,7 +133,18 @@ park.getWaitTime().then((poiData) =&gt; {
     }
 }</code>
 </code></pre>
-<h2 id="currently-working-parks">Currently Working Parks</h2><table>
+<h2 id="changelog">Changelog</h2><p><a href="CHANGELOG.md">View tp-api Changelog</a></p>
+<h2 id="parks-available">Parks available</h2><p><!-- START_SUPPORTED_PARKS_LIST -->
+</p>
+<p><strong>3</strong> Parks Supported</p>
+<ul>
+<li>Efteling (tpapi.parks.Efteling)</li>
+<li>Europa-Park (tpapi.parks.EuropaPark)</li>
+<li>Walibi Holland (tpapi.parks.WalibiHolland)</li>
+</ul>
+<p><!-- END_SUPPORTED_PARKS_LIST -->
+</p>
+<h2 id="features-of-the-parks">Features of the parks</h2><table>
 <thead>
 <tr>
 <th>Park Name</th>
@@ -142,6 +167,70 @@ park.getWaitTime().then((poiData) =&gt; {
 <td>Europa-Park</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
+</tr>
+</tbody>
+</table>
+<h2 id="result-objects">Result Objects</h2><h3 id="ride-waittimes">Ride WaitTimes</h3><pre><code><code class="source-code prettyprint">[
+    {
+        id: (string or number: uniquely identifying a ride),
+        name: (string: ride name),
+        waitTime: (number: current wait time in minutes),
+        active: (bool: is the ride currently active?),
+        location: (object: contains location data such as latlon
+             latitude: (number: ride&apos;s latitude),
+             longitude: (number: ride&apos;s longitude),
+        meta: { (object: can contain various park-specific information about this ride - field may be null)
+            // examples of potential meta fields
+            singleRider: (boolean: does this ride have a single rider line?),
+            type: (string: what is this poi?),
+            area: (string: section of the park this ride is located within),
+        },
+        status: (string: will either be &quot;Operating&quot;, &quot;Closed&quot;, &quot;Refurbishment&quot;, or &quot;Down&quot;),
+    },
+    ...
+]</code>
+</code></pre><h3 id="schedules">Schedules</h3><pre><code><code class="source-code prettyprint">[
+    {
+        date: (dateFormat timestamp: day this schedule applies),
+        openingTime: (timeFormat timestamp: opening time for requested park - can be null if park is closed),
+        closingTime: (timeFormat timestamp: closing time for requested park - can be null if park is closed),
+        type: (string: &quot;Operating&quot; or &quot;Closed&quot;),
+        special: [ (array of &quot;special&quot; times for this day, usually Disney Extra Magic Hours or similar at other parks - field may be null)
+          openingTime: (timeFormat timestamp: opening time for requested park),
+          closingTime: (timeFormat timestamp: closing time for requested park),
+          type: (string: type of schedule eg. &quot;Extra Magic Hours&quot;, but can be &quot;Event&quot; or &quot;Special Ticketed Event&quot; or other)
+        ],
+    },
+    ...
+]</code>
+</code></pre><h2 id="park-object-values">Park Object values</h2><p>There are some values available on each park object that may be useful.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Variable</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td style="text-align:left">Name of the park</td>
+</tr>
+<tr>
+<td style="text-align:left">Timezone</td>
+<td style="text-align:left">The park&apos;s local timezone</td>
+</tr>
+<tr>
+<td style="text-align:left">latitude</td>
+<td style="text-align:left">This park&apos;s latitude</td>
+</tr>
+<tr>
+<td style="text-align:left">longitude</td>
+<td style="text-align:left">This park&apos;s longitude</td>
+</tr>
+<tr>
+<td style="text-align:left">langoptions</td>
+<td style="text-align:left">What languages does this park support?</td>
 </tr>
 </tbody>
 </table>
