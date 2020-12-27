@@ -5,8 +5,10 @@ Themeparks API loosely based on existing examples, however I wanted to kill some
 ![Documentation Build](https://github.com/alexvv13/tp-api/workflows/ESDoc/badge.svg)
 ![Node.js CI](https://github.com/alexvv13/tp-api/workflows/Node.js%20CI/badge.svg)
 [![Build Status](https://api.travis-ci.com/alexvv13/tp-api.svg?branch=master)](https://travis-ci.com/alexvv13/tp-api)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/alexvv13/tp-api.svg) </br>
+
+![node-current](https://img.shields.io/node/v/@alexvv13/tpapi)
 [![npm version](https://badge.fury.io/js/%40alexvv13%2Ftpapi.svg)](https://badge.fury.io/js/%40alexvv13%2Ftpapi)
-![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/alexvv13/tp-api.svg)
 
 [API documentation](https://alexvv13.github.io/tp-api "API Documentation") </br>
 [NPM Package](https://www.npmjs.com/package/@alexvv13/tpapi "NPM Package") </br>
