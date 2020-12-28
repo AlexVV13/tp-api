@@ -1,5 +1,5 @@
 // Import all parks here
-import tpapi from './lib/index.js';
+import tpapi from '@alexvv13/tpapi';
 
 const park = new tpapi.parks.EuropaPark();
 

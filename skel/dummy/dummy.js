@@ -29,6 +29,13 @@ export class Dummy extends Park {
     options.latitude = 52.4390338;
     options.longitude = 5.7665651;
 
+    // Options for our park Object
+    options.supportswaittimes = 'true';
+    options.supportsschedule = 'false';
+    options.supportsrideschedules = 'false';
+    options.fastPass = 'true';
+    options.FastPassReturnTimes = 'false';
+
     // Api options
     options.apiUrl = options.apiUrl || process.env.DUMMY_APIURL;
     options.apiKey = options.apiBase || process.env.DUMMY_APIKEY;

@@ -205,6 +205,28 @@ There are some values available on each park object that may be useful.
 | longitude             | This park's longitude                                                                                       |
 | langoptions           | What languages does this park support?                                                                      |
 
+    import tpapi from '@alexvv13/tpapi';
+
+    // construct our park objects and keep them in memory for fast access later
+    const Parks = {};
+    for (const park in tpapi.parks) {
+      Parks[park] = new tpapi.parks[park]();
+    }
+
+    // print each park's name, current location, and timezone
+    for (const park in Parks) {
+      console.log(`* ${Parks[park].Name} [${Parks[park].LocationString}]: (${Parks[park].Timezone})`);
+    }
+
+Prints:
+
+<!-- START_PARK_TIMEZONE_LIST -->
+
+* Efteling [51.65098350641645, 5.049916835374731]: (Europe/Amsterdam)
+* Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)
+* Europa-Park [48.266140769976715, 7.722050520358709]: (Europe/Berlin)
+
+<!-- END_PARK_TIMEZONE_LIST -->
 
 ## Tasks
 - [ ] Add more parks
