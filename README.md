@@ -205,4 +205,5 @@ There are some values available on each park object that may be useful.
 - [ ] Multiple Queue entities support
 - [ ] Completely purge file-system
 - [ ] Merge shared tasks to one function
+- [ ] Generate a better infrastructure
 
