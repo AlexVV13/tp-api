@@ -201,9 +201,14 @@ There are some values available on each park object that may be useful.
 | :-------------------- | :---------------------------------------------------------------------------------------------------------- |
 | Name                  | Name of the park                                                                                            |
 | Timezone              | The park's local timezone                                                                                   |
-| latitude              | This park's latitude                                                                                        |
-| longitude             | This park's longitude                                                                                       |
-| langoptions           | What languages does this park support?                                                                      |
+| LocationString        | This park's location as a [latitude, longitude] string                                                                |
+| SupportsWaitTimes     | Does this park's API support ride wait times?                                                               |
+| SupportsOpeningTimes  | Does this park's API support opening hours?                                                                 |
+| SupportsRideSchedules | Does this park return schedules for rides?                                                                  |
+| FastPass              | Does this park have FastPass (or a FastPass-style service)?                                                 |
+| FastPassReturnTimes   | Does this park tell you the FastPass return times?                                                          |
+| Now                   | Current date/time at this park (returned as a Moment object)                                                |
+| LangOptions             | What languages does this park support? ||
 
     import tpapi from '@alexvv13/tpapi';
 
