@@ -207,9 +207,10 @@ export class EuropaPark {
           const rides = [];
           poiData.waitingtimes.forEach((ridetime) =&gt; {
           // Declare default for rides that doesn&apos;t fetch right now
-            let waitTime = &apos;0&apos;;
-            let state = &apos;Closed&apos;;
-            let active = &apos;false&apos;;
+            let waitTime = null;
+            let state = null;
+            let active = null; // Accepting null as value, since some rides never will join the queue api because they simply never have a queue
+            // However, setting &apos;0&apos; &amp; state will set the ride all day closed, which isn&apos;t true obviously
 
             if (ridetime.time &gt; 0 &amp;&amp; ridetime.time &lt; 91) {
               waitTime = ridetime.time;
