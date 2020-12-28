@@ -566,41 +566,157 @@
   {
     "__docId__": 48,
     "kind": "file",
-    "name": "lib/parks/efteling/efteling.js",
-    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\n// import fs from 'fs';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Efteling Park Object\n*/\nexport class Efteling {\n  /**\n   * Create a new Efteling Park object\n   * @param {object} options\n   */\n  constructor() {\n    this.name = 'Efteling';\n\n    // Set the parks entrance as it's default location\n    this.latitude = 51.65098350641645;\n    this.longitude = 5.049916835374731;\n\n    this.timezone = 'Europe/Amsterdam';\n\n    // Load the .ENV variables here\n    this.searchURL = process.env.EFTELING_SEARCH_URL;\n    this.apiKey = process.env.EFTELING_API_KEY;\n    this.waitTimesURL = process.env.EFTELING_WAITTIMES_URL;\n    this.histURL = process.env.EFTELING_HIST_URL;\n\n    // New Lang Variable, this is hard since os'es exports these itself (Windows uses LANG, Linux language etc)\n    this.languages = process.env.LANGUAGES;\n\n    if (!this.searchURL) throw new Error('Missing Efteling search url!');\n    if (!this.apiKey) throw new Error('Missing Efteling apiKey!');\n    if (!this.waitTimesURL) throw new Error('Missing Efteling waittimes url!');\n    if (!this.histURL) throw new Error('Missing Efteling Operating Hours url!');\n    if (!this.languages) {\n      this.languages = 'en';\n    }\n\n    this.langoptions = `{'en', 'fr', 'de', 'nl'}`;\n  }\n\n  // Load the Efteling poidata\n  // const poidata = ('./data/parks/efteling/efteling_pois.json');\n  // const poimock = ('./data/parks/efteling/efteling_poi_mock.json');\n\n  /**\n  * Get Efteling POI data\n  * This data contains general ride names, descriptions etc.\n  * @return {string} All Efteling POIS without queuetimes\n  */\n  async getPOIS() {\n    return fetch(this.searchURL +\n      `search?q.parser=structured&size=1000&q=(and (phrase field%3Dlanguage '$${this.languages}'))`,\n    {\n      method: 'GET',\n      headers: {\n        Authorization: this.apiKey,\n      },\n    },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = {};\n          let singlerider = 'false'; // Let singlerider be false as default\n          rideData.hits.hit.forEach((ride) => {\n            if (ride.fields.category === 'attraction' && ride.fields.hide_in_app !== 'false') {\n              if (ride.fields.alternateid && ride.fields.alternateid.indexOf('singlerider')) {\n                singlerider = 'true'; // Initial single rider implementation\n              } else {\n                singlerider = 'false';\n              }\n              // Split the language specific part out\n              const ids = ride.id;\n              const idSplit = ids.split('-');\n              const id = idSplit[0];\n              // Split latlon\n              const latlon = ride.fields.latlon;\n              const latlonSplit = latlon.split(',');\n              const lat = latlonSplit[0];\n              const lon = latlonSplit[1];\n\n              // Poi Object\n              poi[id] = {\n                name: ride.fields.name,\n                id: id,\n                waitTime: null,\n                state: null,\n                active: null,\n                location: {\n                  latitude: lat,\n                  longitude: lon,\n                },\n                meta: {\n                  single_rider: singlerider,\n                  type: ride.fields.category,\n                  area: ride.fields.empire,\n                },\n              };\n            }\n          });\n          /* fs.writeFile('./data/parks/efteling/efteling_pois.json', JSON.stringify(poi, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          fs.writeFile('./data/parks/efteling/efteling_poi_mock.json', JSON.stringify(rideData.hits.hit, null, 4), function(err) {\n            if (err) return console.log(err);\n          }); */\n          return Promise.resolve(poi);\n        });\n  }\n\n  /**\n  * Get Efteling QueueTimes data\n  * This data contains the queue data, we'll assign them to the earlier fetched pois\n  * @return {string} All Efteling POIS with queuetimes\n  */\n  async getQueue() {\n    return await this.getPOIS().then((rideData) => fetch(this.waitTimesURL,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const rides = [];\n          // Park is closed, and nothing is returned, attach that here.\n          if (!json.AttractionInfo.length) {\n            Object.keys(rideData).forEach((ride) => {\n            // Update the variables to the closed rides\n              rideData[ride].waitTime = '0';\n              rideData[ride].state = 'Closed';\n              rideData[ride].active = 'false';\n              // Create the ride Object\n              const rideobj = {\n                name: rideData[ride].name,\n                id: 'Efteling_' + rideData[ride].id,\n                waitTime: rideData[ride].waitTime,\n                state: rideData[ride].state,\n                active: rideData[ride].active,\n                location: {\n                  latitude: rideData[ride].location.latitude,\n                  longitude: rideData[ride].location.longitude,\n                },\n                meta: {\n                  type: rideData[ride].meta.type,\n                  area: rideData[ride].meta.area,\n                  single_rider: rideData[ride].meta.single_rider,\n                },\n              };\n              rides.push(rideobj);\n            });\n\n            return Promise.resolve(rides);\n          }\n\n          // If there are rides listed, fetch them here.\n          json.AttractionInfo.forEach((ridetime) => {\n            // Fetch Rides when park is open\n          });\n        }),\n    );\n  };\n\n  /**\n  * Get Efteling Park Hours data\n  * This data contains the hours data, used to display the operating hours of Efteling\n  * @return {string} All Efteling Operating Hours for 1mo\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    const currentMonth = moment().format('MM');\n\n    return fetch(\n        this.histURL +\n        `${currentYear}/${currentMonth}`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          if (!json.OpeningHours.length) {\n          // Park is closed, do nothing but returning today as empty string\n            const hours = {\n              date: moment().format('YYYY-MM-DD'),\n              type: 'Closed',\n              openingTime: moment('23:59', 'HH:mm a').format(),\n              closingTime: moment('23:59', 'HH:mm a').format(),\n              special: [],\n            };\n            Calendar.push(hours);\n          } else {\n          // Return the actual opening hours\n            json.OpeningHours.forEach((cal) => {\n              let date = moment.tz(`${cal.Date}`, 'YYYY-MM-DD', 'Europe/Amsterdam');\n              date = moment(date).format('YYYY-MM-DD');\n              cal.OpeningHours.forEach((cal1) => {\n                let open = moment.tz(`${date}${cal1.Open}`, 'YYYY-MM-DDHH:mm', 'Europe/Amsterdam');\n                open = moment(open).format();\n                let close = moment.tz(`${date}${cal1.Close}`, 'YYYY-MM-DDHH:mm', 'Europe/Amsterdam');\n                close = moment(close).format();\n                const type = 'Operating';\n\n                const hours = {\n                  closingTime: close,\n                  openingTime: open,\n                  type: type,\n                  special: [],\n                  date: date,\n                };\n                Calendar.push(hours);\n              });\n            });\n          };\n          return Promise.resolve(Calendar);\n        });\n  }\n\n  /**\n  * Get All Data of Efteling\n  * This data contains all Efteling's data, which is fetched earlier\n  * @return {string} all park data\n  */\n  async getData() {\n    const rides = await this.getQueue();\n    const hours = await this.getOpHours();\n\n    const string = JSON.stringify({rides, hours}, null, 4);\n\n    return Promise.resolve(string);\n  }\n\n  /**\n  * Get All Calendar Data of Efteling\n  * This data contains all the calendar data of Efteling\n  * @return {string} operating hours\n  */\n  getCalendar() {\n    return this.getOpHours().then((hours) => Promise.resolve(hours));\n  }\n\n  /**\n  * Get All Queues of Efteling\n  * This data contains all the Queues in Efteling\n  * @return {string} WaitTimes\n  */\n  getWaitTime() {\n    return this.getQueue().then((rides) => Promise.resolve(rides));\n  }\n};\n\nexport default Efteling;\n\n",
+    "name": "lib/configBase.js",
+    "content": "// load any environment variables from .env (if it exists)\nimport DotEnv from 'dotenv';\nDotEnv.config();\n\nimport EventEmitter from 'events';\n\n/**\n * Combine given options with environment variables\n * @param {object} options Incoming options\n * @return {object} Processed configuration options\n */\nexport function parseConfig(options = {}) {\n  const configKeys = Object.keys(options);\n\n  const config = {};\n\n  options.configPrefixes = ['TPAPI'].concat(\n      options.configPrefixes || [],\n  );\n\n  // build this.config object with our settings\n  configKeys.forEach((key) => {\n    // default prefixes are either \"classname_\" or \"TPAPI\"\n    //  classes can add more with configPrefixes\n    options.configPrefixes.forEach((prefix) => {\n      const configEnvName = `${prefix}_${key}`.toUpperCase();\n\n      if (process.env[configEnvName]) {\n        // console.log(`Using env variable ${configEnvName}`);\n        config[key] = process.env[configEnvName];\n        // console.log(` ${key}(env.${configEnvName})=${config[key]}`);\n      }\n    });\n\n    if (config[key] === undefined) {\n      config[key] = options[key];\n    } else {\n      // convert env variable to number if the base default is a number\n      if (typeof config[key] === 'number') {\n        config[key] = Number(config[key]);\n      } else if (typeof config[key] === 'boolean') {\n        // convert any boolean configs too\n        config[key] = (config[key] === 'true');\n      }\n    }\n  });\n\n  return config;\n}\n\n/**\n * Base Config Object\n * Supports classes with a single argument \"options\"\n * These will be sorted into a member called \"this.config\" containing all the same keys\n *\n * Crucially, these can also be overriden through environment variables\n * For example, for a config option \"timeout\" for class Database, this could be overriden through either:\n *   env.TPAPI_TIMEOUT (using a \"global module name\")\n *\n * Classes can also add additional prefixes to the supported environment variables through:\n *   new ClassInstance({configPrefixes: ['myCustomPrefix']});\n * Which would also allow env.MYCUSTOMPREFIX_TIMEOUT to be used\n *\n * Note that a default value must be supplied for the environment variable to be processed\n * If the default value is a number, the environment variable will be cast to a number as well\n * @class\n */\nexport class ConfigBase extends EventEmitter {\n  /**\n   * A base class that can be configured through environment variables\n   * @param {object} options Config for instantiating this object\n   */\n  constructor(options = {}) {\n    super();\n\n    options.configPrefixes = [this.constructor.name].concat(\n        options.configPrefixes || [],\n    );\n\n    this.config = parseConfig(options || {});\n  }\n}\n\nexport default ConfigBase;\n",
     "static": true,
-    "longname": "/home/runner/work/tp-api/tp-api/lib/parks/efteling/efteling.js",
+    "longname": "/home/runner/work/tp-api/tp-api/lib/configBase.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
     "__docId__": 49,
-    "kind": "class",
-    "name": "Efteling",
-    "memberof": "lib/parks/efteling/efteling.js",
+    "kind": "function",
+    "name": "parseConfig",
+    "memberof": "lib/configBase.js",
+    "generator": false,
+    "async": false,
     "static": true,
-    "longname": "lib/parks/efteling/efteling.js~Efteling",
+    "longname": "lib/configBase.js~parseConfig",
     "access": "public",
     "export": true,
-    "importPath": "@alexvv13/tpapi/lib/parks/efteling/efteling.js",
-    "importStyle": "{Efteling}",
-    "description": "Efteling Park Object",
-    "lineNumber": 11,
-    "interface": false
+    "importPath": "@alexvv13/tpapi/lib/configBase.js",
+    "importStyle": "{parseConfig}",
+    "description": "Combine given options with environment variables",
+    "lineNumber": 12,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": "Incoming options"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "object"
+      ],
+      "spread": false,
+      "description": "Processed configuration options"
+    }
   },
   {
     "__docId__": 50,
+    "kind": "class",
+    "name": "ConfigBase",
+    "memberof": "lib/configBase.js",
+    "static": true,
+    "longname": "lib/configBase.js~ConfigBase",
+    "access": "public",
+    "export": true,
+    "importPath": "@alexvv13/tpapi/lib/configBase.js",
+    "importStyle": "{ConfigBase}",
+    "description": "Base Config Object<br />Supports classes with a single argument \"options\"<br />These will be sorted into a member called \"this.config\" containing all the same keys<br /><br />Crucially, these can also be overriden through environment variables<br />For example, for a config option \"timeout\" for class Database, this could be overriden through either:<br />  env.TPAPI_TIMEOUT (using a \"global module name\")<br /><br />Classes can also add additional prefixes to the supported environment variables through:<br />  new ClassInstance({configPrefixes: ['myCustomPrefix']});<br />Which would also allow env.MYCUSTOMPREFIX_TIMEOUT to be used<br /><br />Note that a default value must be supplied for the environment variable to be processed<br />If the default value is a number, the environment variable will be cast to a number as well",
+    "lineNumber": 68,
+    "unknown": [
+      {
+        "tagName": "@class",
+        "tagValue": ""
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "events~EventEmitter"
+    ]
+  },
+  {
+    "__docId__": 51,
     "kind": "constructor",
     "name": "constructor",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
+    "memberof": "lib/configBase.js~ConfigBase",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#constructor",
+    "longname": "lib/configBase.js~ConfigBase#constructor",
     "access": "public",
-    "description": "Create a new Efteling Park object",
-    "lineNumber": 16,
+    "description": "A base class that can be configured through environment variables",
+    "lineNumber": 73,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": "Config for instantiating this object"
+      }
+    ]
+  },
+  {
+    "__docId__": 52,
+    "kind": "member",
+    "name": "config",
+    "memberof": "lib/configBase.js~ConfigBase",
+    "static": false,
+    "longname": "lib/configBase.js~ConfigBase#config",
+    "access": "public",
+    "description": null,
+    "lineNumber": 80,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "file",
+    "name": "lib/entity.js",
+    "content": "import ConfigBase from './configBase.js';\nimport moment from 'moment-timezone';\n\n/**\n * A super-class that Parks/Resorts/etc. inherit from.\n * Handles general logic for objects that are a place/entity.\n */\nexport class Entity extends ConfigBase {\n  /**\n   * Construct a new Entity\n   * @param {object} options\n   */\n  constructor(options = {}) {\n    // offline mode, never request any data, rely on manually serialised data to run\n    options.offline = options.offline || false;\n\n    // generate a random Android user-agent if we aren't supplied one\n    options.useragent = options.useragent || null;\n\n    super(options);\n\n    if (!this.config.name) {\n      throw new Error(`Missing name for constructed Entity object ${this.constructor.name}`);\n    }\n\n    if (!this.config.timezone) {\n      throw new Error(`Missing timezone for constructed Entity object ${this.constructor.name}`);\n    }\n    if (moment.tz.names().indexOf(this.config.timezone) < 0) {\n      throw new Error(`Entity object ${this.constructor.name} gives an invalid timezone: ${this.config.timezone}`);\n    }\n  }\n\n  /**\n   * Debug log\n   * @param  {...any} args Message to debug log\n   */\n  log(...args) {\n    console.log(`[\\x1b[32m${this.getUniqueID()}\\x1b[0m]`, ...args);\n  }\n\n  /**\n   * Get a globally unique ID for this entity\n   * @return {string}\n   */\n  getUniqueID() {\n    // by default, return the class name\n    return this.constructor.name;\n  }\n\n  /**\n   * Return the current time for this entity in its local timezone\n   * @return {moment}\n   */\n  getTimeNowMoment() {\n    return moment().tz(this.config.timezone);\n  }\n\n  /**\n   * Return the current time for this entity in its local timezone\n   * @return {string}\n   */\n  getTimeNow() {\n    return this.getTimeNowMoment().format();\n  }\n\n  /**\n   * Get entity's human-friendly name string\n   * @return {string}\n   */\n  get name() {\n    return this.config.name;\n  }\n}\n\nexport default Entity;\n",
+    "static": true,
+    "longname": "/home/runner/work/tp-api/tp-api/lib/entity.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 54,
+    "kind": "class",
+    "name": "Entity",
+    "memberof": "lib/entity.js",
+    "static": true,
+    "longname": "lib/entity.js~Entity",
+    "access": "public",
+    "export": true,
+    "importPath": "@alexvv13/tpapi/lib/entity.js",
+    "importStyle": "{Entity}",
+    "description": "A super-class that Parks/Resorts/etc. inherit from.<br />Handles general logic for objects that are a place/entity.",
+    "lineNumber": 8,
+    "interface": false,
+    "extends": [
+      "lib/configBase.js~ConfigBase"
+    ]
+  },
+  {
+    "__docId__": 55,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/entity.js~Entity",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/entity.js~Entity#constructor",
+    "access": "public",
+    "description": "Construct a new Entity",
+    "lineNumber": 13,
     "params": [
       {
         "nullable": null,
@@ -615,152 +731,117 @@
     ]
   },
   {
-    "__docId__": 51,
-    "kind": "member",
-    "name": "name",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
-    "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#name",
-    "access": "public",
-    "description": null,
-    "lineNumber": 17,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 52,
-    "kind": "member",
-    "name": "latitude",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
-    "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#latitude",
-    "access": "public",
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
-    "type": {
-      "types": [
-        "number"
-      ]
-    }
-  },
-  {
-    "__docId__": 53,
-    "kind": "member",
-    "name": "longitude",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
-    "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#longitude",
-    "access": "public",
-    "description": null,
-    "lineNumber": 21,
-    "undocument": true,
-    "type": {
-      "types": [
-        "number"
-      ]
-    }
-  },
-  {
-    "__docId__": 54,
-    "kind": "member",
-    "name": "timezone",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
-    "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#timezone",
-    "access": "public",
-    "description": null,
-    "lineNumber": 23,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 55,
-    "kind": "member",
-    "name": "searchURL",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
-    "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#searchURL",
-    "access": "public",
-    "description": null,
-    "lineNumber": 26,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
     "__docId__": 56,
-    "kind": "member",
-    "name": "apiKey",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
+    "kind": "method",
+    "name": "log",
+    "memberof": "lib/entity.js~Entity",
+    "generator": false,
+    "async": false,
     "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#apiKey",
+    "longname": "lib/entity.js~Entity#log",
     "access": "public",
-    "description": null,
-    "lineNumber": 27,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
+    "description": "Debug log",
+    "lineNumber": 38,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "...any"
+        ],
+        "spread": true,
+        "optional": false,
+        "name": "args",
+        "description": "Message to debug log"
+      }
+    ],
+    "return": null
   },
   {
     "__docId__": 57,
-    "kind": "member",
-    "name": "waitTimesURL",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
+    "kind": "method",
+    "name": "getUniqueID",
+    "memberof": "lib/entity.js~Entity",
+    "generator": false,
+    "async": false,
     "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#waitTimesURL",
+    "longname": "lib/entity.js~Entity#getUniqueID",
     "access": "public",
-    "description": null,
-    "lineNumber": 28,
-    "undocument": true,
-    "type": {
+    "description": "Get a globally unique ID for this entity",
+    "lineNumber": 46,
+    "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    }
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
   },
   {
     "__docId__": 58,
-    "kind": "member",
-    "name": "histURL",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
+    "kind": "method",
+    "name": "getTimeNowMoment",
+    "memberof": "lib/entity.js~Entity",
+    "generator": false,
+    "async": false,
     "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#histURL",
+    "longname": "lib/entity.js~Entity#getTimeNowMoment",
     "access": "public",
-    "description": null,
-    "lineNumber": 29,
-    "undocument": true,
-    "type": {
+    "description": "Return the current time for this entity in its local timezone",
+    "lineNumber": 55,
+    "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
-    }
+        "moment"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
   },
   {
     "__docId__": 59,
-    "kind": "member",
-    "name": "languages",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
+    "kind": "method",
+    "name": "getTimeNow",
+    "memberof": "lib/entity.js~Entity",
+    "generator": false,
+    "async": false,
     "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#languages",
+    "longname": "lib/entity.js~Entity#getTimeNow",
     "access": "public",
-    "description": null,
-    "lineNumber": 32,
-    "undocument": true,
+    "description": "Return the current time for this entity in its local timezone",
+    "lineNumber": 63,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 60,
+    "kind": "get",
+    "name": "name",
+    "memberof": "lib/entity.js~Entity",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/entity.js~Entity#name",
+    "access": "public",
+    "description": "Get entity's human-friendly name string",
+    "lineNumber": 71,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": ""
+    },
     "type": {
       "types": [
         "*"
@@ -769,23 +850,71 @@
   },
   {
     "__docId__": 61,
-    "kind": "member",
-    "name": "langoptions",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
-    "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#langoptions",
+    "kind": "file",
+    "name": "lib/index.js",
+    "content": "/**\n* Import all the parks included in the library\n*/\n// Efteling\nimport Efteling from './parks/efteling/efteling.js';\n// Compagnie des Alpes\nimport WalibiHolland from './parks/walibi/walibiholland.js';\n// EuropaPark\nimport EuropaPark from './parks/europapark/europapark.js';\n\n/**\n* Export all parks as string\n*/\nexport default {\n  parks: {\n    // Efteling\n    Efteling,\n    // Compagnie des Alpes\n    WalibiHolland,\n    // EuropaPark\n    EuropaPark,\n  },\n  allParks: [\n    // Efteling\n    Efteling,\n    // Compagnie des Alpes\n    WalibiHolland,\n    // Europa-Park\n    EuropaPark,\n  ],\n};\n",
+    "static": true,
+    "longname": "/home/runner/work/tp-api/tp-api/lib/index.js",
     "access": "public",
     "description": null,
-    "lineNumber": 42,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
+    "lineNumber": 1
   },
   {
     "__docId__": 62,
+    "kind": "file",
+    "name": "lib/parks/efteling/efteling.js",
+    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport {Park} from '../park.js';\n// import fs from 'fs';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Efteling Park Object\n*/\nexport class Efteling extends Park {\n  /**\n   * Create a new Efteling Park object\n   * @param {object} options\n   */\n  constructor(options = {}) {\n    options.name = options.name || 'Efteling';\n    options.timezone = options.timezone || 'Europe/Amsterdam';\n\n    options.latitude = 51.65098350641645;\n    options.longitude = 5.049916835374731;\n\n    options.apiKey = options.apiKey || process.env.EFTELING_API_KEY;\n\n    options.searchURL = options.searchURL || process.env.EFTELING_SEARCH_URL;\n    options.waitTimesURL = options.waitTimesURL || process.env.EFTELING_WAITTIMES_URL;\n    options.histURL = options.histURL || process.env.EFTELING_HIST_URL;\n\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'fr', 'de', 'nl'}`;\n\n    super(options);\n\n    if (!this.config.searchURL) throw new Error('Missing Efteling search url!');\n    if (!this.config.apiKey) throw new Error('Missing Efteling apiKey!');\n    if (!this.config.waitTimesURL) throw new Error('Missing Efteling waittimes url!');\n    if (!this.config.histURL) throw new Error('Missing Efteling Operating Hours url!');\n    if (!this.config.languages) {\n      this.config.languages = 'en';\n    };\n  }\n\n  // Load the Efteling poidata\n  // const poidata = ('./data/parks/efteling/efteling_pois.json');\n  // const poimock = ('./data/parks/efteling/efteling_poi_mock.json');\n\n  /**\n  * Get Efteling POI data\n  * This data contains general ride names, descriptions etc.\n  * @return {string} All Efteling POIS without queuetimes\n  */\n  async getPOIS() {\n    return fetch(this.config.searchURL +\n      `search?q.parser=structured&size=1000&q=(and (phrase field%3Dlanguage '$${this.config.languages}'))`,\n    {\n      method: 'GET',\n      headers: {\n        Authorization: this.config.apiKey,\n      },\n    },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = {};\n          let fastPass = 'false'; // Set FastPass to false as default\n          let singlerider = 'false'; // Let singlerider be false as default\n          rideData.hits.hit.forEach((ride) => {\n            if (ride.fields.category === 'attraction' && ride.fields.hide_in_app !== 'false') {\n              if (ride.fields.alternateid && ride.fields.alternateid.indexOf('singlerider')) {\n                singlerider = 'true'; // Initial single rider implementation\n              } else {\n                singlerider = 'false';\n              }\n\n              if (ride.fields.name == 'Python') { // Not doing too much here, since Python is the only fp ride here.\n                fastPass = 'true';\n              }\n              // Split the language specific part out\n              const ids = ride.id;\n              const idSplit = ids.split('-');\n              const id = idSplit[0];\n              // Split latlon\n              const latlon = ride.fields.latlon;\n              const latlonSplit = latlon.split(',');\n              const lat = latlonSplit[0];\n              const lon = latlonSplit[1];\n\n              // Efteling actually provides some tags in their api\n              const tags = ride.fields.properties;\n\n              // Poi Object\n              poi[id] = {\n                name: ride.fields.name,\n                id: id,\n                waitTime: null,\n                state: null,\n                active: null,\n                location: {\n                  latitude: lat,\n                  longitude: lon,\n                },\n                meta: {\n                  single_rider: singlerider,\n                  fastPass: fastPass,\n                  type: ride.fields.category,\n                  area: ride.fields.empire,\n                  tags: tags,\n                },\n              };\n            }\n          });\n          /* fs.writeFile('./data/parks/efteling/efteling_pois.json', JSON.stringify(poi, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          fs.writeFile('./data/parks/efteling/efteling_poi_mock.json', JSON.stringify(rideData.hits.hit, null, 4), function(err) {\n            if (err) return console.log(err);\n          }); */\n          return Promise.resolve(poi);\n        });\n  }\n\n  /**\n  * Get Efteling QueueTimes data\n  * This data contains the queue data, we'll assign them to the earlier fetched pois\n  * @return {string} All Efteling POIS with queuetimes\n  */\n  async getQueue() {\n    return await this.getPOIS().then((rideData) => fetch(this.config.waitTimesURL,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const rides = [];\n          // Park is closed, and nothing is returned, attach that here.\n          if (!json.AttractionInfo.length) {\n            Object.keys(rideData).forEach((ride) => {\n            // Update the variables to the closed rides\n              rideData[ride].waitTime = '0';\n              rideData[ride].state = 'Closed';\n              rideData[ride].active = 'false';\n              // Create the ride Object\n              const rideobj = {\n                name: rideData[ride].name,\n                id: 'Efteling_' + rideData[ride].id,\n                waitTime: rideData[ride].waitTime,\n                state: rideData[ride].state,\n                active: rideData[ride].active,\n                location: {\n                  latitude: rideData[ride].location.latitude,\n                  longitude: rideData[ride].location.longitude,\n                },\n                meta: {\n                  type: rideData[ride].meta.type,\n                  area: rideData[ride].meta.area,\n                  single_rider: rideData[ride].meta.single_rider,\n                  fastPass: rideData[ride].meta.fastPass,\n                  tags: rideData[ride].meta.tags,\n                },\n              };\n              rides.push(rideobj);\n            });\n\n            return Promise.resolve(rides);\n          }\n\n          // If there are rides listed, fetch them here.\n          json.AttractionInfo.forEach((ridetime) => {\n            // Fetch Rides when park is open\n          });\n        }),\n    );\n  };\n\n  /**\n  * Get Efteling Park Hours data\n  * This data contains the hours data, used to display the operating hours of Efteling\n  * @return {string} All Efteling Operating Hours for 1mo\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    const currentMonth = moment().format('MM');\n\n    return fetch(\n        this.config.histURL +\n        `${currentYear}/${currentMonth}`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          if (!json.OpeningHours.length) {\n          // Park is closed, do nothing but returning today as empty string\n            const hours = {\n              date: moment().format('YYYY-MM-DD'),\n              type: 'Closed',\n              openingTime: moment('23:59', 'HH:mm a').format(),\n              closingTime: moment('23:59', 'HH:mm a').format(),\n              special: [],\n            };\n            Calendar.push(hours);\n          } else {\n          // Return the actual opening hours\n            json.OpeningHours.forEach((cal) => {\n              let date = moment.tz(`${cal.Date}`, 'YYYY-MM-DD', 'Europe/Amsterdam');\n              date = moment(date).format('YYYY-MM-DD');\n              cal.OpeningHours.forEach((cal1) => {\n                let open = moment.tz(`${date}${cal1.Open}`, 'YYYY-MM-DDHH:mm', 'Europe/Amsterdam');\n                open = moment(open).format();\n                let close = moment.tz(`${date}${cal1.Close}`, 'YYYY-MM-DDHH:mm', 'Europe/Amsterdam');\n                close = moment(close).format();\n                const type = 'Operating';\n\n                const hours = {\n                  closingTime: close,\n                  openingTime: open,\n                  type: type,\n                  special: [],\n                  date: date,\n                };\n                Calendar.push(hours);\n              });\n            });\n          };\n          return Promise.resolve(Calendar);\n        });\n  }\n};\n\nexport default Efteling;\n\n",
+    "static": true,
+    "longname": "/home/runner/work/tp-api/tp-api/lib/parks/efteling/efteling.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 63,
+    "kind": "class",
+    "name": "Efteling",
+    "memberof": "lib/parks/efteling/efteling.js",
+    "static": true,
+    "longname": "lib/parks/efteling/efteling.js~Efteling",
+    "access": "public",
+    "export": true,
+    "importPath": "@alexvv13/tpapi/lib/parks/efteling/efteling.js",
+    "importStyle": "{Efteling}",
+    "description": "Efteling Park Object",
+    "lineNumber": 12,
+    "interface": false,
+    "extends": [
+      "lib/parks/park.js~Park"
+    ]
+  },
+  {
+    "__docId__": 64,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/parks/efteling/efteling.js~Efteling",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/parks/efteling/efteling.js~Efteling#constructor",
+    "access": "public",
+    "description": "Create a new Efteling Park object",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 65,
     "kind": "method",
     "name": "getPOIS",
     "memberof": "lib/parks/efteling/efteling.js~Efteling",
@@ -807,7 +936,7 @@
     "params": []
   },
   {
-    "__docId__": 63,
+    "__docId__": 66,
     "kind": "method",
     "name": "getQueue",
     "memberof": "lib/parks/efteling/efteling.js~Efteling",
@@ -817,7 +946,7 @@
     "longname": "lib/parks/efteling/efteling.js~Efteling#getQueue",
     "access": "public",
     "description": "Get Efteling QueueTimes data<br />This data contains the queue data, we'll assign them to the earlier fetched pois",
-    "lineNumber": 119,
+    "lineNumber": 129,
     "return": {
       "nullable": null,
       "types": [
@@ -829,7 +958,7 @@
     "params": []
   },
   {
-    "__docId__": 64,
+    "__docId__": 67,
     "kind": "method",
     "name": "getOpHours",
     "memberof": "lib/parks/efteling/efteling.js~Efteling",
@@ -839,7 +968,7 @@
     "longname": "lib/parks/efteling/efteling.js~Efteling#getOpHours",
     "access": "public",
     "description": "Get Efteling Park Hours data<br />This data contains the hours data, used to display the operating hours of Efteling",
-    "lineNumber": 171,
+    "lineNumber": 183,
     "return": {
       "nullable": null,
       "types": [
@@ -851,76 +980,10 @@
     "params": []
   },
   {
-    "__docId__": 65,
-    "kind": "method",
-    "name": "getData",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
-    "generator": false,
-    "async": true,
-    "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#getData",
-    "access": "public",
-    "description": "Get All Data of Efteling<br />This data contains all Efteling's data, which is fetched earlier",
-    "lineNumber": 227,
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "all park data"
-    },
-    "params": []
-  },
-  {
-    "__docId__": 66,
-    "kind": "method",
-    "name": "getCalendar",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#getCalendar",
-    "access": "public",
-    "description": "Get All Calendar Data of Efteling<br />This data contains all the calendar data of Efteling",
-    "lineNumber": 241,
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "operating hours"
-    },
-    "params": []
-  },
-  {
-    "__docId__": 67,
-    "kind": "method",
-    "name": "getWaitTime",
-    "memberof": "lib/parks/efteling/efteling.js~Efteling",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/parks/efteling/efteling.js~Efteling#getWaitTime",
-    "access": "public",
-    "description": "Get All Queues of Efteling<br />This data contains all the Queues in Efteling",
-    "lineNumber": 250,
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "WaitTimes"
-    },
-    "params": []
-  },
-  {
     "__docId__": 68,
     "kind": "file",
     "name": "lib/parks/europapark/europapark.js",
-    "content": "import fetch from 'node-fetch';\n// import fs from 'fs';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* EuropaPark Park Object\n*/\nexport class EuropaPark {\n  /**\n   * Create a new EuropaPark Park object\n   * @param {object} options\n   */\n  constructor() {\n    this.name = 'Europa-Park';\n\n    // Setting the parks entrance as latlon\n    this.latitude = 48.266140769976715;\n    this.longitude = 7.722050520358709;\n\n    this.timezone = 'Europe/Berlin';\n\n    this.apiBase = process.env.EUROPAPARK_APIBASE;\n    this.login = process.env.EUROPAPARK_LOGINSTRING;\n    this.loginurl = process.env.EUROPAPARK_LOGIN;\n    this.refresh = process.env.EUROPAPARK_REFRESH;\n\n    // New Lang Variable, this is hard since os'es exports these itself (Windows uses LANG, Linux language etc)\n    this.languages = process.env.LANGUAGES;\n\n    if (!this.apiBase) throw new Error('Missing EuropaPark apibase!');\n    if (!this.login) throw new Error('Missing EuropaPark login credentials');\n    if (!this.loginurl) throw new Error('Missing EuropaPark login URL!');\n    if (!this.refresh) throw new Error('Missing EuropaPark refresh url!');\n    if (!this.languages) {\n      this.languages = 'en';\n    }\n\n    this.langoptions = `{'en', 'fr', 'de'}`;\n  }\n\n  // Load the Europapark poidata\n  // const poidata = ('./data/parks/europapark/europapark_pois.json')\n  // const poimock = ('./data/parks/europapark/europapark_poi_mock.json')\n\n  /**\n  * Login to EuropaPark API\n  * NEVER call this method without calling refresh() or getPOIS()!\n  * @return {string} EuropaPark refresh token\n  */\n  async loginEP() {\n    return fetch(this.apiBase +\n      this.loginurl,\n    {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: this.login,\n    },\n    )\n        .then((res) => res.json())\n        .then((login) => {\n          const refreshtoken = {'refresh_token': login.refresh_token};\n          return Promise.resolve(refreshtoken);\n        });\n  }\n\n  /**\n  * Refresh your just obtained ep token\n  * Tokens are 6 hrs valid, however there's no point in just calling this function without queues or sth else\n  * @return {string} EuropaPark JWT Token\n  */\n  async refreshEP() {\n    return await this.loginEP().then((refreshtoken) => fetch(this.apiBase +\n        this.refresh,\n    {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify(refreshtoken),\n    },\n    )\n        .then((res) => res.json())\n        .then((jwt) => {\n          const jwttoken = 'Bearer ' + jwt.token;\n          return Promise.resolve(jwttoken);\n        }),\n    );\n  };\n\n  /**\n  * Get All POIS of EuropaPark\n  * This data contains all the POIS in EuropaPark\n  */\n  async getPOIS() {\n    const jwttoken = await this.refreshEP();\n\n    return fetch(this.apiBase +\n      `pois/${this.languages}`,\n    {\n      headers: {\n        'Content-Type': 'application/json',\n        'JWTAuthorization': jwttoken,\n      },\n    },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = {};\n          rideData.pois.forEach((ride) => {\n            if (ride.type === 'attraction' && ride.code !== null) { // Return rides and pois which haven't null\n              if (ride.name.indexOf('Queue - ') === 0) return; // Ignore the Queue Pointers\n              let area = 'Germany'; // Really, this is the strangest empire thing ever\n              if (ride.areaId == 26) {\n                area = 'Switzerland';\n              }\n              poi[ride.code] = {\n                name: ride.name,\n                id: 'Europapark_' + ride.code,\n                waitTime: null,\n                state: null,\n                active: null,\n                location: {\n                  latitude: ride.latitude,\n                  longitude: ride.longitude,\n                },\n                meta: {\n                  area: area,\n                  type: ride.type,\n                  single_rider: 'false',\n                },\n              };\n            };\n          });\n          /* fs.writeFile('./data/parks/europapark/europapark_pois.json', JSON.stringify(poi, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          fs.writeFile('./data/parks/europapark/europapark_poi_mock.json', JSON.stringify(rideData.pois, null, 4), function(err) {\n            if (err) return console.log(err);\n          }); */\n          return Promise.resolve(poi);\n        });\n  };\n\n  /**\n  * Get All Queues of EuropaPark\n  * This data contains all the Queues in EuropaPark, attached with pois above.\n  */\n  async getQueue() {\n    const token = await this.refreshEP();\n    const rideData = await this.getPOIS();\n\n    return fetch(this.apiBase +\n      `waitingtimes`,\n    {\n      method: 'GET',\n      headers: {\n        'Content-Type': 'application/json',\n        'JWTAuthorization': token,\n      },\n    },\n    )\n        .then((res) => res.json())\n        .then((poiData) => {\n          const rides = [];\n          poiData.waitingtimes.forEach((ridetime) => {\n          // Declare default for rides that doesn't fetch right now\n            let waitTime = null;\n            let state = null;\n            let active = null; // Accepting null as value, since some rides never will join the queue api because they simply never have a queue\n            // However, setting '0' & state will set the ride all day closed, which isn't true obviously\n\n            if (ridetime.time > 0 && ridetime.time < 91) {\n              waitTime = ridetime.time;\n              state = 'Operating';\n              active = 'true';\n            } else if (ridetime.time === 91) {\n              waitTime = 91;\n              state = 'Operating';\n              active = 'true';\n            } else if (ridetime.time === 333 || ridetime.time === 666 || ridetime.time === 777) {\n              waitTime = 0;\n              state = 'Closed';\n              active = 'false';\n            } else if (ridetime.status === 444 || ridetime.time === 555 || ridetime.time === 999) {\n              waitTime = 0;\n              state = 'Down';\n              active = 'false';\n            } else if (ridetime.time === 222) {\n              waitTime = 0;\n              state = 'Refurbishment';\n              active = 'false';\n            }\n\n            if (rideData[ridetime.code]) { // Skip null variables\n              rideData[ridetime.code].waitTime = waitTime;\n              rideData[ridetime.code].state = state;\n              rideData[ridetime.code].active = active;\n\n              const rideobj = {\n                name: rideData[ridetime.code].name,\n                id: rideData[ridetime.code].id,\n                waitTime: rideData[ridetime.code].waitTime,\n                state: rideData[ridetime.code].state,\n                active: rideData[ridetime.code].active,\n                location: {\n                  latitude: rideData[ridetime.code].location.latitude,\n                  longitude: rideData[ridetime.code].location.longitude,\n                },\n                meta: {\n                  type: rideData[ridetime.code].meta.type,\n                  area: rideData[ridetime.code].meta.area,\n                },\n              };\n              rides.push(rideobj);\n            }\n          });\n          return Promise.resolve(rides);\n        });\n  };\n\n  /**\n  * Get All Operating Hours of EuropaPark\n  * This data contains all the Operating Hours in EuropaPark, fetched with currentyear.\n  */\n  async getOpHours() {\n    return fetch(\n        this.apiBase +\n          `europapark/opentime/`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n\n  /**\n  * Get All Data of EuropaPark\n  * This data contains all EP's data, which is fetched earlier\n  * @return {string} all park data\n  */\n  async getData() {\n    const rides = await this.getQueue();\n    const hours = await this.getOpHours();\n\n    const string = JSON.stringify({rides, hours}, null, 4);\n\n    return Promise.resolve(string);\n  }\n\n  /**\n  * Get All Calendar Data of EuropaPark\n  * This data contains all the calendar data of EuropaPark\n  * @return {string} operating hours\n  */\n  getCalendar() {\n    return this.getOpHours().then((hours) => Promise.resolve(hours));\n  }\n\n  /**\n  * Get All Queues of EuropaPark\n  * This data contains all the Queues in EuropaPark\n  * @return {string} WaitTimes\n  */\n  getWaitTime() {\n    return this.getQueue().then((rides) => Promise.resolve(rides));\n  }\n};\n\nexport default EuropaPark;\n",
+    "content": "import fetch from 'node-fetch';\nimport {Park} from '../park.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* EuropaPark Park Object\n*/\nexport class EuropaPark extends Park {\n  /**\n  * Create a new EuropaPark Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    options.name = options.name || 'Europa-Park';\n    options.timezone = options.timezone || 'Europe/Berlin';\n\n    // Setting the parks entrance as latlon\n    options.latitude = 48.266140769976715;\n    options.longitude = 7.722050520358709;\n\n    options.apiBase = options.apiBase || process.env.EUROPAPARK_APIBASE;\n    options.credentials = options.credentials || process.env.EUROPAPARK_LOGINSTRING;\n    options.loginurl = options.loginurl || process.env.EUROPAPARK_LOGIN;\n    options.refresh = options.refresh || process.env.EUROPAPARK_REFRESH;\n\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'de', 'fr'}`;\n\n    super(options);\n\n    if (!this.config.apiBase) throw new Error('Missing Europa-Park apiBase!');\n    if (!this.config.credentials) throw new Error('Missing Europa-Park credentials!');\n    if (!this.config.loginurl) throw new Error('Missing Europa-Park Login URL!');\n    if (!this.config.refresh) throw new Error('Missing Europa-Park Refresh URL!');\n    if (!this.config.languages) {\n      this.config.languages = 'en';\n    };\n  }\n\n  // Load the Europapark poidata\n  // const poidata = ('./data/parks/europapark/europapark_pois.json')\n  // const poimock = ('./data/parks/europapark/europapark_poi_mock.json')\n\n  /**\n  * Login to EuropaPark API\n  * NEVER call this method without calling refresh() or getPOIS()!\n  * @return {string} EuropaPark refresh token\n  */\n  async loginEP() {\n    return fetch(this.config.apiBase +\n      this.config.loginurl,\n    {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: this.config.credentials,\n    },\n    )\n        .then((res) => res.json())\n        .then((login) => {\n          const refreshtoken = {'refresh_token': login.refresh_token};\n          return Promise.resolve(refreshtoken);\n        });\n  }\n\n  /**\n  * Refresh your just obtained ep token\n  * Tokens are 6 hrs valid, however there's no point in just calling this function without queues or sth else\n  * @return {string} EuropaPark JWT Token\n  */\n  async refreshEP() {\n    return await this.loginEP().then((refreshtoken) => fetch(this.config.apiBase +\n        this.config.refresh,\n    {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json',\n      },\n      body: JSON.stringify(refreshtoken),\n    },\n    )\n        .then((res) => res.json())\n        .then((jwt) => {\n          const jwttoken = 'Bearer ' + jwt.token;\n          return Promise.resolve(jwttoken);\n        }),\n    );\n  };\n\n  /**\n  * Get All POIS of EuropaPark\n  * This data contains all the POIS in EuropaPark\n  */\n  async getPOIS() {\n    const jwttoken = await this.refreshEP();\n\n    return fetch(this.config.apiBase +\n      `pois/${this.config.languages}`,\n    {\n      headers: {\n        'Content-Type': 'application/json',\n        'JWTAuthorization': jwttoken,\n      },\n    },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = {};\n          const singleRider = 'false'; // EP doesn't send these values\n          let fastPass = 'false'; // Set fastpass to false as default\n          let isVirtQueue = 'false'; // Default poi isn't a virtqueue\n          rideData.pois.forEach((ride) => {\n            if (ride.type === 'attraction' && ride.code !== null) { // Return rides and pois which haven't null\n              if (ride.name.indexOf('Queue - ') === 0) return; // Ignore the Queue Pointers\n              if (ride.name.indexOf('VirtualLine ')) {\n                fastPass = 'true';\n                isVirtQueue = 'true';\n              } else {\n                fastPass = 'false';\n                isVirtQueue = 'false';\n              }\n              let area = 'Germany'; // Really, this is the strangest empire thing ever\n              if (ride.areaId == 10) {\n                area = 'Adventureland';\n              } else if (ride.areaId == 11) {\n                area = 'Kingdom of the Minimoys';\n              } else if (ride.areaId == 12) {\n                area = 'Germany';\n              } else if (ride.areaId == 13) {\n                area = 'England';\n              } else if (ride.areaId == 14) {\n                area = 'France';\n              } else if (ride.areaId == 15) {\n                area = 'Greece';\n              } else if (ride.areaId == 17) {\n                area = 'Netherlands';\n              } else if (ride.areaId == 20) {\n                area = 'Iceland';\n              } else if (ride.areaId == 21) {\n                area = 'Italy';\n              } else if (ride.areaId == 22) {\n                area = 'Luxembourg';\n              } else if (ride.areaId == 23) {\n                area = 'Austria';\n              } else if (ride.areaId == 24) {\n                area = 'Portugal';\n              } else if (ride.areaId == 25) {\n                area = 'Russia';\n              } else if (ride.areaId == 26) {\n                area = 'Switzerland';\n              } else if (ride.areaId == 27) {\n                area = 'Scandinavia';\n              } else if (ride.areaId == 28) {\n                area = 'Spain';\n              }\n\n              let producer = null;\n              let opening = null;\n              let capacity = null;\n              let ridetime = null;\n              let thcapacity = null;\n              let gforce = null;\n              let maxspeed = null;\n              let height = null;\n\n              if (ride.attributes) {\n                Object.keys(ride.attributes).forEach((poiat) => {\n                  if (ride.attributes[poiat].key === 'Producer') {\n                    producer = ride.attributes[poiat].value;\n                  } else if (ride.attributes[poiat].key === 'Opening') {\n                    opening = ride.attributes[poiat].value;\n                  } else if (ride.attributes[poiat].key === 'Capacity') {\n                    capacity = ride.attributes[poiat].value;\n                  } else if (ride.attributes[poiat].key === 'Driving Time') {\n                    ridetime = ride.attributes[poiat].value;\n                  } else if (ride.attributes[poiat].key === 'Theoretical Capacity') {\n                    thcapacity = ride.attributes[poiat].value;\n                  } else if (ride.attributes[poiat].key === 'Max Acceleration') {\n                    gforce = ride.attributes[poiat].value;\n                  } else if (ride.attributes[poiat].key === 'Max Speed') {\n                    maxspeed = ride.attributes[poiat].value;\n                  } else if (ride.attributes[poiat].key === 'Height') {\n                    height = ride.attributes[poiat].value;\n                  }\n                });\n              }\n\n              let minHeight = null;\n              let minHeightAdult = null;\n              let minAge = null;\n              let minAgeAdult = null;\n              let maxHeight = null;\n              if (ride.minHeight) {\n                minHeight = ride.minHeight;\n              };\n              if (ride.minHeightAdult) {\n                minHeightAdult = ride.minHeightAdult;\n              };\n              if (ride.minAge) {\n                minAge = ride.minAge;\n              };\n              if (ride.minAgeAdult) {\n                minAgeAdult = ride.minAgeAdult;\n              };\n              if (ride.maxHeight) {\n                maxHeight = ride.maxHeight;\n              }\n\n              poi[ride.code] = {\n                name: ride.name,\n                id: 'Europapark_' + ride.code,\n                waitTime: null,\n                state: null,\n                active: null,\n                location: {\n                  latitude: ride.latitude,\n                  longitude: ride.longitude,\n                },\n                meta: {\n                  area: area,\n                  single_rider: singleRider,\n                  fastPass: fastPass,\n                  type: ride.type,\n                  single_rider: 'false',\n                  isVirtQueue: isVirtQueue,\n                  tags: {\n                    Producer: producer,\n                    Capacity: capacity,\n                    Opened: opening,\n                    Duration: ridetime,\n                    Theoretical_Capacity: thcapacity,\n                    Max_GForce: gforce,\n                    Max_Speed: maxspeed,\n                    Height: height,\n                  },\n                  restrictions: {\n                    minHeight: minHeight,\n                    minHeightCompanion: minHeightAdult,\n                    maxHeight: maxHeight,\n                    minAge: minAge,\n                    minAgeCompagnion: minAgeAdult,\n                  },\n                },\n              };\n            };\n          });\n          return Promise.resolve(poi);\n        });\n  };\n\n  /**\n  * Get All Queues of EuropaPark\n  * This data contains all the Queues in EuropaPark, attached with pois above.\n  */\n  async getQueue() {\n    const token = await this.refreshEP();\n    const rideData = await this.getPOIS();\n\n    return fetch(this.config.apiBase +\n      `waitingtimes`,\n    {\n      method: 'GET',\n      headers: {\n        'Content-Type': 'application/json',\n        'JWTAuthorization': token,\n      },\n    },\n    )\n        .then((res) => res.json())\n        .then((poiData) => {\n          const rides = [];\n          poiData.waitingtimes.forEach((ridetime) => {\n          // Declare default for rides that doesn't fetch right now\n            let waitTime = null;\n            let state = null;\n            let active = null; // Accepting null as value, since some rides never will join the queue api because they simply never have a queue\n            // However, setting '0' & state will set the ride all day closed, which isn't true obviously\n\n            if (ridetime.time > 0 && ridetime.time < 91) {\n              waitTime = ridetime.time;\n              state = 'Operating';\n              active = 'true';\n            } else if (ridetime.time === 91) {\n              waitTime = 91;\n              state = 'Operating';\n              active = 'true';\n            } else if (ridetime.time === 333 || ridetime.time === 666 || ridetime.time === 777) {\n              waitTime = 0;\n              state = 'Closed';\n              active = 'false';\n            } else if (ridetime.status === 444 || ridetime.time === 555 || ridetime.time === 999) {\n              waitTime = 0;\n              state = 'Down';\n              active = 'false';\n            } else if (ridetime.time === 222) {\n              waitTime = 0;\n              state = 'Refurbishment';\n              active = 'false';\n            }\n\n            if (rideData[ridetime.code]) { // Skip null variables\n              rideData[ridetime.code].waitTime = waitTime;\n              rideData[ridetime.code].state = state;\n              rideData[ridetime.code].active = active;\n\n              const rideobj = {\n                name: rideData[ridetime.code].name,\n                id: rideData[ridetime.code].id,\n                waitTime: rideData[ridetime.code].waitTime,\n                state: rideData[ridetime.code].state,\n                active: rideData[ridetime.code].active,\n                location: {\n                  latitude: rideData[ridetime.code].location.latitude,\n                  longitude: rideData[ridetime.code].location.longitude,\n                },\n                meta: {\n                  type: rideData[ridetime.code].meta.type,\n                  area: rideData[ridetime.code].meta.area,\n                  isVirtQueue: rideData[ridetime.code].meta.isVirtQueue,\n                  fastPass: rideData[ridetime.code].meta.fastPass,\n                  single_rider: rideData[ridetime.code].meta.single_rider,\n                  tags: rideData[ridetime.code].meta.tags,\n                  restrictions: rideData[ridetime.code].meta.restrictions,\n                },\n              };\n              rides.push(rideobj);\n            }\n          });\n          return Promise.resolve(rides);\n        });\n  };\n\n  /**\n  * Get All Operating Hours of EuropaPark\n  * This data contains all the Operating Hours in EuropaPark, fetched with currentyear.\n  */\n  async getOpHours() {\n    const token = await this.refreshEP();\n\n    return fetch(\n        this.config.apiBase +\n          `europapark/opentime/`,\n        {\n          method: 'GET',\n          headers: {\n            'Content-Type': 'application/json',\n            'JWTAuthorization': token,\n          },\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n}\n\nexport default EuropaPark;\n",
     "static": true,
     "longname": "/home/runner/work/tp-api/tp-api/lib/parks/europapark/europapark.js",
     "access": "public",
@@ -940,7 +1003,10 @@
     "importStyle": "{EuropaPark}",
     "description": "EuropaPark Park Object",
     "lineNumber": 10,
-    "interface": false
+    "interface": false,
+    "extends": [
+      "lib/parks/park.js~Park"
+    ]
   },
   {
     "__docId__": 70,
@@ -969,176 +1035,6 @@
   },
   {
     "__docId__": 71,
-    "kind": "member",
-    "name": "name",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#name",
-    "access": "public",
-    "description": null,
-    "lineNumber": 16,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 72,
-    "kind": "member",
-    "name": "latitude",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#latitude",
-    "access": "public",
-    "description": null,
-    "lineNumber": 19,
-    "undocument": true,
-    "type": {
-      "types": [
-        "number"
-      ]
-    }
-  },
-  {
-    "__docId__": 73,
-    "kind": "member",
-    "name": "longitude",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#longitude",
-    "access": "public",
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
-    "type": {
-      "types": [
-        "number"
-      ]
-    }
-  },
-  {
-    "__docId__": 74,
-    "kind": "member",
-    "name": "timezone",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#timezone",
-    "access": "public",
-    "description": null,
-    "lineNumber": 22,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 75,
-    "kind": "member",
-    "name": "apiBase",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#apiBase",
-    "access": "public",
-    "description": null,
-    "lineNumber": 24,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 76,
-    "kind": "member",
-    "name": "login",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#login",
-    "access": "public",
-    "description": null,
-    "lineNumber": 25,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 77,
-    "kind": "member",
-    "name": "loginurl",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#loginurl",
-    "access": "public",
-    "description": null,
-    "lineNumber": 26,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 78,
-    "kind": "member",
-    "name": "refresh",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#refresh",
-    "access": "public",
-    "description": null,
-    "lineNumber": 27,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 79,
-    "kind": "member",
-    "name": "languages",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#languages",
-    "access": "public",
-    "description": null,
-    "lineNumber": 30,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 81,
-    "kind": "member",
-    "name": "langoptions",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#langoptions",
-    "access": "public",
-    "description": null,
-    "lineNumber": 40,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 82,
     "kind": "method",
     "name": "loginEP",
     "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
@@ -1160,7 +1056,7 @@
     "params": []
   },
   {
-    "__docId__": 83,
+    "__docId__": 72,
     "kind": "method",
     "name": "refreshEP",
     "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
@@ -1182,7 +1078,7 @@
     "params": []
   },
   {
-    "__docId__": 84,
+    "__docId__": 73,
     "kind": "method",
     "name": "getPOIS",
     "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
@@ -1201,7 +1097,7 @@
     }
   },
   {
-    "__docId__": 85,
+    "__docId__": 74,
     "kind": "method",
     "name": "getQueue",
     "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
@@ -1211,7 +1107,7 @@
     "longname": "lib/parks/europapark/europapark.js~EuropaPark#getQueue",
     "access": "public",
     "description": "Get All Queues of EuropaPark<br />This data contains all the Queues in EuropaPark, attached with pois above.",
-    "lineNumber": 152,
+    "lineNumber": 259,
     "params": [],
     "return": {
       "types": [
@@ -1220,7 +1116,7 @@
     }
   },
   {
-    "__docId__": 86,
+    "__docId__": 75,
     "kind": "method",
     "name": "getOpHours",
     "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
@@ -1230,7 +1126,7 @@
     "longname": "lib/parks/europapark/europapark.js~EuropaPark#getOpHours",
     "access": "public",
     "description": "Get All Operating Hours of EuropaPark<br />This data contains all the Operating Hours in EuropaPark, fetched with currentyear.",
-    "lineNumber": 229,
+    "lineNumber": 341,
     "params": [],
     "return": {
       "types": [
@@ -1239,61 +1135,77 @@
     }
   },
   {
-    "__docId__": 87,
-    "kind": "method",
-    "name": "getData",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
-    "generator": false,
-    "async": true,
-    "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#getData",
+    "__docId__": 76,
+    "kind": "file",
+    "name": "lib/parks/park.js",
+    "content": "import Entity from '../entity.js';\n\n/**\n * Base Park Object\n * @class\n */\nexport class Park extends Entity {\n  /**\n   * Create a new Park object\n   * @param {Object} options\n   */\n  constructor(options = {}) {\n    super(options);\n\n    if (this.constructor === Park) {\n      throw new TypeError('Cannot create Park object directly, only park implementations of Park');\n    }\n  }\n\n  /**\n  * Get All Queues of a park\n  * This data contains all the Queues in park\n  * @return {string} WaitTimes\n  */\n  getWaitTime() {\n    return this.getQueue().then((rides) => Promise.resolve(rides));\n  };\n\n  /**\n  * Get All Calendar Data of a specific park\n  * This data contains all the calendar data of a specific Park\n  * @return {string} operating hours\n  */\n  getCalendar() {\n    return this.getOpHours().then((hours) => Promise.resolve(hours));\n  }\n\n  /**\n  * Get All Data of a specific park\n  * This data contains all park's data, which is fetched earlier\n  * @return {string} all park data\n  */\n  async getData() {\n    const rides = await this.getQueue();\n    const hours = await this.getOpHours();\n\n    const string = JSON.stringify({rides, hours}, null, 4);\n\n    return Promise.resolve(string);\n  }\n};\n\nexport default Park;\n",
+    "static": true,
+    "longname": "/home/runner/work/tp-api/tp-api/lib/parks/park.js",
     "access": "public",
-    "description": "Get All Data of EuropaPark<br />This data contains all EP's data, which is fetched earlier",
-    "lineNumber": 250,
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "all park data"
-    },
-    "params": []
+    "description": null,
+    "lineNumber": 1
   },
   {
-    "__docId__": 88,
-    "kind": "method",
-    "name": "getCalendar",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "__docId__": 77,
+    "kind": "class",
+    "name": "Park",
+    "memberof": "lib/parks/park.js",
+    "static": true,
+    "longname": "lib/parks/park.js~Park",
+    "access": "public",
+    "export": true,
+    "importPath": "@alexvv13/tpapi/lib/parks/park.js",
+    "importStyle": "{Park}",
+    "description": "Base Park Object",
+    "lineNumber": 7,
+    "unknown": [
+      {
+        "tagName": "@class",
+        "tagValue": ""
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "lib/entity.js~Entity"
+    ]
+  },
+  {
+    "__docId__": 78,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/parks/park.js~Park",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#getCalendar",
+    "longname": "lib/parks/park.js~Park#constructor",
     "access": "public",
-    "description": "Get All Calendar Data of EuropaPark<br />This data contains all the calendar data of EuropaPark",
-    "lineNumber": 264,
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "operating hours"
-    },
-    "params": []
+    "description": "Create a new Park object",
+    "lineNumber": 12,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": ""
+      }
+    ]
   },
   {
-    "__docId__": 89,
+    "__docId__": 79,
     "kind": "method",
     "name": "getWaitTime",
-    "memberof": "lib/parks/europapark/europapark.js~EuropaPark",
+    "memberof": "lib/parks/park.js~Park",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "lib/parks/europapark/europapark.js~EuropaPark#getWaitTime",
+    "longname": "lib/parks/park.js~Park#getWaitTime",
     "access": "public",
-    "description": "Get All Queues of EuropaPark<br />This data contains all the Queues in EuropaPark",
-    "lineNumber": 273,
+    "description": "Get All Queues of a park<br />This data contains all the Queues in park",
+    "lineNumber": 25,
     "return": {
       "nullable": null,
       "types": [
@@ -1305,21 +1217,54 @@
     "params": []
   },
   {
-    "__docId__": 90,
-    "kind": "file",
-    "name": "lib/parks/index.js",
-    "content": "/**\n* Import all the parks included in the library\n*/\n// Efteling\nimport Efteling from './efteling/efteling.js';\n// Compagnie des Alpes\nimport WalibiHolland from './walibi/walibiholland.js';\n// EuropaPark\nimport EuropaPark from './europapark/europapark.js';\n\n/**\n* Export all parks as string\n*/\nexport default {\n  parks: {\n    // Efteling\n    Efteling,\n    // Compagnie des Alpes\n    WalibiHolland,\n    // EuropaPark\n    EuropaPark,\n  },\n  allParks: [\n    // Efteling\n    Efteling,\n    // Compagnie des Alpes\n    WalibiHolland,\n    // Europa-Park\n    EuropaPark,\n  ],\n};\n",
-    "static": true,
-    "longname": "/home/runner/work/tp-api/tp-api/lib/parks/index.js",
+    "__docId__": 80,
+    "kind": "method",
+    "name": "getCalendar",
+    "memberof": "lib/parks/park.js~Park",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/parks/park.js~Park#getCalendar",
     "access": "public",
-    "description": null,
-    "lineNumber": 1
+    "description": "Get All Calendar Data of a specific park<br />This data contains all the calendar data of a specific Park",
+    "lineNumber": 34,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "operating hours"
+    },
+    "params": []
   },
   {
-    "__docId__": 91,
+    "__docId__": 81,
+    "kind": "method",
+    "name": "getData",
+    "memberof": "lib/parks/park.js~Park",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/park.js~Park#getData",
+    "access": "public",
+    "description": "Get All Data of a specific park<br />This data contains all park's data, which is fetched earlier",
+    "lineNumber": 43,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "all park data"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 82,
     "kind": "file",
     "name": "lib/parks/walibi/walibiholland.js",
-    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\n// import fs from 'fs';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Holland Park Object\n*/\nexport class WalibiHolland {\n  /**\n   * Create a new WalibiHolland Park object\n   * @param {object} options\n   */\n  constructor() {\n    this.name = 'Walibi Holland';\n\n    // I'll just use their fountain at the entrance for this\n    this.latitude = 52.4390338;\n    this.longitude = 5.7665651;\n\n    this.timezone = 'Europe/Amsterdam';\n\n    this.apiUrl = process.env.WALIBIHOLLAND_APIURL;\n    this.apiBase = process.env.WALIBIHOLLAND_APIBASE;\n\n    // New Lang Variable, this is hard since os'es exports these itself (Windows uses LANG, Linux language etc)\n    this.languages = process.env.LANGUAGES;\n\n    if (!this.apiUrl) throw new Error('Missing Walibi Holland search url!');\n    if (!this.apiBase) throw new Error('Missing Walibi Holland api base!');\n    if (!this.languages) {\n      this.languages = 'en';\n    }\n\n    this.langoptions = `{'en', de', 'nl'}`;\n  }\n\n  // Load the Walibi Holland poidata\n  // const poidata = ('./data/parks/walibi/walibiholland_pois.json')\n  // const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')\n\n  /**\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  */\n  async getPOIS() {\n    return fetch(this.apiUrl,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.forEach((ride) => {\n            let waitTime = '0';\n            let state = 'Closed';\n            let active = 'false';\n            if (ride.name !== 'Dummy1') { // They have a dummy ride to sell single shots in their fast-lane, mind=blown\n              if (ride.useVirtualQueue == 'true') { // VirtQueue enabled\n                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let's round them.\n              } else { // No virtQueue found, use the normal queue instead\n                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60\n              }\n              if (ride.state === 'closed_indefinitely') { // Closed but not closed but still closed\n                state = 'Closed';\n                active = 'false';\n              } // Declare other states when park reopens\n              // POI Object with queues\n              const poiData = {\n                name: ride.name,\n                id: 'WalibiHolland_' + ride.shortId,\n                state: state,\n                active: active,\n                waitTime: waitTime,\n                meta: {\n                  type: 'attraction',\n                },\n              };\n              poi.push(poiData);\n            }\n          });\n          /* fs.writeFile('./data/parks/walibi/walibiholland_pois.json', JSON.stringify(poi, null, 4), function(err) {\n            if (err) return console.log(err);\n          });\n          fs.writeFile('./data/parks/walibi/walibiholland_poi_mock.json', JSON.stringify(rideData, null, 4), function(err) {\n            if (err) return console.log(err);\n          }); */\n          return Promise.resolve(poi); // Although we saved them in a json file, we'll just return them for the queue attach function which will run next if you called getQueue()\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n\n  /**\n  * Get All Data of Walibi Holland\n  * This data contains all Walibi's data, which is fetched earlier\n  * @return {string} all park data\n  */\n  async getData() {\n    const rides = await this.getPOIS();\n    const hours = await this.getOpHours();\n\n    const string = JSON.stringify({rides, hours}, null, 4);\n\n    return Promise.resolve(string);\n  }\n\n  /**\n  * Get All Calendar Data of Walibi Holland\n  * This data contains all the calendar data of Walibi Holland\n  * @return {string} operating hours\n  */\n  getCalendar() {\n    return this.getOpHours().then((hours) => Promise.resolve(hours));\n  }\n\n  /**\n  * Get All Queues of Walibi Holland\n  * This data contains all the Queues in Walibi Holland\n  * @return {string} WaitTimes\n  */\n  getWaitTime() {\n    return this.getPOIS().then((rides) => Promise.resolve(rides));\n  }\n};\n\nexport default WalibiHolland;\n",
+    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport {Park} from '../park.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Holland Park Object\n*/\nexport class WalibiHolland extends Park {\n  /**\n  * Create a new Walibi Holland Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    options.name = options.name || 'Walibi Holland';\n    options.timezone = options.timezone || 'Europe/Amsterdam';\n\n    options.latitude = 52.4390338;\n    options.longitude = 5.7665651;\n\n    options.apiUrl = options.apiUrl || process.env.WALIBIHOLLAND_APIURL;\n    options.apiBase = options.apiBase || process.env.WALIBIHOLLAND_APIBASE;\n\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'de', 'nl'}`;\n\n    super(options);\n\n    if (!this.config.apiUrl) throw new Error('Missing Walibi Holland apiUrl!');\n    if (!this.config.apiBase) throw new Error('Missing Walibi Holland apiBase!');\n    if (!this.config.languages) {\n      this.config.languages = 'en';\n    };\n  }\n\n  // Load the Walibi Holland poidata\n  // const poidata = ('./data/parks/walibi/walibiholland_pois.json')\n  // const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')\n\n  /**\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  */\n  async getQueue() {\n    return fetch(this.config.apiUrl,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.forEach((ride) => {\n            let waitTime = '0';\n            let state = 'Closed';\n            let active = 'false';\n            if (ride.name !== 'Dummy1') { // They have a dummy ride to sell single shots in their fast-lane, mind=blown\n              if (ride.useVirtualQueue == 'true') { // VirtQueue enabled\n                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let's round them.\n              } else { // No virtQueue found, use the normal queue instead\n                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60\n              }\n              if (ride.state === 'closed_indefinitely') { // Closed but not closed but still closed\n                state = 'Closed';\n                active = 'false';\n              } // Declare other states when park reopens\n              // POI Object with queues\n              const poiData = {\n                name: ride.name,\n                id: 'WalibiHolland_' + ride.shortId,\n                state: state,\n                active: active,\n                waitTime: waitTime,\n                meta: {\n                  type: 'attraction',\n                },\n              };\n              poi.push(poiData);\n            }\n          });\n          return Promise.resolve(poi); // Although we saved them in a json file, we'll just return them for the queue attach function which will run next if you called getQueue()\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.config.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n}\n\nexport default WalibiHolland;\n",
     "static": true,
     "longname": "/home/runner/work/tp-api/tp-api/lib/parks/walibi/walibiholland.js",
     "access": "public",
@@ -1327,7 +1272,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 92,
+    "__docId__": 83,
     "kind": "class",
     "name": "WalibiHolland",
     "memberof": "lib/parks/walibi/walibiholland.js",
@@ -1339,10 +1284,13 @@
     "importStyle": "{WalibiHolland}",
     "description": "Walibi Holland Park Object",
     "lineNumber": 11,
-    "interface": false
+    "interface": false,
+    "extends": [
+      "lib/parks/park.js~Park"
+    ]
   },
   {
-    "__docId__": 93,
+    "__docId__": 84,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1351,7 +1299,7 @@
     "static": false,
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#constructor",
     "access": "public",
-    "description": "Create a new WalibiHolland Park object",
+    "description": "Create a new Walibi Holland Park object",
     "lineNumber": 16,
     "params": [
       {
@@ -1367,153 +1315,17 @@
     ]
   },
   {
-    "__docId__": 94,
-    "kind": "member",
-    "name": "name",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#name",
-    "access": "public",
-    "description": null,
-    "lineNumber": 17,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 95,
-    "kind": "member",
-    "name": "latitude",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#latitude",
-    "access": "public",
-    "description": null,
-    "lineNumber": 20,
-    "undocument": true,
-    "type": {
-      "types": [
-        "number"
-      ]
-    }
-  },
-  {
-    "__docId__": 96,
-    "kind": "member",
-    "name": "longitude",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#longitude",
-    "access": "public",
-    "description": null,
-    "lineNumber": 21,
-    "undocument": true,
-    "type": {
-      "types": [
-        "number"
-      ]
-    }
-  },
-  {
-    "__docId__": 97,
-    "kind": "member",
-    "name": "timezone",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#timezone",
-    "access": "public",
-    "description": null,
-    "lineNumber": 23,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 98,
-    "kind": "member",
-    "name": "apiUrl",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#apiUrl",
-    "access": "public",
-    "description": null,
-    "lineNumber": 25,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 99,
-    "kind": "member",
-    "name": "apiBase",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#apiBase",
-    "access": "public",
-    "description": null,
-    "lineNumber": 26,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 100,
-    "kind": "member",
-    "name": "languages",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#languages",
-    "access": "public",
-    "description": null,
-    "lineNumber": 29,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    }
-  },
-  {
-    "__docId__": 102,
-    "kind": "member",
-    "name": "langoptions",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#langoptions",
-    "access": "public",
-    "description": null,
-    "lineNumber": 37,
-    "undocument": true,
-    "type": {
-      "types": [
-        "string"
-      ]
-    }
-  },
-  {
-    "__docId__": 103,
+    "__docId__": 85,
     "kind": "method",
-    "name": "getPOIS",
+    "name": "getQueue",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
     "generator": false,
     "async": true,
     "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getPOIS",
+    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getQueue",
     "access": "public",
     "description": "Get All POIS of Walibi Holland<br />This data contains all the POIS in Walibi Holland, limited to their fast-lane services",
-    "lineNumber": 48,
+    "lineNumber": 47,
     "params": [],
     "return": {
       "types": [
@@ -1522,7 +1334,7 @@
     }
   },
   {
-    "__docId__": 104,
+    "__docId__": 86,
     "kind": "method",
     "name": "getOpHours",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -1532,7 +1344,7 @@
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getOpHours",
     "access": "public",
     "description": "Get All Operating Hours of Walibi Holland<br />This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.",
-    "lineNumber": 99,
+    "lineNumber": 92,
     "params": [],
     "return": {
       "types": [
@@ -1541,74 +1353,8 @@
     }
   },
   {
-    "__docId__": 105,
-    "kind": "method",
-    "name": "getData",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "generator": false,
-    "async": true,
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getData",
-    "access": "public",
-    "description": "Get All Data of Walibi Holland<br />This data contains all Walibi's data, which is fetched earlier",
-    "lineNumber": 121,
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "all park data"
-    },
-    "params": []
-  },
-  {
-    "__docId__": 106,
-    "kind": "method",
-    "name": "getCalendar",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getCalendar",
-    "access": "public",
-    "description": "Get All Calendar Data of Walibi Holland<br />This data contains all the calendar data of Walibi Holland",
-    "lineNumber": 135,
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "operating hours"
-    },
-    "params": []
-  },
-  {
-    "__docId__": 107,
-    "kind": "method",
-    "name": "getWaitTime",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getWaitTime",
-    "access": "public",
-    "description": "Get All Queues of Walibi Holland<br />This data contains all the Queues in Walibi Holland",
-    "lineNumber": 144,
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "WaitTimes"
-    },
-    "params": []
-  },
-  {
     "kind": "index",
-    "content": "# Themeparks-API\nThemeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don't expect anything too cool tho.</br>\n\n![Unit Test](https://github.com/alexvv13/tp-api/workflows/Unit%20Test/badge.svg)\n![Documentation Build](https://github.com/alexvv13/tp-api/workflows/ESDoc/badge.svg)\n![Node.js CI](https://github.com/alexvv13/tp-api/workflows/Node.js%20CI/badge.svg)\n[![Build Status](https://api.travis-ci.com/alexvv13/tp-api.svg?branch=master)](https://travis-ci.com/alexvv13/tp-api) </br>\n\n![node-current](https://img.shields.io/node/v/@alexvv13/tpapi)\n[![npm version](https://badge.fury.io/js/%40alexvv13%2Ftpapi.svg)](https://badge.fury.io/js/%40alexvv13%2Ftpapi) </br>\n\n![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/alexvv13/tp-api.svg) </br>\n\n[API documentation](https://alexvv13.github.io/tp-api \"API Documentation\") </br>\n[NPM Package](https://www.npmjs.com/package/@alexvv13/tpapi \"NPM Package\") </br>\n\n## About\nThis is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it's not perfect, but it works. It's just being build to work and return data, not to be efficient anyway.\n\n## Table of Contents\n[About](#about)</br>\n[Table of Contents](#table-of-contents) </br>\n[Install](#install) </br>\n[ENV](#env) </br>\n[Usage](#usage) </br>\n[  -Running the script](#running-the-script) </br>\n[  -Example output](#example-output) </br>\n[Changelog](#changelog) </br>\n[Parks available](#parks-available) </br>\n[Features of supported parks](#features-of-the-parks) </br>\n[Result objects](#result-objects) </br>\n[  -Ride waittimes](#ride-waittimes) </br>\n[  -Schedules](#schedules) </br>\n[Park object values](#park-object-values) </br>\n[Tasks](#tasks) </br>\n\n## Install\n\n    npm install @alexvv13/tpapi --save\n    \n\n## ENV\nIn the directory where you're using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example, or copy below's example and fill in the fields yourself\n```\nLANGUAGES= 'en'\nLANG_UPPER= 'EN'\n\nEFTELING_API_KEY= \nEFTELING_APP_VERSION= \nEFTELING_API_VERSION= \nEFTELING_API_PLATFORM= \n\nEFTELING_SEARCH_URL= \nEFTELING_WAITTIMES_URL= \nEFTELING_HIST_URL= \n\nEUROPAPARK_APIBASE= \nEUROPAPARK_LOGINSTRING= \nEUROPAPARK_LOGIN= \nEUROPAPARK_REFRESH= \n\nWALIBIHOLLAND_APIBASE= \nWALIBIHOLLAND_APIURL= \nWALIBIBELGIUM_APIBASE=\nWALIBIRA_APIBASE=\n```\n\n## Usage\n### Running the script\nRun index.js for all parks </br>\nNOTE: If you use commonjs, it's REQUIRED to use the .mjs extension INSTEAD of .js! </br>\nOr create an .js file for yourself and do the following: </br>\n```javascript\n// Import all parks here\nimport tpapi from '@alexvv13/tpapi';\n\nconst park = new tpapi.parks.Efteling();\n\n// Fetch POIS Example usage of Efteling\npark.getWaitTime().then((poiData) => {\n  console.log(poiData);\n});\n\n// You can also call getCalendar() or getData()\n```\n\n### Example output\n(Shortened to keep it readable)\n```javascript\n{\n    \"name\": \"Stoomcarrousel\",\n    \"id\": \"Efteling_stoomcarrousel\",\n    \"waitTime\": \"0\",\n    \"state\": \"Closed\",\n    \"active\": \"false\",\n    \"location\": {\n        \"latitude\": \"51.651211\",\n        \"longitude\": \"5.048955\"\n    },\n    \"meta\": {\n        \"type\": \"attraction\",\n        \"area\": \"Marerijk\",\n        \"single_rider\": \"false\"\n    }\n},\n{\n    \"name\": \"Vogel Rok\",\n    \"id\": \"Efteling_vogelrok\",\n    \"waitTime\": \"0\",\n    \"state\": \"Closed\",\n    \"active\": \"false\",\n    \"location\": {\n        \"latitude\": \"51.652187\",\n        \"longitude\": \"5.052811\"\n    },\n    \"meta\": {\n        \"type\": \"attraction\",\n        \"area\": \"Reizenrijk\",\n        \"single_rider\": \"false\"\n    }\n}\n```\n   \n## Changelog\n\n[View tp-api Changelog](CHANGELOG.md)\n\n## Parks available\n\n<!-- START_SUPPORTED_PARKS_LIST -->\n\n**3** Parks Supported\n\n* Efteling (tpapi.parks.Efteling)\n* Europa-Park (tpapi.parks.EuropaPark)\n* Walibi Holland (tpapi.parks.WalibiHolland)\n\n<!-- END_SUPPORTED_PARKS_LIST -->\n\n## Features of the parks\n\nPark Name | Live Queues | Park Hours\n------------ | ------------- | ----------\nEfteling |:heavy_check_mark:|:heavy_check_mark:\nWalibi Holland |:heavy_check_mark:|:heavy_multiplication_x:\nEuropa-Park |:heavy_check_mark:|:heavy_multiplication_x:\n\n## Result Objects\n\n### Ride WaitTimes\n\n    [\n        {\n            id: (string or number: uniquely identifying a ride),\n            name: (string: ride name),\n            waitTime: (number: current wait time in minutes),\n            active: (bool: is the ride currently active?),\n            location: (object: contains location data such as latlon\n                 latitude: (number: ride's latitude),\n                 longitude: (number: ride's longitude),\n            meta: { (object: can contain various park-specific information about this ride - field may be null)\n                // examples of potential meta fields\n                singleRider: (boolean: does this ride have a single rider line?),\n                type: (string: what is this poi?),\n                area: (string: section of the park this ride is located within),\n            },\n            status: (string: will either be \"Operating\", \"Closed\", \"Refurbishment\", or \"Down\"),\n        },\n        ...\n    ]\n\n### Schedules\n\n    [\n        {\n            date: (dateFormat timestamp: day this schedule applies),\n            openingTime: (timeFormat timestamp: opening time for requested park - can be null if park is closed),\n            closingTime: (timeFormat timestamp: closing time for requested park - can be null if park is closed),\n            type: (string: \"Operating\" or \"Closed\"),\n            special: [ (array of \"special\" times for this day, usually Disney Extra Magic Hours or similar at other parks - field may be null)\n              openingTime: (timeFormat timestamp: opening time for requested park),\n              closingTime: (timeFormat timestamp: closing time for requested park),\n              type: (string: type of schedule eg. \"Extra Magic Hours\", but can be \"Event\" or \"Special Ticketed Event\" or other)\n            ],\n        },\n        ...\n    ]\n\n## Park Object values\n\nThere are some values available on each park object that may be useful.\n\n| Variable              | Description                                                                                                 |\n| :-------------------- | :---------------------------------------------------------------------------------------------------------- |\n| Name                  | Name of the park                                                                                            |\n| Timezone              | The park's local timezone                                                                                   |\n| latitude              | This park's latitude                                                                                        |\n| longitude             | This park's longitude                                                                                       |\n| langoptions           | What languages does this park support?                                                                      |\n\n\n## Tasks\n- [ ] Add more parks\n- [X] Multi language support\n- [ ] Multiple Queue entities support\n- [ ] Completely purge file-system\n- [ ] Merge shared tasks to one function\n- [ ] Generate a better infrastructure\n\n",
+    "content": "# Themeparks-API\nThemeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don't expect anything too cool tho.</br>\n\n![Unit Test](https://github.com/alexvv13/tp-api/workflows/Unit%20Test/badge.svg)\n![Documentation Build](https://github.com/alexvv13/tp-api/workflows/ESDoc/badge.svg)\n![Node.js CI](https://github.com/alexvv13/tp-api/workflows/Node.js%20CI/badge.svg)\n[![Build Status](https://api.travis-ci.com/alexvv13/tp-api.svg?branch=master)](https://travis-ci.com/alexvv13/tp-api) </br>\n\n![node-current](https://img.shields.io/node/v/@alexvv13/tpapi)\n[![npm version](https://badge.fury.io/js/%40alexvv13%2Ftpapi.svg)](https://badge.fury.io/js/%40alexvv13%2Ftpapi) </br>\n\n![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/alexvv13/tp-api.svg) </br>\n\n[API documentation](https://alexvv13.github.io/tp-api \"API Documentation\") </br>\n[NPM Package](https://www.npmjs.com/package/@alexvv13/tpapi \"NPM Package\") </br>\n\n## About\nThis is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it's not perfect, but it works. It's just being build to work and return data, not to be efficient anyway.\n\n## Table of Contents\n[About](#about)</br>\n[Table of Contents](#table-of-contents) </br>\n[Install](#install) </br>\n[ENV](#env) </br>\n[Usage](#usage) </br>\n[  -Running the script](#running-the-script) </br>\n[  -Example output](#example-output) </br>\n[Changelog](#changelog) </br>\n[Parks available](#parks-available) </br>\n[Features of supported parks](#features-of-the-parks) </br>\n[Result objects](#result-objects) </br>\n[  -Ride waittimes](#ride-waittimes) </br>\n[  -Schedules](#schedules) </br>\n[Park object values](#park-object-values) </br>\n[Tasks](#tasks) </br>\n\n## Install\n\n    npm install @alexvv13/tpapi --save\n    \n\n## ENV\nIn the directory where you're using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example, or copy below's example and fill in the fields yourself\n```\nLANGUAGES= 'en'\nLANG_UPPER= 'EN'\n\nEFTELING_API_KEY= \nEFTELING_APP_VERSION= \nEFTELING_API_VERSION= \nEFTELING_API_PLATFORM= \n\nEFTELING_SEARCH_URL= \nEFTELING_WAITTIMES_URL= \nEFTELING_HIST_URL= \n\nEUROPAPARK_APIBASE= \nEUROPAPARK_LOGINSTRING= \nEUROPAPARK_LOGIN= \nEUROPAPARK_REFRESH= \n\nWALIBIHOLLAND_APIBASE= \nWALIBIHOLLAND_APIURL= \nWALIBIBELGIUM_APIBASE=\nWALIBIRA_APIBASE=\n```\n\n## Usage\n### Running the script\nRun index.js for all parks </br>\nNOTE: If you use commonjs, it's REQUIRED to use the .mjs extension INSTEAD of .js! </br>\nOr create an .js file for yourself and do the following: </br>\n```javascript\n// Import all parks here\nimport tpapi from '@alexvv13/tpapi';\n\nconst park = new tpapi.parks.Efteling();\n\n// Fetch POIS Example usage of Efteling\npark.getWaitTime().then((poiData) => {\n  console.log(poiData);\n});\n\n// You can also call getCalendar() or getData()\n```\n\n### Example output\n(Shortened to keep it readable)\n```javascript\n{\n    \"name\": \"Stoomcarrousel\",\n    \"id\": \"Efteling_stoomcarrousel\",\n    \"waitTime\": \"0\",\n    \"state\": \"Closed\",\n    \"active\": \"false\",\n    \"location\": {\n        \"latitude\": \"51.651211\",\n        \"longitude\": \"5.048955\"\n    },\n    \"meta\": {\n        \"type\": \"attraction\",\n        \"area\": \"Marerijk\",\n        \"single_rider\": \"false\"\n    }\n},\n{\n    \"name\": \"Vogel Rok\",\n    \"id\": \"Efteling_vogelrok\",\n    \"waitTime\": \"0\",\n    \"state\": \"Closed\",\n    \"active\": \"false\",\n    \"location\": {\n        \"latitude\": \"51.652187\",\n        \"longitude\": \"5.052811\"\n    },\n    \"meta\": {\n        \"type\": \"attraction\",\n        \"area\": \"Reizenrijk\",\n        \"single_rider\": \"false\"\n    }\n}\n```\n   \n## Changelog\n\n[View tp-api Changelog](CHANGELOG.md)\n\n## Parks available\n\n<!-- START_SUPPORTED_PARKS_LIST -->\n\n**3** Parks Supported\n\n* Efteling (tpapi.parks.Efteling)\n* Europa-Park (tpapi.parks.EuropaPark)\n* Walibi Holland (tpapi.parks.WalibiHolland)\n\n<!-- END_SUPPORTED_PARKS_LIST -->\n\n## Features of the parks\n\nPark Name | Live Queues | Park Hours\n------------ | ------------- | ----------\nEfteling |:heavy_check_mark:|:heavy_check_mark:\nWalibi Holland |:heavy_check_mark:|:heavy_multiplication_x:\nEuropa-Park |:heavy_check_mark:|:heavy_multiplication_x:\n\n## Result Objects\n\n### Ride WaitTimes\n\n    [\n        {\n            id: (string or number: uniquely identifying a ride),\n            name: (string: ride name),\n            waitTime: (number: current wait time in minutes),\n            active: (bool: is the ride currently active?),\n            location: (object: contains location data such as latlon\n                 latitude: (number: ride's latitude),\n                 longitude: (number: ride's longitude),\n            meta: { (object: can contain various park-specific information about this ride - field may be null)\n                // examples of potential meta fields\n                singleRider: (boolean: does this ride have a single rider line?),\n                type: (string: what is this poi?),\n                area: (string: section of the park this ride is located within),\n            },\n            status: (string: will either be \"Operating\", \"Closed\", \"Refurbishment\", or \"Down\"),\n        },\n        ...\n    ]\n\n### Schedules\n\n    [\n        {\n            date: (dateFormat timestamp: day this schedule applies),\n            openingTime: (timeFormat timestamp: opening time for requested park - can be null if park is closed),\n            closingTime: (timeFormat timestamp: closing time for requested park - can be null if park is closed),\n            type: (string: \"Operating\" or \"Closed\"),\n            special: [ (array of \"special\" times for this day, usually Disney Extra Magic Hours or similar at other parks - field may be null)\n              openingTime: (timeFormat timestamp: opening time for requested park),\n              closingTime: (timeFormat timestamp: closing time for requested park),\n              type: (string: type of schedule eg. \"Extra Magic Hours\", but can be \"Event\" or \"Special Ticketed Event\" or other)\n            ],\n        },\n        ...\n    ]\n\n## Park Object values\n\nThere are some values available on each park object that may be useful.\n\n| Variable              | Description                                                                                                 |\n| :-------------------- | :---------------------------------------------------------------------------------------------------------- |\n| Name                  | Name of the park                                                                                            |\n| Timezone              | The park's local timezone                                                                                   |\n| latitude              | This park's latitude                                                                                        |\n| longitude             | This park's longitude                                                                                       |\n| langoptions           | What languages does this park support?                                                                      |\n\n\n## Tasks\n- [ ] Add more parks\n- [X] Multi language support\n- [ ] Multiple Queue entities support\n- [X] Completely purge file-system\n- [X] Merge shared tasks to one function\n- [X] Generate a better infrastructure\n\n",
     "longname": "/home/runner/work/tp-api/tp-api/README.md",
     "name": "./README.md",
     "static": true,
@@ -1616,7 +1362,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@alexvv13/tpapi\",\n  \"version\": \"1.0.10\",\n  \"type\": \"module\",\n  \"description\": \"Api to fetch themepark data, such as queues, operating hours etc\",\n  \"engines\": {\n    \"npm\": \">=6\",\n    \"node\": \">=14\"\n  },\n  \"main\": \"lib/parks/index.js\",\n  \"dependencies\": {\n    \"dotenv\": \"^8.2.0\",\n    \"esm\": \"^3.2.25\",\n    \"file-system\": \"^2.2.2\",\n    \"moment-timezone\": \"^0.5.32\",\n    \"node-fetch\": \"^2.6.1\"\n  },\n  \"devDependencies\": {\n    \"@babel/traverse\": \"^7.11.0\",\n    \"babel-cli\": \"^6.26.0\",\n    \"babel-preset-es2015\": \"^6.24.1\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^7.15.0\",\n    \"eslint-config-google\": \"^0.14.0\",\n    \"eslint-config-prettier\": \"^7.0.0\",\n    \"eslint-plugin-mocha\": \"^8.0.0\",\n    \"eslint-plugin-prettier\": \"^3.3.0\"\n  },\n  \"scripts\": {\n    \"test\": \"eslint ./lib/**\",\n    \"docs\": \"esdoc\"\n  },\n  \"exports\": {\n    \".\": \"./lib/parks/index.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/AlexVV13/tp-api.git\"\n  },\n  \"keywords\": [\n    \"Api\",\n    \"themeparks\",\n    \"queue\",\n    \"calendar\"\n  ],\n  \"author\": \"Alex_VV\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/AlexVV13/tp-api/issues\"\n  },\n  \"homepage\": \"https://github.com/AlexVV13/tp-api#readme\",\n  \"directories\": {\n    \"lib\": \"lib\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@alexvv13/tpapi\",\n  \"version\": \"1.0.11\",\n  \"type\": \"module\",\n  \"description\": \"Api to fetch themepark data, such as queues, operating hours etc\",\n  \"engines\": {\n    \"npm\": \">=6\",\n    \"node\": \">=14\"\n  },\n  \"main\": \"lib/index.js\",\n  \"dependencies\": {\n    \"dotenv\": \"^8.2.0\",\n    \"esm\": \"^3.2.25\",\n    \"moment-timezone\": \"^0.5.32\",\n    \"node-fetch\": \"^2.6.1\"\n  },\n  \"devDependencies\": {\n    \"@babel/traverse\": \"^7.11.0\",\n    \"babel-cli\": \"^6.26.0\",\n    \"babel-preset-es2015\": \"^6.24.1\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^7.15.0\",\n    \"eslint-config-google\": \"^0.14.0\",\n    \"eslint-config-prettier\": \"^7.0.0\",\n    \"eslint-plugin-mocha\": \"^8.0.0\",\n    \"eslint-plugin-prettier\": \"^3.3.0\"\n  },\n  \"scripts\": {\n    \"test\": \"eslint ./lib/**\",\n    \"docs\": \"esdoc\"\n  },\n  \"exports\": {\n    \".\": \"./lib/index.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/AlexVV13/tp-api.git\"\n  },\n  \"keywords\": [\n    \"Api\",\n    \"themeparks\",\n    \"queue\",\n    \"calendar\"\n  ],\n  \"author\": \"Alex_VV\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/AlexVV13/tp-api/issues\"\n  },\n  \"homepage\": \"https://github.com/AlexVV13/tp-api#readme\",\n  \"directories\": {\n    \"lib\": \"lib\"\n  }\n}\n",
     "longname": "/home/runner/work/tp-api/tp-api/package.json",
     "name": "package.json",
     "static": true,

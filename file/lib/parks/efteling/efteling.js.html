@@ -29,7 +29,11 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parseConfig">parseConfig</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
 </ul>
@@ -39,6 +43,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/efteling/efteling.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
 import fetch from &apos;node-fetch&apos;;
+import {Park} from &apos;../park.js&apos;;
 // import fs from &apos;fs&apos;;
 
 import dotenv from &apos;dotenv&apos;;
@@ -47,38 +52,37 @@ dotenv.config();
 /**
 * Efteling Park Object
 */
-export class Efteling {
+export class Efteling extends Park {
   /**
    * Create a new Efteling Park object
    * @param {object} options
    */
-  constructor() {
-    this.name = &apos;Efteling&apos;;
+  constructor(options = {}) {
+    options.name = options.name || &apos;Efteling&apos;;
+    options.timezone = options.timezone || &apos;Europe/Amsterdam&apos;;
 
-    // Set the parks entrance as it&apos;s default location
-    this.latitude = 51.65098350641645;
-    this.longitude = 5.049916835374731;
+    options.latitude = 51.65098350641645;
+    options.longitude = 5.049916835374731;
 
-    this.timezone = &apos;Europe/Amsterdam&apos;;
+    options.apiKey = options.apiKey || process.env.EFTELING_API_KEY;
 
-    // Load the .ENV variables here
-    this.searchURL = process.env.EFTELING_SEARCH_URL;
-    this.apiKey = process.env.EFTELING_API_KEY;
-    this.waitTimesURL = process.env.EFTELING_WAITTIMES_URL;
-    this.histURL = process.env.EFTELING_HIST_URL;
+    options.searchURL = options.searchURL || process.env.EFTELING_SEARCH_URL;
+    options.waitTimesURL = options.waitTimesURL || process.env.EFTELING_WAITTIMES_URL;
+    options.histURL = options.histURL || process.env.EFTELING_HIST_URL;
 
-    // New Lang Variable, this is hard since os&apos;es exports these itself (Windows uses LANG, Linux language etc)
-    this.languages = process.env.LANGUAGES;
+    options.languages = options.languages || process.env.LANGUAGES;
 
-    if (!this.searchURL) throw new Error(&apos;Missing Efteling search url!&apos;);
-    if (!this.apiKey) throw new Error(&apos;Missing Efteling apiKey!&apos;);
-    if (!this.waitTimesURL) throw new Error(&apos;Missing Efteling waittimes url!&apos;);
-    if (!this.histURL) throw new Error(&apos;Missing Efteling Operating Hours url!&apos;);
-    if (!this.languages) {
-      this.languages = &apos;en&apos;;
-    }
+    options.langoptions = options.langoptions || `{&apos;en&apos;, &apos;fr&apos;, &apos;de&apos;, &apos;nl&apos;}`;
 
-    this.langoptions = `{&apos;en&apos;, &apos;fr&apos;, &apos;de&apos;, &apos;nl&apos;}`;
+    super(options);
+
+    if (!this.config.searchURL) throw new Error(&apos;Missing Efteling search url!&apos;);
+    if (!this.config.apiKey) throw new Error(&apos;Missing Efteling apiKey!&apos;);
+    if (!this.config.waitTimesURL) throw new Error(&apos;Missing Efteling waittimes url!&apos;);
+    if (!this.config.histURL) throw new Error(&apos;Missing Efteling Operating Hours url!&apos;);
+    if (!this.config.languages) {
+      this.config.languages = &apos;en&apos;;
+    };
   }
 
   // Load the Efteling poidata
@@ -91,18 +95,19 @@ export class Efteling {
   * @return {string} All Efteling POIS without queuetimes
   */
   async getPOIS() {
-    return fetch(this.searchURL +
-      `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$${this.languages}&apos;))`,
+    return fetch(this.config.searchURL +
+      `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$${this.config.languages}&apos;))`,
     {
       method: &apos;GET&apos;,
       headers: {
-        Authorization: this.apiKey,
+        Authorization: this.config.apiKey,
       },
     },
     )
         .then((res) =&gt; res.json())
         .then((rideData) =&gt; {
           const poi = {};
+          let fastPass = &apos;false&apos;; // Set FastPass to false as default
           let singlerider = &apos;false&apos;; // Let singlerider be false as default
           rideData.hits.hit.forEach((ride) =&gt; {
             if (ride.fields.category === &apos;attraction&apos; &amp;&amp; ride.fields.hide_in_app !== &apos;false&apos;) {
@@ -110,6 +115,10 @@ export class Efteling {
                 singlerider = &apos;true&apos;; // Initial single rider implementation
               } else {
                 singlerider = &apos;false&apos;;
+              }
+
+              if (ride.fields.name == &apos;Python&apos;) { // Not doing too much here, since Python is the only fp ride here.
+                fastPass = &apos;true&apos;;
               }
               // Split the language specific part out
               const ids = ride.id;
@@ -120,6 +129,9 @@ export class Efteling {
               const latlonSplit = latlon.split(&apos;,&apos;);
               const lat = latlonSplit[0];
               const lon = latlonSplit[1];
+
+              // Efteling actually provides some tags in their api
+              const tags = ride.fields.properties;
 
               // Poi Object
               poi[id] = {
@@ -134,8 +146,10 @@ export class Efteling {
                 },
                 meta: {
                   single_rider: singlerider,
+                  fastPass: fastPass,
                   type: ride.fields.category,
                   area: ride.fields.empire,
+                  tags: tags,
                 },
               };
             }
@@ -156,7 +170,7 @@ export class Efteling {
   * @return {string} All Efteling POIS with queuetimes
   */
   async getQueue() {
-    return await this.getPOIS().then((rideData) =&gt; fetch(this.waitTimesURL,
+    return await this.getPOIS().then((rideData) =&gt; fetch(this.config.waitTimesURL,
         {
           method: &apos;GET&apos;,
         },
@@ -186,6 +200,8 @@ export class Efteling {
                   type: rideData[ride].meta.type,
                   area: rideData[ride].meta.area,
                   single_rider: rideData[ride].meta.single_rider,
+                  fastPass: rideData[ride].meta.fastPass,
+                  tags: rideData[ride].meta.tags,
                 },
               };
               rides.push(rideobj);
@@ -212,7 +228,7 @@ export class Efteling {
     const currentMonth = moment().format(&apos;MM&apos;);
 
     return fetch(
-        this.histURL +
+        this.config.histURL +
         `${currentYear}/${currentMonth}`,
         {
           method: &apos;GET&apos;,
@@ -256,38 +272,6 @@ export class Efteling {
           };
           return Promise.resolve(Calendar);
         });
-  }
-
-  /**
-  * Get All Data of Efteling
-  * This data contains all Efteling&apos;s data, which is fetched earlier
-  * @return {string} all park data
-  */
-  async getData() {
-    const rides = await this.getQueue();
-    const hours = await this.getOpHours();
-
-    const string = JSON.stringify({rides, hours}, null, 4);
-
-    return Promise.resolve(string);
-  }
-
-  /**
-  * Get All Calendar Data of Efteling
-  * This data contains all the calendar data of Efteling
-  * @return {string} operating hours
-  */
-  getCalendar() {
-    return this.getOpHours().then((hours) =&gt; Promise.resolve(hours));
-  }
-
-  /**
-  * Get All Queues of Efteling
-  * This data contains all the Queues in Efteling
-  * @return {string} WaitTimes
-  */
-  getWaitTime() {
-    return this.getQueue().then((rides) =&gt; Promise.resolve(rides));
   }
 };
 

@@ -1,8 +1,20 @@
 window.esdocSearchIndex = [
   [
+    "@alexvv13/tpapi/lib/configbase.js~configbase",
+    "class/lib/configBase.js~ConfigBase.html",
+    "<span>ConfigBase</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/configBase.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/efteling/efteling.js~efteling",
     "class/lib/parks/efteling/efteling.js~Efteling.html",
     "<span>Efteling</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/efteling/efteling.js</span>",
+    "class"
+  ],
+  [
+    "@alexvv13/tpapi/lib/entity.js~entity",
+    "class/lib/entity.js~Entity.html",
+    "<span>Entity</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/entity.js</span>",
     "class"
   ],
   [
@@ -12,10 +24,22 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/park.js~park",
+    "class/lib/parks/park.js~Park.html",
+    "<span>Park</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/park.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/walibi/walibiholland.js~walibiholland",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html",
     "<span>WalibiHolland</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibiholland.js</span>",
     "class"
+  ],
+  [
+    "@alexvv13/tpapi/lib/configbase.js~parseconfig",
+    "function/index.html#static-function-parseConfig",
+    "<span>parseConfig</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/configBase.js</span>",
+    "function"
   ],
   [
     "lib/.external-ecmascript.js~array",
@@ -300,33 +324,81 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "lib/configbase.js",
+    "file/lib/configBase.js.html",
+    "lib/configBase.js",
+    "file"
+  ],
+  [
+    "lib/configbase.js~configbase#config",
+    "class/lib/configBase.js~ConfigBase.html#instance-member-config",
+    "lib/configBase.js~ConfigBase#config",
+    "member"
+  ],
+  [
+    "lib/configbase.js~configbase#constructor",
+    "class/lib/configBase.js~ConfigBase.html#instance-constructor-constructor",
+    "lib/configBase.js~ConfigBase#constructor",
+    "method"
+  ],
+  [
+    "lib/entity.js",
+    "file/lib/entity.js.html",
+    "lib/entity.js",
+    "file"
+  ],
+  [
+    "lib/entity.js~entity#constructor",
+    "class/lib/entity.js~Entity.html#instance-constructor-constructor",
+    "lib/entity.js~Entity#constructor",
+    "method"
+  ],
+  [
+    "lib/entity.js~entity#gettimenow",
+    "class/lib/entity.js~Entity.html#instance-method-getTimeNow",
+    "lib/entity.js~Entity#getTimeNow",
+    "method"
+  ],
+  [
+    "lib/entity.js~entity#gettimenowmoment",
+    "class/lib/entity.js~Entity.html#instance-method-getTimeNowMoment",
+    "lib/entity.js~Entity#getTimeNowMoment",
+    "method"
+  ],
+  [
+    "lib/entity.js~entity#getuniqueid",
+    "class/lib/entity.js~Entity.html#instance-method-getUniqueID",
+    "lib/entity.js~Entity#getUniqueID",
+    "method"
+  ],
+  [
+    "lib/entity.js~entity#log",
+    "class/lib/entity.js~Entity.html#instance-method-log",
+    "lib/entity.js~Entity#log",
+    "method"
+  ],
+  [
+    "lib/entity.js~entity#name",
+    "class/lib/entity.js~Entity.html#instance-get-name",
+    "lib/entity.js~Entity#name",
+    "member"
+  ],
+  [
+    "lib/index.js",
+    "file/lib/index.js.html",
+    "lib/index.js",
+    "file"
+  ],
+  [
     "lib/parks/efteling/efteling.js",
     "file/lib/parks/efteling/efteling.js.html",
     "lib/parks/efteling/efteling.js",
     "file"
   ],
   [
-    "lib/parks/efteling/efteling.js~efteling#apikey",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-apiKey",
-    "lib/parks/efteling/efteling.js~Efteling#apiKey",
-    "member"
-  ],
-  [
     "lib/parks/efteling/efteling.js~efteling#constructor",
     "class/lib/parks/efteling/efteling.js~Efteling.html#instance-constructor-constructor",
     "lib/parks/efteling/efteling.js~Efteling#constructor",
-    "method"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#getcalendar",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getCalendar",
-    "lib/parks/efteling/efteling.js~Efteling#getCalendar",
-    "method"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#getdata",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getData",
-    "lib/parks/efteling/efteling.js~Efteling#getData",
     "method"
   ],
   [
@@ -348,93 +420,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/parks/efteling/efteling.js~efteling#getwaittime",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getWaitTime",
-    "lib/parks/efteling/efteling.js~Efteling#getWaitTime",
-    "method"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#histurl",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-histURL",
-    "lib/parks/efteling/efteling.js~Efteling#histURL",
-    "member"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#langoptions",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-langoptions",
-    "lib/parks/efteling/efteling.js~Efteling#langoptions",
-    "member"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#languages",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-languages",
-    "lib/parks/efteling/efteling.js~Efteling#languages",
-    "member"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#latitude",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-latitude",
-    "lib/parks/efteling/efteling.js~Efteling#latitude",
-    "member"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#longitude",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-longitude",
-    "lib/parks/efteling/efteling.js~Efteling#longitude",
-    "member"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#name",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-name",
-    "lib/parks/efteling/efteling.js~Efteling#name",
-    "member"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#searchurl",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-searchURL",
-    "lib/parks/efteling/efteling.js~Efteling#searchURL",
-    "member"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#timezone",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-timezone",
-    "lib/parks/efteling/efteling.js~Efteling#timezone",
-    "member"
-  ],
-  [
-    "lib/parks/efteling/efteling.js~efteling#waittimesurl",
-    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-member-waitTimesURL",
-    "lib/parks/efteling/efteling.js~Efteling#waitTimesURL",
-    "member"
-  ],
-  [
     "lib/parks/europapark/europapark.js",
     "file/lib/parks/europapark/europapark.js.html",
     "lib/parks/europapark/europapark.js",
     "file"
   ],
   [
-    "lib/parks/europapark/europapark.js~europapark#apibase",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-apiBase",
-    "lib/parks/europapark/europapark.js~EuropaPark#apiBase",
-    "member"
-  ],
-  [
     "lib/parks/europapark/europapark.js~europapark#constructor",
     "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-constructor-constructor",
     "lib/parks/europapark/europapark.js~EuropaPark#constructor",
-    "method"
-  ],
-  [
-    "lib/parks/europapark/europapark.js~europapark#getcalendar",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getCalendar",
-    "lib/parks/europapark/europapark.js~EuropaPark#getCalendar",
-    "method"
-  ],
-  [
-    "lib/parks/europapark/europapark.js~europapark#getdata",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getData",
-    "lib/parks/europapark/europapark.js~EuropaPark#getData",
     "method"
   ],
   [
@@ -456,64 +450,10 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/parks/europapark/europapark.js~europapark#getwaittime",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getWaitTime",
-    "lib/parks/europapark/europapark.js~EuropaPark#getWaitTime",
-    "method"
-  ],
-  [
-    "lib/parks/europapark/europapark.js~europapark#langoptions",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-langoptions",
-    "lib/parks/europapark/europapark.js~EuropaPark#langoptions",
-    "member"
-  ],
-  [
-    "lib/parks/europapark/europapark.js~europapark#languages",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-languages",
-    "lib/parks/europapark/europapark.js~EuropaPark#languages",
-    "member"
-  ],
-  [
-    "lib/parks/europapark/europapark.js~europapark#latitude",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-latitude",
-    "lib/parks/europapark/europapark.js~EuropaPark#latitude",
-    "member"
-  ],
-  [
-    "lib/parks/europapark/europapark.js~europapark#login",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-login",
-    "lib/parks/europapark/europapark.js~EuropaPark#login",
-    "member"
-  ],
-  [
     "lib/parks/europapark/europapark.js~europapark#loginep",
     "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-loginEP",
     "lib/parks/europapark/europapark.js~EuropaPark#loginEP",
     "method"
-  ],
-  [
-    "lib/parks/europapark/europapark.js~europapark#loginurl",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-loginurl",
-    "lib/parks/europapark/europapark.js~EuropaPark#loginurl",
-    "member"
-  ],
-  [
-    "lib/parks/europapark/europapark.js~europapark#longitude",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-longitude",
-    "lib/parks/europapark/europapark.js~EuropaPark#longitude",
-    "member"
-  ],
-  [
-    "lib/parks/europapark/europapark.js~europapark#name",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-name",
-    "lib/parks/europapark/europapark.js~EuropaPark#name",
-    "member"
-  ],
-  [
-    "lib/parks/europapark/europapark.js~europapark#refresh",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-refresh",
-    "lib/parks/europapark/europapark.js~EuropaPark#refresh",
-    "member"
   ],
   [
     "lib/parks/europapark/europapark.js~europapark#refreshep",
@@ -522,16 +462,34 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/parks/europapark/europapark.js~europapark#timezone",
-    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-member-timezone",
-    "lib/parks/europapark/europapark.js~EuropaPark#timezone",
-    "member"
+    "lib/parks/park.js",
+    "file/lib/parks/park.js.html",
+    "lib/parks/park.js",
+    "file"
   ],
   [
-    "lib/parks/index.js",
-    "file/lib/parks/index.js.html",
-    "lib/parks/index.js",
-    "file"
+    "lib/parks/park.js~park#constructor",
+    "class/lib/parks/park.js~Park.html#instance-constructor-constructor",
+    "lib/parks/park.js~Park#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/park.js~park#getcalendar",
+    "class/lib/parks/park.js~Park.html#instance-method-getCalendar",
+    "lib/parks/park.js~Park#getCalendar",
+    "method"
+  ],
+  [
+    "lib/parks/park.js~park#getdata",
+    "class/lib/parks/park.js~Park.html#instance-method-getData",
+    "lib/parks/park.js~Park#getData",
+    "method"
+  ],
+  [
+    "lib/parks/park.js~park#getwaittime",
+    "class/lib/parks/park.js~Park.html#instance-method-getWaitTime",
+    "lib/parks/park.js~Park#getWaitTime",
+    "method"
   ],
   [
     "lib/parks/walibi/walibiholland.js",
@@ -540,33 +498,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/parks/walibi/walibiholland.js~walibiholland#apibase",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-apiBase",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#apiBase",
-    "member"
-  ],
-  [
-    "lib/parks/walibi/walibiholland.js~walibiholland#apiurl",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-apiUrl",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#apiUrl",
-    "member"
-  ],
-  [
     "lib/parks/walibi/walibiholland.js~walibiholland#constructor",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-constructor-constructor",
     "lib/parks/walibi/walibiholland.js~WalibiHolland#constructor",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibiholland.js~walibiholland#getcalendar",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getCalendar",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#getCalendar",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibiholland.js~walibiholland#getdata",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getData",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#getData",
     "method"
   ],
   [
@@ -576,51 +510,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/parks/walibi/walibiholland.js~walibiholland#getpois",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getPOIS",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#getPOIS",
+    "lib/parks/walibi/walibiholland.js~walibiholland#getqueue",
+    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getQueue",
+    "lib/parks/walibi/walibiholland.js~WalibiHolland#getQueue",
     "method"
-  ],
-  [
-    "lib/parks/walibi/walibiholland.js~walibiholland#getwaittime",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getWaitTime",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#getWaitTime",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibiholland.js~walibiholland#langoptions",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-langoptions",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#langoptions",
-    "member"
-  ],
-  [
-    "lib/parks/walibi/walibiholland.js~walibiholland#languages",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-languages",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#languages",
-    "member"
-  ],
-  [
-    "lib/parks/walibi/walibiholland.js~walibiholland#latitude",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-latitude",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#latitude",
-    "member"
-  ],
-  [
-    "lib/parks/walibi/walibiholland.js~walibiholland#longitude",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-longitude",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#longitude",
-    "member"
-  ],
-  [
-    "lib/parks/walibi/walibiholland.js~walibiholland#name",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-name",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#name",
-    "member"
-  ],
-  [
-    "lib/parks/walibi/walibiholland.js~walibiholland#timezone",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-member-timezone",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#timezone",
-    "member"
   ]
 ]

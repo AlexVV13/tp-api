@@ -1,53 +1,39 @@
 {
-  "coverage": "47.16%",
-  "expectCount": 53,
-  "actualCount": 25,
+  "coverage": "96.87%",
+  "expectCount": 32,
+  "actualCount": 31,
   "files": {
-    "lib/parks/efteling/efteling.js": {
-      "expectCount": 18,
-      "actualCount": 8,
+    "lib/configBase.js": {
+      "expectCount": 4,
+      "actualCount": 3,
       "undocumentLines": [
-        17,
-        20,
-        21,
-        23,
-        26,
-        27,
-        28,
-        29,
-        32,
-        42
+        80
       ]
+    },
+    "lib/entity.js": {
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "lib/parks/efteling/efteling.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
     },
     "lib/parks/europapark/europapark.js": {
-      "expectCount": 20,
-      "actualCount": 10,
-      "undocumentLines": [
-        16,
-        19,
-        20,
-        22,
-        24,
-        25,
-        26,
-        27,
-        30,
-        40
-      ]
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
+    },
+    "lib/parks/park.js": {
+      "expectCount": 5,
+      "actualCount": 5,
+      "undocumentLines": []
     },
     "lib/parks/walibi/walibiholland.js": {
-      "expectCount": 15,
-      "actualCount": 7,
-      "undocumentLines": [
-        17,
-        20,
-        21,
-        23,
-        25,
-        26,
-        29,
-        37
-      ]
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
     }
   }
 }
