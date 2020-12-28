@@ -14,3 +14,4 @@ Key changes to new versions
 * 1.0.11 Redone the infrastructure, added tags, fixed EP and added more configs.
 * 1.0.12 Documentation update.
 * 1.0.13 Added more options and return values for them.
+* 1.0.14 Minor fixes, json is now valid again
