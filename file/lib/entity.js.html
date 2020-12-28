@@ -111,8 +111,80 @@ export class Entity extends ConfigBase {
    * Get entity&apos;s human-friendly name string
    * @return {string}
    */
-  get name() {
+  get Name() {
     return this.config.name;
+  }
+
+  /**
+   * Get entity&apos;s human-friendly language string
+   * @return {string}
+   */
+  get LangOptions() {
+    return this.config.langoptions;
+  }
+
+  /**
+   * Get entity&apos;s human-friendly location string
+   * @return {string}
+   */
+  get LocationString() {
+    return `${this.config.latitude}, ${this.config.longitude}`;
+  }
+
+  /**
+   * Get entity&apos;s human-friendly timezone string
+   * @return {string}
+   */
+  get Timezone() {
+    return this.config.timezone;
+  }
+
+  /**
+   * Get entity&apos;s human-friendly waittimes support string
+   * @return {string}
+   */
+  get SupportsWaitTimes() {
+    return this.config.supportswaittimes;
+  }
+
+  /**
+   * Get entity&apos;s human-friendly openingtimes support string
+   * @return {string}
+   */
+  get SupportsOpeningTimes() {
+    return this.config.supportsschedule;
+  }
+
+  /**
+   * Get entity&apos;s human-friendly ride openingtimes support string
+   * @return {string}
+   */
+  get SupportsRideSchedules() {
+    return this.config.supportsrideschedules;
+  }
+
+  /**
+   * Get entity&apos;s human-friendly fastpass support string
+   * @return {string}
+   */
+  get FastPass() {
+    return this.config.fastPass;
+  }
+
+  /**
+   * Get entity&apos;s human-friendly FastPassReturnTimes support string
+   * @return {string}
+   */
+  get FastPassReturnTimes() {
+    return this.config.FastPassReturnTimes;
+  }
+
+  /**
+   * Get entity&apos;s human-friendly moment now string
+   * @return {string}
+   */
+  get Now() {
+    return this.getTimeNow();
   }
 }
 

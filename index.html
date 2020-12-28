@@ -246,6 +246,28 @@ park.getWaitTime().then((poiData) =&gt; {
 </tr>
 </tbody>
 </table>
+<pre><code><code class="source-code prettyprint">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+// construct our park objects and keep them in memory for fast access later
+const Parks = {};
+for (const park in tpapi.parks) {
+  Parks[park] = new tpapi.parks[park]();
+}
+
+// print each park&apos;s name, current location, and timezone
+for (const park in Parks) {
+  console.log(`* ${Parks[park].Name} [${Parks[park].LocationString}]: (${Parks[park].Timezone})`);
+}</code>
+</code></pre><p>Prints:</p>
+<p><!-- START_PARK_TIMEZONE_LIST -->
+</p>
+<ul>
+<li>Efteling [51.65098350641645, 5.049916835374731]: (Europe/Amsterdam)</li>
+<li>Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)</li>
+<li>Europa-Park [48.266140769976715, 7.722050520358709]: (Europe/Berlin)</li>
+</ul>
+<p><!-- END_PARK_TIMEZONE_LIST -->
+</p>
 <h2 id="tasks">Tasks</h2><ul>
 <li>[ ] Add more parks</li>
 <li>[X] Multi language support</li>

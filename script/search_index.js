@@ -348,6 +348,66 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/entity.js~entity#fastpass",
+    "class/lib/entity.js~Entity.html#instance-get-FastPass",
+    "lib/entity.js~Entity#FastPass",
+    "member"
+  ],
+  [
+    "lib/entity.js~entity#fastpassreturntimes",
+    "class/lib/entity.js~Entity.html#instance-get-FastPassReturnTimes",
+    "lib/entity.js~Entity#FastPassReturnTimes",
+    "member"
+  ],
+  [
+    "lib/entity.js~entity#langoptions",
+    "class/lib/entity.js~Entity.html#instance-get-LangOptions",
+    "lib/entity.js~Entity#LangOptions",
+    "member"
+  ],
+  [
+    "lib/entity.js~entity#locationstring",
+    "class/lib/entity.js~Entity.html#instance-get-LocationString",
+    "lib/entity.js~Entity#LocationString",
+    "member"
+  ],
+  [
+    "lib/entity.js~entity#name",
+    "class/lib/entity.js~Entity.html#instance-get-Name",
+    "lib/entity.js~Entity#Name",
+    "member"
+  ],
+  [
+    "lib/entity.js~entity#now",
+    "class/lib/entity.js~Entity.html#instance-get-Now",
+    "lib/entity.js~Entity#Now",
+    "member"
+  ],
+  [
+    "lib/entity.js~entity#supportsopeningtimes",
+    "class/lib/entity.js~Entity.html#instance-get-SupportsOpeningTimes",
+    "lib/entity.js~Entity#SupportsOpeningTimes",
+    "member"
+  ],
+  [
+    "lib/entity.js~entity#supportsrideschedules",
+    "class/lib/entity.js~Entity.html#instance-get-SupportsRideSchedules",
+    "lib/entity.js~Entity#SupportsRideSchedules",
+    "member"
+  ],
+  [
+    "lib/entity.js~entity#supportswaittimes",
+    "class/lib/entity.js~Entity.html#instance-get-SupportsWaitTimes",
+    "lib/entity.js~Entity#SupportsWaitTimes",
+    "member"
+  ],
+  [
+    "lib/entity.js~entity#timezone",
+    "class/lib/entity.js~Entity.html#instance-get-Timezone",
+    "lib/entity.js~Entity#Timezone",
+    "member"
+  ],
+  [
     "lib/entity.js~entity#constructor",
     "class/lib/entity.js~Entity.html#instance-constructor-constructor",
     "lib/entity.js~Entity#constructor",
@@ -376,12 +436,6 @@ window.esdocSearchIndex = [
     "class/lib/entity.js~Entity.html#instance-method-log",
     "lib/entity.js~Entity#log",
     "method"
-  ],
-  [
-    "lib/entity.js~entity#name",
-    "class/lib/entity.js~Entity.html#instance-get-name",
-    "lib/entity.js~Entity#name",
-    "member"
   ],
   [
     "lib/index.js",

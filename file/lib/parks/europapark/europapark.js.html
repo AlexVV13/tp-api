@@ -72,17 +72,27 @@ export class EuropaPark extends Park {
     options.latitude = 48.266140769976715;
     options.longitude = 7.722050520358709;
 
+    // Options for our park Object
+    options.supportswaittimes = &apos;true&apos;;
+    options.supportsschedule = &apos;false&apos;;
+    options.supportsrideschedules = &apos;false&apos;;
+    options.fastPass = &apos;true&apos;;
+    options.FastPassReturnTimes = &apos;false&apos;;
+
+    // API options
     options.apiBase = options.apiBase || process.env.EUROPAPARK_APIBASE;
     options.credentials = options.credentials || process.env.EUROPAPARK_LOGINSTRING;
     options.loginurl = options.loginurl || process.env.EUROPAPARK_LOGIN;
     options.refresh = options.refresh || process.env.EUROPAPARK_REFRESH;
 
+    // Languages
     options.languages = options.languages || process.env.LANGUAGES;
 
     options.langoptions = options.langoptions || `{&apos;en&apos;, &apos;de&apos;, &apos;fr&apos;}`;
 
     super(options);
 
+    // Check for existance
     if (!this.config.apiBase) throw new Error(&apos;Missing Europa-Park apiBase!&apos;);
     if (!this.config.credentials) throw new Error(&apos;Missing Europa-Park credentials!&apos;);
     if (!this.config.loginurl) throw new Error(&apos;Missing Europa-Park Login URL!&apos;);
