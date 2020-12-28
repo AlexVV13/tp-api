@@ -11,3 +11,4 @@ Key changes to new versions
 * 1.0.5 Removed fs tags for caching since we didn't need them, added better documentation.
 * 1.0.8 Multi Language Support using .env variables.
 * 1.0.9 Redone the output of the functions.
+* 1.0.11 Redone the infrastructure, added tags, fixed EP and added more configs.

@@ -1,9 +1,9 @@
 // Import all parks here
-import tpapi from './lib/parks/index.js';
+import tpapi from './lib/index.js';
 
-const park = new tpapi.parks.Efteling();
+const park = new tpapi.parks.EuropaPark();
 
-// Fetch POIS Example usage of Efteling
+// Fetch POIS Example usage of Europa-Park
 park.getWaitTime().then((rideTimes) => {
   console.log(rideTimes);
 });

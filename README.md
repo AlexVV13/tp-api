@@ -203,7 +203,7 @@ There are some values available on each park object that may be useful.
 - [ ] Add more parks
 - [X] Multi language support
 - [ ] Multiple Queue entities support
-- [ ] Completely purge file-system
-- [ ] Merge shared tasks to one function
-- [ ] Generate a better infrastructure
+- [X] Completely purge file-system
+- [X] Merge shared tasks to one function
+- [X] Generate a better infrastructure
 

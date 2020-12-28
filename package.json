@@ -1,17 +1,16 @@
 {
   "name": "@alexvv13/tpapi",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "type": "module",
   "description": "Api to fetch themepark data, such as queues, operating hours etc",
   "engines": {
     "npm": ">=6",
     "node": ">=14"
   },
-  "main": "lib/parks/index.js",
+  "main": "lib/index.js",
   "dependencies": {
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
-    "file-system": "^2.2.2",
     "moment-timezone": "^0.5.32",
     "node-fetch": "^2.6.1"
   },
@@ -33,7 +32,7 @@
     "docs": "esdoc"
   },
   "exports": {
-    ".": "./lib/parks/index.js"
+    ".": "./lib/index.js"
   },
   "repository": {
     "type": "git",
