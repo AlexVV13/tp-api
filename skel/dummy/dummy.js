@@ -1,92 +1,134 @@
-// Dummy park which is the base of all parks basically.
 import moment from 'moment-timezone';
 import fetch from 'node-fetch';
-import fs from 'fs';
+import {Park} from '../park.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 /**
 * Dummy Park Object
+* Make sure all environment variables are set in an .env file which should be in the main location.
+* Not setting these variables will make the module exit early without returning data.
+*
+* This class is here to fetch the POI data and to attach queue times data to it.
+* After the fetches this data is send to the end user and from there he could do whatever he wants to do.
+*
+* Most park specific parameters are set already
+* @class
 */
-export class Dummy {
+export class Dummy extends Park {
   /**
-   * Create a new Dummy Park object
-   * @param {object} options
-   */
-  constructor() {
-    this.name = 'Dummy';
+  * Create a new Dummy Park object
+  * @param {object} options
+  */
+  constructor(options = {}) {
+    options.name = options.name || 'Dummy';
+    options.timezone = options.timezone || 'Europe/Amsterdam';
 
-    this.latutude = 48.266140769976715;
-    this.longitude = 7.722050520358709;
+    // Park's entrance mostly, but if you really need it you could also pick the center of the park (i.e. Central Plaza in Disneyland)
+    options.latitude = 52.4390338;
+    options.longitude = 5.7665651;
 
-    this.timezone = 'Europe/Amsterdam';
+    // Api options
+    options.apiUrl = options.apiUrl || process.env.DUMMY_APIURL;
+    options.apiKey = options.apiBase || process.env.DUMMY_APIKEY;
 
-    this.apiKey = process.env.DUMMY_API_KEY;
-    this.waitTimesURL = process.env.DUMMY_WAITTIMES_URL;
+    options.languages = options.languages || process.env.LANGUAGES;
 
-    this.language = process.env.LANGUAGE;
+    // What languages does this API support?
+    options.langoptions = options.langoptions || `{'en', 'de', 'nl', 'es'}`;
+
+    super(options);
+
+    if (!this.config.apiUrl) throw new Error('Missing Dummy apiUrl!');
+    if (!this.config.apiKey) throw new Error('Missing Dummy apiKey!');
+    if (!this.config.languages) {
+      this.config.languages = 'en';
+    };
   }
 
   // Load the Dummy poidata
-  // const poidata = ('./data/parks/dummy/dummy_pois.json');
-  // const poimock = ('./data/parks/dummy/dummy_poi_mock.json');
+  // const poidata = ('./data/parks/dummy/dummy_pois.json')
+  // const poimock = ('./data/parks/dummy/dummy_poi_mock.json')
 
+  // Some parks have a seperate queue api, create an getPoi() function before the getQueue() function in that case.
   /**
-  * Get Dummy POI data
-  * This data contains general ride names, descriptions etc.
+  * Get All POIS of Dummy
+  * This data contains all the POIS in Dummy, limited to their fast-lane services
+  * @example
+  * import tpapi from '@alexvv13/tpapi';
+  *
+  * const park = new tpapi.park.Dummy();
+  *
+  * park.getPois().then((pois) => {
+  * console.log(pois)
+  * });
+  * @return {string} All Dummy POIS without queuetimes
   */
-  async getPOIS() {
-    return fetch(this.waitTimesURL,
+  /* async getPOIS() {
+    return fetch(this.config.apiUrl,
         {
           method: 'GET',
           headers: {
-            Authorization: this.apiKey,
+            Authorization: this.config.apiKey,
           },
         },
     )
         .then((res) => res.json())
         .then((rideData) => {
           const poi = {};
-          // Fetch POI DATA
-          // Poi Object
-          poi[id] = {
-            name: ride.fields.name,
-            id: id,
-            waitTime: null,
-            state: null,
-            active: null,
-            location: {
-              latitude: lat,
-              longitude: lon,
-            },
-            meta: {
-              single_rider: singlerider,
-              type: ride.fields.category,
-              area: ride.fields.empire,
-            },
-          };
-          fs.writeFile('./data/parks/efteling/efteling_pois.json', JSON.stringify(poi, null, 4), function(err) {
-            if (err) return console.log(err);
-          });
-          fs.writeFile('./data/parks/efteling/efteling_poi_mock.json', JSON.stringify(rideData.hits.hit, null, 4), function(err) {
-            if (err) return console.log(err);
-          });
           return Promise.resolve(poi);
         });
-  }
+  } */
+
 
   /**
-  * Get Dummy Park Hours data
-  * This data contains the hours data, used to display the operating hours of Dummy
+  * Get All POIS of Dummy
+  * This data contains all the POIS in Dummy, limited to their fast-lane services
+  * @example
+  * import tpapi from '@alexvv13/tpapi';
+  *
+  * const park = new tpapi.park.Dummy();
+  *
+  * park.getPois().then((pois) => {
+  * console.log(pois)
+  * });
+  * @return {string} All Dummy POIS with queuetimes
+  */
+  async getQueue() {
+    // If getPOIS() is set: return await this.getPOIS().then((rideData) => fetch(this.config.apiUrl,
+    return fetch(this.config.apiUrl,
+        {
+          method: 'GET',
+        },
+    )
+        .then((res) => res.json())
+        .then((rideData) => {
+          const poi = [];
+          rideData.forEach((ride) => {
+            return Promise.resolve(poi); // Return the pois
+          });
+        });
+  };
+
+  /**
+  * Get All Operating Hours of Dummy
+  * This data contains all the Operating Hours in Dummy, fetched with currentyear.
+  * @example
+  * import tpapi from '@alexvv13/tpapi';
+  *
+  * const park = new tpapi.park.Dummy();
+  *
+  * park.getOpHours().then((hours) => {
+  * console.log(hours)
+  * });
+  * @return {string} All Dummy calendar data
   */
   async getOpHours() {
     const currentYear = moment().format('YYYY');
-    const currentMonth = moment().format('MM');
-
     return fetch(
-        this.waitTimesURL +
-        `${currentYear}/${currentMonth}`,
+        this.config.apiBase +
+          `/calendar/${currentYear}?_format=json`,
         {
           method: 'GET',
         },
@@ -94,41 +136,10 @@ export class Dummy {
         .then((res) => res.json())
         .then((json) => {
           const Calendar = [];
-          // Fetch Cal data
+          // Execute Calendar stuff here
           return Promise.resolve(Calendar);
         });
   }
-
-  /**
-  * Get All Dummy data in console
-  * This data contains all the data of Dummy, returned as json object
-  */
-  async getData() {
-    return await Promise.all([this.getQueue(), this.getOpHours()]).then((rides) => {
-      console.log(JSON.stringify(rides, null, 4));
-    });
-  }
-
-  /**
-  * Get Dummy Park Hours data in console
-  * This data contains the hours data, used to display the operating hours of Dummy
-  */
-  async getCalendar() {
-    return await this.getOpHours().then((calendar) => {
-      console.log(calendar);
-    });
-  }
-
-  /**
-  * Get Dummy Queuetimes data in console
-  * This data contains the queuetimes data, used to display the queuetimes of Dummy
-  */
-  async getWaitTime() {
-    return await this.getQueue().then((rides) => {
-      console.log(rides);
-    });
-  };
 }
 
 export default Dummy;
-
