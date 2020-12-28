@@ -50,8 +50,16 @@ import dotenv from &apos;dotenv&apos;;
 dotenv.config();
 
 /**
-* Efteling Park Object
-*/
+ * Efteling Park Object
+ * Make sure all environment variables are set in an .env file which should be in the main location.
+ * Not setting these variables will make the module exit early without returning data.
+ *
+ * This class is here to fetch the POI data and to attact queue times data to it.
+ * After the fetches this data is send to the end user and from there he could do whatever he wants to do.
+ *
+ * Most park specific parameters are set already
+ * @class
+ */
 export class Efteling extends Park {
   /**
    * Create a new Efteling Park object
@@ -61,6 +69,7 @@ export class Efteling extends Park {
     options.name = options.name || &apos;Efteling&apos;;
     options.timezone = options.timezone || &apos;Europe/Amsterdam&apos;;
 
+    // Setting the parks entrance as it&apos;s default location
     options.latitude = 51.65098350641645;
     options.longitude = 5.049916835374731;
 
@@ -93,6 +102,10 @@ export class Efteling extends Park {
   * Get Efteling POI data
   * This data contains general ride names, descriptions etc.
   * @return {string} All Efteling POIS without queuetimes
+  * @example
+  * park.getPois().then((pois) =&gt; {
+  * console.log(pois)
+  * })
   */
   async getPOIS() {
     return fetch(this.config.searchURL +
