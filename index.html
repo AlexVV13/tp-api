@@ -233,15 +233,35 @@ park.getWaitTime().then((poiData) =&gt; {
 <td style="text-align:left">The park&apos;s local timezone</td>
 </tr>
 <tr>
-<td style="text-align:left">latitude</td>
-<td style="text-align:left">This park&apos;s latitude</td>
+<td style="text-align:left">LocationString</td>
+<td style="text-align:left">This park&apos;s location as a [latitude, longitude] string</td>
 </tr>
 <tr>
-<td style="text-align:left">longitude</td>
-<td style="text-align:left">This park&apos;s longitude</td>
+<td style="text-align:left">SupportsWaitTimes</td>
+<td style="text-align:left">Does this park&apos;s API support ride wait times?</td>
 </tr>
 <tr>
-<td style="text-align:left">langoptions</td>
+<td style="text-align:left">SupportsOpeningTimes</td>
+<td style="text-align:left">Does this park&apos;s API support opening hours?</td>
+</tr>
+<tr>
+<td style="text-align:left">SupportsRideSchedules</td>
+<td style="text-align:left">Does this park return schedules for rides?</td>
+</tr>
+<tr>
+<td style="text-align:left">FastPass</td>
+<td style="text-align:left">Does this park have FastPass (or a FastPass-style service)?</td>
+</tr>
+<tr>
+<td style="text-align:left">FastPassReturnTimes</td>
+<td style="text-align:left">Does this park tell you the FastPass return times?</td>
+</tr>
+<tr>
+<td style="text-align:left">Now</td>
+<td style="text-align:left">Current date/time at this park (returned as a Moment object)</td>
+</tr>
+<tr>
+<td style="text-align:left">LangOptions</td>
 <td style="text-align:left">What languages does this park support?</td>
 </tr>
 </tbody>
