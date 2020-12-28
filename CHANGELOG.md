@@ -12,3 +12,4 @@ Key changes to new versions
 * 1.0.8 Multi Language Support using .env variables.
 * 1.0.9 Redone the output of the functions.
 * 1.0.11 Redone the infrastructure, added tags, fixed EP and added more configs.
+* 1.0.12 Documentation update.
