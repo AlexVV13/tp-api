@@ -160,9 +160,15 @@ Europa-Park |:heavy_check_mark:|:heavy_multiplication_x:
                  longitude: (number: ride's longitude),
             meta: { (object: can contain various park-specific information about this ride - field may be null)
                 // examples of potential meta fields
-                singleRider: (boolean: does this ride have a single rider line?),
+                single_rider: (boolean: does this ride have a single rider line?),
                 type: (string: what is this poi?),
+                fastPass: (boolean: does this ride have a fastPass line?),
+                isVirtQueue: (boolean: is this entity a Virtual Queue?),
                 area: (string: section of the park this ride is located within),
+                tags: { (object: can contain various ride-specific tags, can be null and fields differ per park)
+                },
+                restrictions: { (object: can contain various ride-specific restrictions(minHeight etc), can be null and fields differ per park)
+                },
             },
             status: (string: will either be "Operating", "Closed", "Refurbishment", or "Down"),
         },
