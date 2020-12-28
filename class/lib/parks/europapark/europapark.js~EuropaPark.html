@@ -41,13 +41,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {EuropaPark} from &apos;<span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber10">@alexvv13/tpapi/lib/parks/europapark/europapark.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {EuropaPark} from &apos;<span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber19">@alexvv13/tpapi/lib/parks/europapark/europapark.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber10">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber19">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -67,7 +67,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>EuropaPark Park Object</p>
+  <div class="description" data-ice="description"><p>EuropaPark Park Object<br>Make sure all environment variables are set in an .env file which should be in the main location.<br>Not setting these variables will make the module exit early without returning data.<br><br>This class is here to fetch the POI data and to attach queue times data to it.<br>After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br><br>This class contains some login and refresh functions, but NEVER call them if you don&apos;t need them.<br>Most park specific parameters are set already</p>
 </div>
   
 
@@ -137,7 +137,7 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getOpHours">getOpHours</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getOpHours">getOpHours</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -166,7 +166,7 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getPOIS">getPOIS</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getPOIS">getPOIS</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -195,7 +195,7 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getQueue">getQueue</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-getQueue">getQueue</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -230,7 +230,7 @@
       <div>
         
         
-        <div data-ice="description"><p>Login to EuropaPark API<br>NEVER call this method without calling refresh() or getPOIS()!</p>
+        <div data-ice="description"><p>Login to EuropaPark API<br>NEVER call this method without calling refresh() or getPOIS()!<br>Calling this method too fast can cause a perm block from the Macks</p>
 </div>
       </div>
     </td>
@@ -570,7 +570,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber15">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber24">source</a></span></span>
     </span>
   </h3>
 
@@ -630,11 +630,11 @@
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">getOpHours</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">getOpHours</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber346">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber399">source</a></span></span>
     </span>
   </h3>
 
@@ -654,8 +654,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>EP park hours</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -671,7 +672,20 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.EuropaPark();
+
+park.getOpHours().then((hours) =&gt; {
+console.log(hours)
+});</code></pre>
+    </div>
+</div>
 
   
 
@@ -686,11 +700,11 @@
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">getPOIS</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">getPOIS</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber98">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber133">source</a></span></span>
     </span>
   </h3>
 
@@ -710,8 +724,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>EP POIS without queues</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -727,7 +742,20 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.EuropaPark();
+
+park.getPois().then((pois) =&gt; {
+console.log(pois)
+});</code></pre>
+    </div>
+</div>
 
   
 
@@ -742,11 +770,11 @@
     
     <span data-ice="async">async</span>
     
-    <span class="code" data-ice="name">getQueue</span><span class="code" data-ice="signature">(): <span>*</span></span>
+    <span class="code" data-ice="name">getQueue</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber264">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber308">source</a></span></span>
     </span>
   </h3>
 
@@ -766,8 +794,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>EP POIS with queues</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -783,7 +812,20 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.EuropaPark();
+
+park.getQueue().then((queue) =&gt; {
+console.log(queue)
+});</code></pre>
+    </div>
+</div>
 
   
 
@@ -802,14 +844,14 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber70">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Login to EuropaPark API<br>NEVER call this method without calling refresh() or getPOIS()!</p>
+  <div data-ice="description"><p>Login to EuropaPark API<br>NEVER call this method without calling refresh() or getPOIS()!<br>Calling this method too fast can cause a perm block from the Macks</p>
 </div>
 
   
@@ -840,7 +882,20 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.EuropaPark();
+
+park.loginEP().then((token) =&gt; {
+console.log(token)
+});</code></pre>
+    </div>
+</div>
 
   
 
@@ -859,7 +914,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/europapark.js.html#lineNumber101">source</a></span></span>
     </span>
   </h3>
 
@@ -897,7 +952,20 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.EuropaPark();
+
+park.refreshEP().then((token) =&gt; {
+console.log(token)
+});</code></pre>
+    </div>
+</div>
 
   
 

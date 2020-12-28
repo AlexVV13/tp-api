@@ -67,7 +67,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>Efteling Park Object<br>Make sure all environment variables are set in an .env file which should be in the main location.<br>Not setting these variables will make the module exit early without returning data.<br><br>This class is here to fetch the POI data and to attact queue times data to it.<br>After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br><br>Most park specific parameters are set already</p>
+  <div class="description" data-ice="description"><p>Efteling Park Object<br>Make sure all environment variables are set in an .env file which should be in the main location.<br>Not setting these variables will make the module exit early without returning data.<br><br>This class is here to fetch the POI data and to attach queue times data to it.<br>After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br><br>Most park specific parameters are set already</p>
 </div>
   
 
@@ -576,7 +576,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber196">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber210">source</a></span></span>
     </span>
   </h3>
 
@@ -614,7 +614,20 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.Efteling();
+
+park.getOpHours().then((hours) =&gt; {
+console.log(hours)
+});</code></pre>
+    </div>
+</div>
 
   
 
@@ -633,7 +646,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber71">source</a></span></span>
     </span>
   </h3>
 
@@ -676,7 +689,11 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">park.getPois().then((pois) =&gt; {
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.Efteling();
+
+park.getPois().then((pois) =&gt; {
 console.log(pois)
 });</code></pre>
     </div>
@@ -699,7 +716,7 @@ console.log(pois)
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber142">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber148">source</a></span></span>
     </span>
   </h3>
 
@@ -737,7 +754,20 @@ console.log(pois)
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.Efteling();
+
+park.getQueue().then((queue) =&gt; {
+console.log(queue)
+});</code></pre>
+    </div>
+</div>
 
   
 

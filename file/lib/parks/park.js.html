@@ -63,7 +63,15 @@ export class Park extends Entity {
   /**
   * Get All Queues of a park
   * This data contains all the Queues in park
-  * @return {string} WaitTimes
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.PARKNAME();
+  *
+  * park.getWaitTime().then((ridetimes) =&gt; {
+  * console.log(ridetimes)
+  * });
+  * @return {string} All PARK queuetimes
   */
   getWaitTime() {
     return this.getQueue().then((rides) =&gt; Promise.resolve(rides));
@@ -72,7 +80,15 @@ export class Park extends Entity {
   /**
   * Get All Calendar Data of a specific park
   * This data contains all the calendar data of a specific Park
-  * @return {string} operating hours
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.PARKNAME();
+  *
+  * park.getCalendar().then((hours) =&gt; {
+  * console.log(hours)
+  * });
+  * @return {string} All PARK calendar data
   */
   getCalendar() {
     return this.getOpHours().then((hours) =&gt; Promise.resolve(hours));
@@ -81,7 +97,15 @@ export class Park extends Entity {
   /**
   * Get All Data of a specific park
   * This data contains all park&apos;s data, which is fetched earlier
-  * @return {string} all park data
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.PARKNAME();
+  *
+  * park.getData().then((data) =&gt; {
+  * console.log(data)
+  * });
+  * @return {string} All PARK data(hours, queuetimes)
   */
   async getData() {
     const rides = await this.getQueue();

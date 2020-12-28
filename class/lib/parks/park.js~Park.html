@@ -482,7 +482,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/park.js.html#lineNumber34">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/park.js.html#lineNumber50">source</a></span></span>
     </span>
   </h3>
 
@@ -503,7 +503,7 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>operating hours</p>
+          <td class="return-desc" data-ice="returnDescription"><p>All PARK calendar data</p>
 </td>
         </tr>
       </tbody>
@@ -520,7 +520,20 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.PARKNAME();
+
+park.getCalendar().then((hours) =&gt; {
+console.log(hours)
+});</code></pre>
+    </div>
+</div>
 
   
 
@@ -539,7 +552,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/park.js.html#lineNumber43">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/park.js.html#lineNumber67">source</a></span></span>
     </span>
   </h3>
 
@@ -560,7 +573,7 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>all park data</p>
+          <td class="return-desc" data-ice="returnDescription"><p>All PARK data(hours, queuetimes)</p>
 </td>
         </tr>
       </tbody>
@@ -577,7 +590,20 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.PARKNAME();
+
+park.getData().then((data) =&gt; {
+console.log(data)
+});</code></pre>
+    </div>
+</div>
 
   
 
@@ -596,7 +622,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/park.js.html#lineNumber25">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/park.js.html#lineNumber33">source</a></span></span>
     </span>
   </h3>
 
@@ -617,7 +643,7 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>WaitTimes</p>
+          <td class="return-desc" data-ice="returnDescription"><p>All PARK queuetimes</p>
 </td>
         </tr>
       </tbody>
@@ -634,7 +660,20 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.PARKNAME();
+
+park.getWaitTime().then((ridetimes) =&gt; {
+console.log(ridetimes)
+});</code></pre>
+    </div>
+</div>
 
   
 

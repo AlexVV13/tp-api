@@ -50,6 +50,14 @@ dotenv.config();
 
 /**
 * Walibi Holland Park Object
+* Make sure all environment variables are set in an .env file which should be in the main location.
+* Not setting these variables will make the module exit early without returning data.
+*
+* This class is here to fetch the POI data and to attach queue times data to it.
+* After the fetches this data is send to the end user and from there he could do whatever he wants to do.
+*
+* Most park specific parameters are set already
+* @class
 */
 export class WalibiHolland extends Park {
   /**
@@ -86,6 +94,15 @@ export class WalibiHolland extends Park {
   /**
   * Get All POIS of Walibi Holland
   * This data contains all the POIS in Walibi Holland, limited to their fast-lane services
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.WalibiHolland();
+  *
+  * park.getPois().then((pois) =&gt; {
+  * console.log(pois)
+  * });
+  * @return {string} All Walibi Holland POIS with queuetimes
   */
   async getQueue() {
     return fetch(this.config.apiUrl,
@@ -131,6 +148,15 @@ export class WalibiHolland extends Park {
   /**
   * Get All Operating Hours of Walibi Holland
   * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.WalibiHolland();
+  *
+  * park.getOpHours().then((hours) =&gt; {
+  * console.log(hours)
+  * });
+  * @return {string} All Walibi Holland calendar data
   */
   async getOpHours() {
     const currentYear = moment().format(&apos;YYYY&apos;);

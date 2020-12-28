@@ -49,6 +49,15 @@ dotenv.config();
 
 /**
 * EuropaPark Park Object
+* Make sure all environment variables are set in an .env file which should be in the main location.
+* Not setting these variables will make the module exit early without returning data.
+*
+* This class is here to fetch the POI data and to attach queue times data to it.
+* After the fetches this data is send to the end user and from there he could do whatever he wants to do.
+*
+* This class contains some login and refresh functions, but NEVER call them if you don&apos;t need them.
+* Most park specific parameters are set already
+* @class
 */
 export class EuropaPark extends Park {
   /**
@@ -90,6 +99,15 @@ export class EuropaPark extends Park {
   /**
   * Login to EuropaPark API
   * NEVER call this method without calling refresh() or getPOIS()!
+  * Calling this method too fast can cause a perm block from the Macks
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.EuropaPark();
+  *
+  * park.loginEP().then((token) =&gt; {
+  * console.log(token)
+  * });
   * @return {string} EuropaPark refresh token
   */
   async loginEP() {
@@ -113,6 +131,14 @@ export class EuropaPark extends Park {
   /**
   * Refresh your just obtained ep token
   * Tokens are 6 hrs valid, however there&apos;s no point in just calling this function without queues or sth else
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.EuropaPark();
+  *
+  * park.refreshEP().then((token) =&gt; {
+  * console.log(token)
+  * });
   * @return {string} EuropaPark JWT Token
   */
   async refreshEP() {
@@ -137,6 +163,15 @@ export class EuropaPark extends Park {
   /**
   * Get All POIS of EuropaPark
   * This data contains all the POIS in EuropaPark
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.EuropaPark();
+  *
+  * park.getPois().then((pois) =&gt; {
+  * console.log(pois)
+  * });
+  * @return {string} EP POIS without queues
   */
   async getPOIS() {
     const jwttoken = await this.refreshEP();
@@ -303,6 +338,15 @@ export class EuropaPark extends Park {
   /**
   * Get All Queues of EuropaPark
   * This data contains all the Queues in EuropaPark, attached with pois above.
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.EuropaPark();
+  *
+  * park.getQueue().then((queue) =&gt; {
+  * console.log(queue)
+  * });
+  * @return {string} EP POIS with queues
   */
   async getQueue() {
     const token = await this.refreshEP();
@@ -385,6 +429,15 @@ export class EuropaPark extends Park {
   /**
   * Get All Operating Hours of EuropaPark
   * This data contains all the Operating Hours in EuropaPark, fetched with currentyear.
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.EuropaPark();
+  *
+  * park.getOpHours().then((hours) =&gt; {
+  * console.log(hours)
+  * });
+  * @return {string} EP park hours
   */
   async getOpHours() {
     const token = await this.refreshEP();

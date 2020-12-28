@@ -50,21 +50,21 @@ import dotenv from &apos;dotenv&apos;;
 dotenv.config();
 
 /**
- * Efteling Park Object
- * Make sure all environment variables are set in an .env file which should be in the main location.
- * Not setting these variables will make the module exit early without returning data.
- *
- * This class is here to fetch the POI data and to attact queue times data to it.
- * After the fetches this data is send to the end user and from there he could do whatever he wants to do.
- *
- * Most park specific parameters are set already
- * @class
- */
+* Efteling Park Object
+* Make sure all environment variables are set in an .env file which should be in the main location.
+* Not setting these variables will make the module exit early without returning data.
+*
+* This class is here to fetch the POI data and to attach queue times data to it.
+* After the fetches this data is send to the end user and from there he could do whatever he wants to do.
+*
+* Most park specific parameters are set already
+* @class
+*/
 export class Efteling extends Park {
   /**
-   * Create a new Efteling Park object
-   * @param {object} options
-   */
+  * Create a new Efteling Park object
+  * @param {object} options
+  */
   constructor(options = {}) {
     options.name = options.name || &apos;Efteling&apos;;
     options.timezone = options.timezone || &apos;Europe/Amsterdam&apos;;
@@ -101,11 +101,15 @@ export class Efteling extends Park {
   /**
   * Get Efteling POI data
   * This data contains general ride names, descriptions etc.
-  * @return {string} All Efteling POIS without queuetimes
   * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.Efteling();
+  *
   * park.getPois().then((pois) =&gt; {
   * console.log(pois)
   * });
+  * @return {string} All Efteling POIS without queuetimes
   */
   async getPOIS() {
     return fetch(this.config.searchURL +
@@ -167,12 +171,6 @@ export class Efteling extends Park {
               };
             }
           });
-          /* fs.writeFile(&apos;./data/parks/efteling/efteling_pois.json&apos;, JSON.stringify(poi, null, 4), function(err) {
-            if (err) return console.log(err);
-          });
-          fs.writeFile(&apos;./data/parks/efteling/efteling_poi_mock.json&apos;, JSON.stringify(rideData.hits.hit, null, 4), function(err) {
-            if (err) return console.log(err);
-          }); */
           return Promise.resolve(poi);
         });
   }
@@ -180,6 +178,14 @@ export class Efteling extends Park {
   /**
   * Get Efteling QueueTimes data
   * This data contains the queue data, we&apos;ll assign them to the earlier fetched pois
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.Efteling();
+  *
+  * park.getQueue().then((queue) =&gt; {
+  * console.log(queue)
+  * });
   * @return {string} All Efteling POIS with queuetimes
   */
   async getQueue() {
@@ -234,6 +240,14 @@ export class Efteling extends Park {
   /**
   * Get Efteling Park Hours data
   * This data contains the hours data, used to display the operating hours of Efteling
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.Efteling();
+  *
+  * park.getOpHours().then((hours) =&gt; {
+  * console.log(hours)
+  * });
   * @return {string} All Efteling Operating Hours for 1mo
   */
   async getOpHours() {
