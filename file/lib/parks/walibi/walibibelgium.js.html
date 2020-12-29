@@ -104,22 +104,22 @@ export class WalibiBelgium extends Park {
     };
   }
 
-  // Load the Walibi Holland poidata
-  // const poidata = (&apos;./data/parks/walibi/walibiholland_pois.json&apos;)
-  // const poimock = (&apos;./data/parks/walibi/walibiholland_poi_mock.json&apos;)
+  // Load the Walibi Belgium poidata
+  // const poidata = (&apos;./data/parks/walibi/walibiBelgium_pois.json&apos;)
+  // const poimock = (&apos;./data/parks/walibi/walibiBelgium_poi_mock.json&apos;)
 
   /**
-  * Get All POIS of Walibi Holland
-  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services
+  * Get All POIS of Walibi Belgium
+  * This data contains all the POIS in Walibi Belgium, limited to their fast-lane services
   * @example
   * import tpapi from &apos;@alexvv13/tpapi&apos;;
   *
-  * const park = new tpapi.park.WalibiHolland();
+  * const park = new tpapi.park.WalibiBelgium();
   *
   * park.getPois().then((pois) =&gt; {
   * console.log(pois)
   * });
-  * @return {string} All Walibi Holland POIS with queuetimes
+  * @return {string} All Walibi Belgium POIS with queuetimes
   */
   async getQueue() {
     return fetch(this.config.apiBase +
@@ -183,17 +183,17 @@ export class WalibiBelgium extends Park {
   }
 
   /**
-  * Get All Operating Hours of Walibi Holland
-  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.
+  * Get All Operating Hours of Walibi Belgium
+  * This data contains all the Operating Hours in Walibi Belgium, fetched with currentyear.
   * @example
   * import tpapi from &apos;@alexvv13/tpapi&apos;;
   *
-  * const park = new tpapi.park.WalibiHolland();
+  * const park = new tpapi.park.WalibiBelgium();
   *
   * park.getOpHours().then((hours) =&gt; {
   * console.log(hours)
   * });
-  * @return {string} All Walibi Holland calendar data
+  * @return {string} All Walibi Belgium calendar data
   */
   async getOpHours() {
     const currentYear = moment().format(&apos;YYYY&apos;);

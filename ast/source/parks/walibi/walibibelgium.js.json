@@ -3043,7 +3043,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentLine",
-                    "value": " Load the Walibi Holland poidata",
+                    "value": " Load the Walibi Belgium poidata",
                     "start": 1738,
                     "end": 1772,
                     "loc": {
@@ -3059,7 +3059,7 @@
                   },
                   {
                     "type": "CommentLine",
-                    "value": " const poidata = ('./data/parks/walibi/walibiholland_pois.json')",
+                    "value": " const poidata = ('./data/parks/walibi/walibiBelgium_pois.json')",
                     "start": 1775,
                     "end": 1841,
                     "loc": {
@@ -3075,7 +3075,7 @@
                   },
                   {
                     "type": "CommentLine",
-                    "value": " const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')",
+                    "value": " const poimock = ('./data/parks/walibi/walibiBelgium_poi_mock.json')",
                     "start": 1844,
                     "end": 1914,
                     "loc": {
@@ -3091,7 +3091,7 @@
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getPois().then((pois) => {\n  * console.log(pois)\n  * });\n  * @return {string} All Walibi Holland POIS with queuetimes\n  ",
+                    "value": "*\n  * Get All POIS of Walibi Belgium\n  * This data contains all the POIS in Walibi Belgium, limited to their fast-lane services\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiBelgium();\n  *\n  * park.getPois().then((pois) => {\n  * console.log(pois)\n  * });\n  * @return {string} All Walibi Belgium POIS with queuetimes\n  ",
                     "start": 1918,
                     "end": 2290,
                     "loc": {
@@ -6761,7 +6761,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentLine",
-                    "value": " Load the Walibi Holland poidata",
+                    "value": " Load the Walibi Belgium poidata",
                     "start": 1738,
                     "end": 1772,
                     "loc": {
@@ -6777,7 +6777,7 @@
                   },
                   {
                     "type": "CommentLine",
-                    "value": " const poidata = ('./data/parks/walibi/walibiholland_pois.json')",
+                    "value": " const poidata = ('./data/parks/walibi/walibiBelgium_pois.json')",
                     "start": 1775,
                     "end": 1841,
                     "loc": {
@@ -6793,7 +6793,7 @@
                   },
                   {
                     "type": "CommentLine",
-                    "value": " const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')",
+                    "value": " const poimock = ('./data/parks/walibi/walibiBelgium_poi_mock.json')",
                     "start": 1844,
                     "end": 1914,
                     "loc": {
@@ -6809,7 +6809,7 @@
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getPois().then((pois) => {\n  * console.log(pois)\n  * });\n  * @return {string} All Walibi Holland POIS with queuetimes\n  ",
+                    "value": "*\n  * Get All POIS of Walibi Belgium\n  * This data contains all the POIS in Walibi Belgium, limited to their fast-lane services\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiBelgium();\n  *\n  * park.getPois().then((pois) => {\n  * console.log(pois)\n  * });\n  * @return {string} All Walibi Belgium POIS with queuetimes\n  ",
                     "start": 1918,
                     "end": 2290,
                     "loc": {
@@ -6827,7 +6827,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Holland calendar data\n  ",
+                    "value": "*\n  * Get All Operating Hours of Walibi Belgium\n  * This data contains all the Operating Hours in Walibi Belgium, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiBelgium();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Belgium calendar data\n  ",
                     "start": 4184,
                     "end": 4566,
                     "loc": {
@@ -7814,7 +7814,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Holland calendar data\n  ",
+                    "value": "*\n  * Get All Operating Hours of Walibi Belgium\n  * This data contains all the Operating Hours in Walibi Belgium, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiBelgium();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Belgium calendar data\n  ",
                     "start": 4184,
                     "end": 4566,
                     "loc": {
@@ -8024,7 +8024,7 @@
     },
     {
       "type": "CommentLine",
-      "value": " Load the Walibi Holland poidata",
+      "value": " Load the Walibi Belgium poidata",
       "start": 1738,
       "end": 1772,
       "loc": {
@@ -8040,7 +8040,7 @@
     },
     {
       "type": "CommentLine",
-      "value": " const poidata = ('./data/parks/walibi/walibiholland_pois.json')",
+      "value": " const poidata = ('./data/parks/walibi/walibiBelgium_pois.json')",
       "start": 1775,
       "end": 1841,
       "loc": {
@@ -8056,7 +8056,7 @@
     },
     {
       "type": "CommentLine",
-      "value": " const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')",
+      "value": " const poimock = ('./data/parks/walibi/walibiBelgium_poi_mock.json')",
       "start": 1844,
       "end": 1914,
       "loc": {
@@ -8072,7 +8072,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getPois().then((pois) => {\n  * console.log(pois)\n  * });\n  * @return {string} All Walibi Holland POIS with queuetimes\n  ",
+      "value": "*\n  * Get All POIS of Walibi Belgium\n  * This data contains all the POIS in Walibi Belgium, limited to their fast-lane services\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiBelgium();\n  *\n  * park.getPois().then((pois) => {\n  * console.log(pois)\n  * });\n  * @return {string} All Walibi Belgium POIS with queuetimes\n  ",
       "start": 1918,
       "end": 2290,
       "loc": {
@@ -8104,7 +8104,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Holland calendar data\n  ",
+      "value": "*\n  * Get All Operating Hours of Walibi Belgium\n  * This data contains all the Operating Hours in Walibi Belgium, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiBelgium();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Belgium calendar data\n  ",
       "start": 4184,
       "end": 4566,
       "loc": {
@@ -13130,7 +13130,7 @@
     },
     {
       "type": "CommentLine",
-      "value": " Load the Walibi Holland poidata",
+      "value": " Load the Walibi Belgium poidata",
       "start": 1738,
       "end": 1772,
       "loc": {
@@ -13146,7 +13146,7 @@
     },
     {
       "type": "CommentLine",
-      "value": " const poidata = ('./data/parks/walibi/walibiholland_pois.json')",
+      "value": " const poidata = ('./data/parks/walibi/walibiBelgium_pois.json')",
       "start": 1775,
       "end": 1841,
       "loc": {
@@ -13162,7 +13162,7 @@
     },
     {
       "type": "CommentLine",
-      "value": " const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')",
+      "value": " const poimock = ('./data/parks/walibi/walibiBelgium_poi_mock.json')",
       "start": 1844,
       "end": 1914,
       "loc": {
@@ -13178,7 +13178,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getPois().then((pois) => {\n  * console.log(pois)\n  * });\n  * @return {string} All Walibi Holland POIS with queuetimes\n  ",
+      "value": "*\n  * Get All POIS of Walibi Belgium\n  * This data contains all the POIS in Walibi Belgium, limited to their fast-lane services\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiBelgium();\n  *\n  * park.getPois().then((pois) => {\n  * console.log(pois)\n  * });\n  * @return {string} All Walibi Belgium POIS with queuetimes\n  ",
       "start": 1918,
       "end": 2290,
       "loc": {
@@ -20479,7 +20479,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Holland calendar data\n  ",
+      "value": "*\n  * Get All Operating Hours of Walibi Belgium\n  * This data contains all the Operating Hours in Walibi Belgium, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiBelgium();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Belgium calendar data\n  ",
       "start": 4184,
       "end": 4566,
       "loc": {
