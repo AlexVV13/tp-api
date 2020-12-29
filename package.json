@@ -1,6 +1,6 @@
 {
   "name": "@alexvv13/tpapi",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "type": "module",
   "description": "Api to fetch themepark data, such as queues, operating hours etc",
   "engines": {
