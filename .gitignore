@@ -6,3 +6,6 @@
 
 # other
 npm-debug.log*
+
+# caching
+/db.cache

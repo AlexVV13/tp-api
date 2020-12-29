@@ -9,7 +9,6 @@ Themeparks API loosely based on existing examples, however I wanted to kill some
 ![node-current](https://img.shields.io/node/v/@alexvv13/tpapi)
 [![npm version](https://badge.fury.io/js/%40alexvv13%2Ftpapi.svg)](https://badge.fury.io/js/%40alexvv13%2Ftpapi) </br>
 
-[![Documentation State](https://github.com/AlexVV13/tp-api/blob/gh-pages/badge.svg)](https://alexvv13.github.io/tp-api "API Documentation") </br>
 ![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/alexvv13/tp-api.svg) </br>
 
 [API documentation](https://alexvv13.github.io/tp-api "API Documentation") </br>
