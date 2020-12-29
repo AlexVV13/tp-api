@@ -30,9 +30,16 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCache">getCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parseConfig">parseConfig</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromise">reusePromise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromiseForever">reusePromiseForever</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cache">cache</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheBase.js~CacheBase.html">CacheBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheLevel.js~CacheLevel.html">CacheLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheMemory.js~CacheMemory.html">CacheMemory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/scopedCache.js~ScopedCache.html">ScopedCache</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
@@ -40,7 +47,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1>Source <img data-ice="coverageBadge" src="./badge.svg"><span data-ice="totalCoverageCount" class="total-coverage-count">40/41</span></h1>
+<div class="content" data-ice="content"><h1>Source <img data-ice="coverageBadge" src="./badge.svg"><span data-ice="totalCoverageCount" class="total-coverage-count">80/93</span></h1>
 
 <table class="files-summary" data-ice="files" data-use-coverage="true">
   <thead>
@@ -56,21 +63,53 @@
   <tbody>
     
   <tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/lib/cache.js.html#errorLines=9">lib/cache.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-getCache">getCache</a></span></td>
+      <td class="coverage"><span data-ice="coverage">66 %</span><span data-ice="coverageCount" class="coverage-count">2/3</span></td>
+      <td style="display: none;" data-ice="size">660 byte</td>
+      <td style="display: none;" data-ice="lines">32</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/lib/cache/cacheBase.js.html#errorLines=19,20,23,25">lib/cache/cacheBase.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/lib/cache/cacheBase.js~CacheBase.html">CacheBase</a></span></td>
+      <td class="coverage"><span data-ice="coverage">71 %</span><span data-ice="coverageCount" class="coverage-count">10/14</span></td>
+      <td style="display: none;" data-ice="size">7363 byte</td>
+      <td style="display: none;" data-ice="lines">231</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/lib/cache/cacheLevel.js.html#errorLines=21">lib/cache/cacheLevel.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/lib/cache/cacheLevel.js~CacheLevel.html">CacheLevel</a></span></td>
+      <td class="coverage"><span data-ice="coverage">85 %</span><span data-ice="coverageCount" class="coverage-count">6/7</span></td>
+      <td style="display: none;" data-ice="size">1456 byte</td>
+      <td style="display: none;" data-ice="lines">74</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/lib/cache/cacheMemory.js.html#errorLines=19">lib/cache/cacheMemory.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/lib/cache/cacheMemory.js~CacheMemory.html">CacheMemory</a></span></td>
+      <td class="coverage"><span data-ice="coverage">85 %</span><span data-ice="coverageCount" class="coverage-count">6/7</span></td>
+      <td style="display: none;" data-ice="size">1024 byte</td>
+      <td style="display: none;" data-ice="lines">58</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/lib/cache/scopedCache.js.html#errorLines=15,16,18,52">lib/cache/scopedCache.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/lib/cache/scopedCache.js~ScopedCache.html">ScopedCache</a></span></td>
+      <td class="coverage"><span data-ice="coverage">73 %</span><span data-ice="coverageCount" class="coverage-count">11/15</span></td>
+      <td style="display: none;" data-ice="size">4869 byte</td>
+      <td style="display: none;" data-ice="lines">148</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
+    </tr>
+<tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/lib/configBase.js.html#errorLines=80">lib/configBase.js</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span>
 <span><a href="function/index.html#static-function-parseConfig">parseConfig</a></span></td>
       <td class="coverage"><span data-ice="coverage">75 %</span><span data-ice="coverageCount" class="coverage-count">3/4</span></td>
       <td style="display: none;" data-ice="size">2719 byte</td>
       <td style="display: none;" data-ice="lines">84</td>
-      <td style="display: none;" data-ice="updated">2020-12-02 13:30:28 (UTC)</td>
-    </tr>
-<tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/entity.js.html">lib/entity.js</a></span></td>
-      <td data-ice="identifier" class="identifiers"><span><a href="class/lib/entity.js~Entity.html">Entity</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">16/16</span></td>
-      <td style="display: none;" data-ice="size">3367 byte</td>
-      <td style="display: none;" data-ice="lines">148</td>
-      <td style="display: none;" data-ice="updated">2020-12-02 13:30:28 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/lib/index.js.html">lib/index.js</a></span></td>
@@ -78,31 +117,39 @@
       <td class="coverage"><span data-ice="coverage">-</span></td>
       <td style="display: none;" data-ice="size">589 byte</td>
       <td style="display: none;" data-ice="lines">31</td>
-      <td style="display: none;" data-ice="updated">2020-12-02 13:30:28 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/lib/parks/efteling/efteling.js.html">lib/parks/efteling/efteling.js</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></td>
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
-      <td style="display: none;" data-ice="size">9265 byte</td>
-      <td style="display: none;" data-ice="lines">273</td>
-      <td style="display: none;" data-ice="updated">2020-12-02 13:30:28 (UTC)</td>
+      <td style="display: none;" data-ice="size">9469 byte</td>
+      <td style="display: none;" data-ice="lines">274</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/lib/parks/entity.js.html">lib/parks/entity.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">16/16</span></td>
+      <td style="display: none;" data-ice="size">3368 byte</td>
+      <td style="display: none;" data-ice="lines">148</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/lib/parks/europapark/europapark.js.html">lib/parks/europapark/europapark.js</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></td>
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">7/7</span></td>
-      <td style="display: none;" data-ice="size">15283 byte</td>
-      <td style="display: none;" data-ice="lines">432</td>
-      <td style="display: none;" data-ice="updated">2020-12-02 13:30:28 (UTC)</td>
+      <td style="display: none;" data-ice="size">15962 byte</td>
+      <td style="display: none;" data-ice="lines">437</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
     </tr>
 <tr data-ice="file">
-      <td data-ice="filePath"><span><a href="file/lib/parks/park.js.html">lib/parks/park.js</a></span></td>
+      <td data-ice="filePath"><span><a href="file/lib/parks/park.js.html#errorLines=17">lib/parks/park.js</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
-      <td style="display: none;" data-ice="size">1763 byte</td>
-      <td style="display: none;" data-ice="lines">77</td>
-      <td style="display: none;" data-ice="updated">2020-12-02 13:30:28 (UTC)</td>
+      <td class="coverage"><span data-ice="coverage">83 %</span><span data-ice="coverageCount" class="coverage-count">5/6</span></td>
+      <td style="display: none;" data-ice="size">1937 byte</td>
+      <td style="display: none;" data-ice="lines">81</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/lib/parks/walibi/walibiholland.js.html">lib/parks/walibi/walibiholland.js</a></span></td>
@@ -110,7 +157,16 @@
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
       <td style="display: none;" data-ice="size">4990 byte</td>
       <td style="display: none;" data-ice="lines">147</td>
-      <td style="display: none;" data-ice="updated">2020-12-02 13:30:28 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/lib/reusePromises.js.html">lib/reusePromises.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="function/index.html#static-function-reusePromise">reusePromise</a></span>
+<span><a href="function/index.html#static-function-reusePromiseForever">reusePromiseForever</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
+      <td style="display: none;" data-ice="size">3159 byte</td>
+      <td style="display: none;" data-ice="lines">107</td>
+      <td style="display: none;" data-ice="updated">2020-12-03 08:57:26 (UTC)</td>
     </tr>
 </tbody>
 </table>

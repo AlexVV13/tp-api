@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">lib/configBase.js | @alexvv13/tpapi</title>
+  <title data-ice="title">lib/reusePromises.js | @alexvv13/tpapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -47,91 +47,114 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/configBase.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// load any environment variables from .env (if it exists)
-import DotEnv from &apos;dotenv&apos;;
-DotEnv.config();
+<div class="content" data-ice="content"><h1 data-ice="title">lib/reusePromises.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * Module that wraps re-using the same Promise multiple times.
+ * This allows a function to be called multiple times before returning, but only return once.
+ * Useful for latent network requests,
+ *  such as requesting a document from multiple sources, but only making one HTTP request.
+ */
 
-import EventEmitter from &apos;events&apos;;
+const activeFunctions = [];
 
 /**
- * Combine given options with environment variables
- * @param {object} options Incoming options
- * @return {object} Processed configuration options
+ * Find the active function with these arguments
+ * @param {*} self
+ * @param {function} fn
+ * @param {string} argsSerialised
+ * @return {number}
+ * @private
  */
-export function parseConfig(options = {}) {
-  const configKeys = Object.keys(options);
+function findActiveFunctionIndex(self, fn, argsSerialised) {
+  return activeFunctions.findIndex((x) =&gt; {
+    return x.self === self &amp;&amp; x.fn === fn &amp;&amp; x.args === argsSerialised;
+  });
+}
 
-  const config = {};
+/**
+ * Reuse a function until it resolves
+ * @param {*} self
+ * @param {function} fn
+ * @param  {...any} args Arguments to pass to the function
+ * @return {Promise}
+ */
+export function reusePromise(self, fn, ...args) {
+  return _reusePromise(false, self, fn, ...args);
+}
 
-  options.configPrefixes = [&apos;TPAPI&apos;].concat(
-      options.configPrefixes || [],
-  );
+/**
+ * Reuse a function, returning it&apos;s result forever
+ * @param {*} self
+ * @param {function} fn
+ * @param  {...any} args Arguments to pass to the function
+ * @return {Promise}
+ */
+export function reusePromiseForever(self, fn, ...args) {
+  return _reusePromise(true, self, fn, ...args);
+}
 
-  // build this.config object with our settings
-  configKeys.forEach((key) =&gt; {
-    // default prefixes are either &quot;classname_&quot; or &quot;TPAPI&quot;
-    //  classes can add more with configPrefixes
-    options.configPrefixes.forEach((prefix) =&gt; {
-      const configEnvName = `${prefix}_${key}`.toUpperCase();
+/**
+ * Internal call to run a Promise once time (and optionally keep result forever)
+ * @param {boolean} useResultForever
+ * @param {*} self
+ * @param {function} fn
+ * @param  {...any} args
+ * @return {Promise}
+ * @private
+ */
+function _reusePromise(useResultForever, self, fn, ...args) {
+  // search for existing promise that hasn&apos;t resolved yet
+  const argsSerialise = args ? JSON.stringify(args) : null;
+  const existingFunctionIndex = findActiveFunctionIndex(self, fn, argsSerialise);
+  const existingFunction = existingFunctionIndex &gt;= 0 ? activeFunctions[existingFunctionIndex] : undefined;
+  if (existingFunction) {
+    if (existingFunction.resolved) {
+      return existingFunction.value;
+    }
+    return existingFunction.promise;
+  }
 
-      if (process.env[configEnvName]) {
-        // console.log(`Using env variable ${configEnvName}`);
-        config[key] = process.env[configEnvName];
-        // console.log(` ${key}(env.${configEnvName})=${config[key]}`);
-      }
-    });
-
-    if (config[key] === undefined) {
-      config[key] = options[key];
-    } else {
-      // convert env variable to number if the base default is a number
-      if (typeof config[key] === &apos;number&apos;) {
-        config[key] = Number(config[key]);
-      } else if (typeof config[key] === &apos;boolean&apos;) {
-        // convert any boolean configs too
-        config[key] = (config[key] === &apos;true&apos;);
+  const cleanupPendingFunction = () =&gt; {
+    const pendingFunctionIDX = findActiveFunctionIndex(self, fn, argsSerialise);
+    if (pendingFunctionIDX &gt;= 0) {
+      if (!useResultForever) {
+      // clean up pending Promise
+        activeFunctions.splice(pendingFunctionIDX, 1);
       }
     }
+  };
+
+  // didn&apos;t find a pending existing promise, make a new one!
+  const newPromise = (self !== null &amp;&amp; self !== undefined) ? fn.apply(self, args) : fn(...args);
+  newPromise.then((value) =&gt; {
+    // clean up our pending Promise
+    if (!useResultForever) {
+      cleanupPendingFunction();
+    } else {
+      const pendingFunctionIDX = findActiveFunctionIndex(self, fn, argsSerialise);
+      if (pendingFunctionIDX &gt;= 0) {
+      // store result so we can re-use it for future calls
+        activeFunctions[pendingFunctionIDX].resolved = true;
+        activeFunctions[pendingFunctionIDX].value = value;
+      }
+    }
+
+    return value;
+  }).catch((err) =&gt; {
+    cleanupPendingFunction();
+    throw err;
   });
-
-  return config;
+  activeFunctions.push({
+    fn,
+    self,
+    args: argsSerialise,
+    promise: newPromise,
+    resolved: false,
+  });
+  return newPromise;
 }
 
-/**
- * Base Config Object
- * Supports classes with a single argument &quot;options&quot;
- * These will be sorted into a member called &quot;this.config&quot; containing all the same keys
- *
- * Crucially, these can also be overriden through environment variables
- * For example, for a config option &quot;timeout&quot; for class Database, this could be overriden through either:
- *   env.TPAPI_TIMEOUT (using a &quot;global module name&quot;)
- *
- * Classes can also add additional prefixes to the supported environment variables through:
- *   new ClassInstance({configPrefixes: [&apos;myCustomPrefix&apos;]});
- * Which would also allow env.MYCUSTOMPREFIX_TIMEOUT to be used
- *
- * Note that a default value must be supplied for the environment variable to be processed
- * If the default value is a number, the environment variable will be cast to a number as well
- * @class
- */
-export class ConfigBase extends EventEmitter {
-  /**
-   * A base class that can be configured through environment variables
-   * @param {object} options Config for instantiating this object
-   */
-  constructor(options = {}) {
-    super();
-
-    options.configPrefixes = [this.constructor.name].concat(
-        options.configPrefixes || [],
-    );
-
-    this.config = parseConfig(options || {});
-  }
-}
-
-export default ConfigBase;
+export default reusePromise;
 </code></pre>
 
 </div>

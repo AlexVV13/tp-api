@@ -1,5 +1,23 @@
 window.esdocSearchIndex = [
   [
+    "@alexvv13/tpapi/lib/cache/cachebase.js~cachebase",
+    "class/lib/cache/cacheBase.js~CacheBase.html",
+    "<span>CacheBase</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/cache/cacheBase.js</span>",
+    "class"
+  ],
+  [
+    "@alexvv13/tpapi/lib/cache/cachelevel.js~cachelevel",
+    "class/lib/cache/cacheLevel.js~CacheLevel.html",
+    "<span>CacheLevel</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/cache/cacheLevel.js</span>",
+    "class"
+  ],
+  [
+    "@alexvv13/tpapi/lib/cache/cachememory.js~cachememory",
+    "class/lib/cache/cacheMemory.js~CacheMemory.html",
+    "<span>CacheMemory</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/cache/cacheMemory.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/configbase.js~configbase",
     "class/lib/configBase.js~ConfigBase.html",
     "<span>ConfigBase</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/configBase.js</span>",
@@ -12,9 +30,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@alexvv13/tpapi/lib/entity.js~entity",
-    "class/lib/entity.js~Entity.html",
-    "<span>Entity</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/entity.js</span>",
+    "@alexvv13/tpapi/lib/parks/entity.js~entity",
+    "class/lib/parks/entity.js~Entity.html",
+    "<span>Entity</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/entity.js</span>",
     "class"
   ],
   [
@@ -30,15 +48,39 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/cache/scopedcache.js~scopedcache",
+    "class/lib/cache/scopedCache.js~ScopedCache.html",
+    "<span>ScopedCache</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/cache/scopedCache.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/walibi/walibiholland.js~walibiholland",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html",
     "<span>WalibiHolland</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibiholland.js</span>",
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/cache.js~getcache",
+    "function/index.html#static-function-getCache",
+    "<span>getCache</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/cache.js</span>",
+    "function"
+  ],
+  [
     "@alexvv13/tpapi/lib/configbase.js~parseconfig",
     "function/index.html#static-function-parseConfig",
     "<span>parseConfig</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/configBase.js</span>",
+    "function"
+  ],
+  [
+    "@alexvv13/tpapi/lib/reusepromises.js~reusepromise",
+    "function/index.html#static-function-reusePromise",
+    "<span>reusePromise</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/reusePromises.js</span>",
+    "function"
+  ],
+  [
+    "@alexvv13/tpapi/lib/reusepromises.js~reusepromiseforever",
+    "function/index.html#static-function-reusePromiseForever",
+    "<span>reusePromiseForever</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/reusePromises.js</span>",
     "function"
   ],
   [
@@ -324,6 +366,270 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "lib/cache.js",
+    "file/lib/cache.js.html",
+    "lib/cache.js",
+    "file"
+  ],
+  [
+    "lib/cache/cachebase.js",
+    "file/lib/cache/cacheBase.js.html",
+    "lib/cache/cacheBase.js",
+    "file"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#_del",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-method-_del",
+    "lib/cache/cacheBase.js~CacheBase#_del",
+    "method"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#_get",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-method-_get",
+    "lib/cache/cacheBase.js~CacheBase#_get",
+    "method"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#_getkeys",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-method-_getKeys",
+    "lib/cache/cacheBase.js~CacheBase#_getKeys",
+    "method"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#_set",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-method-_set",
+    "lib/cache/cacheBase.js~CacheBase#_set",
+    "method"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#constructor",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-constructor-constructor",
+    "lib/cache/cacheBase.js~CacheBase#constructor",
+    "method"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#failedcachewraps",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-member-failedCacheWraps",
+    "lib/cache/cacheBase.js~CacheBase#failedCacheWraps",
+    "member"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#get",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-method-get",
+    "lib/cache/cacheBase.js~CacheBase#get",
+    "method"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#getkeys",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-method-getKeys",
+    "lib/cache/cacheBase.js~CacheBase#getKeys",
+    "method"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#memcache",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-member-memCache",
+    "lib/cache/cacheBase.js~CacheBase#memCache",
+    "member"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#memorylayerenabled",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-member-memoryLayerEnabled",
+    "lib/cache/cacheBase.js~CacheBase#memoryLayerEnabled",
+    "member"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#pendingcachewraps",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-member-pendingCacheWraps",
+    "lib/cache/cacheBase.js~CacheBase#pendingCacheWraps",
+    "member"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#set",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-method-set",
+    "lib/cache/cacheBase.js~CacheBase#set",
+    "method"
+  ],
+  [
+    "lib/cache/cachebase.js~cachebase#wrap",
+    "class/lib/cache/cacheBase.js~CacheBase.html#instance-method-wrap",
+    "lib/cache/cacheBase.js~CacheBase#wrap",
+    "method"
+  ],
+  [
+    "lib/cache/cachelevel.js",
+    "file/lib/cache/cacheLevel.js.html",
+    "lib/cache/cacheLevel.js",
+    "file"
+  ],
+  [
+    "lib/cache/cachelevel.js~cachelevel#_del",
+    "class/lib/cache/cacheLevel.js~CacheLevel.html#instance-method-_del",
+    "lib/cache/cacheLevel.js~CacheLevel#_del",
+    "method"
+  ],
+  [
+    "lib/cache/cachelevel.js~cachelevel#_get",
+    "class/lib/cache/cacheLevel.js~CacheLevel.html#instance-method-_get",
+    "lib/cache/cacheLevel.js~CacheLevel#_get",
+    "method"
+  ],
+  [
+    "lib/cache/cachelevel.js~cachelevel#_getkeys",
+    "class/lib/cache/cacheLevel.js~CacheLevel.html#instance-method-_getKeys",
+    "lib/cache/cacheLevel.js~CacheLevel#_getKeys",
+    "method"
+  ],
+  [
+    "lib/cache/cachelevel.js~cachelevel#_set",
+    "class/lib/cache/cacheLevel.js~CacheLevel.html#instance-method-_set",
+    "lib/cache/cacheLevel.js~CacheLevel#_set",
+    "method"
+  ],
+  [
+    "lib/cache/cachelevel.js~cachelevel#constructor",
+    "class/lib/cache/cacheLevel.js~CacheLevel.html#instance-constructor-constructor",
+    "lib/cache/cacheLevel.js~CacheLevel#constructor",
+    "method"
+  ],
+  [
+    "lib/cache/cachelevel.js~cachelevel#db",
+    "class/lib/cache/cacheLevel.js~CacheLevel.html#instance-member-db",
+    "lib/cache/cacheLevel.js~CacheLevel#db",
+    "member"
+  ],
+  [
+    "lib/cache/cachememory.js",
+    "file/lib/cache/cacheMemory.js.html",
+    "lib/cache/cacheMemory.js",
+    "file"
+  ],
+  [
+    "lib/cache/cachememory.js~cachememory#_del",
+    "class/lib/cache/cacheMemory.js~CacheMemory.html#instance-method-_del",
+    "lib/cache/cacheMemory.js~CacheMemory#_del",
+    "method"
+  ],
+  [
+    "lib/cache/cachememory.js~cachememory#_get",
+    "class/lib/cache/cacheMemory.js~CacheMemory.html#instance-method-_get",
+    "lib/cache/cacheMemory.js~CacheMemory#_get",
+    "method"
+  ],
+  [
+    "lib/cache/cachememory.js~cachememory#_getkeys",
+    "class/lib/cache/cacheMemory.js~CacheMemory.html#instance-method-_getKeys",
+    "lib/cache/cacheMemory.js~CacheMemory#_getKeys",
+    "method"
+  ],
+  [
+    "lib/cache/cachememory.js~cachememory#_set",
+    "class/lib/cache/cacheMemory.js~CacheMemory.html#instance-method-_set",
+    "lib/cache/cacheMemory.js~CacheMemory#_set",
+    "method"
+  ],
+  [
+    "lib/cache/cachememory.js~cachememory#cache",
+    "class/lib/cache/cacheMemory.js~CacheMemory.html#instance-member-cache",
+    "lib/cache/cacheMemory.js~CacheMemory#cache",
+    "member"
+  ],
+  [
+    "lib/cache/cachememory.js~cachememory#constructor",
+    "class/lib/cache/cacheMemory.js~CacheMemory.html#instance-constructor-constructor",
+    "lib/cache/cacheMemory.js~CacheMemory#constructor",
+    "method"
+  ],
+  [
+    "lib/cache/scopedcache.js",
+    "file/lib/cache/scopedCache.js.html",
+    "lib/cache/scopedCache.js",
+    "file"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#_initcache",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-method-_initCache",
+    "lib/cache/scopedCache.js~ScopedCache#_initCache",
+    "method"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#_initcachepromise",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-member-_initCachePromise",
+    "lib/cache/scopedCache.js~ScopedCache#_initCachePromise",
+    "member"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#cache",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-member-cache",
+    "lib/cache/scopedCache.js~ScopedCache#cache",
+    "member"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#constructor",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-constructor-constructor",
+    "lib/cache/scopedCache.js~ScopedCache#constructor",
+    "method"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#generatescopedkey",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-method-generateScopedKey",
+    "lib/cache/scopedCache.js~ScopedCache#generateScopedKey",
+    "method"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#get",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-method-get",
+    "lib/cache/scopedCache.js~ScopedCache#get",
+    "method"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#getglobal",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-method-getGlobal",
+    "lib/cache/scopedCache.js~ScopedCache#getGlobal",
+    "method"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#initcache",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-method-initCache",
+    "lib/cache/scopedCache.js~ScopedCache#initCache",
+    "method"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#prefix",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-member-prefix",
+    "lib/cache/scopedCache.js~ScopedCache#prefix",
+    "member"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#set",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-method-set",
+    "lib/cache/scopedCache.js~ScopedCache#set",
+    "method"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#setglobal",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-method-setGlobal",
+    "lib/cache/scopedCache.js~ScopedCache#setGlobal",
+    "method"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#version",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-member-version",
+    "lib/cache/scopedCache.js~ScopedCache#version",
+    "member"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#wrap",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-method-wrap",
+    "lib/cache/scopedCache.js~ScopedCache#wrap",
+    "method"
+  ],
+  [
+    "lib/cache/scopedcache.js~scopedcache#wrapglobal",
+    "class/lib/cache/scopedCache.js~ScopedCache.html#instance-method-wrapGlobal",
+    "lib/cache/scopedCache.js~ScopedCache#wrapGlobal",
+    "method"
+  ],
+  [
     "lib/configbase.js",
     "file/lib/configBase.js.html",
     "lib/configBase.js",
@@ -339,102 +645,6 @@ window.esdocSearchIndex = [
     "lib/configbase.js~configbase#constructor",
     "class/lib/configBase.js~ConfigBase.html#instance-constructor-constructor",
     "lib/configBase.js~ConfigBase#constructor",
-    "method"
-  ],
-  [
-    "lib/entity.js",
-    "file/lib/entity.js.html",
-    "lib/entity.js",
-    "file"
-  ],
-  [
-    "lib/entity.js~entity#fastpass",
-    "class/lib/entity.js~Entity.html#instance-get-FastPass",
-    "lib/entity.js~Entity#FastPass",
-    "member"
-  ],
-  [
-    "lib/entity.js~entity#fastpassreturntimes",
-    "class/lib/entity.js~Entity.html#instance-get-FastPassReturnTimes",
-    "lib/entity.js~Entity#FastPassReturnTimes",
-    "member"
-  ],
-  [
-    "lib/entity.js~entity#langoptions",
-    "class/lib/entity.js~Entity.html#instance-get-LangOptions",
-    "lib/entity.js~Entity#LangOptions",
-    "member"
-  ],
-  [
-    "lib/entity.js~entity#locationstring",
-    "class/lib/entity.js~Entity.html#instance-get-LocationString",
-    "lib/entity.js~Entity#LocationString",
-    "member"
-  ],
-  [
-    "lib/entity.js~entity#name",
-    "class/lib/entity.js~Entity.html#instance-get-Name",
-    "lib/entity.js~Entity#Name",
-    "member"
-  ],
-  [
-    "lib/entity.js~entity#now",
-    "class/lib/entity.js~Entity.html#instance-get-Now",
-    "lib/entity.js~Entity#Now",
-    "member"
-  ],
-  [
-    "lib/entity.js~entity#supportsopeningtimes",
-    "class/lib/entity.js~Entity.html#instance-get-SupportsOpeningTimes",
-    "lib/entity.js~Entity#SupportsOpeningTimes",
-    "member"
-  ],
-  [
-    "lib/entity.js~entity#supportsrideschedules",
-    "class/lib/entity.js~Entity.html#instance-get-SupportsRideSchedules",
-    "lib/entity.js~Entity#SupportsRideSchedules",
-    "member"
-  ],
-  [
-    "lib/entity.js~entity#supportswaittimes",
-    "class/lib/entity.js~Entity.html#instance-get-SupportsWaitTimes",
-    "lib/entity.js~Entity#SupportsWaitTimes",
-    "member"
-  ],
-  [
-    "lib/entity.js~entity#timezone",
-    "class/lib/entity.js~Entity.html#instance-get-Timezone",
-    "lib/entity.js~Entity#Timezone",
-    "member"
-  ],
-  [
-    "lib/entity.js~entity#constructor",
-    "class/lib/entity.js~Entity.html#instance-constructor-constructor",
-    "lib/entity.js~Entity#constructor",
-    "method"
-  ],
-  [
-    "lib/entity.js~entity#gettimenow",
-    "class/lib/entity.js~Entity.html#instance-method-getTimeNow",
-    "lib/entity.js~Entity#getTimeNow",
-    "method"
-  ],
-  [
-    "lib/entity.js~entity#gettimenowmoment",
-    "class/lib/entity.js~Entity.html#instance-method-getTimeNowMoment",
-    "lib/entity.js~Entity#getTimeNowMoment",
-    "method"
-  ],
-  [
-    "lib/entity.js~entity#getuniqueid",
-    "class/lib/entity.js~Entity.html#instance-method-getUniqueID",
-    "lib/entity.js~Entity#getUniqueID",
-    "method"
-  ],
-  [
-    "lib/entity.js~entity#log",
-    "class/lib/entity.js~Entity.html#instance-method-log",
-    "lib/entity.js~Entity#log",
     "method"
   ],
   [
@@ -471,6 +681,102 @@ window.esdocSearchIndex = [
     "lib/parks/efteling/efteling.js~efteling#getqueue",
     "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getQueue",
     "lib/parks/efteling/efteling.js~Efteling#getQueue",
+    "method"
+  ],
+  [
+    "lib/parks/entity.js",
+    "file/lib/parks/entity.js.html",
+    "lib/parks/entity.js",
+    "file"
+  ],
+  [
+    "lib/parks/entity.js~entity#fastpass",
+    "class/lib/parks/entity.js~Entity.html#instance-get-FastPass",
+    "lib/parks/entity.js~Entity#FastPass",
+    "member"
+  ],
+  [
+    "lib/parks/entity.js~entity#fastpassreturntimes",
+    "class/lib/parks/entity.js~Entity.html#instance-get-FastPassReturnTimes",
+    "lib/parks/entity.js~Entity#FastPassReturnTimes",
+    "member"
+  ],
+  [
+    "lib/parks/entity.js~entity#langoptions",
+    "class/lib/parks/entity.js~Entity.html#instance-get-LangOptions",
+    "lib/parks/entity.js~Entity#LangOptions",
+    "member"
+  ],
+  [
+    "lib/parks/entity.js~entity#locationstring",
+    "class/lib/parks/entity.js~Entity.html#instance-get-LocationString",
+    "lib/parks/entity.js~Entity#LocationString",
+    "member"
+  ],
+  [
+    "lib/parks/entity.js~entity#name",
+    "class/lib/parks/entity.js~Entity.html#instance-get-Name",
+    "lib/parks/entity.js~Entity#Name",
+    "member"
+  ],
+  [
+    "lib/parks/entity.js~entity#now",
+    "class/lib/parks/entity.js~Entity.html#instance-get-Now",
+    "lib/parks/entity.js~Entity#Now",
+    "member"
+  ],
+  [
+    "lib/parks/entity.js~entity#supportsopeningtimes",
+    "class/lib/parks/entity.js~Entity.html#instance-get-SupportsOpeningTimes",
+    "lib/parks/entity.js~Entity#SupportsOpeningTimes",
+    "member"
+  ],
+  [
+    "lib/parks/entity.js~entity#supportsrideschedules",
+    "class/lib/parks/entity.js~Entity.html#instance-get-SupportsRideSchedules",
+    "lib/parks/entity.js~Entity#SupportsRideSchedules",
+    "member"
+  ],
+  [
+    "lib/parks/entity.js~entity#supportswaittimes",
+    "class/lib/parks/entity.js~Entity.html#instance-get-SupportsWaitTimes",
+    "lib/parks/entity.js~Entity#SupportsWaitTimes",
+    "member"
+  ],
+  [
+    "lib/parks/entity.js~entity#timezone",
+    "class/lib/parks/entity.js~Entity.html#instance-get-Timezone",
+    "lib/parks/entity.js~Entity#Timezone",
+    "member"
+  ],
+  [
+    "lib/parks/entity.js~entity#constructor",
+    "class/lib/parks/entity.js~Entity.html#instance-constructor-constructor",
+    "lib/parks/entity.js~Entity#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/entity.js~entity#gettimenow",
+    "class/lib/parks/entity.js~Entity.html#instance-method-getTimeNow",
+    "lib/parks/entity.js~Entity#getTimeNow",
+    "method"
+  ],
+  [
+    "lib/parks/entity.js~entity#gettimenowmoment",
+    "class/lib/parks/entity.js~Entity.html#instance-method-getTimeNowMoment",
+    "lib/parks/entity.js~Entity#getTimeNowMoment",
+    "method"
+  ],
+  [
+    "lib/parks/entity.js~entity#getuniqueid",
+    "class/lib/parks/entity.js~Entity.html#instance-method-getUniqueID",
+    "lib/parks/entity.js~Entity#getUniqueID",
+    "method"
+  ],
+  [
+    "lib/parks/entity.js~entity#log",
+    "class/lib/parks/entity.js~Entity.html#instance-method-log",
+    "lib/parks/entity.js~Entity#log",
     "method"
   ],
   [
@@ -522,6 +828,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/parks/park.js~park#cache",
+    "class/lib/parks/park.js~Park.html#instance-member-cache",
+    "lib/parks/park.js~Park#cache",
+    "member"
+  ],
+  [
     "lib/parks/park.js~park#constructor",
     "class/lib/parks/park.js~Park.html#instance-constructor-constructor",
     "lib/parks/park.js~Park#constructor",
@@ -568,5 +880,11 @@ window.esdocSearchIndex = [
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getQueue",
     "lib/parks/walibi/walibiholland.js~WalibiHolland#getQueue",
     "method"
+  ],
+  [
+    "lib/reusepromises.js",
+    "file/lib/reusePromises.js.html",
+    "lib/reusePromises.js",
+    "file"
   ]
 ]

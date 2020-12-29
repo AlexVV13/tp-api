@@ -30,9 +30,16 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCache">getCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parseConfig">parseConfig</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromise">reusePromise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromiseForever">reusePromiseForever</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cache">cache</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheBase.js~CacheBase.html">CacheBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheLevel.js~CacheLevel.html">CacheLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheMemory.js~CacheMemory.html">CacheMemory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/scopedCache.js~ScopedCache.html">ScopedCache</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
@@ -152,22 +159,24 @@ export class EuropaPark extends Park {
   * @return {string} EuropaPark JWT Token
   */
   async refreshEP() {
-    return await this.loginEP().then((refreshtoken) =&gt; fetch(this.config.apiBase +
+    return await this.cache.wrap(&apos;jwttoken&apos;, async () =&gt; {
+      return await this.loginEP().then((refreshtoken) =&gt; fetch(this.config.apiBase +
         this.config.refresh,
-    {
-      method: &apos;POST&apos;,
-      headers: {
-        &apos;Content-Type&apos;: &apos;application/json&apos;,
+      {
+        method: &apos;POST&apos;,
+        headers: {
+          &apos;Content-Type&apos;: &apos;application/json&apos;,
+        },
+        body: JSON.stringify(refreshtoken),
       },
-      body: JSON.stringify(refreshtoken),
-    },
-    )
-        .then((res) =&gt; res.json())
-        .then((jwt) =&gt; {
-          const jwttoken = &apos;Bearer &apos; + jwt.token;
-          return Promise.resolve(jwttoken);
-        }),
-    );
+      )
+          .then((res) =&gt; res.json())
+          .then((jwt) =&gt; {
+            const jwttoken = &apos;Bearer &apos; + jwt.token;
+            return Promise.resolve(jwttoken);
+          }),
+      );
+    }, 1000 * 60 * 60 * 6); // 6 hours
   };
 
   /**
@@ -184,165 +193,167 @@ export class EuropaPark extends Park {
   * @return {string} EP POIS without queues
   */
   async getPOIS() {
-    const jwttoken = await this.refreshEP();
+    return await this.cache.wrap(&apos;poidata&apos;, async () =&gt; {
+      const jwttoken = await this.refreshEP();
 
-    return fetch(this.config.apiBase +
-      `pois/${this.config.languages}`,
-    {
-      headers: {
-        &apos;Content-Type&apos;: &apos;application/json&apos;,
-        &apos;JWTAuthorization&apos;: jwttoken,
+      return fetch(this.config.apiBase +
+        `pois/${this.config.languages}`,
+      {
+        headers: {
+          &apos;Content-Type&apos;: &apos;application/json&apos;,
+          &apos;JWTAuthorization&apos;: jwttoken,
+        },
       },
-    },
-    )
-        .then((res) =&gt; res.json())
-        .then((rideData) =&gt; {
-          const poi = {};
-          const singleRider = &apos;false&apos;; // EP doesn&apos;t send these values
-          let fastPass = &apos;false&apos;; // Set fastpass to false as default
-          let isVirtQueue = &apos;false&apos;; // Default poi isn&apos;t a virtqueue
-          rideData.pois.forEach((ride) =&gt; { // Data includes Rulantica, however, they&apos;re listed as slides, so not defining anything special here.
-            if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null) { // Return rides and pois which haven&apos;t null
-              if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers
-              if (ride.name.indexOf(&apos;VirtualLine: &apos;) === 0) { // So EP reports virtlane as seperate map pointer, they send it as a stand-alone POI, assign the VirtQueue tag here.
-                fastPass = &apos;true&apos;;
-                isVirtQueue = &apos;true&apos;;
-              } else { // Yay, it&apos;s not a Virtline entry!
-                fastPass = &apos;false&apos;;
-                isVirtQueue = &apos;false&apos;;
-              }
-              let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
-              if (ride.areaId == 10) {
-                area = &apos;Adventureland&apos;;
-              } else if (ride.areaId == 11) {
-                area = &apos;Kingdom of the Minimoys&apos;;
-              } else if (ride.areaId == 12) {
-                area = &apos;Germany&apos;;
-              } else if (ride.areaId == 13) {
-                area = &apos;England&apos;;
-              } else if (ride.areaId == 14) {
-                area = &apos;France&apos;;
-              } else if (ride.areaId == 15) {
-                area = &apos;Greece&apos;;
-              } else if (ride.areaId == 17) {
-                area = &apos;Netherlands&apos;;
-              } else if (ride.areaId == 19) {
-                area = &apos;Ireland&apos;;
-              } else if (ride.areaId == 20) {
-                area = &apos;Iceland&apos;;
-              } else if (ride.areaId == 21) {
-                area = &apos;Italy&apos;;
-              } else if (ride.areaId == 22) {
-                area = &apos;Luxembourg&apos;;
-              } else if (ride.areaId == 23) {
-                area = &apos;Austria&apos;;
-              } else if (ride.areaId == 24) {
-                area = &apos;Portugal&apos;;
-              } else if (ride.areaId == 25) {
-                area = &apos;Russia&apos;;
-              } else if (ride.areaId == 26) {
-                area = &apos;Switzerland&apos;;
-              } else if (ride.areaId == 27) {
-                area = &apos;Scandinavia&apos;;
-              } else if (ride.areaId == 28) {
-                area = &apos;Spain&apos;;
-              }
+      )
+          .then((res) =&gt; res.json())
+          .then((rideData) =&gt; {
+            const poi = {};
+            const singleRider = &apos;false&apos;; // EP doesn&apos;t send these values
+            let fastPass = &apos;false&apos;; // Set fastpass to false as default
+            let isVirtQueue = &apos;false&apos;; // Default poi isn&apos;t a virtqueue
+            rideData.pois.forEach((ride) =&gt; { // Data includes Rulantica, however, they&apos;re listed as slides, so not defining anything special here.
+              if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null) { // Return rides and pois which haven&apos;t null
+                if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers
+                if (ride.name.indexOf(&apos;VirtualLine: &apos;) === 0) { // So EP reports virtlane as seperate map pointer, they send it as a stand-alone POI, assign the VirtQueue tag here.
+                  fastPass = &apos;true&apos;;
+                  isVirtQueue = &apos;true&apos;;
+                } else { // Yay, it&apos;s not a Virtline entry!
+                  fastPass = &apos;false&apos;;
+                  isVirtQueue = &apos;false&apos;;
+                }
+                let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
+                if (ride.areaId == 10) {
+                  area = &apos;Adventureland&apos;;
+                } else if (ride.areaId == 11) {
+                  area = &apos;Kingdom of the Minimoys&apos;;
+                } else if (ride.areaId == 12) {
+                  area = &apos;Germany&apos;;
+                } else if (ride.areaId == 13) {
+                  area = &apos;England&apos;;
+                } else if (ride.areaId == 14) {
+                  area = &apos;France&apos;;
+                } else if (ride.areaId == 15) {
+                  area = &apos;Greece&apos;;
+                } else if (ride.areaId == 17) {
+                  area = &apos;Netherlands&apos;;
+                } else if (ride.areaId == 19) {
+                  area = &apos;Ireland&apos;;
+                } else if (ride.areaId == 20) {
+                  area = &apos;Iceland&apos;;
+                } else if (ride.areaId == 21) {
+                  area = &apos;Italy&apos;;
+                } else if (ride.areaId == 22) {
+                  area = &apos;Luxembourg&apos;;
+                } else if (ride.areaId == 23) {
+                  area = &apos;Austria&apos;;
+                } else if (ride.areaId == 24) {
+                  area = &apos;Portugal&apos;;
+                } else if (ride.areaId == 25) {
+                  area = &apos;Russia&apos;;
+                } else if (ride.areaId == 26) {
+                  area = &apos;Switzerland&apos;;
+                } else if (ride.areaId == 27) {
+                  area = &apos;Scandinavia&apos;;
+                } else if (ride.areaId == 28) {
+                  area = &apos;Spain&apos;;
+                }
 
-              // EuropaPark actually provides some cool tags which I&apos;ll attach here.
-              let producer = null;
-              let opening = null;
-              let capacity = null;
-              let ridetime = null;
-              let thcapacity = null;
-              let gforce = null;
-              let maxspeed = null;
-              let height = null;
+                // EuropaPark actually provides some cool tags which I&apos;ll attach here.
+                let producer = null;
+                let opening = null;
+                let capacity = null;
+                let ridetime = null;
+                let thcapacity = null;
+                let gforce = null;
+                let maxspeed = null;
+                let height = null;
 
-              if (ride.attributes) {
-                Object.keys(ride.attributes).forEach((poiat) =&gt; {
-                  if (ride.attributes[poiat].key === &apos;Producer&apos;) {
-                    producer = ride.attributes[poiat].value;
-                  } else if (ride.attributes[poiat].key === &apos;Opening&apos;) {
-                    opening = ride.attributes[poiat].value;
-                  } else if (ride.attributes[poiat].key === &apos;Capacity&apos;) {
-                    capacity = ride.attributes[poiat].value;
-                  } else if (ride.attributes[poiat].key === &apos;Driving Time&apos;) {
-                    ridetime = ride.attributes[poiat].value;
-                  } else if (ride.attributes[poiat].key === &apos;Theoretical Capacity&apos;) {
-                    thcapacity = ride.attributes[poiat].value;
-                  } else if (ride.attributes[poiat].key === &apos;Max Acceleration&apos;) {
-                    gforce = ride.attributes[poiat].value;
-                  } else if (ride.attributes[poiat].key === &apos;Max Speed&apos;) {
-                    maxspeed = ride.attributes[poiat].value;
-                  } else if (ride.attributes[poiat].key === &apos;Height&apos;) {
-                    height = ride.attributes[poiat].value;
-                  }
-                });
-              }
+                if (ride.attributes) {
+                  Object.keys(ride.attributes).forEach((poiat) =&gt; {
+                    if (ride.attributes[poiat].key === &apos;Producer&apos;) {
+                      producer = ride.attributes[poiat].value;
+                    } else if (ride.attributes[poiat].key === &apos;Opening&apos;) {
+                      opening = ride.attributes[poiat].value;
+                    } else if (ride.attributes[poiat].key === &apos;Capacity&apos;) {
+                      capacity = ride.attributes[poiat].value;
+                    } else if (ride.attributes[poiat].key === &apos;Driving Time&apos;) {
+                      ridetime = ride.attributes[poiat].value;
+                    } else if (ride.attributes[poiat].key === &apos;Theoretical Capacity&apos;) {
+                      thcapacity = ride.attributes[poiat].value;
+                    } else if (ride.attributes[poiat].key === &apos;Max Acceleration&apos;) {
+                      gforce = ride.attributes[poiat].value;
+                    } else if (ride.attributes[poiat].key === &apos;Max Speed&apos;) {
+                      maxspeed = ride.attributes[poiat].value;
+                    } else if (ride.attributes[poiat].key === &apos;Height&apos;) {
+                      height = ride.attributes[poiat].value;
+                    }
+                  });
+                }
 
-              // And some restrictions.
-              let minHeight = null;
-              let minHeightAdult = null;
-              let minAge = null;
-              let minAgeAdult = null;
-              let maxHeight = null;
-              if (ride.minHeight) {
-                minHeight = ride.minHeight;
-              };
-              if (ride.minHeightAdult) {
-                minHeightAdult = ride.minHeightAdult;
-              };
-              if (ride.minAge) {
-                minAge = ride.minAge;
-              };
-              if (ride.minAgeAdult) {
-                minAgeAdult = ride.minAgeAdult;
-              };
-              if (ride.maxHeight) {
-                maxHeight = ride.maxHeight;
-              }
+                // And some restrictions.
+                let minHeight = null;
+                let minHeightAdult = null;
+                let minAge = null;
+                let minAgeAdult = null;
+                let maxHeight = null;
+                if (ride.minHeight) {
+                  minHeight = ride.minHeight;
+                };
+                if (ride.minHeightAdult) {
+                  minHeightAdult = ride.minHeightAdult;
+                };
+                if (ride.minAge) {
+                  minAge = ride.minAge;
+                };
+                if (ride.minAgeAdult) {
+                  minAgeAdult = ride.minAgeAdult;
+                };
+                if (ride.maxHeight) {
+                  maxHeight = ride.maxHeight;
+                }
 
-              // Build the ride object
-              poi[ride.code] = {
-                name: ride.name,
-                id: &apos;EuropaPark_&apos; + ride.code,
-                waitTime: null,
-                state: null,
-                active: null,
-                location: {
-                  latitude: ride.latitude,
-                  longitude: ride.longitude,
-                },
-                meta: {
-                  area: area,
-                  single_rider: singleRider,
-                  fastPass: fastPass,
-                  type: ride.type,
-                  single_rider: &apos;false&apos;,
-                  isVirtQueue: isVirtQueue,
-                  tags: {
-                    Producer: producer,
-                    Capacity: capacity,
-                    Opened: opening,
-                    Duration: ridetime,
-                    Theoretical_Capacity: thcapacity,
-                    Max_GForce: gforce,
-                    Max_Speed: maxspeed,
-                    Height: height,
+                // Build the ride object
+                poi[ride.code] = {
+                  name: ride.name,
+                  id: &apos;EuropaPark_&apos; + ride.code,
+                  waitTime: null,
+                  state: null,
+                  active: null,
+                  location: {
+                    latitude: ride.latitude,
+                    longitude: ride.longitude,
                   },
-                  restrictions: {
-                    minHeight: minHeight,
-                    minHeightCompanion: minHeightAdult,
-                    maxHeight: maxHeight,
-                    minAge: minAge,
-                    minAgeCompagnion: minAgeAdult,
+                  meta: {
+                    area: area,
+                    single_rider: singleRider,
+                    fastPass: fastPass,
+                    type: ride.type,
+                    single_rider: &apos;false&apos;,
+                    isVirtQueue: isVirtQueue,
+                    tags: {
+                      Producer: producer,
+                      Capacity: capacity,
+                      Opened: opening,
+                      Duration: ridetime,
+                      Theoretical_Capacity: thcapacity,
+                      Max_GForce: gforce,
+                      Max_Speed: maxspeed,
+                      Height: height,
+                    },
+                    restrictions: {
+                      minHeight: minHeight,
+                      minHeightCompanion: minHeightAdult,
+                      maxHeight: maxHeight,
+                      minAge: minAge,
+                      minAgeCompagnion: minAgeAdult,
+                    },
                   },
-                },
+                };
               };
-            };
+            });
+            return Promise.resolve(poi);
           });
-          return Promise.resolve(poi);
-        });
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
   };
 
   /**
@@ -382,6 +393,7 @@ export class EuropaPark extends Park {
             let active = null; // Accepting null as value, since some rides never will join the queue api because they simply never have a queue
             // However, setting &apos;0&apos; &amp; state will set the ride all day closed, which isn&apos;t true obviously
 
+            // TO DO If ride isn&apos;t present in this api it just regrets it and returns nothing, however we at least want some tags.
             if (ridetime.time &gt; 0 &amp;&amp; ridetime.time &lt; 91) {
               waitTime = ridetime.time;
               state = &apos;Operating&apos;;

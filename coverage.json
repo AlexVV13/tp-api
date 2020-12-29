@@ -1,8 +1,49 @@
 {
-  "coverage": "97.56%",
-  "expectCount": 41,
-  "actualCount": 40,
+  "coverage": "86.02%",
+  "expectCount": 93,
+  "actualCount": 80,
   "files": {
+    "lib/cache/cacheBase.js": {
+      "expectCount": 14,
+      "actualCount": 10,
+      "undocumentLines": [
+        19,
+        20,
+        23,
+        25
+      ]
+    },
+    "lib/cache/cacheLevel.js": {
+      "expectCount": 7,
+      "actualCount": 6,
+      "undocumentLines": [
+        21
+      ]
+    },
+    "lib/cache/cacheMemory.js": {
+      "expectCount": 7,
+      "actualCount": 6,
+      "undocumentLines": [
+        19
+      ]
+    },
+    "lib/cache/scopedCache.js": {
+      "expectCount": 15,
+      "actualCount": 11,
+      "undocumentLines": [
+        15,
+        16,
+        18,
+        52
+      ]
+    },
+    "lib/cache.js": {
+      "expectCount": 3,
+      "actualCount": 2,
+      "undocumentLines": [
+        9
+      ]
+    },
     "lib/configBase.js": {
       "expectCount": 4,
       "actualCount": 3,
@@ -10,14 +51,14 @@
         80
       ]
     },
-    "lib/entity.js": {
-      "expectCount": 16,
-      "actualCount": 16,
-      "undocumentLines": []
-    },
     "lib/parks/efteling/efteling.js": {
       "expectCount": 5,
       "actualCount": 5,
+      "undocumentLines": []
+    },
+    "lib/parks/entity.js": {
+      "expectCount": 16,
+      "actualCount": 16,
       "undocumentLines": []
     },
     "lib/parks/europapark/europapark.js": {
@@ -26,13 +67,20 @@
       "undocumentLines": []
     },
     "lib/parks/park.js": {
-      "expectCount": 5,
+      "expectCount": 6,
       "actualCount": 5,
-      "undocumentLines": []
+      "undocumentLines": [
+        17
+      ]
     },
     "lib/parks/walibi/walibiholland.js": {
       "expectCount": 4,
       "actualCount": 4,
+      "undocumentLines": []
+    },
+    "lib/reusePromises.js": {
+      "expectCount": 5,
+      "actualCount": 5,
       "undocumentLines": []
     }
   }

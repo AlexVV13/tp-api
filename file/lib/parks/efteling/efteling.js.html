@@ -30,9 +30,16 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCache">getCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parseConfig">parseConfig</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromise">reusePromise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromiseForever">reusePromiseForever</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cache">cache</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheBase.js~CacheBase.html">CacheBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheLevel.js~CacheLevel.html">CacheLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheMemory.js~CacheMemory.html">CacheMemory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/scopedCache.js~ScopedCache.html">ScopedCache</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
@@ -44,7 +51,6 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
 import fetch from &apos;node-fetch&apos;;
 import {Park} from &apos;../park.js&apos;;
-// import fs from &apos;fs&apos;;
 
 import dotenv from &apos;dotenv&apos;;
 dotenv.config();
@@ -122,67 +128,69 @@ export class Efteling extends Park {
   * @return {string} All Efteling POIS without queuetimes
   */
   async getPOIS() {
-    return fetch(this.config.searchURL +
-      `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$${this.config.languages}&apos;))`,
-    {
-      method: &apos;GET&apos;,
-      headers: {
-        Authorization: this.config.apiKey,
+    return await this.cache.wrap(&apos;poidata&apos;, async () =&gt; {
+      return fetch(this.config.searchURL +
+        `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$${this.config.languages}&apos;))`,
+      {
+        method: &apos;GET&apos;,
+        headers: {
+          Authorization: this.config.apiKey,
+        },
       },
-    },
-    )
-        .then((res) =&gt; res.json())
-        .then((rideData) =&gt; {
-          const poi = {};
-          let fastPass = &apos;false&apos;; // Set FastPass to false as default
-          let singlerider = &apos;false&apos;; // Let singlerider be false as default
-          rideData.hits.hit.forEach((ride) =&gt; {
-            if (ride.fields.category === &apos;attraction&apos; &amp;&amp; ride.fields.hide_in_app !== &apos;false&apos;) {
-              if (ride.fields.alternateid &amp;&amp; ride.fields.alternateid.indexOf(&apos;singlerider&apos;)) {
-                singlerider = &apos;true&apos;; // Initial single rider implementation
-              } else {
-                singlerider = &apos;false&apos;;
+      )
+          .then((res) =&gt; res.json())
+          .then((rideData) =&gt; {
+            const poi = {};
+            let fastPass = &apos;false&apos;; // Set FastPass to false as default
+            let singlerider = &apos;false&apos;; // Let singlerider be false as default
+            rideData.hits.hit.forEach((ride) =&gt; {
+              if (ride.fields.category === &apos;attraction&apos; &amp;&amp; ride.fields.hide_in_app !== &apos;false&apos;) {
+                if (ride.fields.alternateid &amp;&amp; ride.fields.alternateid.indexOf(&apos;singlerider&apos;)) {
+                  singlerider = &apos;true&apos;; // Initial single rider implementation
+                } else {
+                  singlerider = &apos;false&apos;;
+                }
+
+                if (ride.fields.name == &apos;Python&apos;) { // Not doing too much here, since Python is the only fp ride here.
+                  fastPass = &apos;true&apos;;
+                }
+                // Split the language specific part out
+                const ids = ride.id;
+                const idSplit = ids.split(&apos;-&apos;);
+                const id = idSplit[0];
+                // Split latlon
+                const latlon = ride.fields.latlon;
+                const latlonSplit = latlon.split(&apos;,&apos;);
+                const lat = latlonSplit[0];
+                const lon = latlonSplit[1];
+
+                // Efteling actually provides some tags in their api
+                const tags = ride.fields.properties;
+
+                // Poi Object
+                poi[id] = {
+                  name: ride.fields.name,
+                  id: id,
+                  waitTime: null,
+                  state: null,
+                  active: null,
+                  location: {
+                    latitude: lat,
+                    longitude: lon,
+                  },
+                  meta: {
+                    single_rider: singlerider,
+                    fastPass: fastPass,
+                    type: ride.fields.category,
+                    area: ride.fields.empire,
+                    tags: tags,
+                  },
+                };
               }
-
-              if (ride.fields.name == &apos;Python&apos;) { // Not doing too much here, since Python is the only fp ride here.
-                fastPass = &apos;true&apos;;
-              }
-              // Split the language specific part out
-              const ids = ride.id;
-              const idSplit = ids.split(&apos;-&apos;);
-              const id = idSplit[0];
-              // Split latlon
-              const latlon = ride.fields.latlon;
-              const latlonSplit = latlon.split(&apos;,&apos;);
-              const lat = latlonSplit[0];
-              const lon = latlonSplit[1];
-
-              // Efteling actually provides some tags in their api
-              const tags = ride.fields.properties;
-
-              // Poi Object
-              poi[id] = {
-                name: ride.fields.name,
-                id: id,
-                waitTime: null,
-                state: null,
-                active: null,
-                location: {
-                  latitude: lat,
-                  longitude: lon,
-                },
-                meta: {
-                  single_rider: singlerider,
-                  fastPass: fastPass,
-                  type: ride.fields.category,
-                  area: ride.fields.empire,
-                  tags: tags,
-                },
-              };
-            }
+            });
+            return Promise.resolve(poi);
           });
-          return Promise.resolve(poi);
-        });
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
   }
 
   /**

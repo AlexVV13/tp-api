@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">lib/configBase.js | @alexvv13/tpapi</title>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">lib/cache/cacheLevel.js | @alexvv13/tpapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -47,91 +47,81 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/configBase.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">// load any environment variables from .env (if it exists)
-import DotEnv from &apos;dotenv&apos;;
-DotEnv.config();
-
-import EventEmitter from &apos;events&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">lib/cache/cacheLevel.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import CacheBase from &apos;./cacheBase.js&apos;;
+import level from &apos;level&apos;;
+import path from &apos;path&apos;;
 
 /**
- * Combine given options with environment variables
- * @param {object} options Incoming options
- * @return {object} Processed configuration options
- */
-export function parseConfig(options = {}) {
-  const configKeys = Object.keys(options);
-
-  const config = {};
-
-  options.configPrefixes = [&apos;TPAPI&apos;].concat(
-      options.configPrefixes || [],
-  );
-
-  // build this.config object with our settings
-  configKeys.forEach((key) =&gt; {
-    // default prefixes are either &quot;classname_&quot; or &quot;TPAPI&quot;
-    //  classes can add more with configPrefixes
-    options.configPrefixes.forEach((prefix) =&gt; {
-      const configEnvName = `${prefix}_${key}`.toUpperCase();
-
-      if (process.env[configEnvName]) {
-        // console.log(`Using env variable ${configEnvName}`);
-        config[key] = process.env[configEnvName];
-        // console.log(` ${key}(env.${configEnvName})=${config[key]}`);
-      }
-    });
-
-    if (config[key] === undefined) {
-      config[key] = options[key];
-    } else {
-      // convert env variable to number if the base default is a number
-      if (typeof config[key] === &apos;number&apos;) {
-        config[key] = Number(config[key]);
-      } else if (typeof config[key] === &apos;boolean&apos;) {
-        // convert any boolean configs too
-        config[key] = (config[key] === &apos;true&apos;);
-      }
-    }
-  });
-
-  return config;
-}
-
-/**
- * Base Config Object
- * Supports classes with a single argument &quot;options&quot;
- * These will be sorted into a member called &quot;this.config&quot; containing all the same keys
- *
- * Crucially, these can also be overriden through environment variables
- * For example, for a config option &quot;timeout&quot; for class Database, this could be overriden through either:
- *   env.TPAPI_TIMEOUT (using a &quot;global module name&quot;)
- *
- * Classes can also add additional prefixes to the supported environment variables through:
- *   new ClassInstance({configPrefixes: [&apos;myCustomPrefix&apos;]});
- * Which would also allow env.MYCUSTOMPREFIX_TIMEOUT to be used
- *
- * Note that a default value must be supplied for the environment variable to be processed
- * If the default value is a number, the environment variable will be cast to a number as well
+ * A cache implementation using LevelDown
+ * @extends CacheBase
  * @class
  */
-export class ConfigBase extends EventEmitter {
+export default class CacheLevel extends CacheBase {
   /**
-   * A base class that can be configured through environment variables
-   * @param {object} options Config for instantiating this object
+   * Create new Memory cache object
+   * @param {object} options
    */
   constructor(options = {}) {
-    super();
+    options.useMemoryCache = false;
 
-    options.configPrefixes = [this.constructor.name].concat(
-        options.configPrefixes || [],
-    );
+    super(options);
 
-    this.config = parseConfig(options || {});
+    // setup our Level database
+    this.db = level(path.join(process.cwd(), &apos;db.cache&apos;));
+  }
+
+  /**
+   * @inheritdoc
+   */
+  async _get(key) {
+    try {
+      const cacheEntry = await this.db.get(key);
+      if (cacheEntry !== undefined) {
+        return JSON.parse(cacheEntry);
+      }
+    } catch (err) {
+      // ignore NotFoundError, throw any other errors back up the chain
+      if (err.name !== &apos;NotFoundError&apos;) {
+        throw err;
+      }
+    }
+
+    return undefined;
+  }
+
+  /**
+   * @inheritdoc
+   */
+  async _set(key, object) {
+    await this.db.put(key, JSON.stringify(object));
+  }
+
+  /**
+   * @inheritdoc
+   */
+  async _del(key) {
+    await this.db.del(key);
+  }
+
+  /**
+   * @inheritdoc
+   */
+  async _getKeys(prefix) {
+    return new Promise((resolve) =&gt; {
+      const keys = [];
+      const keyStream = this.db.createKeyStream();
+      keyStream.on(&apos;data&apos;, (data) =&gt; {
+        if (data.indexOf(prefix) === 0) {
+          keys.push(data);
+        }
+      });
+      keyStream.on(&apos;end&apos;, () =&gt; {
+        return resolve(keys);
+      });
+    });
   }
 }
-
-export default ConfigBase;
 </code></pre>
 
 </div>

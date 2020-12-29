@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="../../">
+  <base data-ice="baseUrl" href="../../../">
   <title data-ice="title">Entity | @alexvv13/tpapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
@@ -30,9 +30,16 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCache">getCache</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parseConfig">parseConfig</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromise">reusePromise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromiseForever">reusePromiseForever</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cache">cache</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheBase.js~CacheBase.html">CacheBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheLevel.js~CacheLevel.html">CacheLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheMemory.js~CacheMemory.html">CacheMemory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/scopedCache.js~ScopedCache.html">ScopedCache</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
@@ -41,13 +48,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Entity} from &apos;<span><a href="file/lib/entity.js.html#lineNumber8">@alexvv13/tpapi/lib/entity.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Entity} from &apos;<span><a href="file/lib/parks/entity.js.html#lineNumber8">@alexvv13/tpapi/lib/parks/entity.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/entity.js.html#lineNumber8">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/parks/entity.js.html#lineNumber8">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -100,7 +107,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
         </p>
       </div>
       <div>
@@ -136,7 +143,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-get-FastPass">FastPass</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-get-FastPass">FastPass</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -165,7 +172,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-get-FastPassReturnTimes">FastPassReturnTimes</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-get-FastPassReturnTimes">FastPassReturnTimes</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -194,7 +201,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-get-LangOptions">LangOptions</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-get-LangOptions">LangOptions</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -223,7 +230,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-get-LocationString">LocationString</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-get-LocationString">LocationString</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -252,7 +259,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-get-Name">Name</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-get-Name">Name</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -281,7 +288,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-get-Now">Now</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-get-Now">Now</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -310,7 +317,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-get-SupportsOpeningTimes">SupportsOpeningTimes</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-get-SupportsOpeningTimes">SupportsOpeningTimes</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -339,7 +346,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-get-SupportsRideSchedules">SupportsRideSchedules</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-get-SupportsRideSchedules">SupportsRideSchedules</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -368,7 +375,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-get-SupportsWaitTimes">SupportsWaitTimes</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-get-SupportsWaitTimes">SupportsWaitTimes</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -397,7 +404,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-get-Timezone">Timezone</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-get-Timezone">Timezone</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -433,7 +440,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-method-getTimeNow">getTimeNow</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-method-getTimeNow">getTimeNow</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -462,7 +469,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-method-getTimeNowMoment">getTimeNowMoment</a></span></span><span class="code" data-ice="signature">(): <span>moment</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-method-getTimeNowMoment">getTimeNowMoment</a></span></span><span class="code" data-ice="signature">(): <span>moment</span></span>
         </p>
       </div>
       <div>
@@ -491,7 +498,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-method-getUniqueID">getUniqueID</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-method-getUniqueID">getUniqueID</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -520,7 +527,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/entity.js~Entity.html#instance-method-log">log</a></span></span><span class="code" data-ice="signature">(args: ...<span>any</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html#instance-method-log">log</a></span></span><span class="code" data-ice="signature">(args: ...<span>any</span>)</span>
         </p>
       </div>
       <div>
@@ -591,7 +598,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber13">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber13">source</a></span></span>
     </span>
   </h3>
 
@@ -654,7 +661,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber127">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber127">source</a></span></span>
     </span>
   </h3>
 
@@ -710,7 +717,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber135">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber135">source</a></span></span>
     </span>
   </h3>
 
@@ -766,7 +773,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber79">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber79">source</a></span></span>
     </span>
   </h3>
 
@@ -822,7 +829,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber87">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber87">source</a></span></span>
     </span>
   </h3>
 
@@ -878,7 +885,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber71">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber71">source</a></span></span>
     </span>
   </h3>
 
@@ -934,7 +941,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber143">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber143">source</a></span></span>
     </span>
   </h3>
 
@@ -990,7 +997,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber111">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber111">source</a></span></span>
     </span>
   </h3>
 
@@ -1046,7 +1053,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber119">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber119">source</a></span></span>
     </span>
   </h3>
 
@@ -1102,7 +1109,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber103">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber103">source</a></span></span>
     </span>
   </h3>
 
@@ -1158,7 +1165,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber95">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber95">source</a></span></span>
     </span>
   </h3>
 
@@ -1217,7 +1224,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber63">source</a></span></span>
     </span>
   </h3>
 
@@ -1273,7 +1280,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber55">source</a></span></span>
     </span>
   </h3>
 
@@ -1329,7 +1336,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber46">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber46">source</a></span></span>
     </span>
   </h3>
 
@@ -1385,7 +1392,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/entity.js.html#lineNumber38">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/entity.js.html#lineNumber38">source</a></span></span>
     </span>
   </h3>
 
