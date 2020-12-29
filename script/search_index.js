@@ -54,6 +54,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/walibi/walibibelgium.js~walibibelgium",
+    "class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html",
+    "<span>WalibiBelgium</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibibelgium.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/walibi/walibiholland.js~walibiholland",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html",
     "<span>WalibiHolland</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibiholland.js</span>",
@@ -855,6 +861,30 @@ window.esdocSearchIndex = [
     "lib/parks/park.js~park#getwaittime",
     "class/lib/parks/park.js~Park.html#instance-method-getWaitTime",
     "lib/parks/park.js~Park#getWaitTime",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibelgium.js",
+    "file/lib/parks/walibi/walibibelgium.js.html",
+    "lib/parks/walibi/walibibelgium.js",
+    "file"
+  ],
+  [
+    "lib/parks/walibi/walibibelgium.js~walibibelgium#constructor",
+    "class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html#instance-constructor-constructor",
+    "lib/parks/walibi/walibibelgium.js~WalibiBelgium#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibelgium.js~walibibelgium#getophours",
+    "class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html#instance-method-getOpHours",
+    "lib/parks/walibi/walibibelgium.js~WalibiBelgium#getOpHours",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibelgium.js~walibibelgium#getqueue",
+    "class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html#instance-method-getQueue",
+    "lib/parks/walibi/walibibelgium.js~WalibiBelgium#getQueue",
     "method"
   ],
   [

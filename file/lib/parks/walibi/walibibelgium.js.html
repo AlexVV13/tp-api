@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/parks/walibi/walibiholland.js | @alexvv13/tpapi</title>
+  <title data-ice="title">lib/parks/walibi/walibibelgium.js | @alexvv13/tpapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -48,7 +48,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/walibi/walibiholland.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/walibi/walibibelgium.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
 import fetch from &apos;node-fetch&apos;;
 import {Park} from &apos;../park.js&apos;;
@@ -57,7 +57,7 @@ import dotenv from &apos;dotenv&apos;;
 dotenv.config();
 
 /**
-* Walibi Holland Park Object
+* Walibi Belgium Park Object
 * Make sure all environment variables are set in an .env file which should be in the main location.
 * Not setting these variables will make the module exit early without returning data.
 *
@@ -67,18 +67,18 @@ dotenv.config();
 * Most park specific parameters are set already
 * @class
 */
-export class WalibiHolland extends Park {
+export class WalibiBelgium extends Park {
   /**
-  * Create a new Walibi Holland Park object
+  * Create a new Walibi Belgium Park object
   * @param {object} options
   */
   constructor(options = {}) {
-    options.name = options.name || &apos;Walibi Holland&apos;;
-    options.timezone = options.timezone || &apos;Europe/Amsterdam&apos;;
+    options.name = options.name || &apos;Walibi Belgium&apos;;
+    options.timezone = options.timezone || &apos;Europe/Brussels&apos;;
 
-    // Setting the cute fountain at the entrance as parks location
-    options.latitude = 52.4390338;
-    options.longitude = 5.7665651;
+    // Set the parking&apos;s entrance as the parks default location
+    options.latitude = 50.7038852;
+    options.longitude = 4.5960371;
 
     // Options for our park Object
     options.supportswaittimes = &apos;true&apos;;
@@ -88,8 +88,7 @@ export class WalibiHolland extends Park {
     options.FastPassReturnTimes = &apos;false&apos;;
 
     // API options
-    options.apiUrl = options.apiUrl || process.env.WALIBIHOLLAND_APIURL;
-    options.apiBase = options.apiBase || process.env.WALIBIHOLLAND_APIBASE;
+    options.apiBase = options.apiBase || process.env.WALIBIBELGIUM_APIBASE;
 
     // Language settings
     options.languages = options.languages || process.env.LANGUAGES;
@@ -99,8 +98,7 @@ export class WalibiHolland extends Park {
     super(options);
 
     // Check for existance
-    if (!this.config.apiUrl) throw new Error(&apos;Missing Walibi Holland apiUrl!&apos;);
-    if (!this.config.apiBase) throw new Error(&apos;Missing Walibi Holland apiBase!&apos;);
+    if (!this.config.apiBase) throw new Error(&apos;Missing Walibi Belgium apiBase!&apos;);
     if (!this.config.languages) {
       this.config.languages = &apos;en&apos;;
     };
@@ -124,41 +122,61 @@ export class WalibiHolland extends Park {
   * @return {string} All Walibi Holland POIS with queuetimes
   */
   async getQueue() {
-    return fetch(this.config.apiUrl,
-        {
-          method: &apos;GET&apos;,
-        },
+    return fetch(this.config.apiBase +
+      &apos;/entertainments&apos;,
+    {
+      method: &apos;GET&apos;,
+    },
     )
         .then((res) =&gt; res.json())
         .then((rideData) =&gt; {
           const poi = [];
-          rideData.forEach((ride) =&gt; {
-            let waitTime = &apos;0&apos;;
-            let state = &apos;Closed&apos;;
-            let active = &apos;false&apos;;
-            if (ride.name !== &apos;Dummy1&apos;) { // They have a dummy ride to sell single shots in their fast-lane, mind=blown
-              if (ride.useVirtualQueue == &apos;true&apos;) { // VirtQueue enabled
-                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let&apos;s round them.
-              } else { // No virtQueue found, use the normal queue instead
-                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60
-              }
-              if (ride.state === &apos;closed_indefinitely&apos;) { // Closed but not closed but still closed
-                state = &apos;Closed&apos;;
-                active = &apos;false&apos;;
-              } // Declare other states when park reopens
-              // POI Object with queues
-              const poiData = {
-                name: ride.name,
-                id: &apos;WalibiHolland_&apos; + ride.shortId,
-                state: state,
-                active: active,
-                waitTime: waitTime,
-                meta: {
-                  type: &apos;attraction&apos;,
-                },
-              };
-              poi.push(poiData);
+          rideData.entertainment.forEach((ride) =&gt; {
+            let waitTime = null;
+            let active = null;
+            let state = null;
+
+            if (ride.waitingTime == -10) {
+              waitTime = &apos;0&apos;;
+              state = &apos;Closed&apos;;
+              active = &apos;false&apos;;
+            } else {
+              waitTime = ride.waitingTime;
+              state = &apos;Operating&apos;;
+              active = &apos;true&apos;;
             }
+
+            let minHeight = null;
+            let minHeightCompanion = null;
+
+            ride.parameters.forEach((param) =&gt; {
+              if (param.title === &apos;taille min accompagn&#xE9;&apos;) {
+                minHeightCompanion = param.value;
+              } else if (param.title === &apos;taille min non accompagn&#xE9;&apos;) {
+                minHeight = param.value;
+              }
+            });
+
+            const poiData = {
+              name: ride.title,
+              id: &apos;WalibiBelgium&apos; + ride.uuid,
+              state: state,
+              active: active,
+              waitTime: waitTime,
+              location: {
+                latitude: ride.location.lat,
+                longitude: ride.location.lon,
+              },
+              meta: {
+                category: ride.category.name,
+                type: &apos;attraction&apos;,
+                restrictions: {
+                  minHeight: minHeight,
+                  minHeightCompanion: minHeightCompanion,
+                },
+              },
+            };
+            poi.push(poiData);
           });
           return Promise.resolve(poi); // Although we saved them in a json file, we&apos;ll just return them for the queue attach function which will run next if you called getQueue()
         });
@@ -195,7 +213,7 @@ export class WalibiHolland extends Park {
   }
 }
 
-export default WalibiHolland;
+export default WalibiBelgium;
 </code></pre>
 
 </div>

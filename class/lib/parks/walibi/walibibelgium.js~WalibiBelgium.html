@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">Efteling | @alexvv13/tpapi</title>
+  <title data-ice="title">WalibiBelgium | @alexvv13/tpapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -49,23 +49,23 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Efteling} from &apos;<span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber19">@alexvv13/tpapi/lib/parks/efteling/efteling.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {WalibiBelgium} from &apos;<span><a href="file/lib/parks/walibi/walibibelgium.js.html#lineNumber19">@alexvv13/tpapi/lib/parks/walibi/walibibelgium.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber19">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/parks/walibi/walibibelgium.js.html#lineNumber19">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
-  <h1 data-ice="name">Efteling</h1>
+  <h1 data-ice="name">WalibiBelgium</h1>
 
   
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>events~EventEmitter</span> &#x2192; <span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span> &#x2192; <span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span> &#x2192; <span><a href="class/lib/parks/park.js~Park.html">Park</a></span> &#x2192; Efteling</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>events~EventEmitter</span> &#x2192; <span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span> &#x2192; <span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span> &#x2192; <span><a href="class/lib/parks/park.js~Park.html">Park</a></span> &#x2192; WalibiBelgium</div></div>
   
   
   
@@ -75,7 +75,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>Efteling Park Object<br>Make sure all environment variables are set in an .env file which should be in the main location.<br>Not setting these variables will make the module exit early without returning data.<br><br>This class is here to fetch the POI data and to attach queue times data to it.<br>After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br><br>Most park specific parameters are set already</p>
+  <div class="description" data-ice="description"><p>Walibi Belgium Park Object<br>Make sure all environment variables are set in an .env file which should be in the main location.<br>Not setting these variables will make the module exit early without returning data.<br><br>This class is here to fetch the POI data and to attach queue times data to it.<br>After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br><br>Most park specific parameters are set already</p>
 </div>
   
 
@@ -108,13 +108,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Create a new Efteling Park object</p>
+        <div data-ice="description"><p>Create a new Walibi Belgium Park object</p>
 </div>
       </div>
     </td>
@@ -145,13 +145,13 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getOpHours">getOpHours</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html#instance-method-getOpHours">getOpHours</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Get Efteling Park Hours data<br>This data contains the hours data, used to display the operating hours of Efteling</p>
+        <div data-ice="description"><p>Get All Operating Hours of Walibi Holland<br>This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.</p>
 </div>
       </div>
     </td>
@@ -174,42 +174,13 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getPOIS">getPOIS</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html#instance-method-getQueue">getQueue</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Get Efteling POI data<br>This data contains general ride names, descriptions etc.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-getQueue">getQueue</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get Efteling QueueTimes data<br>This data contains the queue data, we&apos;ll assign them to the earlier fetched pois</p>
+        <div data-ice="description"><p>Get All POIS of Walibi Holland<br>This data contains all the POIS in Walibi Holland, limited to their fast-lane services</p>
 </div>
       </div>
     </td>
@@ -809,14 +780,14 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber24">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/walibi/walibibelgium.js.html#lineNumber24">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Create a new Efteling Park object</p>
+  <div data-ice="description"><p>Create a new Walibi Belgium Park object</p>
 </div>
 
   <div data-ice="override"><h4>Override:</h4><span><a href="class/lib/parks/park.js~Park.html#instance-constructor-constructor">Park#constructor</a></span></div>
@@ -873,14 +844,14 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber317">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/walibi/walibibelgium.js.html#lineNumber147">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Get Efteling Park Hours data<br>This data contains the hours data, used to display the operating hours of Efteling</p>
+  <div data-ice="description"><p>Get All Operating Hours of Walibi Holland<br>This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.</p>
 </div>
 
   
@@ -894,7 +865,7 @@
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>All Efteling Operating Hours for 1mo</p>
+          <td class="return-desc" data-ice="returnDescription"><p>All Walibi Holland calendar data</p>
 </td>
         </tr>
       </tbody>
@@ -918,80 +889,10 @@
       
       <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
 
-const park = new tpapi.park.Efteling();
+const park = new tpapi.park.WalibiHolland();
 
 park.getOpHours().then((hours) =&gt; {
 console.log(hours)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getPOIS">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">getPOIS</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber80">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Get Efteling POI data<br>This data contains general ride names, descriptions etc.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>All Efteling POIS without queuetimes</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Efteling();
-
-park.getPois().then((pois) =&gt; {
-console.log(pois)
 });</code></pre>
     </div>
 </div>
@@ -1013,14 +914,14 @@ console.log(pois)
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/efteling/efteling.js.html#lineNumber188">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/walibi/walibibelgium.js.html#lineNumber73">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Get Efteling QueueTimes data<br>This data contains the queue data, we&apos;ll assign them to the earlier fetched pois</p>
+  <div data-ice="description"><p>Get All POIS of Walibi Holland<br>This data contains all the POIS in Walibi Holland, limited to their fast-lane services</p>
 </div>
 
   
@@ -1034,7 +935,7 @@ console.log(pois)
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>All Efteling POIS with queuetimes</p>
+          <td class="return-desc" data-ice="returnDescription"><p>All Walibi Holland POIS with queuetimes</p>
 </td>
         </tr>
       </tbody>
@@ -1058,10 +959,10 @@ console.log(pois)
       
       <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
 
-const park = new tpapi.park.Efteling();
+const park = new tpapi.park.WalibiHolland();
 
-park.getQueue().then((queue) =&gt; {
-console.log(queue)
+park.getPois().then((pois) =&gt; {
+console.log(pois)
 });</code></pre>
     </div>
 </div>

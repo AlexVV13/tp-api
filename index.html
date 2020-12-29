@@ -42,7 +42,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -113,36 +114,73 @@ park.getWaitTime().then((poiData) =&gt; {
 </code></pre>
 <h3 id="example-output">Example output</h3><p>(Shortened to keep it readable)</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">{
-    &quot;name&quot;: &quot;Stoomcarrousel&quot;,
-    &quot;id&quot;: &quot;Efteling_stoomcarrousel&quot;,
-    &quot;waitTime&quot;: &quot;0&quot;,
-    &quot;state&quot;: &quot;Closed&quot;,
-    &quot;active&quot;: &quot;false&quot;,
-    &quot;location&quot;: {
-        &quot;latitude&quot;: &quot;51.651211&quot;,
-        &quot;longitude&quot;: &quot;5.048955&quot;
-    },
-    &quot;meta&quot;: {
-        &quot;type&quot;: &quot;attraction&quot;,
-        &quot;area&quot;: &quot;Marerijk&quot;,
-        &quot;single_rider&quot;: &quot;false&quot;
-    }
+  &quot;name&quot;: &quot;Stoomcarrousel&quot;,
+  &quot;id&quot;: &quot;Efteling_stoomcarrousel&quot;,
+  &quot;waitTime&quot;: &quot;0&quot;,
+  &quot;state&quot;: &quot;Closed&quot;,
+  &quot;active&quot;: &quot;false&quot;,
+  &quot;location&quot;: {
+    &quot;area&quot;: &quot;Marerijk&quot;,
+    &quot;latitude&quot;: &quot;51.651211&quot;,
+    &quot;longitude&quot;: &quot;5.048955&quot;
+  },
+  &quot;meta&quot;: {
+    &quot;category&quot;: [
+      &quot;youngest-ones&quot;,
+      &quot;whole-family&quot;
+    ],
+    &quot;label&quot;: null,
+    &quot;description&quot;: &quot;&lt;p&gt;Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the &#x2018;Stoomcarrousel&#x2019; steam carousell, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.&lt;/p&gt;&quot;,
+    &quot;short_description&quot;: &quot;The old-fashioned fairground feeling&quot;,
+    &quot;type&quot;: &quot;attraction&quot;,
+    &quot;single_rider&quot;: &quot;false&quot;,
+    &quot;fastPass&quot;: &quot;false&quot;,
+    &quot;tags&quot;: [
+      &quot;nophysicalhelp2&quot;,
+      &quot;redwhitezones&quot;,
+      &quot;placesallocated&quot;,
+      &quot;leavingearlynotpossible2&quot;,
+      &quot;transfernecessary&quot;,
+      &quot;100undersupervision&quot;,
+      &quot;indoorattraction&quot;,
+      &quot;assistancedogs&quot;
+    ]
+  }
 },
 {
-    &quot;name&quot;: &quot;Vogel Rok&quot;,
-    &quot;id&quot;: &quot;Efteling_vogelrok&quot;,
-    &quot;waitTime&quot;: &quot;0&quot;,
-    &quot;state&quot;: &quot;Closed&quot;,
-    &quot;active&quot;: &quot;false&quot;,
-    &quot;location&quot;: {
-        &quot;latitude&quot;: &quot;51.652187&quot;,
-        &quot;longitude&quot;: &quot;5.052811&quot;
-    },
-    &quot;meta&quot;: {
-        &quot;type&quot;: &quot;attraction&quot;,
-        &quot;area&quot;: &quot;Reizenrijk&quot;,
-        &quot;single_rider&quot;: &quot;false&quot;
-    }
+  &quot;name&quot;: &quot;Vogel Rok&quot;,
+  &quot;id&quot;: &quot;Efteling_vogelrok&quot;,
+  &quot;waitTime&quot;: &quot;0&quot;,
+  &quot;state&quot;: &quot;Closed&quot;,
+  &quot;active&quot;: &quot;false&quot;,
+  &quot;location&quot;: {
+    &quot;area&quot;: &quot;Reizenrijk&quot;,
+    &quot;latitude&quot;: &quot;51.652187&quot;,
+    &quot;longitude&quot;: &quot;5.052811&quot;
+  },
+  &quot;meta&quot;: {
+    &quot;category&quot;: [
+      &quot;thrillseekers&quot;
+    ],
+    &quot;label&quot;: null,
+    &quot;description&quot;: &quot;&lt;p&gt;The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.&lt;/p&gt;&quot;,
+    &quot;short_description&quot;: &quot;Lightning in the dark&quot;,
+    &quot;type&quot;: &quot;attraction&quot;,
+    &quot;single_rider&quot;: &quot;false&quot;,
+    &quot;fastPass&quot;: &quot;false&quot;,
+    &quot;tags&quot;: [
+      &quot;nophysicalhelp2&quot;,
+      &quot;redwhitezones&quot;,
+      &quot;placesallocated&quot;,
+      &quot;leavingearlynotpossible2&quot;,
+      &quot;transfernecessary&quot;,
+      &quot;minimum120&quot;,
+      &quot;pregnantwomen&quot;,
+      &quot;injuries&quot;,
+      &quot;dizzy&quot;,
+      &quot;indoorattraction&quot;
+    ]
+  }
 }</code>
 </code></pre>
 <h2 id="changelog">Changelog</h2><p><a href="CHANGELOG.md">View tp-api Changelog</a></p>
@@ -153,6 +191,7 @@ park.getWaitTime().then((poiData) =&gt; {
 <li>Efteling (tpapi.parks.Efteling)</li>
 <li>Europa-Park (tpapi.parks.EuropaPark)</li>
 <li>Walibi Holland (tpapi.parks.WalibiHolland)</li>
+<li>Walibi Belgium (tpapi.parks.WalibiBelgium)</li>
 </ul>
 <p><!-- END_SUPPORTED_PARKS_LIST -->
 </p>
@@ -171,12 +210,17 @@ park.getWaitTime().then((poiData) =&gt; {
 <td>:heavy_check_mark:</td>
 </tr>
 <tr>
+<td>Europa-Park</td>
+<td>:heavy_check_mark:</td>
+<td>:heavy_multiplication_x:</td>
+</tr>
+<tr>
 <td>Walibi Holland</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
 </tr>
 <tr>
-<td>Europa-Park</td>
+<td>Walibi Belgium</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
 </tr>
@@ -289,8 +333,9 @@ for (const park in Parks) {
 </p>
 <ul>
 <li>Efteling [51.65098350641645, 5.049916835374731]: (Europe/Amsterdam)</li>
-<li>Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)</li>
 <li>Europa-Park [48.266140769976715, 7.722050520358709]: (Europe/Berlin)</li>
+<li>Walibi Belgium [50.7038852, 4.5960371]: (Europe/Brussels)</li>
+<li>Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)</li>
 </ul>
 <p><!-- END_PARK_TIMEZONE_LIST -->
 </p>

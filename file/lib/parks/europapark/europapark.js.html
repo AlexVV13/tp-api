@@ -42,7 +42,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -320,11 +321,11 @@ export class EuropaPark extends Park {
                   state: null,
                   active: null,
                   location: {
+                    area: area,
                     latitude: ride.latitude,
                     longitude: ride.longitude,
                   },
                   meta: {
-                    area: area,
                     single_rider: singleRider,
                     fastPass: fastPass,
                     type: ride.type,
@@ -345,7 +346,7 @@ export class EuropaPark extends Park {
                       minHeightCompanion: minHeightAdult,
                       maxHeight: maxHeight,
                       minAge: minAge,
-                      minAgeCompagnion: minAgeAdult,
+                      minAgeCompanion: minAgeAdult,
                     },
                   },
                 };
@@ -428,12 +429,12 @@ export class EuropaPark extends Park {
                 state: rideData[ridetime.code].state,
                 active: rideData[ridetime.code].active,
                 location: {
+                  area: rideData[ridetime.code].location.area,
                   latitude: rideData[ridetime.code].location.latitude,
                   longitude: rideData[ridetime.code].location.longitude,
                 },
                 meta: {
                   type: rideData[ridetime.code].meta.type,
-                  area: rideData[ridetime.code].meta.area,
                   isVirtQueue: rideData[ridetime.code].meta.isVirtQueue,
                   fastPass: rideData[ridetime.code].meta.fastPass,
                   single_rider: rideData[ridetime.code].meta.single_rider,
