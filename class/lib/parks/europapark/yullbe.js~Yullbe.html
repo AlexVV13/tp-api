@@ -292,6 +292,35 @@
           
           <span data-ice="async">async</span>
           
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildStaticPOI">buildStaticPOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Build EuropaPark static object<br>This data contains general ride names, descriptions etc.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
           <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-getPOIS">getPOIS</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
@@ -1080,7 +1109,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber343">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber460">source</a></span></span>
     </span>
   </h3>
 
@@ -1150,7 +1179,7 @@ console.log(pois)
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber298">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber415">source</a></span></span>
     </span>
   </h3>
 
@@ -1290,7 +1319,7 @@ console.log(pois)
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber388">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber505">source</a></span></span>
     </span>
   </h3>
 
@@ -1360,7 +1389,7 @@ console.log(pois)
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber525">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber642">source</a></span></span>
     </span>
   </h3>
 
@@ -1408,6 +1437,76 @@ console.log(pois)
 const park = new tpapi.park.Yullbe();
 
 park.buildServicePOI().then((pois) =&gt; {
+console.log(pois)
+});</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-buildStaticPOI">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    <span data-ice="async">async</span>
+    
+    <span class="code" data-ice="name">buildStaticPOI</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber298">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Build EuropaPark static object<br>This data contains general ride names, descriptions etc.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>All EuropaPark static POIS without queuetimes</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
+
+const park = new tpapi.park.EuropaPark();
+
+park.buildStaticPOI().then((pois) =&gt; {
 console.log(pois)
 });</code></pre>
     </div>
@@ -1500,7 +1599,7 @@ console.log(pois)
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber433">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber550">source</a></span></span>
     </span>
   </h3>
 

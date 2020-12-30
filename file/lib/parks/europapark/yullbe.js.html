@@ -336,6 +336,123 @@ export class Yullbe extends Park {
   };
 
   /**
+  * Build EuropaPark static object
+  * This data contains general ride names, descriptions etc.
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.EuropaPark();
+  *
+  * park.buildStaticPOI().then((pois) =&gt; {
+  * console.log(pois)
+  * });
+  * @return {string} All EuropaPark static POIS without queuetimes
+  */
+  async buildStaticPOI() {
+    return await this.cache.wrap(&apos;staticdata&apos;, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
+      const poiData = await this.getPOIS(); // Get the POI Data
+
+      if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
+
+      const poi = {};
+      poiData.pois.forEach((ride) =&gt; { // Data includes Rulantica, however, they&apos;re listed as slides, so not defining anything special here.
+        if (ride.type === &apos;sight&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(&apos;yullbe&apos;) === 0) { // Return rides and pois which haven&apos;t null
+          if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers
+          const area = &apos;Yullbe&apos;; // Really, this is the strangest empire thing ever
+
+          // EuropaPark actually provides some cool tags which I&apos;ll attach here.
+          let producer = null;
+          let opening = null;
+          let capacity = null;
+          let ridetime = null;
+          let thcapacity = null;
+          let gforce = null;
+          let maxspeed = null;
+          let height = null;
+
+          if (ride.attributes) {
+            Object.keys(ride.attributes).forEach((poiat) =&gt; {
+              if (ride.attributes[poiat].key === &apos;Producer&apos;) {
+                producer = ride.attributes[poiat].value;
+              } else if (ride.attributes[poiat].key === &apos;Opening&apos;) {
+                opening = ride.attributes[poiat].value;
+              } else if (ride.attributes[poiat].key === &apos;Capacity&apos;) {
+                capacity = ride.attributes[poiat].value;
+              } else if (ride.attributes[poiat].key === &apos;Driving Time&apos;) {
+                ridetime = ride.attributes[poiat].value;
+              } else if (ride.attributes[poiat].key === &apos;Theoretical Capacity&apos;) {
+                thcapacity = ride.attributes[poiat].value;
+              } else if (ride.attributes[poiat].key === &apos;Max Acceleration&apos;) {
+                gforce = ride.attributes[poiat].value;
+              } else if (ride.attributes[poiat].key === &apos;Max Speed&apos;) {
+                maxspeed = ride.attributes[poiat].value;
+              } else if (ride.attributes[poiat].key === &apos;Height&apos;) {
+                height = ride.attributes[poiat].value;
+              }
+            });
+          }
+
+          // And some restrictions.
+          let minHeight = null;
+          let minHeightAdult = null;
+          let minAge = null;
+          let minAgeAdult = null;
+          let maxHeight = null;
+          if (ride.minHeight) {
+            minHeight = ride.minHeight;
+          };
+          if (ride.minHeightAdult) {
+            minHeightAdult = ride.minHeightAdult;
+          };
+          if (ride.minAge) {
+            minAge = ride.minAge;
+          };
+          if (ride.minAgeAdult) {
+            minAgeAdult = ride.minAgeAdult;
+          };
+          if (ride.maxHeight) {
+            maxHeight = ride.maxHeight;
+          }
+
+          // Build the static object
+          poi[ride.code] = {
+            name: ride.name,
+            id: &apos;Yullbe_&apos; + ride.code,
+            location: {
+              area: area,
+              latitude: ride.latitude,
+              longitude: ride.longitude,
+            },
+            meta: {
+              description: ride.description,
+              short_description: ride.excerpt,
+              type: entityType.static,
+              tags: {
+                Producer: producer,
+                Capacity: capacity,
+                Opened: opening,
+                Duration: ridetime,
+                Theoretical_Capacity: thcapacity,
+                Max_GForce: gforce,
+                Max_Speed: maxspeed,
+                Height: height,
+              },
+              restrictions: {
+                minHeight: minHeight,
+                minHeightAccompanied: minHeightAdult,
+                maxHeight: maxHeight,
+                minAge: minAge,
+                minAgeAccompanied: minAgeAdult,
+              },
+            },
+          };
+        };
+      });
+      return Promise.resolve(poi);
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+  };
+
+  /**
   * Build Yullbe restaurant object
   * This data contains general restaurant names, descriptions etc.
   * @example

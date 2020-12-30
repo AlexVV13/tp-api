@@ -1,7 +1,7 @@
 {
-  "coverage": "96.15%",
-  "expectCount": 130,
-  "actualCount": 125,
+  "coverage": "96.24%",
+  "expectCount": 133,
+  "actualCount": 128,
   "files": {
     "lib/cache/cacheBase.js": {
       "expectCount": 14,
@@ -51,18 +51,18 @@
       "undocumentLines": []
     },
     "lib/parks/europapark/europapark.js": {
-      "expectCount": 11,
-      "actualCount": 11,
+      "expectCount": 12,
+      "actualCount": 12,
       "undocumentLines": []
     },
     "lib/parks/europapark/rulantica.js": {
-      "expectCount": 11,
-      "actualCount": 11,
+      "expectCount": 12,
+      "actualCount": 12,
       "undocumentLines": []
     },
     "lib/parks/europapark/yullbe.js": {
-      "expectCount": 11,
-      "actualCount": 11,
+      "expectCount": 12,
+      "actualCount": 12,
       "undocumentLines": []
     },
     "lib/parks/park.js": {

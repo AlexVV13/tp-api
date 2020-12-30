@@ -858,6 +858,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/europapark/europapark.js~europapark#buildstaticpoi",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-buildStaticPOI",
+    "lib/parks/europapark/europapark.js~EuropaPark#buildStaticPOI",
+    "method"
+  ],
+  [
     "lib/parks/europapark/europapark.js~europapark#constructor",
     "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-constructor-constructor",
     "lib/parks/europapark/europapark.js~EuropaPark#constructor",
@@ -921,6 +927,12 @@ window.esdocSearchIndex = [
     "lib/parks/europapark/rulantica.js~rulantica#buildservicepoi",
     "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-buildServicePOI",
     "lib/parks/europapark/rulantica.js~Rulantica#buildServicePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#buildstaticpoi",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-buildStaticPOI",
+    "lib/parks/europapark/rulantica.js~Rulantica#buildStaticPOI",
     "method"
   ],
   [
@@ -993,6 +1005,12 @@ window.esdocSearchIndex = [
     "lib/parks/europapark/yullbe.js~yullbe#buildservicepoi",
     "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildServicePOI",
     "lib/parks/europapark/yullbe.js~Yullbe#buildServicePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#buildstaticpoi",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildStaticPOI",
+    "lib/parks/europapark/yullbe.js~Yullbe#buildStaticPOI",
     "method"
   ],
   [
