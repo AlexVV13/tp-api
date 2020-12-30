@@ -894,6 +894,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/types.js",
+    "file/lib/parks/types.js.html",
+    "lib/parks/types.js",
+    "file"
+  ],
+  [
     "lib/parks/walibi/walibibelgium.js",
     "file/lib/parks/walibi/walibibelgium.js.html",
     "lib/parks/walibi/walibibelgium.js",

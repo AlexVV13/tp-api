@@ -52,6 +52,7 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
 import fetch from &apos;node-fetch&apos;;
 import {Park} from &apos;../park.js&apos;;
+import {entityType, queueType} from &apos;../types.js&apos;;
 
 import dotenv from &apos;dotenv&apos;;
 dotenv.config();
@@ -138,11 +139,11 @@ export class WalibiBelgium extends Park {
 
             if (ride.waitingTime == -10) {
               waitTime = &apos;0&apos;;
-              state = &apos;Closed&apos;;
+              state = queueType.closed;
               active = &apos;false&apos;;
             } else {
               waitTime = ride.waitingTime;
-              state = &apos;Operating&apos;;
+              state = queueType.operating;
               active = &apos;true&apos;;
             }
 
@@ -169,7 +170,7 @@ export class WalibiBelgium extends Park {
               },
               meta: {
                 category: ride.category.name,
-                type: &apos;attraction&apos;,
+                type: entityType.ride,
                 restrictions: {
                   minHeight: minHeight,
                   minHeightAccompanies: minHeightCompanion,

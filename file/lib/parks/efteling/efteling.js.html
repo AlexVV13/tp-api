@@ -51,6 +51,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/efteling/efteling.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
 import fetch from &apos;node-fetch&apos;;
+import {queueType, entityType} from &apos;../types.js&apos;;
 import {Park} from &apos;../park.js&apos;;
 
 import dotenv from &apos;dotenv&apos;;
@@ -350,7 +351,7 @@ export class Efteling extends Park {
             short_description: poiData[poi].short_description,
             single_rider: poiData[poi].singlerider,
             fastPass: fastPass,
-            type: poiData[poi].type,
+            type: entityType.ride,
             tags: [
               wet,
               weelchairtag,
@@ -396,7 +397,7 @@ export class Efteling extends Park {
           meta: {
             description: poiData[poi].description,
             short_description: poiData[poi].short_description,
-            type: poiData[poi].type,
+            type: entityType.fairytale,
           },
         };
       }
@@ -435,7 +436,7 @@ export class Efteling extends Park {
           meta: {
             description: poiData[poi].description,
             short_description: poiData[poi].short_description,
-            type: poiData[poi].type,
+            type: entityType.restaurant,
           },
         };
       }
@@ -509,7 +510,7 @@ export class Efteling extends Park {
           meta: {
             description: poiData[poi].description,
             short_description: poiData[poi].short_description,
-            type: poiData[poi].type,
+            type: entityType.show,
             tags: [
               wet,
               weelchairtag,
@@ -554,7 +555,7 @@ export class Efteling extends Park {
           meta: {
             description: poiData[poi].description,
             short_description: poiData[poi].short_description,
-            type: poiData[poi].type,
+            type: entityType.merchandise,
           },
         };
       }
@@ -589,7 +590,7 @@ export class Efteling extends Park {
             Object.keys(rideData).forEach((ride) =&gt; {
             // Update the variables to the closed rides
               rideData[ride].waitTime = &apos;0&apos;;
-              rideData[ride].state = &apos;Closed&apos;;
+              rideData[ride].state = queueType.closed;
               rideData[ride].active = &apos;false&apos;;
 
               // Create the ride Object
@@ -629,27 +630,27 @@ export class Efteling extends Park {
             let waitTime = null;
 
             if (ridetime.State === &apos;gesloten&apos;) { // Ride closed
-              state = &apos;Closed&apos;;
+              state = queueType.closed;
               active = &apos;false&apos;;
               waitTime = &apos;0&apos;;
             } else if (ridetime.State === &apos;tijdelijkbuitenbedrijf&apos;) { // Ride went down for some reason
-              state = &apos;Down&apos;;
+              state = queueType.down;
               active = &apos;false&apos;;
               waitTime = &apos;0&apos;;
             } else if (ridetime.State === &apos;inonderhoud&apos;) { // Ride in maintenance
-              state = &apos;Refurbishment&apos;;
+              state = queueType.refurbishment;
               active = &apos;false&apos;;
               waitTime = &apos;0&apos;;
             } else if (ridetime.WaitingTime === undefined &amp;&amp; ridetime.State === &apos;open&apos;) { // Ride is open, no queuetime reported
-              state = &apos;Operating&apos;;
+              state = queueType.operating;
               active = &apos;false&apos;;
               waitTime = &apos;0&apos;;
             } else if (ridetime.WaitingTime === undefined &amp;&amp; ridetime.State !== &apos;open&apos;) { // Ride is closed
-              state = &apos;Closed&apos;;
+              state = queueType.closed;
               active = &apos;false&apos;;
               waitTime = &apos;0&apos;;
             } else { // Probably open, or some strange newly created frankensteined queue type
-              state = &apos;Operating&apos;;
+              state = queueType.operating;
               active = &apos;true&apos;;
               waitTime = ride.WaitingTime;
             }
