@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 660,
+  "end": 672,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 33,
+      "line": 35,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 660,
+    "end": 672,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 33,
+        "line": 35,
         "column": 0
       }
     },
@@ -118,18 +118,18 @@
         ],
         "trailingComments": [
           {
-            "type": "CommentLine",
-            "value": " our global cache instance",
+            "type": "CommentBlock",
+            "value": "*\n * Set the global cache instance\n ",
             "start": 186,
-            "end": 214,
+            "end": 226,
             "loc": {
               "start": {
                 "line": 8,
                 "column": 0
               },
               "end": {
-                "line": 8,
-                "column": 28
+                "line": 10,
+                "column": 3
               }
             }
           }
@@ -137,44 +137,44 @@
       },
       {
         "type": "VariableDeclaration",
-        "start": 215,
-        "end": 240,
+        "start": 227,
+        "end": 252,
         "loc": {
           "start": {
-            "line": 9,
+            "line": 11,
             "column": 0
           },
           "end": {
-            "line": 9,
+            "line": 11,
             "column": 25
           }
         },
         "declarations": [
           {
             "type": "VariableDeclarator",
-            "start": 219,
-            "end": 239,
+            "start": 231,
+            "end": 251,
             "loc": {
               "start": {
-                "line": 9,
+                "line": 11,
                 "column": 4
               },
               "end": {
-                "line": 9,
+                "line": 11,
                 "column": 24
               }
             },
             "id": {
               "type": "Identifier",
-              "start": 219,
-              "end": 232,
+              "start": 231,
+              "end": 244,
               "loc": {
                 "start": {
-                  "line": 9,
+                  "line": 11,
                   "column": 4
                 },
                 "end": {
-                  "line": 9,
+                  "line": 11,
                   "column": 17
                 },
                 "identifierName": "CacheInstance"
@@ -184,15 +184,15 @@
             },
             "init": {
               "type": "NullLiteral",
-              "start": 235,
-              "end": 239,
+              "start": 247,
+              "end": 251,
               "loc": {
                 "start": {
-                  "line": 9,
+                  "line": 11,
                   "column": 20
                 },
                 "end": {
-                  "line": 9,
+                  "line": 11,
                   "column": 24
                 }
               }
@@ -203,18 +203,18 @@
         "kind": "let",
         "leadingComments": [
           {
-            "type": "CommentLine",
-            "value": " our global cache instance",
+            "type": "CommentBlock",
+            "value": "*\n * Set the global cache instance\n ",
             "start": 186,
-            "end": 214,
+            "end": 226,
             "loc": {
               "start": {
                 "line": 8,
                 "column": 0
               },
               "end": {
-                "line": 8,
-                "column": 28
+                "line": 10,
+                "column": 3
               }
             }
           }
@@ -223,15 +223,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Create a new Cache Instance.\n * This function should only be called once for the lifetime of the module.\n ",
-            "start": 242,
-            "end": 357,
+            "start": 254,
+            "end": 369,
             "loc": {
               "start": {
-                "line": 11,
+                "line": 13,
                 "column": 0
               },
               "end": {
-                "line": 14,
+                "line": 16,
                 "column": 3
               }
             }
@@ -240,29 +240,29 @@
       },
       {
         "type": "FunctionDeclaration",
-        "start": 358,
-        "end": 425,
+        "start": 370,
+        "end": 437,
         "loc": {
           "start": {
-            "line": 15,
+            "line": 17,
             "column": 0
           },
           "end": {
-            "line": 17,
+            "line": 19,
             "column": 1
           }
         },
         "id": {
           "type": "Identifier",
-          "start": 373,
-          "end": 392,
+          "start": 385,
+          "end": 404,
           "loc": {
             "start": {
-              "line": 15,
+              "line": 17,
               "column": 15
             },
             "end": {
-              "line": 15,
+              "line": 17,
               "column": 34
             },
             "identifierName": "createCacheInstance"
@@ -276,58 +276,58 @@
         "params": [],
         "body": {
           "type": "BlockStatement",
-          "start": 395,
-          "end": 425,
+          "start": 407,
+          "end": 437,
           "loc": {
             "start": {
-              "line": 15,
+              "line": 17,
               "column": 37
             },
             "end": {
-              "line": 17,
+              "line": 19,
               "column": 1
             }
           },
           "body": [
             {
               "type": "ReturnStatement",
-              "start": 399,
-              "end": 423,
+              "start": 411,
+              "end": 435,
               "loc": {
                 "start": {
-                  "line": 16,
+                  "line": 18,
                   "column": 2
                 },
                 "end": {
-                  "line": 16,
+                  "line": 18,
                   "column": 26
                 }
               },
               "argument": {
                 "type": "NewExpression",
-                "start": 406,
-                "end": 422,
+                "start": 418,
+                "end": 434,
                 "loc": {
                   "start": {
-                    "line": 16,
+                    "line": 18,
                     "column": 9
                   },
                   "end": {
-                    "line": 16,
+                    "line": 18,
                     "column": 25
                   }
                 },
                 "callee": {
                   "type": "Identifier",
-                  "start": 410,
-                  "end": 420,
+                  "start": 422,
+                  "end": 432,
                   "loc": {
                     "start": {
-                      "line": 16,
+                      "line": 18,
                       "column": 13
                     },
                     "end": {
-                      "line": 16,
+                      "line": 18,
                       "column": 23
                     },
                     "identifierName": "CacheLevel"
@@ -345,15 +345,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Create a new Cache Instance.\n * This function should only be called once for the lifetime of the module.\n ",
-            "start": 242,
-            "end": 357,
+            "start": 254,
+            "end": 369,
             "loc": {
               "start": {
-                "line": 11,
+                "line": 13,
                 "column": 0
               },
               "end": {
-                "line": 14,
+                "line": 16,
                 "column": 3
               }
             }
@@ -363,15 +363,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n  * Get the configured Cache implementation\n  ",
-            "start": 427,
-            "end": 479,
+            "start": 439,
+            "end": 491,
             "loc": {
               "start": {
-                "line": 19,
+                "line": 21,
                 "column": 0
               },
               "end": {
-                "line": 21,
+                "line": 23,
                 "column": 4
               }
             }
@@ -380,15 +380,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 480,
-        "end": 626,
+        "start": 492,
+        "end": 638,
         "loc": {
           "start": {
-            "line": 22,
+            "line": 24,
             "column": 0
           },
           "end": {
-            "line": 28,
+            "line": 30,
             "column": 1
           }
         },
@@ -396,29 +396,29 @@
         "source": null,
         "declaration": {
           "type": "FunctionDeclaration",
-          "start": 487,
-          "end": 626,
+          "start": 499,
+          "end": 638,
           "loc": {
             "start": {
-              "line": 22,
+              "line": 24,
               "column": 7
             },
             "end": {
-              "line": 28,
+              "line": 30,
               "column": 1
             }
           },
           "id": {
             "type": "Identifier",
-            "start": 502,
-            "end": 510,
+            "start": 514,
+            "end": 522,
             "loc": {
               "start": {
-                "line": 22,
+                "line": 24,
                 "column": 22
               },
               "end": {
-                "line": 22,
+                "line": 24,
                 "column": 30
               },
               "identifierName": "getCache"
@@ -432,58 +432,58 @@
           "params": [],
           "body": {
             "type": "BlockStatement",
-            "start": 513,
-            "end": 626,
+            "start": 525,
+            "end": 638,
             "loc": {
               "start": {
-                "line": 22,
+                "line": 24,
                 "column": 33
               },
               "end": {
-                "line": 28,
+                "line": 30,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "IfStatement",
-                "start": 517,
-                "end": 599,
+                "start": 529,
+                "end": 611,
                 "loc": {
                   "start": {
-                    "line": 23,
+                    "line": 25,
                     "column": 2
                   },
                   "end": {
-                    "line": 25,
+                    "line": 27,
                     "column": 3
                   }
                 },
                 "test": {
                   "type": "BinaryExpression",
-                  "start": 521,
-                  "end": 543,
+                  "start": 533,
+                  "end": 555,
                   "loc": {
                     "start": {
-                      "line": 23,
+                      "line": 25,
                       "column": 6
                     },
                     "end": {
-                      "line": 23,
+                      "line": 25,
                       "column": 28
                     }
                   },
                   "left": {
                     "type": "Identifier",
-                    "start": 521,
-                    "end": 534,
+                    "start": 533,
+                    "end": 546,
                     "loc": {
                       "start": {
-                        "line": 23,
+                        "line": 25,
                         "column": 6
                       },
                       "end": {
-                        "line": 23,
+                        "line": 25,
                         "column": 19
                       },
                       "identifierName": "CacheInstance"
@@ -493,15 +493,15 @@
                   "operator": "===",
                   "right": {
                     "type": "NullLiteral",
-                    "start": 539,
-                    "end": 543,
+                    "start": 551,
+                    "end": 555,
                     "loc": {
                       "start": {
-                        "line": 23,
+                        "line": 25,
                         "column": 24
                       },
                       "end": {
-                        "line": 23,
+                        "line": 25,
                         "column": 28
                       }
                     }
@@ -509,59 +509,59 @@
                 },
                 "consequent": {
                   "type": "BlockStatement",
-                  "start": 545,
-                  "end": 599,
+                  "start": 557,
+                  "end": 611,
                   "loc": {
                     "start": {
-                      "line": 23,
+                      "line": 25,
                       "column": 30
                     },
                     "end": {
-                      "line": 25,
+                      "line": 27,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 551,
-                      "end": 595,
+                      "start": 563,
+                      "end": 607,
                       "loc": {
                         "start": {
-                          "line": 24,
+                          "line": 26,
                           "column": 4
                         },
                         "end": {
-                          "line": 24,
+                          "line": 26,
                           "column": 48
                         }
                       },
                       "expression": {
                         "type": "AssignmentExpression",
-                        "start": 551,
-                        "end": 594,
+                        "start": 563,
+                        "end": 606,
                         "loc": {
                           "start": {
-                            "line": 24,
+                            "line": 26,
                             "column": 4
                           },
                           "end": {
-                            "line": 24,
+                            "line": 26,
                             "column": 47
                           }
                         },
                         "operator": "=",
                         "left": {
                           "type": "Identifier",
-                          "start": 551,
-                          "end": 564,
+                          "start": 563,
+                          "end": 576,
                           "loc": {
                             "start": {
-                              "line": 24,
+                              "line": 26,
                               "column": 4
                             },
                             "end": {
-                              "line": 24,
+                              "line": 26,
                               "column": 17
                             },
                             "identifierName": "CacheInstance"
@@ -570,43 +570,43 @@
                         },
                         "right": {
                           "type": "AwaitExpression",
-                          "start": 567,
-                          "end": 594,
+                          "start": 579,
+                          "end": 606,
                           "loc": {
                             "start": {
-                              "line": 24,
+                              "line": 26,
                               "column": 20
                             },
                             "end": {
-                              "line": 24,
+                              "line": 26,
                               "column": 47
                             }
                           },
                           "argument": {
                             "type": "CallExpression",
-                            "start": 573,
-                            "end": 594,
+                            "start": 585,
+                            "end": 606,
                             "loc": {
                               "start": {
-                                "line": 24,
+                                "line": 26,
                                 "column": 26
                               },
                               "end": {
-                                "line": 24,
+                                "line": 26,
                                 "column": 47
                               }
                             },
                             "callee": {
                               "type": "Identifier",
-                              "start": 573,
-                              "end": 592,
+                              "start": 585,
+                              "end": 604,
                               "loc": {
                                 "start": {
-                                  "line": 24,
+                                  "line": 26,
                                   "column": 26
                                 },
                                 "end": {
-                                  "line": 24,
+                                  "line": 26,
                                   "column": 45
                                 },
                                 "identifierName": "createCacheInstance"
@@ -625,29 +625,29 @@
               },
               {
                 "type": "ReturnStatement",
-                "start": 603,
-                "end": 624,
+                "start": 615,
+                "end": 636,
                 "loc": {
                   "start": {
-                    "line": 27,
+                    "line": 29,
                     "column": 2
                   },
                   "end": {
-                    "line": 27,
+                    "line": 29,
                     "column": 23
                   }
                 },
                 "argument": {
                   "type": "Identifier",
-                  "start": 610,
-                  "end": 623,
+                  "start": 622,
+                  "end": 635,
                   "loc": {
                     "start": {
-                      "line": 27,
+                      "line": 29,
                       "column": 9
                     },
                     "end": {
-                      "line": 27,
+                      "line": 29,
                       "column": 22
                     },
                     "identifierName": "CacheInstance"
@@ -662,15 +662,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n  * Get the configured Cache implementation\n  ",
-              "start": 427,
-              "end": 479,
+              "start": 439,
+              "end": 491,
               "loc": {
                 "start": {
-                  "line": 19,
+                  "line": 21,
                   "column": 0
                 },
                 "end": {
-                  "line": 21,
+                  "line": 23,
                   "column": 4
                 }
               }
@@ -682,15 +682,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n  * Get the configured Cache implementation\n  ",
-            "start": 427,
-            "end": 479,
+            "start": 439,
+            "end": 491,
             "loc": {
               "start": {
-                "line": 19,
+                "line": 21,
                 "column": 0
               },
               "end": {
-                "line": 21,
+                "line": 23,
                 "column": 4
               }
             }
@@ -699,44 +699,44 @@
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 628,
-        "end": 659,
+        "start": 640,
+        "end": 671,
         "loc": {
           "start": {
-            "line": 30,
+            "line": 32,
             "column": 0
           },
           "end": {
-            "line": 32,
+            "line": 34,
             "column": 2
           }
         },
         "declaration": {
           "type": "ObjectExpression",
-          "start": 643,
-          "end": 658,
+          "start": 655,
+          "end": 670,
           "loc": {
             "start": {
-              "line": 30,
+              "line": 32,
               "column": 15
             },
             "end": {
-              "line": 32,
+              "line": 34,
               "column": 1
             }
           },
           "properties": [
             {
               "type": "ObjectProperty",
-              "start": 647,
-              "end": 655,
+              "start": 659,
+              "end": 667,
               "loc": {
                 "start": {
-                  "line": 31,
+                  "line": 33,
                   "column": 2
                 },
                 "end": {
-                  "line": 31,
+                  "line": 33,
                   "column": 10
                 }
               },
@@ -745,15 +745,15 @@
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 647,
-                "end": 655,
+                "start": 659,
+                "end": 667,
                 "loc": {
                   "start": {
-                    "line": 31,
+                    "line": 33,
                     "column": 2
                   },
                   "end": {
-                    "line": 31,
+                    "line": 33,
                     "column": 10
                   },
                   "identifierName": "getCache"
@@ -762,15 +762,15 @@
               },
               "value": {
                 "type": "Identifier",
-                "start": 647,
-                "end": 655,
+                "start": 659,
+                "end": 667,
                 "loc": {
                   "start": {
-                    "line": 31,
+                    "line": 33,
                     "column": 2
                   },
                   "end": {
-                    "line": 31,
+                    "line": 33,
                     "column": 10
                   },
                   "identifierName": "getCache"
@@ -807,33 +807,33 @@
       }
     },
     {
-      "type": "CommentLine",
-      "value": " our global cache instance",
+      "type": "CommentBlock",
+      "value": "*\n * Set the global cache instance\n ",
       "start": 186,
-      "end": 214,
+      "end": 226,
       "loc": {
         "start": {
           "line": 8,
           "column": 0
         },
         "end": {
-          "line": 8,
-          "column": 28
+          "line": 10,
+          "column": 3
         }
       }
     },
     {
       "type": "CommentBlock",
       "value": "*\n * Create a new Cache Instance.\n * This function should only be called once for the lifetime of the module.\n ",
-      "start": 242,
-      "end": 357,
+      "start": 254,
+      "end": 369,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 13,
           "column": 0
         },
         "end": {
-          "line": 14,
+          "line": 16,
           "column": 3
         }
       }
@@ -841,15 +841,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n  * Get the configured Cache implementation\n  ",
-      "start": 427,
-      "end": 479,
+      "start": 439,
+      "end": 491,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 21,
           "column": 0
         },
         "end": {
-          "line": 21,
+          "line": 23,
           "column": 4
         }
       }
@@ -1006,18 +1006,18 @@
       }
     },
     {
-      "type": "CommentLine",
-      "value": " our global cache instance",
+      "type": "CommentBlock",
+      "value": "*\n * Set the global cache instance\n ",
       "start": 186,
-      "end": 214,
+      "end": 226,
       "loc": {
         "start": {
           "line": 8,
           "column": 0
         },
         "end": {
-          "line": 8,
-          "column": 28
+          "line": 10,
+          "column": 3
         }
       }
     },
@@ -1036,15 +1036,15 @@
         "updateContext": null
       },
       "value": "let",
-      "start": 215,
-      "end": 218,
+      "start": 227,
+      "end": 230,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 0
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 3
         }
       }
@@ -1062,15 +1062,15 @@
         "binop": null
       },
       "value": "CacheInstance",
-      "start": 219,
-      "end": 232,
+      "start": 231,
+      "end": 244,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 4
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 17
         }
       }
@@ -1089,15 +1089,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 233,
-      "end": 234,
+      "start": 245,
+      "end": 246,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 18
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 19
         }
       }
@@ -1117,15 +1117,15 @@
         "updateContext": null
       },
       "value": "null",
-      "start": 235,
-      "end": 239,
+      "start": 247,
+      "end": 251,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 20
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 24
         }
       }
@@ -1143,15 +1143,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 239,
-      "end": 240,
+      "start": 251,
+      "end": 252,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 24
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 25
         }
       }
@@ -1159,15 +1159,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Create a new Cache Instance.\n * This function should only be called once for the lifetime of the module.\n ",
-      "start": 242,
-      "end": 357,
+      "start": 254,
+      "end": 369,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 13,
           "column": 0
         },
         "end": {
-          "line": 14,
+          "line": 16,
           "column": 3
         }
       }
@@ -1185,15 +1185,15 @@
         "binop": null
       },
       "value": "async",
-      "start": 358,
-      "end": 363,
+      "start": 370,
+      "end": 375,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 17,
           "column": 0
         },
         "end": {
-          "line": 15,
+          "line": 17,
           "column": 5
         }
       }
@@ -1212,15 +1212,15 @@
         "binop": null
       },
       "value": "function",
-      "start": 364,
-      "end": 372,
+      "start": 376,
+      "end": 384,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 17,
           "column": 6
         },
         "end": {
-          "line": 15,
+          "line": 17,
           "column": 14
         }
       }
@@ -1238,15 +1238,15 @@
         "binop": null
       },
       "value": "createCacheInstance",
-      "start": 373,
-      "end": 392,
+      "start": 385,
+      "end": 404,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 17,
           "column": 15
         },
         "end": {
-          "line": 15,
+          "line": 17,
           "column": 34
         }
       }
@@ -1263,15 +1263,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 392,
-      "end": 393,
+      "start": 404,
+      "end": 405,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 17,
           "column": 34
         },
         "end": {
-          "line": 15,
+          "line": 17,
           "column": 35
         }
       }
@@ -1288,15 +1288,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 393,
-      "end": 394,
+      "start": 405,
+      "end": 406,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 17,
           "column": 35
         },
         "end": {
-          "line": 15,
+          "line": 17,
           "column": 36
         }
       }
@@ -1313,15 +1313,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 395,
-      "end": 396,
+      "start": 407,
+      "end": 408,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 17,
           "column": 37
         },
         "end": {
-          "line": 15,
+          "line": 17,
           "column": 38
         }
       }
@@ -1341,15 +1341,15 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 399,
-      "end": 405,
+      "start": 411,
+      "end": 417,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 18,
           "column": 2
         },
         "end": {
-          "line": 16,
+          "line": 18,
           "column": 8
         }
       }
@@ -1369,15 +1369,15 @@
         "updateContext": null
       },
       "value": "new",
-      "start": 406,
-      "end": 409,
+      "start": 418,
+      "end": 421,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 18,
           "column": 9
         },
         "end": {
-          "line": 16,
+          "line": 18,
           "column": 12
         }
       }
@@ -1395,15 +1395,15 @@
         "binop": null
       },
       "value": "CacheLevel",
-      "start": 410,
-      "end": 420,
+      "start": 422,
+      "end": 432,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 18,
           "column": 13
         },
         "end": {
-          "line": 16,
+          "line": 18,
           "column": 23
         }
       }
@@ -1420,15 +1420,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 420,
-      "end": 421,
+      "start": 432,
+      "end": 433,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 18,
           "column": 23
         },
         "end": {
-          "line": 16,
+          "line": 18,
           "column": 24
         }
       }
@@ -1445,15 +1445,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 421,
-      "end": 422,
+      "start": 433,
+      "end": 434,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 18,
           "column": 24
         },
         "end": {
-          "line": 16,
+          "line": 18,
           "column": 25
         }
       }
@@ -1471,15 +1471,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 422,
-      "end": 423,
+      "start": 434,
+      "end": 435,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 18,
           "column": 25
         },
         "end": {
-          "line": 16,
+          "line": 18,
           "column": 26
         }
       }
@@ -1496,15 +1496,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 424,
-      "end": 425,
+      "start": 436,
+      "end": 437,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 19,
           "column": 0
         },
         "end": {
-          "line": 17,
+          "line": 19,
           "column": 1
         }
       }
@@ -1512,15 +1512,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n  * Get the configured Cache implementation\n  ",
-      "start": 427,
-      "end": 479,
+      "start": 439,
+      "end": 491,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 21,
           "column": 0
         },
         "end": {
-          "line": 21,
+          "line": 23,
           "column": 4
         }
       }
@@ -1540,15 +1540,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 480,
-      "end": 486,
+      "start": 492,
+      "end": 498,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 24,
           "column": 0
         },
         "end": {
-          "line": 22,
+          "line": 24,
           "column": 6
         }
       }
@@ -1566,15 +1566,15 @@
         "binop": null
       },
       "value": "async",
-      "start": 487,
-      "end": 492,
+      "start": 499,
+      "end": 504,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 24,
           "column": 7
         },
         "end": {
-          "line": 22,
+          "line": 24,
           "column": 12
         }
       }
@@ -1593,15 +1593,15 @@
         "binop": null
       },
       "value": "function",
-      "start": 493,
-      "end": 501,
+      "start": 505,
+      "end": 513,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 24,
           "column": 13
         },
         "end": {
-          "line": 22,
+          "line": 24,
           "column": 21
         }
       }
@@ -1619,15 +1619,15 @@
         "binop": null
       },
       "value": "getCache",
-      "start": 502,
-      "end": 510,
+      "start": 514,
+      "end": 522,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 24,
           "column": 22
         },
         "end": {
-          "line": 22,
+          "line": 24,
           "column": 30
         }
       }
@@ -1644,15 +1644,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 510,
-      "end": 511,
+      "start": 522,
+      "end": 523,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 24,
           "column": 30
         },
         "end": {
-          "line": 22,
+          "line": 24,
           "column": 31
         }
       }
@@ -1669,15 +1669,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 511,
-      "end": 512,
+      "start": 523,
+      "end": 524,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 24,
           "column": 31
         },
         "end": {
-          "line": 22,
+          "line": 24,
           "column": 32
         }
       }
@@ -1694,15 +1694,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 513,
-      "end": 514,
+      "start": 525,
+      "end": 526,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 24,
           "column": 33
         },
         "end": {
-          "line": 22,
+          "line": 24,
           "column": 34
         }
       }
@@ -1722,15 +1722,15 @@
         "updateContext": null
       },
       "value": "if",
-      "start": 517,
-      "end": 519,
+      "start": 529,
+      "end": 531,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 25,
           "column": 2
         },
         "end": {
-          "line": 23,
+          "line": 25,
           "column": 4
         }
       }
@@ -1747,15 +1747,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 520,
-      "end": 521,
+      "start": 532,
+      "end": 533,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 25,
           "column": 5
         },
         "end": {
-          "line": 23,
+          "line": 25,
           "column": 6
         }
       }
@@ -1773,15 +1773,15 @@
         "binop": null
       },
       "value": "CacheInstance",
-      "start": 521,
-      "end": 534,
+      "start": 533,
+      "end": 546,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 25,
           "column": 6
         },
         "end": {
-          "line": 23,
+          "line": 25,
           "column": 19
         }
       }
@@ -1800,15 +1800,15 @@
         "updateContext": null
       },
       "value": "===",
-      "start": 535,
-      "end": 538,
+      "start": 547,
+      "end": 550,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 25,
           "column": 20
         },
         "end": {
-          "line": 23,
+          "line": 25,
           "column": 23
         }
       }
@@ -1828,15 +1828,15 @@
         "updateContext": null
       },
       "value": "null",
-      "start": 539,
-      "end": 543,
+      "start": 551,
+      "end": 555,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 25,
           "column": 24
         },
         "end": {
-          "line": 23,
+          "line": 25,
           "column": 28
         }
       }
@@ -1853,15 +1853,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 543,
-      "end": 544,
+      "start": 555,
+      "end": 556,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 25,
           "column": 28
         },
         "end": {
-          "line": 23,
+          "line": 25,
           "column": 29
         }
       }
@@ -1878,15 +1878,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 545,
-      "end": 546,
+      "start": 557,
+      "end": 558,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 25,
           "column": 30
         },
         "end": {
-          "line": 23,
+          "line": 25,
           "column": 31
         }
       }
@@ -1904,15 +1904,15 @@
         "binop": null
       },
       "value": "CacheInstance",
-      "start": 551,
-      "end": 564,
+      "start": 563,
+      "end": 576,
       "loc": {
         "start": {
-          "line": 24,
+          "line": 26,
           "column": 4
         },
         "end": {
-          "line": 24,
+          "line": 26,
           "column": 17
         }
       }
@@ -1931,15 +1931,15 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 565,
-      "end": 566,
+      "start": 577,
+      "end": 578,
       "loc": {
         "start": {
-          "line": 24,
+          "line": 26,
           "column": 18
         },
         "end": {
-          "line": 24,
+          "line": 26,
           "column": 19
         }
       }
@@ -1957,15 +1957,15 @@
         "binop": null
       },
       "value": "await",
-      "start": 567,
-      "end": 572,
+      "start": 579,
+      "end": 584,
       "loc": {
         "start": {
-          "line": 24,
+          "line": 26,
           "column": 20
         },
         "end": {
-          "line": 24,
+          "line": 26,
           "column": 25
         }
       }
@@ -1983,15 +1983,15 @@
         "binop": null
       },
       "value": "createCacheInstance",
-      "start": 573,
-      "end": 592,
+      "start": 585,
+      "end": 604,
       "loc": {
         "start": {
-          "line": 24,
+          "line": 26,
           "column": 26
         },
         "end": {
-          "line": 24,
+          "line": 26,
           "column": 45
         }
       }
@@ -2008,15 +2008,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 592,
-      "end": 593,
+      "start": 604,
+      "end": 605,
       "loc": {
         "start": {
-          "line": 24,
+          "line": 26,
           "column": 45
         },
         "end": {
-          "line": 24,
+          "line": 26,
           "column": 46
         }
       }
@@ -2033,15 +2033,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 593,
-      "end": 594,
+      "start": 605,
+      "end": 606,
       "loc": {
         "start": {
-          "line": 24,
+          "line": 26,
           "column": 46
         },
         "end": {
-          "line": 24,
+          "line": 26,
           "column": 47
         }
       }
@@ -2059,15 +2059,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 594,
-      "end": 595,
+      "start": 606,
+      "end": 607,
       "loc": {
         "start": {
-          "line": 24,
+          "line": 26,
           "column": 47
         },
         "end": {
-          "line": 24,
+          "line": 26,
           "column": 48
         }
       }
@@ -2084,15 +2084,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 598,
-      "end": 599,
+      "start": 610,
+      "end": 611,
       "loc": {
         "start": {
-          "line": 25,
+          "line": 27,
           "column": 2
         },
         "end": {
-          "line": 25,
+          "line": 27,
           "column": 3
         }
       }
@@ -2112,15 +2112,15 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 603,
-      "end": 609,
+      "start": 615,
+      "end": 621,
       "loc": {
         "start": {
-          "line": 27,
+          "line": 29,
           "column": 2
         },
         "end": {
-          "line": 27,
+          "line": 29,
           "column": 8
         }
       }
@@ -2138,15 +2138,15 @@
         "binop": null
       },
       "value": "CacheInstance",
-      "start": 610,
-      "end": 623,
+      "start": 622,
+      "end": 635,
       "loc": {
         "start": {
-          "line": 27,
+          "line": 29,
           "column": 9
         },
         "end": {
-          "line": 27,
+          "line": 29,
           "column": 22
         }
       }
@@ -2164,15 +2164,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 623,
-      "end": 624,
+      "start": 635,
+      "end": 636,
       "loc": {
         "start": {
-          "line": 27,
+          "line": 29,
           "column": 22
         },
         "end": {
-          "line": 27,
+          "line": 29,
           "column": 23
         }
       }
@@ -2189,15 +2189,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 625,
-      "end": 626,
+      "start": 637,
+      "end": 638,
       "loc": {
         "start": {
-          "line": 28,
+          "line": 30,
           "column": 0
         },
         "end": {
-          "line": 28,
+          "line": 30,
           "column": 1
         }
       }
@@ -2217,15 +2217,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 628,
-      "end": 634,
+      "start": 640,
+      "end": 646,
       "loc": {
         "start": {
-          "line": 30,
+          "line": 32,
           "column": 0
         },
         "end": {
-          "line": 30,
+          "line": 32,
           "column": 6
         }
       }
@@ -2245,15 +2245,15 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 635,
-      "end": 642,
+      "start": 647,
+      "end": 654,
       "loc": {
         "start": {
-          "line": 30,
+          "line": 32,
           "column": 7
         },
         "end": {
-          "line": 30,
+          "line": 32,
           "column": 14
         }
       }
@@ -2270,15 +2270,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 643,
-      "end": 644,
+      "start": 655,
+      "end": 656,
       "loc": {
         "start": {
-          "line": 30,
+          "line": 32,
           "column": 15
         },
         "end": {
-          "line": 30,
+          "line": 32,
           "column": 16
         }
       }
@@ -2296,15 +2296,15 @@
         "binop": null
       },
       "value": "getCache",
-      "start": 647,
-      "end": 655,
+      "start": 659,
+      "end": 667,
       "loc": {
         "start": {
-          "line": 31,
+          "line": 33,
           "column": 2
         },
         "end": {
-          "line": 31,
+          "line": 33,
           "column": 10
         }
       }
@@ -2322,15 +2322,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 655,
-      "end": 656,
+      "start": 667,
+      "end": 668,
       "loc": {
         "start": {
-          "line": 31,
+          "line": 33,
           "column": 10
         },
         "end": {
-          "line": 31,
+          "line": 33,
           "column": 11
         }
       }
@@ -2347,15 +2347,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 657,
-      "end": 658,
+      "start": 669,
+      "end": 670,
       "loc": {
         "start": {
-          "line": 32,
+          "line": 34,
           "column": 0
         },
         "end": {
-          "line": 32,
+          "line": 34,
           "column": 1
         }
       }
@@ -2373,15 +2373,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 658,
-      "end": 659,
+      "start": 670,
+      "end": 671,
       "loc": {
         "start": {
-          "line": 32,
+          "line": 34,
           "column": 1
         },
         "end": {
-          "line": 32,
+          "line": 34,
           "column": 2
         }
       }
@@ -2399,15 +2399,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 660,
-      "end": 660,
+      "start": 672,
+      "end": 672,
       "loc": {
         "start": {
-          "line": 33,
+          "line": 35,
           "column": 0
         },
         "end": {
-          "line": 33,
+          "line": 35,
           "column": 0
         }
       }

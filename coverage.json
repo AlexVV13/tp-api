@@ -1,31 +1,24 @@
 {
-  "coverage": "87.37%",
-  "expectCount": 103,
-  "actualCount": 90,
+  "coverage": "96.15%",
+  "expectCount": 130,
+  "actualCount": 125,
   "files": {
     "lib/cache/cacheBase.js": {
       "expectCount": 14,
-      "actualCount": 10,
+      "actualCount": 13,
       "undocumentLines": [
-        19,
-        20,
-        23,
-        25
+        23
       ]
     },
     "lib/cache/cacheLevel.js": {
       "expectCount": 7,
-      "actualCount": 6,
-      "undocumentLines": [
-        21
-      ]
+      "actualCount": 7,
+      "undocumentLines": []
     },
     "lib/cache/cacheMemory.js": {
       "expectCount": 7,
-      "actualCount": 6,
-      "undocumentLines": [
-        19
-      ]
+      "actualCount": 7,
+      "undocumentLines": []
     },
     "lib/cache/scopedCache.js": {
       "expectCount": 15,
@@ -39,17 +32,13 @@
     },
     "lib/cache.js": {
       "expectCount": 3,
-      "actualCount": 2,
-      "undocumentLines": [
-        9
-      ]
+      "actualCount": 3,
+      "undocumentLines": []
     },
     "lib/configBase.js": {
       "expectCount": 4,
-      "actualCount": 3,
-      "undocumentLines": [
-        80
-      ]
+      "actualCount": 4,
+      "undocumentLines": []
     },
     "lib/parks/efteling/efteling.js": {
       "expectCount": 10,
@@ -62,16 +51,24 @@
       "undocumentLines": []
     },
     "lib/parks/europapark/europapark.js": {
-      "expectCount": 7,
-      "actualCount": 7,
+      "expectCount": 11,
+      "actualCount": 11,
+      "undocumentLines": []
+    },
+    "lib/parks/europapark/rulantica.js": {
+      "expectCount": 11,
+      "actualCount": 11,
+      "undocumentLines": []
+    },
+    "lib/parks/europapark/yullbe.js": {
+      "expectCount": 11,
+      "actualCount": 11,
       "undocumentLines": []
     },
     "lib/parks/park.js": {
-      "expectCount": 6,
-      "actualCount": 5,
-      "undocumentLines": [
-        17
-      ]
+      "expectCount": 7,
+      "actualCount": 7,
+      "undocumentLines": []
     },
     "lib/parks/types.js": {
       "expectCount": 1,

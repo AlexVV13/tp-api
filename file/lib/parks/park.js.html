@@ -42,6 +42,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
 </ul>
@@ -64,13 +66,43 @@ export class Park extends Entity {
   constructor(options = {}) {
     super(options);
 
-    // create a new cache object for this park
+    /**
+     * Create a new cache object for this park, so we can reuse pois instead of refetch them every time.
+     */
     this.cache = new Cache(this.constructor.name, this.config.cacheVersion || 0);
 
     if (this.constructor === Park) {
       throw new TypeError(&apos;Cannot create Park object directly, only park implementations of Park&apos;);
     }
   }
+
+  /**
+  * Get All Data of a park
+  * This data contains all the Data in park
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.PARKNAME();
+  *
+  * park.getPark().then((park) =&gt; {
+  * console.log(park)
+  * });
+  * @return {string} All PARK data
+  */
+  getPark() {
+    return Promise.resolve({
+      Name: this.Name,
+      Timezone: this.Timezone,
+      Location: this.LocationString,
+      Supported_Languages: this.LangOptions,
+      Supports_Waittimes: this.SupportsWaitTimes,
+      Supports_RideSchedules: this.SupportsRideSchedules,
+      Supports_Opening_Times: this.SupportsOpeningTimes,
+      Supports_FastPass: this.FastPass,
+      Supports_FastPass_ReturnTimes: this.FastPassReturnTimes,
+      CurrentTime: this.Now,
+    });
+  };
 
   /**
   * Get All Queues of a park

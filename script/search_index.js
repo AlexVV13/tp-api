@@ -48,6 +48,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/europapark/rulantica.js~rulantica",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html",
+    "<span>Rulantica</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/europapark/rulantica.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/cache/scopedcache.js~scopedcache",
     "class/lib/cache/scopedCache.js~ScopedCache.html",
     "<span>ScopedCache</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/cache/scopedCache.js</span>",
@@ -63,6 +69,12 @@ window.esdocSearchIndex = [
     "@alexvv13/tpapi/lib/parks/walibi/walibiholland.js~walibiholland",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html",
     "<span>WalibiHolland</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibiholland.js</span>",
+    "class"
+  ],
+  [
+    "@alexvv13/tpapi/lib/parks/europapark/yullbe.js~yullbe",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html",
+    "<span>Yullbe</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/europapark/yullbe.js</span>",
     "class"
   ],
   [
@@ -822,6 +834,30 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/parks/europapark/europapark.js~europapark#buildmerchandisepoi",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-buildMerchandisePOI",
+    "lib/parks/europapark/europapark.js~EuropaPark#buildMerchandisePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#buildrestaurantpoi",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-buildRestaurantPOI",
+    "lib/parks/europapark/europapark.js~EuropaPark#buildRestaurantPOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#buildridepoi",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-buildRidePOI",
+    "lib/parks/europapark/europapark.js~EuropaPark#buildRidePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europapark.js~europapark#buildservicepoi",
+    "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-method-buildServicePOI",
+    "lib/parks/europapark/europapark.js~EuropaPark#buildServicePOI",
+    "method"
+  ],
+  [
     "lib/parks/europapark/europapark.js~europapark#constructor",
     "class/lib/parks/europapark/europapark.js~EuropaPark.html#instance-constructor-constructor",
     "lib/parks/europapark/europapark.js~EuropaPark#constructor",
@@ -858,6 +894,138 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/europapark/rulantica.js",
+    "file/lib/parks/europapark/rulantica.js.html",
+    "lib/parks/europapark/rulantica.js",
+    "file"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#buildmerchandisepoi",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-buildMerchandisePOI",
+    "lib/parks/europapark/rulantica.js~Rulantica#buildMerchandisePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#buildrestaurantpoi",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-buildRestaurantPOI",
+    "lib/parks/europapark/rulantica.js~Rulantica#buildRestaurantPOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#buildridepoi",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-buildRidePOI",
+    "lib/parks/europapark/rulantica.js~Rulantica#buildRidePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#buildservicepoi",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-buildServicePOI",
+    "lib/parks/europapark/rulantica.js~Rulantica#buildServicePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#constructor",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-constructor-constructor",
+    "lib/parks/europapark/rulantica.js~Rulantica#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#getophours",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-getOpHours",
+    "lib/parks/europapark/rulantica.js~Rulantica#getOpHours",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#getpois",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-getPOIS",
+    "lib/parks/europapark/rulantica.js~Rulantica#getPOIS",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#getqueue",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-getQueue",
+    "lib/parks/europapark/rulantica.js~Rulantica#getQueue",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#loginep",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-loginEP",
+    "lib/parks/europapark/rulantica.js~Rulantica#loginEP",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/rulantica.js~rulantica#refreshep",
+    "class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-method-refreshEP",
+    "lib/parks/europapark/rulantica.js~Rulantica#refreshEP",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js",
+    "file/lib/parks/europapark/yullbe.js.html",
+    "lib/parks/europapark/yullbe.js",
+    "file"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#buildmerchandisepoi",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildMerchandisePOI",
+    "lib/parks/europapark/yullbe.js~Yullbe#buildMerchandisePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#buildrestaurantpoi",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildRestaurantPOI",
+    "lib/parks/europapark/yullbe.js~Yullbe#buildRestaurantPOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#buildridepoi",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildRidePOI",
+    "lib/parks/europapark/yullbe.js~Yullbe#buildRidePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#buildservicepoi",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildServicePOI",
+    "lib/parks/europapark/yullbe.js~Yullbe#buildServicePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#buildservicepoi",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildServicePOI",
+    "lib/parks/europapark/yullbe.js~Yullbe#buildServicePOI",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#constructor",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-constructor-constructor",
+    "lib/parks/europapark/yullbe.js~Yullbe#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#getpois",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-getPOIS",
+    "lib/parks/europapark/yullbe.js~Yullbe#getPOIS",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#getqueue",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-getQueue",
+    "lib/parks/europapark/yullbe.js~Yullbe#getQueue",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#loginep",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-loginEP",
+    "lib/parks/europapark/yullbe.js~Yullbe#loginEP",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/yullbe.js~yullbe#refreshep",
+    "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-refreshEP",
+    "lib/parks/europapark/yullbe.js~Yullbe#refreshEP",
+    "method"
+  ],
+  [
     "lib/parks/park.js",
     "file/lib/parks/park.js.html",
     "lib/parks/park.js",
@@ -885,6 +1053,12 @@ window.esdocSearchIndex = [
     "lib/parks/park.js~park#getdata",
     "class/lib/parks/park.js~Park.html#instance-method-getData",
     "lib/parks/park.js~Park#getData",
+    "method"
+  ],
+  [
+    "lib/parks/park.js~park#getpark",
+    "class/lib/parks/park.js~Park.html#instance-method-getPark",
+    "lib/parks/park.js~Park#getPark",
     "method"
   ],
   [
