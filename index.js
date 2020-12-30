@@ -4,7 +4,7 @@ import tpapi from '@alexvv13/tpapi';
 const park = new tpapi.parks.EuropaPark();
 
 // Fetch POIS Example usage of Europa-Park
-park.getWaitTimes().then((rideTimes) => {
+park.buildStaticPOI().then((rideTimes) => {
   console.log(rideTimes);
 });
 
