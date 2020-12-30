@@ -666,6 +666,36 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/parks/efteling/efteling.js~efteling#buildfairytalepoi",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-buildFairytalePOI",
+    "lib/parks/efteling/efteling.js~Efteling#buildFairytalePOI",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#buildmerchandisepoi",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-buildMerchandisePOI",
+    "lib/parks/efteling/efteling.js~Efteling#buildMerchandisePOI",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#buildrestaurantpoi",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-buildRestaurantPOI",
+    "lib/parks/efteling/efteling.js~Efteling#buildRestaurantPOI",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#buildridepoi",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-buildRidePOI",
+    "lib/parks/efteling/efteling.js~Efteling#buildRidePOI",
+    "method"
+  ],
+  [
+    "lib/parks/efteling/efteling.js~efteling#buildshowpoi",
+    "class/lib/parks/efteling/efteling.js~Efteling.html#instance-method-buildShowPOI",
+    "lib/parks/efteling/efteling.js~Efteling#buildShowPOI",
+    "method"
+  ],
+  [
     "lib/parks/efteling/efteling.js~efteling#constructor",
     "class/lib/parks/efteling/efteling.js~Efteling.html#instance-constructor-constructor",
     "lib/parks/efteling/efteling.js~Efteling#constructor",
