@@ -336,17 +336,17 @@ export class Yullbe extends Park {
   };
 
   /**
-  * Build EuropaPark static object
+  * Build YULLBE static object
   * This data contains general ride names, descriptions etc.
   * @example
   * import tpapi from &apos;@alexvv13/tpapi&apos;;
   *
-  * const park = new tpapi.park.EuropaPark();
+  * const park = new tpapi.park.Yullbe();
   *
   * park.buildStaticPOI().then((pois) =&gt; {
   * console.log(pois)
   * });
-  * @return {string} All EuropaPark static POIS without queuetimes
+  * @return {string} All YULLBE static POIS without queuetimes
   */
   async buildStaticPOI() {
     return await this.cache.wrap(&apos;staticdata&apos;, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
