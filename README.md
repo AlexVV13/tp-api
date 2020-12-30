@@ -170,6 +170,8 @@ park.getWaitTime().then((poiData) => {
 
 * Efteling (tpapi.parks.Efteling)
 * Europa-Park (tpapi.parks.EuropaPark)
+* Rulantica (tpapi.parks.Rulantica)
+* YULLBE (tpapi.parks.Yullbe)
 * Walibi Holland (tpapi.parks.WalibiHolland)
 * Walibi Belgium (tpapi.parks.WalibiBelgium)
 
@@ -181,6 +183,8 @@ Park Name | Live Queues | Park Hours
 ------------ | ------------- | ----------
 Efteling |:heavy_check_mark:|:heavy_check_mark:
 Europa-Park |:heavy_check_mark:|:heavy_multiplication_x:
+Rulantica |:heavy_check_mark|:heavy_multiplication_x:
+YULLBE |:heavy_check_mark|:heavy_multiplication_x:
 Walibi Holland |:heavy_check_mark:|:heavy_multiplication_x:
 Walibi Belgium |:heavy_check_mark:|:heavy_multiplication_x:
 
@@ -267,6 +271,8 @@ Prints:
 
 * Efteling [51.65098350641645, 5.049916835374731]: (Europe/Amsterdam)
 * Europa-Park [48.266140769976715, 7.722050520358709]: (Europe/Berlin)
+* Rulantica [48.2605514, 7.7386819]: (Europe/Berlin)
+* YULLBE [48.266140769976715, 7.722050520358709]: (Europe/Berlin)
 * Walibi Belgium [50.7038852, 4.5960371]: (Europe/Brussels)
 * Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)
 

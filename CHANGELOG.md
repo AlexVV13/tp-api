@@ -17,3 +17,4 @@ Key changes to new versions
 * 1.0.14 Minor fixes, json is now valid again.
 * 1.0.15 Added caching options for the parks, which makes the respond time a little bit faster.
 * 1.0.17 Better Language understanding and more options for Efteling
+* 1.0.18 Extended EuropaPark with more data and added the other parks in the resort.
