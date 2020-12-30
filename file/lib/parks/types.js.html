@@ -52,6 +52,9 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import dotenv from &apos;dotenv&apos;;
 dotenv.config();
 
+/**
+ * Get the language from our env file and use it for the definition of the different types.
+ */
 let languages = process.env.LANGUAGES;
 
 if (!languages) {

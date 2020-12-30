@@ -1,7 +1,7 @@
 {
-  "coverage": "86.4%",
+  "coverage": "87.37%",
   "expectCount": 103,
-  "actualCount": 89,
+  "actualCount": 90,
   "files": {
     "lib/cache/cacheBase.js": {
       "expectCount": 14,
@@ -75,10 +75,8 @@
     },
     "lib/parks/types.js": {
       "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        4
-      ]
+      "actualCount": 1,
+      "undocumentLines": []
     },
     "lib/parks/walibi/walibibelgium.js": {
       "expectCount": 4,
