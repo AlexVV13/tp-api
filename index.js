@@ -1,10 +1,10 @@
 // Import all parks here
 import tpapi from '@alexvv13/tpapi';
 
-const park = new tpapi.parks.Rulantica();
+const park = new tpapi.parks.EuropaPark();
 
 // Fetch POIS Example usage of Europa-Park
-park.getOpHours().then((rideTimes) => {
+park.getWaitTime().then((rideTimes) => {
   console.log(rideTimes);
 });
 
