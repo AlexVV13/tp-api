@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
@@ -51,13 +52,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Yullbe} from &apos;<span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber24">@alexvv13/tpapi/lib/parks/europapark/yullbe.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Yullbe from &apos;<span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber17">@alexvv13/tpapi/lib/parks/europapark/yullbe.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber24">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber17">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -67,7 +68,7 @@
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>events~EventEmitter</span> &#x2192; <span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span> &#x2192; <span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span> &#x2192; <span><a href="class/lib/parks/park.js~Park.html">Park</a></span> &#x2192; Yullbe</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>events~EventEmitter</span> &#x2192; <span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span> &#x2192; <span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span> &#x2192; <span><a href="class/lib/parks/park.js~Park.html">Park</a></span> &#x2192; <span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span> &#x2192; Yullbe</div></div>
   
   
   
@@ -77,7 +78,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>Rulantica Park Object<br>Make sure all environment variables are set in an .env file which should be in the main location.<br>Not setting these variables will make the module exit early without returning data.<br><br>This class is here to fetch the POI data and to attach queue times data to it.<br>After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br><br>NOTE: Dutch language is supported, however strange things occur, such as deletion of VirtualLine entries making rides appear twice as &apos;normal&apos;<br><br>Context: YULLBE is a VR experience from EP which is installed over rides and TRAUMATICA, nothing too special, but listed as park :)<br><br>This class contains some login and refresh functions, but NEVER call them if you don&apos;t need them.<br>Most park specific parameters are set already</p>
+  <div class="description" data-ice="description"><p>YULLBE Park Object<br>Make sure all environment variables are set in an .env file which should be in the main location.<br>Not setting these variables will make the module exit early without returning data.<br><br>This class is here to fetch the POI data and to attach queue times data to it.<br>After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br><br>NOTE: Dutch language is supported, however strange things occur, such as deletion of VirtualLine entries making rides appear twice as &apos;normal&apos;<br><br>This class contains some login and refresh functions, but NEVER call them if you don&apos;t need them.<br>Most park specific parameters are set already</p>
 </div>
   
 
@@ -116,7 +117,7 @@
       <div>
         
         
-        <div data-ice="description"><p>Create a new EuropaPark Park object</p>
+        <div data-ice="description"><p>Create a new Yullbe Park object</p>
 </div>
       </div>
     </td>
@@ -129,303 +130,7 @@
 </table>
 </div>
 
-<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildMerchandisePOI">buildMerchandisePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Build Yullbe Merchandise object<br>This data contains general merchandise names, descriptions etc.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildRestaurantPOI">buildRestaurantPOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Build Yullbe restaurant object<br>This data contains general restaurant names, descriptions etc.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildRidePOI">buildRidePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Build Yullbe ride object<br>This data contains general ride names, descriptions etc.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildServicePOI">buildServicePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Build Yullbe Service object<br>This data contains general service names, descriptions etc.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildServicePOI">buildServicePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Build YULLBE Service object<br>This data contains general service names, descriptions etc.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-buildStaticPOI">buildStaticPOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Build YULLBE static object<br>This data contains general ride names, descriptions etc.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-getPOIS">getPOIS</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get All POIS of EuropaPark<br>This data contains all the POIS in EuropaPark</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-getQueue">getQueue</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get All Queues of Yullbe<br>This data contains all the Queues in Yullbe, attached with pois above.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-loginEP">loginEP</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Login to EuropaPark API<br>NEVER call this method without calling refresh() or getPOIS()!<br>Calling this method too fast can cause a perm block from the Macks</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-method-refreshEP">refreshEP</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Refresh your just obtained ep token<br>Tokens are 6 hrs valid, however there&apos;s no point in just calling this function without queues or sth else</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
+
 
 <div class="inherited-summary" data-ice="inheritedSummary"><h2>Inherited Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span></td></tr></thead>
@@ -1027,6 +732,361 @@
   </tr>
 </tbody>
 </table>
+
+<table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span></td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildMerchandisePOI">buildMerchandisePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Build EuropaPark park Merchandise object<br>This data contains general merchandise names, descriptions etc.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildRestaurantPOI">buildRestaurantPOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Build EuropaPark park restaurant object<br>This data contains general restaurant names, descriptions etc.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildRidePOI">buildRidePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Build EuropaPark park ride object<br>This data contains general ride names, descriptions etc.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildServicePOI">buildServicePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Build EuropaPark park Service object<br>This data contains general service names, descriptions etc.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildStaticPOI">buildStaticPOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Build EuropaPark park static object<br>This data contains general ride names, descriptions etc.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-fetchHours">fetchHours</a></span></span><span class="code" data-ice="signature">(date: <span>moment</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get All Operating Hours of EuropaPark<br>This data contains all the Operating Hours in EuropaPark.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getHours">getHours</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get All Operating Hours of EuropaPark<br>This data contains all the Operating Hours in EuropaPark, fetched with currentyear.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getOpHours">getOpHours</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get Operating Calendar for this park<br>@return{object} Object keyed to dates in YYYY-MM-DD format.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getPOIS">getPOIS</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get All POIS of EuropaPark park<br>This data contains all the POIS in EuropaPark</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getQueue">getQueue</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get All Queues of EuropaPark park<br>This data contains all the Queues in EuropaPark park, attached with pois above.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-loginEP">loginEP</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Login to EuropaPark API<br>NEVER call this method without calling refresh() or getPOIS()!<br>Calling this method too fast can cause a perm block from the Macks</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-refreshEP">refreshEP</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Refresh your just obtained ep token<br>Tokens are 6 hrs valid, however there&apos;s no point in just calling this function without queues or sth else</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
 </div>
 
 
@@ -1045,17 +1105,17 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber29">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber22">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Create a new EuropaPark Park object</p>
+  <div data-ice="description"><p>Create a new Yullbe Park object</p>
 </div>
 
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/lib/parks/park.js~Park.html#instance-constructor-constructor">Park#constructor</a></span></div>
+  <div data-ice="override"><h4>Override:</h4><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-constructor-constructor">EuropaParkBase#constructor</a></span></div>
 
   <div data-ice="properties"><div data-ice="properties">
   <h4 data-ice="title">Params:</h4>
@@ -1095,709 +1155,7 @@
 </div>
 </div>
 
-<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-buildMerchandisePOI">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">buildMerchandisePOI</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber460">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Build Yullbe Merchandise object<br>This data contains general merchandise names, descriptions etc.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>All Yullbe Merchandise POIS</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Yullbe();
-
-park.buildMerchandisePOI().then((pois) =&gt; {
-console.log(pois)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-buildRestaurantPOI">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">buildRestaurantPOI</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber415">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Build Yullbe restaurant object<br>This data contains general restaurant names, descriptions etc.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>All Yullbe restaurant POIS</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Yullbe();
-
-park.buildRidePOI().then((pois) =&gt; {
-console.log(pois)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-buildRidePOI">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">buildRidePOI</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber179">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Build Yullbe ride object<br>This data contains general ride names, descriptions etc.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>All Yullbe ride POIS without queuetimes</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Yullbe();
-
-park.buildRidePOI().then((pois) =&gt; {
-console.log(pois)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-buildServicePOI">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">buildServicePOI</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber505">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Build Yullbe Service object<br>This data contains general service names, descriptions etc.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>All Yullbe Services POIS</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Yullbe();
-
-park.buildServicePOI().then((pois) =&gt; {
-console.log(pois)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-buildServicePOI">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">buildServicePOI</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber642">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Build YULLBE Service object<br>This data contains general service names, descriptions etc.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>All YULLBE Services POIS</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Yullbe();
-
-park.buildServicePOI().then((pois) =&gt; {
-console.log(pois)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-buildStaticPOI">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">buildStaticPOI</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber298">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Build YULLBE static object<br>This data contains general ride names, descriptions etc.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>All YULLBE static POIS without queuetimes</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Yullbe();
-
-park.buildStaticPOI().then((pois) =&gt; {
-console.log(pois)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getPOIS">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">getPOIS</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber146">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Get All POIS of EuropaPark<br>This data contains all the POIS in EuropaPark</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>EP POIS without queues</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Yullbe();
-
-park.getPois().then((pois) =&gt; {
-console.log(pois)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getQueue">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">getQueue</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber550">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Get All Queues of Yullbe<br>This data contains all the Queues in Yullbe, attached with pois above.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>Yullbe POIS with queues</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Yullbe();
-
-park.getQueue().then((queue) =&gt; {
-console.log(queue)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-loginEP">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">loginEP</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber81">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Login to EuropaPark API<br>NEVER call this method without calling refresh() or getPOIS()!<br>Calling this method too fast can cause a perm block from the Macks</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>EuropaPark refresh token</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Yullbe();
-
-park.loginEP().then((token) =&gt; {
-console.log(token)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-refreshEP">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    <span data-ice="async">async</span>
-    
-    <span class="code" data-ice="name">refreshEP</span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/yullbe.js.html#lineNumber112">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>Refresh your just obtained ep token<br>Tokens are 6 hrs valid, however there&apos;s no point in just calling this function without queues or sth else</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>EuropaPark JWT Token</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  <div data-ice="example">
-    <h4>Example:</h4>
-    
-  <div class="example-doc" data-ice="exampleDoc">
-      
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">import tpapi from &apos;@alexvv13/tpapi&apos;;
-
-const park = new tpapi.park.Yullbe();
-
-park.refreshEP().then((token) =&gt; {
-console.log(token)
-});</code></pre>
-    </div>
-</div>
-
-  
-
-  
-  
-</div>
-</div>
 </div>
 
 <footer class="footer">

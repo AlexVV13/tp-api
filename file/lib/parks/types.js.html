@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
@@ -62,6 +63,38 @@ let languages = process.env.LANGUAGES;
 if (!languages) {
   languages = &apos;en&apos;;
 };
+
+/**
+ * Possible types of park hours
+ * @enum
+ */
+export let scheduleType;
+
+if (languages === &apos;en&apos;) {
+  scheduleType = Object.freeze({
+    operating: &apos;Operating&apos;,
+    closed: &apos;Closed&apos;,
+    extraHours: &apos;Extra Hours&apos;,
+  });
+} else if (languages === &apos;nl&apos;) {
+  scheduleType = Object.freeze({
+    operating: &apos;Geopend&apos;,
+    closed: &apos;Gesloten&apos;,
+    extraHours: &apos;Aparte openstelling&apos;,
+  });
+} else if (languages === &apos;de&apos;) {
+  scheduleType = Object.freeze({
+    operating: &apos;Ge&#xF6;ffnet&apos;,
+    closed: &apos;Geschlossen&apos;,
+    extraHours: &apos;Extra Stunden&apos;,
+  });
+} else if (languages === &apos;fr&apos;) {
+  scheduleType = Object.freeze({
+    operating: &apos;Ouvert&apos;,
+    closed: &apos;Ferm&#xE9;&apos;,
+    extraHours: &apos;Heures suppl&#xE9;mentaires&apos;,
+  });
+}
 
 /**
  * Possible types of entity types
