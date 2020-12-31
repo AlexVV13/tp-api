@@ -179,6 +179,38 @@ if (languages === &apos;en&apos;) {
     refurbishment: &apos;Entretien&apos;,
   });
 }
+
+/**
+ * Possible types of fastpass statusses
+ * @enum
+ */
+export let fastPassStatus;
+
+if (languages === &apos;en&apos;) {
+  fastPassStatus = Object.freeze({
+    available: &apos;Available&apos;,
+    temporarilyFull: &apos;Temporarily Full&apos;,
+    finished: &apos;Full &amp; Closed&apos;,
+  });
+} else if (languages === &apos;nl&apos;) {
+  fastPassStatus = Object.freeze({
+    available: &apos;Beschikbaar&apos;,
+    temporarilyFull: &apos;Tijdelijk vol&apos;,
+    finished: &apos;Vol &amp; Gesloten&apos;,
+  });
+} else if (languages === &apos;de&apos;) {
+  fastPassStatus = Object.freeze({
+    available: &apos;Verf&#xFC;gbar&apos;,
+    temporarilyFull: &apos;Vor&#xFC;bergehend Voll&apos;,
+    finished: &apos;Voll und Geschlossen&apos;,
+  });
+} else if (languages === &apos;fr&apos;) {
+  fastPassStatus = Object.freeze({
+    available: &apos;Disponible&apos;,
+    temporarilyFull: &apos;Temporairement plein&apos;,
+    finished: &apos;Plein &amp; Ferm&#xE9;&apos;,
+  });
+}
 </code></pre>
 
 </div>

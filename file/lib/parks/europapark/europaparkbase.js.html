@@ -53,7 +53,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/europapark/europaparkbase.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fetch from &apos;node-fetch&apos;;
-import {scheduleType, entityType, queueType} from &apos;../types.js&apos;;
+import {scheduleType, entityType, queueType, fastPassStatus} from &apos;../types.js&apos;;
 import {Park} from &apos;../park.js&apos;;
 import moment from &apos;moment-timezone&apos;;
 
@@ -200,13 +200,14 @@ export class EuropaParkBase extends Park {
   * @return {string} All EuropaPark park ride POIS without queuetimes
   */
   async buildRidePOI() {
-    return await this.cache.wrap(`${this.config.parkid}-ridedata`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
+    let parent = null;
+    return await this.cache.wrap(`${this.config.parkId}-ridedata`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
       const poiData = await this.getPOIS(); // Get the POI Data
 
       if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
 
       const poi = {};
-      const singleRider = &apos;false&apos;; // EP doesn&apos;t send these values
+      let singleRider = &apos;false&apos;; // EP doesn&apos;t send these values
       let fastPass = &apos;false&apos;; // Set fastpass to false as default
       let isVirtQueue = &apos;false&apos;; // Default poi isn&apos;t a virtqueue
       poiData.pois.forEach((ride) =&gt; {
@@ -215,9 +216,13 @@ export class EuropaParkBase extends Park {
           if (ride.name.indexOf(&apos;VirtualLine: &apos;) === 0) { // So EP reports virtlane as seperate map pointer, they send it as a stand-alone POI, assign the VirtQueue tag here.
             fastPass = &apos;true&apos;;
             isVirtQueue = &apos;true&apos;;
+            const paren = ride.name.slice(13);
+            parent = paren;
+            singleRider = &apos;true&apos;; // VirtLines are the SRL replacement
           } else { // Yay, it&apos;s not a Virtline entry!
             fastPass = &apos;false&apos;;
             isVirtQueue = &apos;false&apos;;
+            parent = null;
           }
           let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
           if (ride.areaId == 10) {
@@ -329,8 +334,9 @@ export class EuropaParkBase extends Park {
               short_description: ride.excerpt,
               single_rider: singleRider,
               fastPass: fastPass,
+              parent: parent,
               type: entityType.ride,
-              single_rider: &apos;false&apos;,
+              single_rider: singleRider,
               isVirtQueue: isVirtQueue,
               tags: {
                 Producer: producer,
@@ -363,14 +369,14 @@ export class EuropaParkBase extends Park {
   * @return {string} All EuropaPark park static POIS without queuetimes
   */
   async buildStaticPOI() {
-    return await this.cache.wrap(`${this.config.parkid}-static`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
+    return await this.cache.wrap(`${this.config.parkId}-static`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
       const poiData = await this.getPOIS(); // Get the POI Data
 
       if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
 
       const poi = {};
       poiData.pois.forEach((ride) =&gt; {
-        if (ride.type === &apos;sight&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkid}`) === 0) { // Return rides and pois which haven&apos;t null
+        if (ride.type === &apos;sight&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
           if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers
           let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
           if (ride.areaId == 10) {
@@ -509,14 +515,14 @@ export class EuropaParkBase extends Park {
   * @return {string} All EP park restaurant POIS
   */
   async buildRestaurantPOI() {
-    return await this.cache.wrap(`${this.config.parkid}-restpoi`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
+    return await this.cache.wrap(`${this.config.parkId}-restpoi`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
       const poiData = await this.getPOIS(); // Get the POI Data
 
       if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
 
       const poi = {};
       poiData.pois.forEach((ride) =&gt; {
-        if (ride.type === &apos;gastronomy&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkid}`) === 0) { // Return rides and pois which haven&apos;t null
+        if (ride.type === &apos;gastronomy&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
           let area = undefined; // Default, Hotel is included as well which adds new areas
           if (ride.areaId == 10) {
             area = &apos;Adventureland&apos;;
@@ -581,14 +587,14 @@ export class EuropaParkBase extends Park {
   * @return {string} All EP park Merchandise POIS
   */
   async buildMerchandisePOI() {
-    return await this.cache.wrap(`${this.config.parkid}-merchpoi`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
+    return await this.cache.wrap(`${this.config.parkId}-merchpoi`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
       const poiData = await this.getPOIS(); // Get the POI Data
 
       if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
 
       const poi = {};
       poiData.pois.forEach((ride) =&gt; {
-        if (ride.type === &apos;shopping&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkid}`) === 0) { // Return rides and pois which haven&apos;t null
+        if (ride.type === &apos;shopping&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
           let area = undefined; // Default, Hotel is included as well which adds new areas
           if (ride.areaId == 10) {
             area = &apos;Adventureland&apos;;
@@ -653,14 +659,14 @@ export class EuropaParkBase extends Park {
   * @return {string} All EP park Services POIS
   */
   async buildServicePOI() {
-    return await this.cache.wrap(`${this.config.parkid}-servicedata`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
+    return await this.cache.wrap(`${this.config.parkId}-servicedata`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
       const poiData = await this.getPOIS(); // Get the POI Data
 
       if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
 
       const poi = {};
       poiData.pois.forEach((ride) =&gt; {
-        if (ride.type === &apos;service&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkid}`) === 0) { // Return rides and pois which haven&apos;t null
+        if (ride.type === &apos;service&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
           let area = undefined; // Default, Hotel is included as well which adds new areas
           if (ride.areaId == 10) {
             area = &apos;Adventureland&apos;;
@@ -748,6 +754,16 @@ export class EuropaParkBase extends Park {
             let active = null; // Accepting null as value, since some rides never will join the queue api because they simply never have a queue
             // However, setting &apos;0&apos; &amp; state will set the ride all day closed, which isn&apos;t true obviously
 
+            let returntime = null;
+            if (ridetime.startAt) {
+              returntime = {
+                start: ridetime.startAt,
+                end: ridetime.endAt,
+              };
+            } else {
+              returntime = null;
+            }
+
             // TO DO If ride isn&apos;t present in this api it just regrets it and returns nothing, however we at least want some tags.
             if (ridetime.time &gt; 0 &amp;&amp; ridetime.time &lt; 91) {
               waitTime = ridetime.time;
@@ -757,9 +773,17 @@ export class EuropaParkBase extends Park {
               waitTime = 91;
               state = queueType.operating;
               active = &apos;true&apos;;
-            } else if (ridetime.time === 333 || ridetime.time === 666 || ridetime.time === 777) {
+            } else if (ridetime.time === 333) {
               waitTime = 0;
               state = queueType.closed;
+              active = &apos;false&apos;;
+            } else if (ridetime.time === 666) {
+              waitTime = 0;
+              state = fastPassStatus.temporarilyFull;
+              active = &apos;false&apos;;
+            } else if (ridetime.time === 777) {
+              waitTime = 0;
+              state = fastPassStatus.finished;
               active = &apos;false&apos;;
             } else if (ridetime.status === 444 || ridetime.time === 555 || ridetime.time === 999) {
               waitTime = 0;
@@ -787,10 +811,14 @@ export class EuropaParkBase extends Park {
                   latitude: rideData[ridetime.code].location.latitude,
                   longitude: rideData[ridetime.code].location.longitude,
                 },
-                meta: {
-                  type: rideData[ridetime.code].meta.type,
+                fastPass: {
+                  returnTime: returntime,
                   isVirtQueue: rideData[ridetime.code].meta.isVirtQueue,
                   fastPass: rideData[ridetime.code].meta.fastPass,
+                  parent: rideData[ridetime.code].meta.parent,
+                },
+                meta: {
+                  type: rideData[ridetime.code].meta.type,
                   single_rider: rideData[ridetime.code].meta.single_rider,
                   tags: rideData[ridetime.code].meta.tags,
                   restrictions: rideData[ridetime.code].meta.restrictions,
@@ -838,7 +866,7 @@ export class EuropaParkBase extends Park {
     const cal = await this.getHours();
     const parkTimes = cal.seasons.filter(
         // Filter hours in this really strange useless API.
-        (x) =&gt; !x.closed &amp;&amp; x.scopes.indexOf(this.config.parkid) &gt;= 0,
+        (x) =&gt; !x.closed &amp;&amp; x.scopes.indexOf(this.config.parkId) &gt;= 0,
     ).find(
         // Finding valid data
         (x) =&gt; date.isBetween(x.startAt, x.endAt, &apos;day&apos;),
