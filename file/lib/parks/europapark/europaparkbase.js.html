@@ -40,6 +40,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/scopedCache.js~ScopedCache.html">ScopedCache</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityTags">entityTags</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-queueEntity">queueEntity</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span></span></li>
@@ -264,58 +266,77 @@ export class EuropaParkBase extends Park {
           }
 
           // EuropaPark actually provides some cool tags which I&apos;ll attach here.
-          let producer = null;
-          let opening = null;
-          let capacity = null;
-          let ridetime = null;
-          let thcapacity = null;
-          let gforce = null;
-          let maxspeed = null;
-          let height = null;
+          let Producer = undefined;
+          let Opening = undefined;
+          let Capacity = undefined;
+          let Ridetime = undefined;
+          let TheoreticalCapacity = undefined;
+          let MaxGForce = undefined;
+          let MaxSpeed = undefined;
+          let Height = undefined;
 
           if (ride.attributes) {
             Object.keys(ride.attributes).forEach((poiat) =&gt; {
               if (ride.attributes[poiat].key === &apos;Producer&apos;) {
-                producer = ride.attributes[poiat].value;
+                Producer = ride.attributes[poiat].value;
               } else if (ride.attributes[poiat].key === &apos;Opening&apos;) {
-                opening = ride.attributes[poiat].value;
+                Opening = ride.attributes[poiat].value;
               } else if (ride.attributes[poiat].key === &apos;Capacity&apos;) {
-                capacity = ride.attributes[poiat].value;
+                Capacity = ride.attributes[poiat].value;
               } else if (ride.attributes[poiat].key === &apos;Driving Time&apos;) {
-                ridetime = ride.attributes[poiat].value;
+                Ridetime = ride.attributes[poiat].value;
               } else if (ride.attributes[poiat].key === &apos;Theoretical Capacity&apos;) {
-                thcapacity = ride.attributes[poiat].value;
+                TheoreticalCapacity = ride.attributes[poiat].value;
               } else if (ride.attributes[poiat].key === &apos;Max Acceleration&apos;) {
-                gforce = ride.attributes[poiat].value;
+                MaxGForce = ride.attributes[poiat].value;
               } else if (ride.attributes[poiat].key === &apos;Max Speed&apos;) {
-                maxspeed = ride.attributes[poiat].value;
+                MaxSpeed = ride.attributes[poiat].value;
               } else if (ride.attributes[poiat].key === &apos;Height&apos;) {
-                height = ride.attributes[poiat].value;
+                Height = ride.attributes[poiat].value;
               }
             });
           }
 
+          const tags = {
+            Producer,
+            Opening,
+            Capacity,
+            Ridetime,
+            TheoreticalCapacity,
+            MaxGForce,
+            MaxSpeed,
+            Height,
+          };
+
           // And some restrictions.
-          let minHeight = null;
-          let minHeightAdult = null;
-          let minAge = null;
-          let minAgeAdult = null;
-          let maxHeight = null;
+          let minHeight = undefined;
+          let minHeightAccompanied = undefined;
+          let minAge = undefined;
+          let minAgeAccompanied = undefined;
+          let maxHeight = undefined;
           if (ride.minHeight) {
             minHeight = ride.minHeight;
           };
           if (ride.minHeightAdult) {
-            minHeightAdult = ride.minHeightAdult;
+            minHeightAccompanied = ride.minHeightAdult;
           };
           if (ride.minAge) {
             minAge = ride.minAge;
           };
           if (ride.minAgeAdult) {
-            minAgeAdult = ride.minAgeAdult;
+            minAgeAccompanied = ride.minAgeAdult;
           };
           if (ride.maxHeight) {
             maxHeight = ride.maxHeight;
           }
+
+          const restrictions = {
+            minHeight,
+            minHeightAccompanied,
+            minAge,
+            minAgeAccompanied,
+            maxHeight,
+          };
 
           // Build the ride object
           poi[ride.code] = {
@@ -338,23 +359,8 @@ export class EuropaParkBase extends Park {
               type: entityType.ride,
               single_rider: singleRider,
               isVirtQueue: isVirtQueue,
-              tags: {
-                Producer: producer,
-                Capacity: capacity,
-                Opened: opening,
-                Duration: ridetime,
-                Theoretical_Capacity: thcapacity,
-                Max_GForce: gforce,
-                Max_Speed: maxspeed,
-                Height: height,
-              },
-              restrictions: {
-                minHeight: minHeight,
-                minHeightAccompanied: minHeightAdult,
-                maxHeight: maxHeight,
-                minAge: minAge,
-                minAgeAccompanied: minAgeAdult,
-              },
+              tags: tags,
+              restrictions: restrictions,
             },
           };
         };
@@ -754,14 +760,14 @@ export class EuropaParkBase extends Park {
             let active = null; // Accepting null as value, since some rides never will join the queue api because they simply never have a queue
             // However, setting &apos;0&apos; &amp; state will set the ride all day closed, which isn&apos;t true obviously
 
-            let returntime = null;
+            let returntime = undefined;
             if (ridetime.startAt) {
               returntime = {
                 start: ridetime.startAt,
                 end: ridetime.endAt,
               };
             } else {
-              returntime = null;
+              returntime = undefined;
             }
 
             // TO DO If ride isn&apos;t present in this api it just regrets it and returns nothing, however we at least want some tags.
@@ -818,6 +824,10 @@ export class EuropaParkBase extends Park {
                   parent: rideData[ridetime.code].meta.parent,
                 },
                 meta: {
+                  descriptions: {
+                    description: rideData[ridetime.code].meta.description,
+                    short_description: rideData[ridetime.code].meta.short_description,
+                  },
                   type: rideData[ridetime.code].meta.type,
                   single_rider: rideData[ridetime.code].meta.single_rider,
                   tags: rideData[ridetime.code].meta.tags,

@@ -40,6 +40,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/scopedCache.js~ScopedCache.html">ScopedCache</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityTags">entityTags</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-queueEntity">queueEntity</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span></span></li>
@@ -159,6 +161,222 @@ export class Park extends Entity {
     const string = {rides, hours};
 
     return Promise.resolve(string);
+  }
+
+  /**
+  * Get All Rides of a park
+  * This data contains all the rides.
+  * @return {string} park rides
+  */
+  async getRides() {
+    const rideData = await this.buildRidePOI();
+
+    if (!rideData) throw new Error(&apos;Something went wrong, didnt return any ride data?&apos;);
+
+    const rides = [];
+    Object.keys(rideData).forEach((ride) =&gt; {
+      const rideobj = {
+        name: rideData[ride].name,
+        id: rideData[ride].id,
+        location: {
+          area: rideData[ride].location.area,
+          latitude: rideData[ride].location.latitude,
+          longitude: rideData[ride].location.longitude,
+        },
+        fastPass: {
+          isVirtQueue: rideData[ride].meta.isVirtQueue,
+          fastPass: rideData[ride].meta.fastPass,
+          parent: rideData[ride].meta.parent,
+        },
+        meta: {
+          descriptions: {
+            description: rideData[ride].meta.description,
+            short_description: rideData[ride].meta.short_description,
+          },
+          type: rideData[ride].meta.type,
+          single_rider: rideData[ride].meta.single_rider,
+          tags: rideData[ride].meta.tags,
+          restrictions: rideData[ride].meta.restrictions,
+        },
+      };
+      rides.push(rideobj);
+    });
+    return rides;
+  }
+
+  /**
+  * Get All Statics of a park
+  * This data contains all the static.
+  * @return {string} park static pois
+  */
+  async getStatic() {
+    const rideData = await this.buildStaticPOI();
+
+    if (!rideData) throw new Error(&apos;Something went wrong, didnt return any static data?&apos;);
+
+    const rides = [];
+    Object.keys(rideData).forEach((ride) =&gt; {
+      const rideobj = {
+        name: rideData[ride].name,
+        id: rideData[ride].id,
+        location: {
+          area: rideData[ride].location.area,
+          latitude: rideData[ride].location.latitude,
+          longitude: rideData[ride].location.longitude,
+        },
+        meta: {
+          descriptions: {
+            description: rideData[ride].meta.description,
+            short_description: rideData[ride].meta.short_description,
+          },
+          type: rideData[ride].meta.type,
+          tags: rideData[ride].meta.tags,
+          restrictions: rideData[ride].meta.restrictions,
+        },
+      };
+      rides.push(rideobj);
+    });
+    return rides;
+  }
+
+  /**
+  * Get All Restaurants of a park
+  * This data contains all the restaurants.
+  * @return {string} park restaurants
+  */
+  async getRestaurant() {
+    const rideData = await this.buildRestaurantPOI();
+
+    if (!rideData) throw new Error(&apos;Something went wrong, didnt return any restaurant data?&apos;);
+
+    const rides = [];
+    Object.keys(rideData).forEach((ride) =&gt; {
+      const rideobj = {
+        name: rideData[ride].name,
+        id: rideData[ride].id,
+        location: {
+          area: rideData[ride].location.area,
+          latitude: rideData[ride].location.latitude,
+          longitude: rideData[ride].location.longitude,
+        },
+        meta: {
+          descriptions: {
+            description: rideData[ride].meta.description,
+            short_description: rideData[ride].meta.short_description,
+          },
+          type: rideData[ride].meta.type,
+          tags: rideData[ride].meta.tags,
+          restrictions: rideData[ride].meta.restrictions,
+        },
+      };
+      rides.push(rideobj);
+    });
+    return rides;
+  }
+
+  /**
+  * Get All Merchandise of a themepark
+  * This data contains all the merchandise.
+  * @return {string} park mcerchandise pois
+  */
+  async getMerchandise() {
+    const rideData = await this.buildMerchandisePOI();
+
+    if (!rideData) throw new Error(&apos;Something went wrong, didnt return any merchandise data?&apos;);
+
+    const rides = [];
+    Object.keys(rideData).forEach((ride) =&gt; {
+      const rideobj = {
+        name: rideData[ride].name,
+        id: rideData[ride].id,
+        location: {
+          area: rideData[ride].location.area,
+          latitude: rideData[ride].location.latitude,
+          longitude: rideData[ride].location.longitude,
+        },
+        meta: {
+          descriptions: {
+            description: rideData[ride].meta.description,
+            short_description: rideData[ride].meta.short_description,
+          },
+          type: rideData[ride].meta.type,
+          tags: rideData[ride].meta.tags,
+          restrictions: rideData[ride].meta.restrictions,
+        },
+      };
+      rides.push(rideobj);
+    });
+    return rides;
+  }
+
+  /**
+  * Get All Services of park
+  * This data contains all the EP park.
+  * @return {string} park services pois
+  */
+  async getService() {
+    const rideData = await this.buildServicePOI();
+
+    if (!rideData) throw new Error(&apos;Something went wrong, didnt return any service data?&apos;);
+
+    const rides = [];
+    Object.keys(rideData).forEach((ride) =&gt; {
+      const rideobj = {
+        name: rideData[ride].name,
+        id: rideData[ride].id,
+        location: {
+          area: rideData[ride].location.area,
+          latitude: rideData[ride].location.latitude,
+          longitude: rideData[ride].location.longitude,
+        },
+        meta: {
+          descriptions: {
+            description: rideData[ride].meta.description,
+            short_description: rideData[ride].meta.short_description,
+          },
+          type: rideData[ride].meta.type,
+          tags: rideData[ride].meta.tags,
+          restrictions: rideData[ride].meta.restrictions,
+        },
+      };
+      rides.push(rideobj);
+    });
+    return rides;
+  }
+
+  /**
+  * Get All Fairytales of park
+  * This data contains all the fairytales.
+  * @return {string} park fairytale pois
+  */
+  async getFairytale() {
+    const rideData = await this.buildFairytalePOI();
+
+    if (!rideData) throw new Error(&apos;Something went wrong, didnt return any static data?&apos;);
+
+    const rides = [];
+    Object.keys(rideData).forEach((ride) =&gt; {
+      const rideobj = {
+        name: rideData[ride].name,
+        id: rideData[ride].id,
+        location: {
+          area: rideData[ride].location.area,
+          latitude: rideData[ride].location.latitude,
+          longitude: rideData[ride].location.longitude,
+        },
+        meta: {
+          descriptions: {
+            description: rideData[ride].meta.description,
+            short_description: rideData[ride].meta.short_description,
+          },
+          type: rideData[ride].meta.type,
+          tags: rideData[ride].meta.tags,
+          restrictions: rideData[ride].meta.restrictions,
+        },
+      };
+      rides.push(rideobj);
+    });
+    return rides;
   }
 };
 

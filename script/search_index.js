@@ -84,6 +84,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/tags.js~entitytags",
+    "variable/index.html#static-variable-entityTags",
+    "<span>entityTags</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/tags.js</span>",
+    "variable"
+  ],
+  [
     "@alexvv13/tpapi/lib/cache.js~getcache",
     "function/index.html#static-function-getCache",
     "<span>getCache</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/cache.js</span>",
@@ -94,6 +100,12 @@ window.esdocSearchIndex = [
     "function/index.html#static-function-parseConfig",
     "<span>parseConfig</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/configBase.js</span>",
     "function"
+  ],
+  [
+    "@alexvv13/tpapi/lib/parks/types.js~queueentity",
+    "variable/index.html#static-variable-queueEntity",
+    "<span>queueEntity</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/types.js</span>",
+    "variable"
   ],
   [
     "@alexvv13/tpapi/lib/reusepromises.js~reusepromise",
@@ -984,9 +996,45 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/park.js~park#getfairytale",
+    "class/lib/parks/park.js~Park.html#instance-method-getFairytale",
+    "lib/parks/park.js~Park#getFairytale",
+    "method"
+  ],
+  [
+    "lib/parks/park.js~park#getmerchandise",
+    "class/lib/parks/park.js~Park.html#instance-method-getMerchandise",
+    "lib/parks/park.js~Park#getMerchandise",
+    "method"
+  ],
+  [
     "lib/parks/park.js~park#getpark",
     "class/lib/parks/park.js~Park.html#instance-method-getPark",
     "lib/parks/park.js~Park#getPark",
+    "method"
+  ],
+  [
+    "lib/parks/park.js~park#getrestaurant",
+    "class/lib/parks/park.js~Park.html#instance-method-getRestaurant",
+    "lib/parks/park.js~Park#getRestaurant",
+    "method"
+  ],
+  [
+    "lib/parks/park.js~park#getrides",
+    "class/lib/parks/park.js~Park.html#instance-method-getRides",
+    "lib/parks/park.js~Park#getRides",
+    "method"
+  ],
+  [
+    "lib/parks/park.js~park#getservice",
+    "class/lib/parks/park.js~Park.html#instance-method-getService",
+    "lib/parks/park.js~Park#getService",
+    "method"
+  ],
+  [
+    "lib/parks/park.js~park#getstatic",
+    "class/lib/parks/park.js~Park.html#instance-method-getStatic",
+    "lib/parks/park.js~Park#getStatic",
     "method"
   ],
   [
@@ -994,6 +1042,12 @@ window.esdocSearchIndex = [
     "class/lib/parks/park.js~Park.html#instance-method-getWaitTime",
     "lib/parks/park.js~Park#getWaitTime",
     "method"
+  ],
+  [
+    "lib/parks/tags.js",
+    "file/lib/parks/tags.js.html",
+    "lib/parks/tags.js",
+    "file"
   ],
   [
     "lib/parks/types.js",
