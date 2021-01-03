@@ -1,10 +1,10 @@
 // Import all parks here
 import tpapi from '@alexvv13/tpapi';
 
-const park = new tpapi.parks.Efteling();
+const park = new tpapi.parks.Phantasialand();
 
 // Fetch POIS Example usage of Europa-Park
-park.getRestaurant().then((rideTimes) => {
+park.getOpHours().then((rideTimes) => {
   console.log(rideTimes);
 });
 

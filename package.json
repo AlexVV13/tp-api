@@ -9,6 +9,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.5",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "level": "^6.0.1",
