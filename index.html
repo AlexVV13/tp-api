@@ -49,8 +49,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibase.js~WalibiBase.html">WalibiBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibira.js~WalibiRA.html">WalibiRA</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -193,14 +195,16 @@ park.getWaitTime().then((poiData) =&gt; {
 <h2 id="changelog">Changelog</h2><p><a href="CHANGELOG.md">View tp-api Changelog</a></p>
 <h2 id="parks-available">Parks available</h2><p><!-- START_SUPPORTED_PARKS_LIST -->
 </p>
-<p><strong>3</strong> Parks Supported</p>
+<p><strong>8</strong> Parks Supported</p>
 <ul>
 <li>Efteling (tpapi.parks.Efteling)</li>
 <li>Europa-Park (tpapi.parks.EuropaPark)</li>
 <li>Rulantica (tpapi.parks.Rulantica)</li>
 <li>YULLBE (tpapi.parks.Yullbe)</li>
+<li>Phantasialand (tpapi.parks.Phantasialand)</li>
 <li>Walibi Holland (tpapi.parks.WalibiHolland)</li>
 <li>Walibi Belgium (tpapi.parks.WalibiBelgium)</li>
+<li>Walibi Rh&#xF4;ne-Alpes (tpapi.parks.WalibiRA)</li>
 </ul>
 <p><!-- END_SUPPORTED_PARKS_LIST -->
 </p>
@@ -225,12 +229,17 @@ park.getWaitTime().then((poiData) =&gt; {
 </tr>
 <tr>
 <td>Rulantica</td>
-<td>:heavy_check_mark</td>
+<td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
 </tr>
 <tr>
 <td>YULLBE</td>
-<td>:heavy_check_mark</td>
+<td>:heavy_check_mark:</td>
+<td>:heavy_multiplication_x:</td>
+</tr>
+<tr>
+<td>Phantasialand</td>
+<td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
 </tr>
 <tr>
@@ -240,6 +249,11 @@ park.getWaitTime().then((poiData) =&gt; {
 </tr>
 <tr>
 <td>Walibi Belgium</td>
+<td>:heavy_check_mark:</td>
+<td>:heavy_multiplication_x:</td>
+</tr>
+<tr>
+<td>Walibi Rh&#xF4;ne-Alpes</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
 </tr>
@@ -355,8 +369,10 @@ for (const park in Parks) {
 <li>Europa-Park [48.266140769976715, 7.722050520358709]: (Europe/Berlin)</li>
 <li>Rulantica [48.2605514, 7.7386819]: (Europe/Berlin)</li>
 <li>YULLBE [48.266140769976715, 7.722050520358709]: (Europe/Berlin)</li>
+<li>Phantasialand [50.798954, 6.879314]: (Europe/Berlin)</li>
 <li>Walibi Belgium [50.7038852, 4.5960371]: (Europe/Brussels)</li>
 <li>Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)</li>
+<li>Walibi Rh&#xF4;ne-Alpes [45.6198928, 5.5669562]: (Europe/Paris)</li>
 </ul>
 <p><!-- END_PARK_TIMEZONE_LIST -->
 </p>

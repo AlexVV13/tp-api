@@ -49,17 +49,16 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibase.js~WalibiBase.html">WalibiBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibira.js~WalibiRA.html">WalibiRA</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/walibi/walibibelgium.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
-import fetch from &apos;node-fetch&apos;;
-import {Park} from &apos;../park.js&apos;;
-import {entityType, queueType} from &apos;../types.js&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import WalibiBase from &apos;./walibibase.js&apos;;
 
 import dotenv from &apos;dotenv&apos;;
 dotenv.config();
@@ -75,7 +74,7 @@ dotenv.config();
 * Most park specific parameters are set already
 * @class
 */
-export class WalibiBelgium extends Park {
+export class WalibiBelgium extends WalibiBase {
   /**
   * Create a new Walibi Belgium Park object
   * @param {object} options
@@ -104,120 +103,6 @@ export class WalibiBelgium extends Park {
     options.langoptions = options.langoptions || `{&apos;en&apos;, &apos;de&apos;, &apos;nl&apos;}`;
 
     super(options);
-
-    // Check for existance
-    if (!this.config.apiBase) throw new Error(&apos;Missing Walibi Belgium apiBase!&apos;);
-    if (!this.config.languages) {
-      this.config.languages = &apos;en&apos;;
-    };
-  }
-
-  // Load the Walibi Belgium poidata
-  // const poidata = (&apos;./data/parks/walibi/walibiBelgium_pois.json&apos;)
-  // const poimock = (&apos;./data/parks/walibi/walibiBelgium_poi_mock.json&apos;)
-
-  /**
-  * Get All POIS of Walibi Belgium
-  * This data contains all the POIS in Walibi Belgium, limited to their fast-lane services
-  * @example
-  * import tpapi from &apos;@alexvv13/tpapi&apos;;
-  *
-  * const park = new tpapi.park.WalibiBelgium();
-  *
-  * park.getPois().then((pois) =&gt; {
-  * console.log(pois)
-  * });
-  * @return {string} All Walibi Belgium POIS with queuetimes
-  */
-  async getQueue() {
-    return fetch(this.config.apiBase +
-      &apos;/entertainments&apos;,
-    {
-      method: &apos;GET&apos;,
-    },
-    )
-        .then((res) =&gt; res.json())
-        .then((rideData) =&gt; {
-          const poi = [];
-          rideData.entertainment.forEach((ride) =&gt; {
-            let waitTime = null;
-            let active = null;
-            let state = null;
-
-            if (ride.waitingTime == -10) {
-              waitTime = &apos;0&apos;;
-              state = queueType.closed;
-              active = &apos;false&apos;;
-            } else {
-              waitTime = ride.waitingTime;
-              state = queueType.operating;
-              active = &apos;true&apos;;
-            }
-
-            let minHeight = null;
-            let minHeightCompanion = null;
-
-            ride.parameters.forEach((param) =&gt; {
-              if (param.title === &apos;taille min accompagn&#xE9;&apos;) {
-                minHeightCompanion = param.value;
-              } else if (param.title === &apos;taille min non accompagn&#xE9;&apos;) {
-                minHeight = param.value;
-              }
-            });
-
-            const poiData = {
-              name: ride.title,
-              id: &apos;WalibiBelgium&apos; + ride.uuid,
-              state: state,
-              active: active,
-              waitTime: waitTime,
-              location: {
-                latitude: ride.location.lat,
-                longitude: ride.location.lon,
-              },
-              meta: {
-                category: ride.category.name,
-                type: entityType.ride,
-                restrictions: {
-                  minHeight: minHeight,
-                  minHeightAccompanies: minHeightCompanion,
-                },
-              },
-            };
-            poi.push(poiData);
-          });
-          return Promise.resolve(poi); // Although we saved them in a json file, we&apos;ll just return them for the queue attach function which will run next if you called getQueue()
-        });
-  }
-
-  /**
-  * Get All Operating Hours of Walibi Belgium
-  * This data contains all the Operating Hours in Walibi Belgium, fetched with currentyear.
-  * @example
-  * import tpapi from &apos;@alexvv13/tpapi&apos;;
-  *
-  * const park = new tpapi.park.WalibiBelgium();
-  *
-  * park.getOpHours().then((hours) =&gt; {
-  * console.log(hours)
-  * });
-  * @return {string} All Walibi Belgium calendar data
-  */
-  async getOpHours() {
-    const currentYear = moment().format(&apos;YYYY&apos;);
-    return fetch(
-        this.config.apiBase +
-          `/calendar/${currentYear}?_format=json`,
-        {
-          method: &apos;GET&apos;,
-        },
-    )
-        .then((res) =&gt; res.json())
-        .then((json) =&gt; {
-          const Calendar = [];
-          // Execute Calendar stuff here
-          return Promise.resolve(Calendar);
-        });
   }
 }
 

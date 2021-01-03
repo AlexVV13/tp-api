@@ -78,6 +78,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/walibi/walibibase.js~walibibase",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html",
+    "<span>WalibiBase</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibibase.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/walibi/walibibelgium.js~walibibelgium",
     "class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html",
     "<span>WalibiBelgium</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibibelgium.js</span>",
@@ -87,6 +93,12 @@ window.esdocSearchIndex = [
     "@alexvv13/tpapi/lib/parks/walibi/walibiholland.js~walibiholland",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html",
     "<span>WalibiHolland</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibiholland.js</span>",
+    "class"
+  ],
+  [
+    "@alexvv13/tpapi/lib/parks/walibi/walibira.js~walibira",
+    "class/lib/parks/walibi/walibira.js~WalibiRA.html",
+    "<span>WalibiRA</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibira.js</span>",
     "class"
   ],
   [
@@ -1146,6 +1158,72 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/parks/walibi/walibibase.js",
+    "file/lib/parks/walibi/walibibase.js.html",
+    "lib/parks/walibi/walibibase.js",
+    "file"
+  ],
+  [
+    "lib/parks/walibi/walibibase.js~walibibase#buildmerchandisepoi",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildMerchandisePOI",
+    "lib/parks/walibi/walibibase.js~WalibiBase#buildMerchandisePOI",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibase.js~walibibase#buildrestaurantpoi",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildRestaurantPOI",
+    "lib/parks/walibi/walibibase.js~WalibiBase#buildRestaurantPOI",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibase.js~walibibase#buildridepoi",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildRidePOI",
+    "lib/parks/walibi/walibibase.js~WalibiBase#buildRidePOI",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibase.js~walibibase#buildservicepoi",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildServicePOI",
+    "lib/parks/walibi/walibibase.js~WalibiBase#buildServicePOI",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibase.js~walibibase#buildshowpoi",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildShowPOI",
+    "lib/parks/walibi/walibibase.js~WalibiBase#buildShowPOI",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibase.js~walibibase#buildwcpoi",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildWCPOI",
+    "lib/parks/walibi/walibibase.js~WalibiBase#buildWCPOI",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibase.js~walibibase#constructor",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-constructor-constructor",
+    "lib/parks/walibi/walibibase.js~WalibiBase#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibase.js~walibibase#getophours",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-getOpHours",
+    "lib/parks/walibi/walibibase.js~WalibiBase#getOpHours",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibase.js~walibibase#getpois",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-getPOIS",
+    "lib/parks/walibi/walibibase.js~WalibiBase#getPOIS",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibibase.js~walibibase#getqueue",
+    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-getQueue",
+    "lib/parks/walibi/walibibase.js~WalibiBase#getQueue",
+    "method"
+  ],
+  [
     "lib/parks/walibi/walibibelgium.js",
     "file/lib/parks/walibi/walibibelgium.js.html",
     "lib/parks/walibi/walibibelgium.js",
@@ -1155,18 +1233,6 @@ window.esdocSearchIndex = [
     "lib/parks/walibi/walibibelgium.js~walibibelgium#constructor",
     "class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html#instance-constructor-constructor",
     "lib/parks/walibi/walibibelgium.js~WalibiBelgium#constructor",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibelgium.js~walibibelgium#getophours",
-    "class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html#instance-method-getOpHours",
-    "lib/parks/walibi/walibibelgium.js~WalibiBelgium#getOpHours",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibelgium.js~walibibelgium#getqueue",
-    "class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html#instance-method-getQueue",
-    "lib/parks/walibi/walibibelgium.js~WalibiBelgium#getQueue",
     "method"
   ],
   [
@@ -1191,6 +1257,18 @@ window.esdocSearchIndex = [
     "lib/parks/walibi/walibiholland.js~walibiholland#getqueue",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getQueue",
     "lib/parks/walibi/walibiholland.js~WalibiHolland#getQueue",
+    "method"
+  ],
+  [
+    "lib/parks/walibi/walibira.js",
+    "file/lib/parks/walibi/walibira.js.html",
+    "lib/parks/walibi/walibira.js",
+    "file"
+  ],
+  [
+    "lib/parks/walibi/walibira.js~walibira#constructor",
+    "class/lib/parks/walibi/walibira.js~WalibiRA.html#instance-constructor-constructor",
+    "lib/parks/walibi/walibira.js~WalibiRA#constructor",
     "method"
   ],
   [

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/parks/europapark/rulantica.js | @alexvv13/tpapi</title>
+  <title data-ice="title">lib/parks/walibi/walibira.js | @alexvv13/tpapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -57,49 +57,56 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/europapark/rulantica.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {EuropaParkBase} from &apos;./europaparkbase.js&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/walibi/walibira.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import WalibiBase from &apos;./walibibase.js&apos;;
+
+import dotenv from &apos;dotenv&apos;;
+dotenv.config();
 
 /**
-* Rulantica Park Object
+* Walibi Belgium Park Object
 * Make sure all environment variables are set in an .env file which should be in the main location.
 * Not setting these variables will make the module exit early without returning data.
 *
 * This class is here to fetch the POI data and to attach queue times data to it.
 * After the fetches this data is send to the end user and from there he could do whatever he wants to do.
 *
-* NOTE: Dutch language is supported, however strange things occur, such as deletion of VirtualLine entries making rides appear twice as &apos;normal&apos;
-*
-* This class contains some login and refresh functions, but NEVER call them if you don&apos;t need them.
 * Most park specific parameters are set already
 * @class
 */
-class Rulantica extends EuropaParkBase {
+export class WalibiRA extends WalibiBase {
   /**
-  * Create a new Rulantica Park object
+  * Create a new Walibi RA Park object
   * @param {object} options
   */
   constructor(options = {}) {
-    options.name = &apos;Rulantica&apos;;
-    options.parkId = &apos;rulantica&apos;;
-    options.timezone = &apos;Europe/Berlin&apos;;
+    options.name = options.name || &apos;Walibi Rh&#xF4;ne-Alpes&apos;;
+    options.timezone = options.timezone || &apos;Europe/Paris&apos;;
 
-    // Setting the parks entrance as latlon
-    options.latitude = 48.2605514;
-    options.longitude = 7.7386819;
+    // Set the parking&apos;s entrance as the parks default location
+    options.latitude = 45.6198928;
+    options.longitude = 5.5669562;
 
     // Options for our park Object
     options.supportswaittimes = &apos;true&apos;;
-    options.supportsschedule = &apos;true&apos;;
+    options.supportsschedule = &apos;false&apos;;
     options.supportsrideschedules = &apos;false&apos;;
     options.fastPass = &apos;true&apos;;
     options.FastPassReturnTimes = &apos;false&apos;;
+
+    // API options
+    options.apiBase = options.apiBase || process.env.WALIBIRA_APIBASE;
+
+    // Language settings
+    options.languages = options.languages || process.env.LANGUAGES;
+
+    options.langoptions = options.langoptions || `{&apos;en&apos;, &apos;fr&apos;}`;
 
     super(options);
   }
 }
 
-export default Rulantica;
+export default WalibiRA;
 </code></pre>
 
 </div>

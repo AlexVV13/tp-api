@@ -2087,7 +2087,7 @@
     "__docId__": 105,
     "kind": "file",
     "name": "lib/index.js",
-    "content": "/**\n* Import all the parks included in the library\n*/\n// Efteling\nimport Efteling from './parks/efteling/efteling.js';\n// EuropaPark\nimport EuropaPark from './parks/europapark/europapark.js';\nimport Rulantica from './parks/europapark/rulantica.js';\nimport Yullbe from './parks/europapark/yullbe.js';\n// Phantasialand\nimport Phantasialand from './parks/phantasialand/phantasialand.js';\n// Compagnie des Alpes\nimport WalibiBelgium from './parks/walibi/walibibelgium.js';\nimport WalibiHolland from './parks/walibi/walibiholland.js';\n\n/**\n* Export all parks as string\n*/\nexport default {\n  parks: {\n    // Efteling\n    Efteling,\n    // EuropaPark\n    EuropaPark,\n    Rulantica,\n    Yullbe,\n    // Phantasialand\n    Phantasialand,\n    // Compagnie des Alpes\n    WalibiBelgium,\n    WalibiHolland,\n  },\n  allParks: [\n    // Efteling\n    Efteling,\n    // Europa-Park\n    EuropaPark,\n    Rulantica,\n    Yullbe,\n    // Phantasialand\n    Phantasialand,\n    // Compagnie des Alpes\n    WalibiBelgium,\n    WalibiHolland,\n  ],\n};\n",
+    "content": "/**\n* Import all the parks included in the library\n*/\n// Efteling\nimport Efteling from './parks/efteling/efteling.js';\n// EuropaPark\nimport EuropaPark from './parks/europapark/europapark.js';\nimport Rulantica from './parks/europapark/rulantica.js';\nimport Yullbe from './parks/europapark/yullbe.js';\n// Phantasialand\nimport Phantasialand from './parks/phantasialand/phantasialand.js';\n// Compagnie des Alpes\nimport WalibiBelgium from './parks/walibi/walibibelgium.js';\nimport WalibiHolland from './parks/walibi/walibiholland.js';\nimport WalibiRA from './parks/walibi/walibira.js';\n\n/**\n* Export all parks as string\n*/\nexport default {\n  parks: {\n    // Efteling\n    Efteling,\n    // EuropaPark\n    EuropaPark,\n    Rulantica,\n    Yullbe,\n    // Phantasialand\n    Phantasialand,\n    // Compagnie des Alpes\n    WalibiBelgium,\n    WalibiHolland,\n    WalibiRA,\n  },\n  allParks: [\n    // Efteling\n    Efteling,\n    // Europa-Park\n    EuropaPark,\n    Rulantica,\n    Yullbe,\n    // Phantasialand\n    Phantasialand,\n    // Compagnie des Alpes\n    WalibiBelgium,\n    WalibiHolland,\n    WalibiRA,\n  ],\n};\n",
     "static": true,
     "longname": "/home/runner/work/tp-api/tp-api/lib/index.js",
     "access": "public",
@@ -4033,10 +4033,10 @@
   {
     "__docId__": 193,
     "kind": "file",
-    "name": "lib/parks/walibi/walibibelgium.js",
-    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport {Park} from '../park.js';\nimport {entityType, queueType} from '../types.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Belgium Park Object\n* Make sure all environment variables are set in an .env file which should be in the main location.\n* Not setting these variables will make the module exit early without returning data.\n*\n* This class is here to fetch the POI data and to attach queue times data to it.\n* After the fetches this data is send to the end user and from there he could do whatever he wants to do.\n*\n* Most park specific parameters are set already\n* @class\n*/\nexport class WalibiBelgium extends Park {\n  /**\n  * Create a new Walibi Belgium Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    options.name = options.name || 'Walibi Belgium';\n    options.timezone = options.timezone || 'Europe/Brussels';\n\n    // Set the parking's entrance as the parks default location\n    options.latitude = 50.7038852;\n    options.longitude = 4.5960371;\n\n    // Options for our park Object\n    options.supportswaittimes = 'true';\n    options.supportsschedule = 'false';\n    options.supportsrideschedules = 'false';\n    options.fastPass = 'true';\n    options.FastPassReturnTimes = 'false';\n\n    // API options\n    options.apiBase = options.apiBase || process.env.WALIBIBELGIUM_APIBASE;\n\n    // Language settings\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'de', 'nl'}`;\n\n    super(options);\n\n    // Check for existance\n    if (!this.config.apiBase) throw new Error('Missing Walibi Belgium apiBase!');\n    if (!this.config.languages) {\n      this.config.languages = 'en';\n    };\n  }\n\n  // Load the Walibi Belgium poidata\n  // const poidata = ('./data/parks/walibi/walibiBelgium_pois.json')\n  // const poimock = ('./data/parks/walibi/walibiBelgium_poi_mock.json')\n\n  /**\n  * Get All POIS of Walibi Belgium\n  * This data contains all the POIS in Walibi Belgium, limited to their fast-lane services\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiBelgium();\n  *\n  * park.getPois().then((pois) => {\n  * console.log(pois)\n  * });\n  * @return {string} All Walibi Belgium POIS with queuetimes\n  */\n  async getQueue() {\n    return fetch(this.config.apiBase +\n      '/entertainments',\n    {\n      method: 'GET',\n    },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.entertainment.forEach((ride) => {\n            let waitTime = null;\n            let active = null;\n            let state = null;\n\n            if (ride.waitingTime == -10) {\n              waitTime = '0';\n              state = queueType.closed;\n              active = 'false';\n            } else {\n              waitTime = ride.waitingTime;\n              state = queueType.operating;\n              active = 'true';\n            }\n\n            let minHeight = null;\n            let minHeightCompanion = null;\n\n            ride.parameters.forEach((param) => {\n              if (param.title === 'taille min accompagné') {\n                minHeightCompanion = param.value;\n              } else if (param.title === 'taille min non accompagné') {\n                minHeight = param.value;\n              }\n            });\n\n            const poiData = {\n              name: ride.title,\n              id: 'WalibiBelgium' + ride.uuid,\n              state: state,\n              active: active,\n              waitTime: waitTime,\n              location: {\n                latitude: ride.location.lat,\n                longitude: ride.location.lon,\n              },\n              meta: {\n                category: ride.category.name,\n                type: entityType.ride,\n                restrictions: {\n                  minHeight: minHeight,\n                  minHeightAccompanies: minHeightCompanion,\n                },\n              },\n            };\n            poi.push(poiData);\n          });\n          return Promise.resolve(poi); // Although we saved them in a json file, we'll just return them for the queue attach function which will run next if you called getQueue()\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Belgium\n  * This data contains all the Operating Hours in Walibi Belgium, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiBelgium();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Belgium calendar data\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.config.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n}\n\nexport default WalibiBelgium;\n",
+    "name": "lib/parks/walibi/walibibase.js",
+    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport {Park} from '../park.js';\nimport {entityType, queueType} from '../types.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Belgium Park Object\n* Make sure all environment variables are set in an .env file which should be in the main location.\n* Not setting these variables will make the module exit early without returning data.\n*\n* This class is here to fetch the POI data and to attach queue times data to it.\n* After the fetches this data is send to the end user and from there he could do whatever he wants to do.\n*\n* Most park specific parameters are set already\n* @class\n*/\nexport class WalibiBase extends Park {\n  /**\n  * Create a new Walibi Belgium Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    // Language settings\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'de', 'nl'}`;\n\n    super(options);\n\n    // Check for existance\n    if (!this.config.apiBase) throw new Error('Missing Walibi apiBase!');\n    if (!this.config.languages) {\n      this.config.languages = 'en';\n    };\n  }\n\n  /**\n  * Get All POIS of Walibi\n  * This data contains all the POIS in Walibi\n  * @return {string} All Walibi POIS\n  */\n  async getPOIS() {\n    return fetch(this.config.apiBase +\n      '/entertainments',\n    {\n      method: 'GET',\n    },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          return Promise.resolve(rideData);\n        });\n  }\n\n  /**\n  * Get All wc of Walibi\n  * This data contains all the wc POIS in Walibi park\n  * @return {string} All Walibi wc POIS\n  */\n  async buildWCPOI() {\n    return await this.getPOIS().then((rideData) => {\n      const poi = [];\n      rideData.wc.forEach((ride) => {\n        const poiData = {\n          name: ride.title,\n          id: `${this.config.name}_` + ride.uuid,\n          location: {\n            latitude: ride.location.lat,\n            longitude: ride.location.lon,\n          },\n          meta: {\n            category: ride.category.name,\n            type: entityType.service,\n          },\n        };\n        poi.push(poiData);\n      });\n      return Promise.resolve(poi);\n    });\n  }\n\n  /**\n  * Get All Service of Walibi\n  * This data contains all the SERVICE POIS in Walibi park\n  * @return {string} All Walibi POIS\n  */\n  async buildServicePOI() {\n    return await this.getPOIS().then((rideData) => {\n      const poi = [];\n      rideData.service.forEach((ride) => {\n        const poiData = {\n          name: ride.title,\n          id: `${this.config.name}_` + ride.uuid,\n          location: {\n            latitude: ride.location.lat,\n            longitude: ride.location.lon,\n          },\n          meta: {\n            category: ride.category.name,\n            type: entityType.service,\n          },\n        };\n        poi.push(poiData);\n      });\n      return Promise.resolve(poi);\n    });\n  }\n\n  /**\n  * Get All restaurant of Walibi\n  * This data contains all the restaurant POIS in Walibi park\n  * @return {string} All Walibi restaurant POIS\n  */\n  async buildRestaurantPOI() {\n    return await this.getPOIS().then((rideData) => {\n      const poi = [];\n      rideData.restaurant.forEach((ride) => {\n        const poiData = {\n          name: ride.title,\n          id: `${this.config.name}_` + ride.uuid,\n          location: {\n            latitude: ride.location.lat,\n            longitude: ride.location.lon,\n          },\n          meta: {\n            category: ride.category.name,\n            type: entityType.restaurant,\n          },\n        };\n        poi.push(poiData);\n      });\n      return Promise.resolve(poi);\n    });\n  }\n\n  /**\n  * Get All shops of Walibi\n  * This data contains all the shop POIS in Walibi park\n  * @return {string} All Walibi shop POIS\n  */\n  async buildMerchandisePOI() {\n    return await this.getPOIS().then((rideData) => {\n      const poi = [];\n      rideData.shop.forEach((ride) => {\n        const poiData = {\n          name: ride.title,\n          id: `${this.config.name}_` + ride.uuid,\n          location: {\n            latitude: ride.location.lat,\n            longitude: ride.location.lon,\n          },\n          meta: {\n            category: ride.category.name,\n            type: entityType.merchandise,\n          },\n        };\n        poi.push(poiData);\n      });\n      return Promise.resolve(poi);\n    });\n  }\n\n  /**\n  * Get All Show of Walibi\n  * This data contains all the Show POIS in Walibi park\n  * @return {string} All Walibi show POIS\n  */\n  async buildShowPOI() {\n    return await this.getPOIS().then((rideData) => {\n      const poi = [];\n      rideData.show.forEach((ride) => {\n        const poiData = {\n          name: ride.title,\n          id: `${this.config.name}_` + ride.uuid,\n          location: {\n            latitude: ride.location.lat,\n            longitude: ride.location.lon,\n          },\n          meta: {\n            category: ride.category.name,\n            type: entityType.show,\n          },\n        };\n        poi.push(poiData);\n      });\n      return Promise.resolve(poi);\n    });\n  }\n\n  /**\n  * Get All Rides of Walibi\n  * This data contains all the Ride POIS in Walibi park\n  * @return {string} All Walibi ride POIS\n  */\n  async buildRidePOI() {\n    return await this.getPOIS().then((rideData) => {\n      const poi = [];\n      rideData.entertainment.forEach((ride) => {\n        const poiData = {\n          name: ride.title,\n          id: `${this.config.name}_` + ride.uuid,\n          location: {\n            latitude: ride.location.lat,\n            longitude: ride.location.lon,\n          },\n          meta: {\n            category: ride.category.name,\n            type: entityType.ride,\n          },\n        };\n        poi.push(poiData);\n      });\n      return Promise.resolve(poi);\n    });\n  }\n\n  /**\n  * Get All Queues of Walibi\n  * This data contains all the POIS in Walibi park\n  * @return {string} All Walibi POIS with queuetimes\n  */\n  async getQueue() {\n    return await this.getPOIS().then((rideData) => {\n      const poi = [];\n      rideData.entertainment.forEach((ride) => {\n        let waitTime = null;\n        let active = null;\n        let state = null;\n\n        if (ride.waitingTime == -10) {\n          waitTime = '0';\n          state = queueType.closed;\n          active = 'false';\n        } else {\n          waitTime = ride.waitingTime;\n          state = queueType.operating;\n          active = 'true';\n        }\n\n        let minHeight = null;\n        let minHeightCompanion = null;\n\n        ride.parameters.forEach((param) => {\n          if (param.title === 'taille min accompagné') {\n            minHeightCompanion = param.value;\n          } else if (param.title === 'taille min non accompagné') {\n            minHeight = param.value;\n          }\n        });\n\n        const poiData = {\n          name: ride.title,\n          id: `${this.config.name}_` + ride.uuid,\n          state: state,\n          active: active,\n          waitTime: waitTime,\n          location: {\n            latitude: ride.location.lat,\n            longitude: ride.location.lon,\n          },\n          meta: {\n            category: ride.category.name,\n            type: entityType.ride,\n            restrictions: {\n              minHeight: minHeight,\n              minHeightAccompanies: minHeightCompanion,\n            },\n          },\n        };\n        poi.push(poiData);\n      });\n      return Promise.resolve(poi);\n    });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi\n  * This data contains all the Operating Hours in Walibi, fetched with currentyear.\n  * @return {string} All Walibi calendar data\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.config.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n}\n\nexport default WalibiBase;\n",
     "static": true,
-    "longname": "/home/runner/work/tp-api/tp-api/lib/parks/walibi/walibibelgium.js",
+    "longname": "/home/runner/work/tp-api/tp-api/lib/parks/walibi/walibibase.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -4044,14 +4044,14 @@
   {
     "__docId__": 194,
     "kind": "class",
-    "name": "WalibiBelgium",
-    "memberof": "lib/parks/walibi/walibibelgium.js",
+    "name": "WalibiBase",
+    "memberof": "lib/parks/walibi/walibibase.js",
     "static": true,
-    "longname": "lib/parks/walibi/walibibelgium.js~WalibiBelgium",
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase",
     "access": "public",
     "export": true,
-    "importPath": "@alexvv13/tpapi/lib/parks/walibi/walibibelgium.js",
-    "importStyle": "{WalibiBelgium}",
+    "importPath": "@alexvv13/tpapi/lib/parks/walibi/walibibase.js",
+    "importStyle": "{WalibiBase}",
     "description": "Walibi Belgium Park Object<br />Make sure all environment variables are set in an .env file which should be in the main location.<br />Not setting these variables will make the module exit early without returning data.<br /><br />This class is here to fetch the POI data and to attach queue times data to it.<br />After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br /><br />Most park specific parameters are set already",
     "lineNumber": 20,
     "unknown": [
@@ -4069,11 +4069,11 @@
     "__docId__": 195,
     "kind": "constructor",
     "name": "constructor",
-    "memberof": "lib/parks/walibi/walibibelgium.js~WalibiBelgium",
+    "memberof": "lib/parks/walibi/walibibase.js~WalibiBase",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "lib/parks/walibi/walibibelgium.js~WalibiBelgium#constructor",
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase#constructor",
     "access": "public",
     "description": "Create a new Walibi Belgium Park object",
     "lineNumber": 25,
@@ -4093,58 +4093,266 @@
   {
     "__docId__": 196,
     "kind": "method",
-    "name": "getQueue",
-    "memberof": "lib/parks/walibi/walibibelgium.js~WalibiBelgium",
+    "name": "getPOIS",
+    "memberof": "lib/parks/walibi/walibibase.js~WalibiBase",
     "generator": false,
     "async": true,
     "static": false,
-    "longname": "lib/parks/walibi/walibibelgium.js~WalibiBelgium#getQueue",
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase#getPOIS",
     "access": "public",
-    "description": "Get All POIS of Walibi Belgium<br />This data contains all the POIS in Walibi Belgium, limited to their fast-lane services",
-    "examples": [
-      "import tpapi from '@alexvv13/tpapi';\n\nconst park = new tpapi.park.WalibiBelgium();\n\npark.getPois().then((pois) => {\nconsole.log(pois)\n});"
-    ],
-    "lineNumber": 74,
+    "description": "Get All POIS of Walibi<br />This data contains all the POIS in Walibi",
+    "lineNumber": 45,
     "return": {
       "nullable": null,
       "types": [
         "string"
       ],
       "spread": false,
-      "description": "All Walibi Belgium POIS with queuetimes"
+      "description": "All Walibi POIS"
     },
     "params": []
   },
   {
     "__docId__": 197,
     "kind": "method",
-    "name": "getOpHours",
-    "memberof": "lib/parks/walibi/walibibelgium.js~WalibiBelgium",
+    "name": "buildWCPOI",
+    "memberof": "lib/parks/walibi/walibibase.js~WalibiBase",
     "generator": false,
     "async": true,
     "static": false,
-    "longname": "lib/parks/walibi/walibibelgium.js~WalibiBelgium#getOpHours",
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase#buildWCPOI",
     "access": "public",
-    "description": "Get All Operating Hours of Walibi Belgium<br />This data contains all the Operating Hours in Walibi Belgium, fetched with currentyear.",
-    "examples": [
-      "import tpapi from '@alexvv13/tpapi';\n\nconst park = new tpapi.park.WalibiBelgium();\n\npark.getOpHours().then((hours) => {\nconsole.log(hours)\n});"
-    ],
-    "lineNumber": 148,
+    "description": "Get All wc of Walibi<br />This data contains all the wc POIS in Walibi park",
+    "lineNumber": 63,
     "return": {
       "nullable": null,
       "types": [
         "string"
       ],
       "spread": false,
-      "description": "All Walibi Belgium calendar data"
+      "description": "All Walibi wc POIS"
     },
     "params": []
   },
   {
     "__docId__": 198,
+    "kind": "method",
+    "name": "buildServicePOI",
+    "memberof": "lib/parks/walibi/walibibase.js~WalibiBase",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase#buildServicePOI",
+    "access": "public",
+    "description": "Get All Service of Walibi<br />This data contains all the SERVICE POIS in Walibi park",
+    "lineNumber": 90,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "All Walibi POIS"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 199,
+    "kind": "method",
+    "name": "buildRestaurantPOI",
+    "memberof": "lib/parks/walibi/walibibase.js~WalibiBase",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase#buildRestaurantPOI",
+    "access": "public",
+    "description": "Get All restaurant of Walibi<br />This data contains all the restaurant POIS in Walibi park",
+    "lineNumber": 117,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "All Walibi restaurant POIS"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 200,
+    "kind": "method",
+    "name": "buildMerchandisePOI",
+    "memberof": "lib/parks/walibi/walibibase.js~WalibiBase",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase#buildMerchandisePOI",
+    "access": "public",
+    "description": "Get All shops of Walibi<br />This data contains all the shop POIS in Walibi park",
+    "lineNumber": 144,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "All Walibi shop POIS"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 201,
+    "kind": "method",
+    "name": "buildShowPOI",
+    "memberof": "lib/parks/walibi/walibibase.js~WalibiBase",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase#buildShowPOI",
+    "access": "public",
+    "description": "Get All Show of Walibi<br />This data contains all the Show POIS in Walibi park",
+    "lineNumber": 171,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "All Walibi show POIS"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 202,
+    "kind": "method",
+    "name": "buildRidePOI",
+    "memberof": "lib/parks/walibi/walibibase.js~WalibiBase",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase#buildRidePOI",
+    "access": "public",
+    "description": "Get All Rides of Walibi<br />This data contains all the Ride POIS in Walibi park",
+    "lineNumber": 198,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "All Walibi ride POIS"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 203,
+    "kind": "method",
+    "name": "getQueue",
+    "memberof": "lib/parks/walibi/walibibase.js~WalibiBase",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase#getQueue",
+    "access": "public",
+    "description": "Get All Queues of Walibi<br />This data contains all the POIS in Walibi park",
+    "lineNumber": 225,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "All Walibi POIS with queuetimes"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 204,
+    "kind": "method",
+    "name": "getOpHours",
+    "memberof": "lib/parks/walibi/walibibase.js~WalibiBase",
+    "generator": false,
+    "async": true,
+    "static": false,
+    "longname": "lib/parks/walibi/walibibase.js~WalibiBase#getOpHours",
+    "access": "public",
+    "description": "Get All Operating Hours of Walibi<br />This data contains all the Operating Hours in Walibi, fetched with currentyear.",
+    "lineNumber": 284,
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "All Walibi calendar data"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 205,
+    "kind": "file",
+    "name": "lib/parks/walibi/walibibelgium.js",
+    "content": "import WalibiBase from './walibibase.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Belgium Park Object\n* Make sure all environment variables are set in an .env file which should be in the main location.\n* Not setting these variables will make the module exit early without returning data.\n*\n* This class is here to fetch the POI data and to attach queue times data to it.\n* After the fetches this data is send to the end user and from there he could do whatever he wants to do.\n*\n* Most park specific parameters are set already\n* @class\n*/\nexport class WalibiBelgium extends WalibiBase {\n  /**\n  * Create a new Walibi Belgium Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    options.name = options.name || 'Walibi Belgium';\n    options.timezone = options.timezone || 'Europe/Brussels';\n\n    // Set the parking's entrance as the parks default location\n    options.latitude = 50.7038852;\n    options.longitude = 4.5960371;\n\n    // Options for our park Object\n    options.supportswaittimes = 'true';\n    options.supportsschedule = 'false';\n    options.supportsrideschedules = 'false';\n    options.fastPass = 'true';\n    options.FastPassReturnTimes = 'false';\n\n    // API options\n    options.apiBase = options.apiBase || process.env.WALIBIBELGIUM_APIBASE;\n\n    // Language settings\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'de', 'nl'}`;\n\n    super(options);\n  }\n}\n\nexport default WalibiBelgium;\n",
+    "static": true,
+    "longname": "/home/runner/work/tp-api/tp-api/lib/parks/walibi/walibibelgium.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 206,
+    "kind": "class",
+    "name": "WalibiBelgium",
+    "memberof": "lib/parks/walibi/walibibelgium.js",
+    "static": true,
+    "longname": "lib/parks/walibi/walibibelgium.js~WalibiBelgium",
+    "access": "public",
+    "export": true,
+    "importPath": "@alexvv13/tpapi/lib/parks/walibi/walibibelgium.js",
+    "importStyle": "{WalibiBelgium}",
+    "description": "Walibi Belgium Park Object<br />Make sure all environment variables are set in an .env file which should be in the main location.<br />Not setting these variables will make the module exit early without returning data.<br /><br />This class is here to fetch the POI data and to attach queue times data to it.<br />After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br /><br />Most park specific parameters are set already",
+    "lineNumber": 17,
+    "unknown": [
+      {
+        "tagName": "@class",
+        "tagValue": ""
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "lib/parks/walibi/walibibase.js~WalibiBase"
+    ]
+  },
+  {
+    "__docId__": 207,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/parks/walibi/walibibelgium.js~WalibiBelgium",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/parks/walibi/walibibelgium.js~WalibiBelgium#constructor",
+    "access": "public",
+    "description": "Create a new Walibi Belgium Park object",
+    "lineNumber": 22,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 208,
     "kind": "file",
     "name": "lib/parks/walibi/walibiholland.js",
-    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport {Park} from '../park.js';\nimport {entityType, queueType} from '../types.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Holland Park Object\n* Make sure all environment variables are set in an .env file which should be in the main location.\n* Not setting these variables will make the module exit early without returning data.\n*\n* This class is here to fetch the POI data and to attach queue times data to it.\n* After the fetches this data is send to the end user and from there he could do whatever he wants to do.\n*\n* Most park specific parameters are set already\n* @class\n*/\nexport class WalibiHolland extends Park {\n  /**\n  * Create a new Walibi Holland Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    options.name = options.name || 'Walibi Holland';\n    options.timezone = options.timezone || 'Europe/Amsterdam';\n\n    // Setting the cute fountain at the entrance as parks location\n    options.latitude = 52.4390338;\n    options.longitude = 5.7665651;\n\n    // Options for our park Object\n    options.supportswaittimes = 'true';\n    options.supportsschedule = 'false';\n    options.supportsrideschedules = 'false';\n    options.fastPass = 'true';\n    options.FastPassReturnTimes = 'false';\n\n    // API options\n    options.apiUrl = options.apiUrl || process.env.WALIBIHOLLAND_APIURL;\n    options.apiBase = options.apiBase || process.env.WALIBIHOLLAND_APIBASE;\n\n    // Language settings\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'de', 'nl'}`;\n\n    super(options);\n\n    // Check for existance\n    if (!this.config.apiUrl) throw new Error('Missing Walibi Holland apiUrl!');\n    if (!this.config.apiBase) throw new Error('Missing Walibi Holland apiBase!');\n    if (!this.config.languages) {\n      this.config.languages = 'en';\n    };\n  }\n\n  // Load the Walibi Holland poidata\n  // const poidata = ('./data/parks/walibi/walibiholland_pois.json')\n  // const poimock = ('./data/parks/walibi/walibiholland_poi_mock.json')\n\n  /**\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getPois().then((pois) => {\n  * console.log(pois)\n  * });\n  * @return {string} All Walibi Holland POIS with queuetimes\n  */\n  async getQueue() {\n    return fetch(this.config.apiUrl,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.forEach((ride) => {\n            let waitTime = '0';\n            let state = queueType.closed;\n            let active = 'false';\n            if (ride.name !== 'Dummy1') { // They have a dummy ride to sell single shots in their fast-lane, mind=blown\n              if (ride.useVirtualQueue == 'true') { // VirtQueue enabled\n                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let's round them.\n                state = queueType.operating;\n              } else { // No virtQueue found, use the normal queue instead\n                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60\n                state = queueType.operating;\n              }\n              if (ride.state === 'closed_indefinitely') { // Closed but not closed but still closed\n                state = queueType.closed;\n                active = 'false';\n              } // Declare other states when park reopens\n              // POI Object with queues\n              const poiData = {\n                name: ride.name,\n                id: 'WalibiHolland_' + ride.shortId,\n                state: state,\n                active: active,\n                waitTime: waitTime,\n                meta: {\n                  type: entityType.ride,\n                },\n              };\n              poi.push(poiData);\n            }\n          });\n          return Promise.resolve(poi); // Although we saved them in a json file, we'll just return them for the queue attach function which will run next if you called getQueue()\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Holland calendar data\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.config.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n}\n\nexport default WalibiHolland;\n",
+    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport {Park} from '../park.js';\nimport {entityType, queueType} from '../types.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Holland Park Object\n* Make sure all environment variables are set in an .env file which should be in the main location.\n* Not setting these variables will make the module exit early without returning data.\n*\n* This class is here to fetch the POI data and to attach queue times data to it.\n* After the fetches this data is send to the end user and from there he could do whatever he wants to do.\n*\n* Most park specific parameters are set already\n* @class\n*/\nexport class WalibiHolland extends Park {\n  /**\n  * Create a new Walibi Holland Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    options.name = options.name || 'Walibi Holland';\n    options.timezone = options.timezone || 'Europe/Amsterdam';\n\n    // Setting the cute fountain at the entrance as parks location\n    options.latitude = 52.4390338;\n    options.longitude = 5.7665651;\n\n    // Options for our park Object\n    options.supportswaittimes = 'true';\n    options.supportsschedule = 'false';\n    options.supportsrideschedules = 'false';\n    options.fastPass = 'true';\n    options.FastPassReturnTimes = 'false';\n\n    // API options\n    options.apiUrl = options.apiUrl || process.env.WALIBIHOLLAND_APIURL;\n    options.apiBase = options.apiBase || process.env.WALIBIHOLLAND_APIBASE;\n\n    // Language settings\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'de', 'nl'}`;\n\n    super(options);\n\n    // Check for existance\n    if (!this.config.apiUrl) throw new Error('Missing Walibi Holland apiUrl!');\n    if (!this.config.apiBase) throw new Error('Missing Walibi Holland apiBase!');\n    if (!this.config.languages) {\n      this.config.languages = 'en';\n    };\n  }\n\n  /**\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  * @return {string} All Walibi Holland POIS with queuetimes\n  */\n  async getQueue() {\n    return fetch(this.config.apiUrl,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.forEach((ride) => {\n            let waitTime = '0';\n            let state = queueType.closed;\n            let active = 'false';\n            if (ride.name !== 'Dummy1') { // They have a dummy ride to sell single shots in their fast-lane, mind=blown\n              if (ride.useVirtualQueue == 'true') { // VirtQueue enabled\n                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let's round them.\n                state = queueType.operating;\n              } else { // No virtQueue found, use the normal queue instead\n                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60\n                state = queueType.operating;\n              }\n              if (ride.state === 'closed_indefinitely') { // Closed but not closed but still closed\n                state = queueType.closed;\n                active = 'false';\n              } // Declare other states when park reopens\n              // POI Object with queues\n              const poiData = {\n                name: ride.name,\n                id: 'WalibiHolland_' + ride.shortId,\n                state: state,\n                active: active,\n                waitTime: waitTime,\n                meta: {\n                  type: entityType.ride,\n                },\n              };\n              poi.push(poiData);\n            }\n          });\n          return Promise.resolve(poi);\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Holland calendar data\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.config.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n}\n\nexport default WalibiHolland;\n",
     "static": true,
     "longname": "/home/runner/work/tp-api/tp-api/lib/parks/walibi/walibiholland.js",
     "access": "public",
@@ -4152,7 +4360,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 199,
+    "__docId__": 209,
     "kind": "class",
     "name": "WalibiHolland",
     "memberof": "lib/parks/walibi/walibiholland.js",
@@ -4176,7 +4384,7 @@
     ]
   },
   {
-    "__docId__": 200,
+    "__docId__": 210,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -4201,7 +4409,7 @@
     ]
   },
   {
-    "__docId__": 201,
+    "__docId__": 211,
     "kind": "method",
     "name": "getQueue",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -4211,10 +4419,7 @@
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getQueue",
     "access": "public",
     "description": "Get All POIS of Walibi Holland<br />This data contains all the POIS in Walibi Holland, limited to their fast-lane services",
-    "examples": [
-      "import tpapi from '@alexvv13/tpapi';\n\nconst park = new tpapi.park.WalibiHolland();\n\npark.getPois().then((pois) => {\nconsole.log(pois)\n});"
-    ],
-    "lineNumber": 76,
+    "lineNumber": 64,
     "return": {
       "nullable": null,
       "types": [
@@ -4226,7 +4431,7 @@
     "params": []
   },
   {
-    "__docId__": 202,
+    "__docId__": 212,
     "kind": "method",
     "name": "getOpHours",
     "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
@@ -4239,7 +4444,7 @@
     "examples": [
       "import tpapi from '@alexvv13/tpapi';\n\nconst park = new tpapi.park.WalibiHolland();\n\npark.getOpHours().then((hours) => {\nconsole.log(hours)\n});"
     ],
-    "lineNumber": 132,
+    "lineNumber": 120,
     "return": {
       "nullable": null,
       "types": [
@@ -4251,7 +4456,67 @@
     "params": []
   },
   {
-    "__docId__": 203,
+    "__docId__": 213,
+    "kind": "file",
+    "name": "lib/parks/walibi/walibira.js",
+    "content": "import WalibiBase from './walibibase.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Belgium Park Object\n* Make sure all environment variables are set in an .env file which should be in the main location.\n* Not setting these variables will make the module exit early without returning data.\n*\n* This class is here to fetch the POI data and to attach queue times data to it.\n* After the fetches this data is send to the end user and from there he could do whatever he wants to do.\n*\n* Most park specific parameters are set already\n* @class\n*/\nexport class WalibiRA extends WalibiBase {\n  /**\n  * Create a new Walibi RA Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    options.name = options.name || 'Walibi Rhône-Alpes';\n    options.timezone = options.timezone || 'Europe/Paris';\n\n    // Set the parking's entrance as the parks default location\n    options.latitude = 45.6198928;\n    options.longitude = 5.5669562;\n\n    // Options for our park Object\n    options.supportswaittimes = 'true';\n    options.supportsschedule = 'false';\n    options.supportsrideschedules = 'false';\n    options.fastPass = 'true';\n    options.FastPassReturnTimes = 'false';\n\n    // API options\n    options.apiBase = options.apiBase || process.env.WALIBIRA_APIBASE;\n\n    // Language settings\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'fr'}`;\n\n    super(options);\n  }\n}\n\nexport default WalibiRA;\n",
+    "static": true,
+    "longname": "/home/runner/work/tp-api/tp-api/lib/parks/walibi/walibira.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 214,
+    "kind": "class",
+    "name": "WalibiRA",
+    "memberof": "lib/parks/walibi/walibira.js",
+    "static": true,
+    "longname": "lib/parks/walibi/walibira.js~WalibiRA",
+    "access": "public",
+    "export": true,
+    "importPath": "@alexvv13/tpapi/lib/parks/walibi/walibira.js",
+    "importStyle": "{WalibiRA}",
+    "description": "Walibi Belgium Park Object<br />Make sure all environment variables are set in an .env file which should be in the main location.<br />Not setting these variables will make the module exit early without returning data.<br /><br />This class is here to fetch the POI data and to attach queue times data to it.<br />After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br /><br />Most park specific parameters are set already",
+    "lineNumber": 17,
+    "unknown": [
+      {
+        "tagName": "@class",
+        "tagValue": ""
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "lib/parks/walibi/walibibase.js~WalibiBase"
+    ]
+  },
+  {
+    "__docId__": 215,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "lib/parks/walibi/walibira.js~WalibiRA",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "lib/parks/walibi/walibira.js~WalibiRA#constructor",
+    "access": "public",
+    "description": "Create a new Walibi RA Park object",
+    "lineNumber": 22,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 216,
     "kind": "file",
     "name": "lib/reusePromises.js",
     "content": "/**\n * Module that wraps re-using the same Promise multiple times.\n * This allows a function to be called multiple times before returning, but only return once.\n * Useful for latent network requests,\n *  such as requesting a document from multiple sources, but only making one HTTP request.\n */\n\nconst activeFunctions = [];\n\n/**\n * Find the active function with these arguments\n * @param {*} self\n * @param {function} fn\n * @param {string} argsSerialised\n * @return {number}\n * @private\n */\nfunction findActiveFunctionIndex(self, fn, argsSerialised) {\n  return activeFunctions.findIndex((x) => {\n    return x.self === self && x.fn === fn && x.args === argsSerialised;\n  });\n}\n\n/**\n * Reuse a function until it resolves\n * @param {*} self\n * @param {function} fn\n * @param  {...any} args Arguments to pass to the function\n * @return {Promise}\n */\nexport function reusePromise(self, fn, ...args) {\n  return _reusePromise(false, self, fn, ...args);\n}\n\n/**\n * Reuse a function, returning it's result forever\n * @param {*} self\n * @param {function} fn\n * @param  {...any} args Arguments to pass to the function\n * @return {Promise}\n */\nexport function reusePromiseForever(self, fn, ...args) {\n  return _reusePromise(true, self, fn, ...args);\n}\n\n/**\n * Internal call to run a Promise once time (and optionally keep result forever)\n * @param {boolean} useResultForever\n * @param {*} self\n * @param {function} fn\n * @param  {...any} args\n * @return {Promise}\n * @private\n */\nfunction _reusePromise(useResultForever, self, fn, ...args) {\n  // search for existing promise that hasn't resolved yet\n  const argsSerialise = args ? JSON.stringify(args) : null;\n  const existingFunctionIndex = findActiveFunctionIndex(self, fn, argsSerialise);\n  const existingFunction = existingFunctionIndex >= 0 ? activeFunctions[existingFunctionIndex] : undefined;\n  if (existingFunction) {\n    if (existingFunction.resolved) {\n      return existingFunction.value;\n    }\n    return existingFunction.promise;\n  }\n\n  const cleanupPendingFunction = () => {\n    const pendingFunctionIDX = findActiveFunctionIndex(self, fn, argsSerialise);\n    if (pendingFunctionIDX >= 0) {\n      if (!useResultForever) {\n      // clean up pending Promise\n        activeFunctions.splice(pendingFunctionIDX, 1);\n      }\n    }\n  };\n\n  // didn't find a pending existing promise, make a new one!\n  const newPromise = (self !== null && self !== undefined) ? fn.apply(self, args) : fn(...args);\n  newPromise.then((value) => {\n    // clean up our pending Promise\n    if (!useResultForever) {\n      cleanupPendingFunction();\n    } else {\n      const pendingFunctionIDX = findActiveFunctionIndex(self, fn, argsSerialise);\n      if (pendingFunctionIDX >= 0) {\n      // store result so we can re-use it for future calls\n        activeFunctions[pendingFunctionIDX].resolved = true;\n        activeFunctions[pendingFunctionIDX].value = value;\n      }\n    }\n\n    return value;\n  }).catch((err) => {\n    cleanupPendingFunction();\n    throw err;\n  });\n  activeFunctions.push({\n    fn,\n    self,\n    args: argsSerialise,\n    promise: newPromise,\n    resolved: false,\n  });\n  return newPromise;\n}\n\nexport default reusePromise;\n",
@@ -4262,7 +4527,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 204,
+    "__docId__": 217,
     "kind": "variable",
     "name": "activeFunctions",
     "memberof": "lib/reusePromises.js",
@@ -4282,7 +4547,7 @@
     "ignore": true
   },
   {
-    "__docId__": 205,
+    "__docId__": 218,
     "kind": "function",
     "name": "findActiveFunctionIndex",
     "memberof": "lib/reusePromises.js",
@@ -4339,7 +4604,7 @@
     "ignore": true
   },
   {
-    "__docId__": 206,
+    "__docId__": 219,
     "kind": "function",
     "name": "reusePromise",
     "memberof": "lib/reusePromises.js",
@@ -4395,7 +4660,7 @@
     }
   },
   {
-    "__docId__": 207,
+    "__docId__": 220,
     "kind": "function",
     "name": "reusePromiseForever",
     "memberof": "lib/reusePromises.js",
@@ -4451,7 +4716,7 @@
     }
   },
   {
-    "__docId__": 208,
+    "__docId__": 221,
     "kind": "function",
     "name": "_reusePromise",
     "memberof": "lib/reusePromises.js",
@@ -4519,7 +4784,7 @@
   },
   {
     "kind": "index",
-    "content": "# Themeparks-API\nThemeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don't expect anything too cool tho.</br>\n\n![Unit Test](https://github.com/alexvv13/tp-api/workflows/Unit%20Test/badge.svg)\n![Documentation Build](https://github.com/alexvv13/tp-api/workflows/ESDoc/badge.svg)\n![Node.js CI](https://github.com/alexvv13/tp-api/workflows/Node.js%20CI/badge.svg)\n[![Build Status](https://api.travis-ci.com/alexvv13/tp-api.svg?branch=master)](https://travis-ci.com/alexvv13/tp-api) </br>\n\n![node-current](https://img.shields.io/node/v/@alexvv13/tpapi)\n[![npm version](https://badge.fury.io/js/%40alexvv13%2Ftpapi.svg)](https://badge.fury.io/js/%40alexvv13%2Ftpapi) </br>\n\n![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/alexvv13/tp-api.svg) </br>\n\n[API documentation](https://alexvv13.github.io/tp-api \"API Documentation\") </br>\n[NPM Package](https://www.npmjs.com/package/@alexvv13/tpapi \"NPM Package\") </br>\n\n## About\nThis is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it's not perfect, but it works. It's just being build to work and return data, not to be efficient anyway.\n\n## Table of Contents\n[About](#about)</br>\n[Table of Contents](#table-of-contents) </br>\n[Install](#install) </br>\n[ENV](#env) </br>\n[Usage](#usage) </br>\n[  -Running the script](#running-the-script) </br>\n[  -Example output](#example-output) </br>\n[Changelog](#changelog) </br>\n[Parks available](#parks-available) </br>\n[Features of supported parks](#features-of-the-parks) </br>\n[Result objects](#result-objects) </br>\n[  -Ride waittimes](#ride-waittimes) </br>\n[  -Schedules](#schedules) </br>\n[Park object values](#park-object-values) </br>\n[Tasks](#tasks) </br>\n\n## Install\n\n    npm install @alexvv13/tpapi --save\n    \n\n## ENV\nIn the directory where you're using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example, or copy below's example and fill in the fields yourself\n```\nLANGUAGES= 'en'\nLANG_UPPER= 'EN'\n\nEFTELING_API_KEY= \nEFTELING_APP_VERSION= \nEFTELING_API_VERSION= \nEFTELING_API_PLATFORM= \n\nEFTELING_SEARCH_URL= \nEFTELING_WAITTIMES_URL= \nEFTELING_HIST_URL= \n\nEUROPAPARK_APIBASE= \nEUROPAPARK_LOGINSTRING= \nEUROPAPARK_LOGIN= \nEUROPAPARK_REFRESH= \n\nWALIBIHOLLAND_APIBASE= \nWALIBIHOLLAND_APIURL= \nWALIBIBELGIUM_APIBASE=\nWALIBIRA_APIBASE=\n```\n\n## Usage\n### Running the script\nRun index.js for all parks </br>\nNOTE: If you use commonjs, it's REQUIRED to use the .mjs extension INSTEAD of .js! </br>\nOr create an .js file for yourself and do the following: </br>\n```javascript\n// Import all parks here\nimport tpapi from '@alexvv13/tpapi';\n\nconst park = new tpapi.parks.Efteling();\n\n// Fetch POIS Example usage of Efteling\npark.getWaitTime().then((poiData) => {\n  console.log(poiData);\n});\n\n// You can also call getCalendar() or getData()\n```\n\n### Example output\n(Shortened to keep it readable)\n```javascript\n{\n  \"name\": \"Stoomcarrousel\",\n  \"id\": \"Efteling_stoomcarrousel\",\n  \"waitTime\": \"0\",\n  \"state\": \"Closed\",\n  \"active\": \"false\",\n  \"location\": {\n    \"area\": \"Marerijk\",\n    \"latitude\": \"51.651211\",\n    \"longitude\": \"5.048955\"\n  },\n  \"meta\": {\n    \"category\": [\n      \"youngest-ones\",\n      \"whole-family\"\n    ],\n    \"label\": null,\n    \"description\": \"<p>Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the ‘Stoomcarrousel’ steam carousell, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.</p>\",\n    \"short_description\": \"The old-fashioned fairground feeling\",\n    \"type\": \"attraction\",\n    \"single_rider\": \"false\",\n    \"fastPass\": \"false\",\n    \"tags\": [\n      \"nophysicalhelp2\",\n      \"redwhitezones\",\n      \"placesallocated\",\n      \"leavingearlynotpossible2\",\n      \"transfernecessary\",\n      \"100undersupervision\",\n      \"indoorattraction\",\n      \"assistancedogs\"\n    ]\n  }\n},\n{\n  \"name\": \"Vogel Rok\",\n  \"id\": \"Efteling_vogelrok\",\n  \"waitTime\": \"0\",\n  \"state\": \"Closed\",\n  \"active\": \"false\",\n  \"location\": {\n    \"area\": \"Reizenrijk\",\n    \"latitude\": \"51.652187\",\n    \"longitude\": \"5.052811\"\n  },\n  \"meta\": {\n    \"category\": [\n      \"thrillseekers\"\n    ],\n    \"label\": null,\n    \"description\": \"<p>The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.</p>\",\n    \"short_description\": \"Lightning in the dark\",\n    \"type\": \"attraction\",\n    \"single_rider\": \"false\",\n    \"fastPass\": \"false\",\n    \"tags\": [\n      \"nophysicalhelp2\",\n      \"redwhitezones\",\n      \"placesallocated\",\n      \"leavingearlynotpossible2\",\n      \"transfernecessary\",\n      \"minimum120\",\n      \"pregnantwomen\",\n      \"injuries\",\n      \"dizzy\",\n      \"indoorattraction\"\n    ]\n  }\n}\n```\n   \n## Changelog\n\n[View tp-api Changelog](CHANGELOG.md)\n\n## Parks available\n\n<!-- START_SUPPORTED_PARKS_LIST -->\n\n**3** Parks Supported\n\n* Efteling (tpapi.parks.Efteling)\n* Europa-Park (tpapi.parks.EuropaPark)\n* Rulantica (tpapi.parks.Rulantica)\n* YULLBE (tpapi.parks.Yullbe)\n* Walibi Holland (tpapi.parks.WalibiHolland)\n* Walibi Belgium (tpapi.parks.WalibiBelgium)\n\n<!-- END_SUPPORTED_PARKS_LIST -->\n\n## Features of the parks\n\nPark Name | Live Queues | Park Hours\n------------ | ------------- | ----------\nEfteling |:heavy_check_mark:|:heavy_check_mark:\nEuropa-Park |:heavy_check_mark:|:heavy_multiplication_x:\nRulantica |:heavy_check_mark|:heavy_multiplication_x:\nYULLBE |:heavy_check_mark|:heavy_multiplication_x:\nWalibi Holland |:heavy_check_mark:|:heavy_multiplication_x:\nWalibi Belgium |:heavy_check_mark:|:heavy_multiplication_x:\n\n## Result Objects\n\n### Ride WaitTimes\n\n    [\n        {\n            id: (string or number: uniquely identifying a ride),\n            name: (string: ride name),\n            waitTime: (number: current wait time in minutes),\n            active: (bool: is the ride currently active?),\n            location: (object: contains location data such as latlon\n                 latitude: (number: ride's latitude),\n                 longitude: (number: ride's longitude),\n            meta: { (object: can contain various park-specific information about this ride - field may be null)\n                // examples of potential meta fields\n                single_rider: (boolean: does this ride have a single rider line?),\n                type: (string: what is this poi?),\n                fastPass: (boolean: does this ride have a fastPass line?),\n                isVirtQueue: (boolean: is this entity a Virtual Queue?),\n                area: (string: section of the park this ride is located within),\n                tags: { (object: can contain various ride-specific tags, can be null and fields differ per park)\n                },\n                restrictions: { (object: can contain various ride-specific restrictions(minHeight etc), can be null and fields differ per park)\n                },\n            },\n            status: (string: will either be \"Operating\", \"Closed\", \"Refurbishment\", or \"Down\"),\n        },\n        ...\n    ]\n\n### Schedules\n\n    [\n        {\n            date: (dateFormat timestamp: day this schedule applies),\n            openingTime: (timeFormat timestamp: opening time for requested park - can be null if park is closed),\n            closingTime: (timeFormat timestamp: closing time for requested park - can be null if park is closed),\n            type: (string: \"Operating\" or \"Closed\"),\n            special: [ (array of \"special\" times for this day, usually Disney Extra Magic Hours or similar at other parks - field may be null)\n              openingTime: (timeFormat timestamp: opening time for requested park),\n              closingTime: (timeFormat timestamp: closing time for requested park),\n              type: (string: type of schedule eg. \"Extra Magic Hours\", but can be \"Event\" or \"Special Ticketed Event\" or other)\n            ],\n        },\n        ...\n    ]\n\n## Park Object values\n\nThere are some values available on each park object that may be useful.\n\n| Variable              | Description                                                                                                 |\n| :-------------------- | :---------------------------------------------------------------------------------------------------------- |\n| Name                  | Name of the park                                                                                            |\n| Timezone              | The park's local timezone                                                                                   |\n| LocationString        | This park's location as a [latitude, longitude] string                                                                |\n| SupportsWaitTimes     | Does this park's API support ride wait times?                                                               |\n| SupportsOpeningTimes  | Does this park's API support opening hours?                                                                 |\n| SupportsRideSchedules | Does this park return schedules for rides?                                                                  |\n| FastPass              | Does this park have FastPass (or a FastPass-style service)?                                                 |\n| FastPassReturnTimes   | Does this park tell you the FastPass return times?                                                          |\n| Now                   | Current date/time at this park (returned as a Moment object)                                                |\n| LangOptions             | What languages does this park support? ||\n\n    import tpapi from '@alexvv13/tpapi';\n\n    // construct our park objects and keep them in memory for fast access later\n    const Parks = {};\n    for (const park in tpapi.parks) {\n      Parks[park] = new tpapi.parks[park]();\n    }\n\n    // print each park's name, current location, and timezone\n    for (const park in Parks) {\n      console.log(`* ${Parks[park].Name} [${Parks[park].LocationString}]: (${Parks[park].Timezone})`);\n    }\n\nPrints:\n\n<!-- START_PARK_TIMEZONE_LIST -->\n\n* Efteling [51.65098350641645, 5.049916835374731]: (Europe/Amsterdam)\n* Europa-Park [48.266140769976715, 7.722050520358709]: (Europe/Berlin)\n* Rulantica [48.2605514, 7.7386819]: (Europe/Berlin)\n* YULLBE [48.266140769976715, 7.722050520358709]: (Europe/Berlin)\n* Walibi Belgium [50.7038852, 4.5960371]: (Europe/Brussels)\n* Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)\n\n<!-- END_PARK_TIMEZONE_LIST -->\n\n## Tasks\n- [ ] Add more parks\n- [X] Multi language support\n- [ ] Multiple Queue entities support\n- [X] Completely purge file-system\n- [X] Merge shared tasks to one function\n- [X] Generate a better infrastructure\n\n",
+    "content": "# Themeparks-API\nThemeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don't expect anything too cool tho.</br>\n\n![Unit Test](https://github.com/alexvv13/tp-api/workflows/Unit%20Test/badge.svg)\n![Documentation Build](https://github.com/alexvv13/tp-api/workflows/ESDoc/badge.svg)\n![Node.js CI](https://github.com/alexvv13/tp-api/workflows/Node.js%20CI/badge.svg)\n[![Build Status](https://api.travis-ci.com/alexvv13/tp-api.svg?branch=master)](https://travis-ci.com/alexvv13/tp-api) </br>\n\n![node-current](https://img.shields.io/node/v/@alexvv13/tpapi)\n[![npm version](https://badge.fury.io/js/%40alexvv13%2Ftpapi.svg)](https://badge.fury.io/js/%40alexvv13%2Ftpapi) </br>\n\n![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/alexvv13/tp-api.svg) </br>\n\n[API documentation](https://alexvv13.github.io/tp-api \"API Documentation\") </br>\n[NPM Package](https://www.npmjs.com/package/@alexvv13/tpapi \"NPM Package\") </br>\n\n## About\nThis is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it's not perfect, but it works. It's just being build to work and return data, not to be efficient anyway.\n\n## Table of Contents\n[About](#about)</br>\n[Table of Contents](#table-of-contents) </br>\n[Install](#install) </br>\n[ENV](#env) </br>\n[Usage](#usage) </br>\n[  -Running the script](#running-the-script) </br>\n[  -Example output](#example-output) </br>\n[Changelog](#changelog) </br>\n[Parks available](#parks-available) </br>\n[Features of supported parks](#features-of-the-parks) </br>\n[Result objects](#result-objects) </br>\n[  -Ride waittimes](#ride-waittimes) </br>\n[  -Schedules](#schedules) </br>\n[Park object values](#park-object-values) </br>\n[Tasks](#tasks) </br>\n\n## Install\n\n    npm install @alexvv13/tpapi --save\n    \n\n## ENV\nIn the directory where you're using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example, or copy below's example and fill in the fields yourself\n```\nLANGUAGES= 'en'\nLANG_UPPER= 'EN'\n\nEFTELING_API_KEY= \nEFTELING_APP_VERSION= \nEFTELING_API_VERSION= \nEFTELING_API_PLATFORM= \n\nEFTELING_SEARCH_URL= \nEFTELING_WAITTIMES_URL= \nEFTELING_HIST_URL= \n\nEUROPAPARK_APIBASE= \nEUROPAPARK_LOGINSTRING= \nEUROPAPARK_LOGIN= \nEUROPAPARK_REFRESH= \n\nWALIBIHOLLAND_APIBASE= \nWALIBIHOLLAND_APIURL= \nWALIBIBELGIUM_APIBASE=\nWALIBIRA_APIBASE=\n```\n\n## Usage\n### Running the script\nRun index.js for all parks </br>\nNOTE: If you use commonjs, it's REQUIRED to use the .mjs extension INSTEAD of .js! </br>\nOr create an .js file for yourself and do the following: </br>\n```javascript\n// Import all parks here\nimport tpapi from '@alexvv13/tpapi';\n\nconst park = new tpapi.parks.Efteling();\n\n// Fetch POIS Example usage of Efteling\npark.getWaitTime().then((poiData) => {\n  console.log(poiData);\n});\n\n// You can also call getCalendar() or getData()\n```\n\n### Example output\n(Shortened to keep it readable)\n```javascript\n{\n  \"name\": \"Stoomcarrousel\",\n  \"id\": \"Efteling_stoomcarrousel\",\n  \"waitTime\": \"0\",\n  \"state\": \"Closed\",\n  \"active\": \"false\",\n  \"location\": {\n    \"area\": \"Marerijk\",\n    \"latitude\": \"51.651211\",\n    \"longitude\": \"5.048955\"\n  },\n  \"meta\": {\n    \"category\": [\n      \"youngest-ones\",\n      \"whole-family\"\n    ],\n    \"label\": null,\n    \"description\": \"<p>Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the ‘Stoomcarrousel’ steam carousell, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.</p>\",\n    \"short_description\": \"The old-fashioned fairground feeling\",\n    \"type\": \"attraction\",\n    \"single_rider\": \"false\",\n    \"fastPass\": \"false\",\n    \"tags\": [\n      \"nophysicalhelp2\",\n      \"redwhitezones\",\n      \"placesallocated\",\n      \"leavingearlynotpossible2\",\n      \"transfernecessary\",\n      \"100undersupervision\",\n      \"indoorattraction\",\n      \"assistancedogs\"\n    ]\n  }\n},\n{\n  \"name\": \"Vogel Rok\",\n  \"id\": \"Efteling_vogelrok\",\n  \"waitTime\": \"0\",\n  \"state\": \"Closed\",\n  \"active\": \"false\",\n  \"location\": {\n    \"area\": \"Reizenrijk\",\n    \"latitude\": \"51.652187\",\n    \"longitude\": \"5.052811\"\n  },\n  \"meta\": {\n    \"category\": [\n      \"thrillseekers\"\n    ],\n    \"label\": null,\n    \"description\": \"<p>The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.</p>\",\n    \"short_description\": \"Lightning in the dark\",\n    \"type\": \"attraction\",\n    \"single_rider\": \"false\",\n    \"fastPass\": \"false\",\n    \"tags\": [\n      \"nophysicalhelp2\",\n      \"redwhitezones\",\n      \"placesallocated\",\n      \"leavingearlynotpossible2\",\n      \"transfernecessary\",\n      \"minimum120\",\n      \"pregnantwomen\",\n      \"injuries\",\n      \"dizzy\",\n      \"indoorattraction\"\n    ]\n  }\n}\n```\n   \n## Changelog\n\n[View tp-api Changelog](CHANGELOG.md)\n\n## Parks available\n\n<!-- START_SUPPORTED_PARKS_LIST -->\n\n**8** Parks Supported\n\n* Efteling (tpapi.parks.Efteling)\n* Europa-Park (tpapi.parks.EuropaPark)\n* Rulantica (tpapi.parks.Rulantica)\n* YULLBE (tpapi.parks.Yullbe)\n* Phantasialand (tpapi.parks.Phantasialand)\n* Walibi Holland (tpapi.parks.WalibiHolland)\n* Walibi Belgium (tpapi.parks.WalibiBelgium)\n* Walibi Rhône-Alpes (tpapi.parks.WalibiRA)\n\n<!-- END_SUPPORTED_PARKS_LIST -->\n\n## Features of the parks\n\nPark Name | Live Queues | Park Hours\n------------ | ------------- | ----------\nEfteling |:heavy_check_mark:|:heavy_check_mark:\nEuropa-Park |:heavy_check_mark:|:heavy_multiplication_x:\nRulantica |:heavy_check_mark:|:heavy_multiplication_x:\nYULLBE |:heavy_check_mark:|:heavy_multiplication_x:\nPhantasialand |:heavy_check_mark:|:heavy_multiplication_x:\nWalibi Holland |:heavy_check_mark:|:heavy_multiplication_x:\nWalibi Belgium |:heavy_check_mark:|:heavy_multiplication_x:\nWalibi Rhône-Alpes |:heavy_check_mark:|:heavy_multiplication_x:\n\n## Result Objects\n\n### Ride WaitTimes\n\n    [\n        {\n            id: (string or number: uniquely identifying a ride),\n            name: (string: ride name),\n            waitTime: (number: current wait time in minutes),\n            active: (bool: is the ride currently active?),\n            location: (object: contains location data such as latlon\n                 latitude: (number: ride's latitude),\n                 longitude: (number: ride's longitude),\n            meta: { (object: can contain various park-specific information about this ride - field may be null)\n                // examples of potential meta fields\n                single_rider: (boolean: does this ride have a single rider line?),\n                type: (string: what is this poi?),\n                fastPass: (boolean: does this ride have a fastPass line?),\n                isVirtQueue: (boolean: is this entity a Virtual Queue?),\n                area: (string: section of the park this ride is located within),\n                tags: { (object: can contain various ride-specific tags, can be null and fields differ per park)\n                },\n                restrictions: { (object: can contain various ride-specific restrictions(minHeight etc), can be null and fields differ per park)\n                },\n            },\n            status: (string: will either be \"Operating\", \"Closed\", \"Refurbishment\", or \"Down\"),\n        },\n        ...\n    ]\n\n### Schedules\n\n    [\n        {\n            date: (dateFormat timestamp: day this schedule applies),\n            openingTime: (timeFormat timestamp: opening time for requested park - can be null if park is closed),\n            closingTime: (timeFormat timestamp: closing time for requested park - can be null if park is closed),\n            type: (string: \"Operating\" or \"Closed\"),\n            special: [ (array of \"special\" times for this day, usually Disney Extra Magic Hours or similar at other parks - field may be null)\n              openingTime: (timeFormat timestamp: opening time for requested park),\n              closingTime: (timeFormat timestamp: closing time for requested park),\n              type: (string: type of schedule eg. \"Extra Magic Hours\", but can be \"Event\" or \"Special Ticketed Event\" or other)\n            ],\n        },\n        ...\n    ]\n\n## Park Object values\n\nThere are some values available on each park object that may be useful.\n\n| Variable              | Description                                                                                                 |\n| :-------------------- | :---------------------------------------------------------------------------------------------------------- |\n| Name                  | Name of the park                                                                                            |\n| Timezone              | The park's local timezone                                                                                   |\n| LocationString        | This park's location as a [latitude, longitude] string                                                                |\n| SupportsWaitTimes     | Does this park's API support ride wait times?                                                               |\n| SupportsOpeningTimes  | Does this park's API support opening hours?                                                                 |\n| SupportsRideSchedules | Does this park return schedules for rides?                                                                  |\n| FastPass              | Does this park have FastPass (or a FastPass-style service)?                                                 |\n| FastPassReturnTimes   | Does this park tell you the FastPass return times?                                                          |\n| Now                   | Current date/time at this park (returned as a Moment object)                                                |\n| LangOptions             | What languages does this park support? ||\n\n    import tpapi from '@alexvv13/tpapi';\n\n    // construct our park objects and keep them in memory for fast access later\n    const Parks = {};\n    for (const park in tpapi.parks) {\n      Parks[park] = new tpapi.parks[park]();\n    }\n\n    // print each park's name, current location, and timezone\n    for (const park in Parks) {\n      console.log(`* ${Parks[park].Name} [${Parks[park].LocationString}]: (${Parks[park].Timezone})`);\n    }\n\nPrints:\n\n<!-- START_PARK_TIMEZONE_LIST -->\n\n* Efteling [51.65098350641645, 5.049916835374731]: (Europe/Amsterdam)\n* Europa-Park [48.266140769976715, 7.722050520358709]: (Europe/Berlin)\n* Rulantica [48.2605514, 7.7386819]: (Europe/Berlin)\n* YULLBE [48.266140769976715, 7.722050520358709]: (Europe/Berlin)\n* Phantasialand [50.798954, 6.879314]: (Europe/Berlin)\n* Walibi Belgium [50.7038852, 4.5960371]: (Europe/Brussels)\n* Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)\n* Walibi Rhône-Alpes [45.6198928, 5.5669562]: (Europe/Paris)\n\n<!-- END_PARK_TIMEZONE_LIST -->\n\n## Tasks\n- [ ] Add more parks\n- [X] Multi language support\n- [ ] Multiple Queue entities support\n- [X] Completely purge file-system\n- [X] Merge shared tasks to one function\n- [X] Generate a better infrastructure\n\n",
     "longname": "/home/runner/work/tp-api/tp-api/README.md",
     "name": "./README.md",
     "static": true,
@@ -4527,7 +4792,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@alexvv13/tpapi\",\n  \"version\": \"1.0.19\",\n  \"type\": \"module\",\n  \"description\": \"Api to fetch themepark data, such as queues, operating hours etc\",\n  \"engines\": {\n    \"npm\": \">=6\",\n    \"node\": \">=14\"\n  },\n  \"main\": \"lib/index.js\",\n  \"dependencies\": {\n    \"cheerio\": \"^1.0.0-rc.5\",\n    \"dotenv\": \"^8.2.0\",\n    \"esm\": \"^3.2.25\",\n    \"level\": \"^6.0.1\",\n    \"moment-timezone\": \"^0.5.32\",\n    \"node-fetch\": \"^2.6.1\"\n  },\n  \"devDependencies\": {\n    \"@babel/traverse\": \"^7.11.0\",\n    \"babel-cli\": \"^6.26.0\",\n    \"babel-preset-es2015\": \"^6.24.1\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^7.15.0\",\n    \"eslint-config-google\": \"^0.14.0\",\n    \"eslint-config-prettier\": \"^7.0.0\",\n    \"eslint-plugin-mocha\": \"^8.0.0\",\n    \"eslint-plugin-prettier\": \"^3.3.0\"\n  },\n  \"scripts\": {\n    \"test\": \"eslint ./lib/**\",\n    \"docs\": \"esdoc\"\n  },\n  \"exports\": {\n    \".\": \"./lib/index.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/AlexVV13/tp-api.git\"\n  },\n  \"keywords\": [\n    \"Api\",\n    \"themeparks\",\n    \"queue\",\n    \"calendar\"\n  ],\n  \"author\": \"Alex_VV\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/AlexVV13/tp-api/issues\"\n  },\n  \"homepage\": \"https://github.com/AlexVV13/tp-api#readme\",\n  \"directories\": {\n    \"lib\": \"lib\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@alexvv13/tpapi\",\n  \"version\": \"1.0.20\",\n  \"type\": \"module\",\n  \"description\": \"Api to fetch themepark data, such as queues, operating hours etc\",\n  \"engines\": {\n    \"npm\": \">=6\",\n    \"node\": \">=14\"\n  },\n  \"main\": \"lib/index.js\",\n  \"dependencies\": {\n    \"cheerio\": \"^1.0.0-rc.5\",\n    \"dotenv\": \"^8.2.0\",\n    \"esm\": \"^3.2.25\",\n    \"level\": \"^6.0.1\",\n    \"moment-timezone\": \"^0.5.32\",\n    \"node-fetch\": \"^2.6.1\"\n  },\n  \"devDependencies\": {\n    \"@babel/traverse\": \"^7.11.0\",\n    \"babel-cli\": \"^6.26.0\",\n    \"babel-preset-es2015\": \"^6.24.1\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"eslint\": \"^7.15.0\",\n    \"eslint-config-google\": \"^0.14.0\",\n    \"eslint-config-prettier\": \"^7.0.0\",\n    \"eslint-plugin-mocha\": \"^8.0.0\",\n    \"eslint-plugin-prettier\": \"^3.3.0\"\n  },\n  \"scripts\": {\n    \"test\": \"eslint ./lib/**\",\n    \"docs\": \"esdoc\"\n  },\n  \"exports\": {\n    \".\": \"./lib/index.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/AlexVV13/tp-api.git\"\n  },\n  \"keywords\": [\n    \"Api\",\n    \"themeparks\",\n    \"queue\",\n    \"calendar\"\n  ],\n  \"author\": \"Alex_VV\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/AlexVV13/tp-api/issues\"\n  },\n  \"homepage\": \"https://github.com/AlexVV13/tp-api#readme\",\n  \"directories\": {\n    \"lib\": \"lib\"\n  }\n}\n",
     "longname": "/home/runner/work/tp-api/tp-api/package.json",
     "name": "package.json",
     "static": true,
