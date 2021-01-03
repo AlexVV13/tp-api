@@ -166,14 +166,16 @@ park.getWaitTime().then((poiData) => {
 
 <!-- START_SUPPORTED_PARKS_LIST -->
 
-**3** Parks Supported
+**8** Parks Supported
 
 * Efteling (tpapi.parks.Efteling)
 * Europa-Park (tpapi.parks.EuropaPark)
 * Rulantica (tpapi.parks.Rulantica)
 * YULLBE (tpapi.parks.Yullbe)
+* Phantasialand (tpapi.parks.Phantasialand)
 * Walibi Holland (tpapi.parks.WalibiHolland)
 * Walibi Belgium (tpapi.parks.WalibiBelgium)
+* Walibi Rhône-Alpes (tpapi.parks.WalibiRA)
 
 <!-- END_SUPPORTED_PARKS_LIST -->
 
@@ -183,10 +185,12 @@ Park Name | Live Queues | Park Hours
 ------------ | ------------- | ----------
 Efteling |:heavy_check_mark:|:heavy_check_mark:
 Europa-Park |:heavy_check_mark:|:heavy_multiplication_x:
-Rulantica |:heavy_check_mark|:heavy_multiplication_x:
-YULLBE |:heavy_check_mark|:heavy_multiplication_x:
+Rulantica |:heavy_check_mark:|:heavy_multiplication_x:
+YULLBE |:heavy_check_mark:|:heavy_multiplication_x:
+Phantasialand |:heavy_check_mark:|:heavy_multiplication_x:
 Walibi Holland |:heavy_check_mark:|:heavy_multiplication_x:
 Walibi Belgium |:heavy_check_mark:|:heavy_multiplication_x:
+Walibi Rhône-Alpes |:heavy_check_mark:|:heavy_multiplication_x:
 
 ## Result Objects
 
@@ -273,8 +277,10 @@ Prints:
 * Europa-Park [48.266140769976715, 7.722050520358709]: (Europe/Berlin)
 * Rulantica [48.2605514, 7.7386819]: (Europe/Berlin)
 * YULLBE [48.266140769976715, 7.722050520358709]: (Europe/Berlin)
+* Phantasialand [50.798954, 6.879314]: (Europe/Berlin)
 * Walibi Belgium [50.7038852, 4.5960371]: (Europe/Brussels)
 * Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)
+* Walibi Rhône-Alpes [45.6198928, 5.5669562]: (Europe/Paris)
 
 <!-- END_PARK_TIMEZONE_LIST -->
 

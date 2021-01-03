@@ -19,3 +19,4 @@ Key changes to new versions
 * 1.0.17 Better Language understanding and more options for Efteling
 * 1.0.18 Extended EuropaPark with more data and added the other parks in the resort.
 * 1.0.19 Better understanding of VirtualLines in EuropaPark.
+* 1.0.20 Added a few more parks (PHL, WalibiRA).
