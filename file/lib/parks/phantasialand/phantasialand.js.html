@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/parks/phantasialand/phantasialand.js | @alexvv13/tpapi</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Api to fetch themepark data, such as queues, operating hours etc"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@alexvv13/tpapi"><meta property="twitter:description" content="Api to fetch themepark data, such as queues, operating hours etc"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/AlexVV13/tp-api"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCache">getCache</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parseConfig">parseConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromise">reusePromise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromiseForever">reusePromiseForever</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cache">cache</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheBase.js~CacheBase.html">CacheBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheLevel.js~CacheLevel.html">CacheLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheMemory.js~CacheMemory.html">CacheMemory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/scopedCache.js~ScopedCache.html">ScopedCache</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/location.js~Location.html">Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityTags">entityTags</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-queueEntity">queueEntity</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/phantasialand/phantasialand.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fetch from &apos;node-fetch&apos;;
+import {Park} from &apos;../park.js&apos;;
+import Location from &apos;../location.js&apos;;
+
+import dotenv from &apos;dotenv&apos;;
+import {entityType, queueType} from &apos;../types.js&apos;;
+dotenv.config();
+
+/**
+* Phantasialand Park Object
+* Make sure all environment variables are set in an .env file which should be in the main location.
+* Not setting these variables will make the module exit early without returning data.
+*
+* This class is here to fetch the POI data and to attach queue times data to it.
+* After the fetches this data is send to the end user and from there he could do whatever he wants to do.
+*
+* Most park specific parameters are set already
+* @class
+*/
+export class Phantasialand extends Park {
+  /**
+  * Create a new Phantasialand Park object
+  * @param {object} options
+  */
+  constructor(options = {}) {
+    options.name = &apos;Phantasialand&apos;;
+    options.timezone = &apos;Europe/Berlin&apos;;
+
+    // Setting the parks entrance as it&apos;s default location
+    options.latitude = 50.798954;
+    options.longitude = 6.879314;
+
+    // Options for our park Object
+    options.supportswaittimes = &apos;true&apos;;
+    options.supportsschedule = &apos;false&apos;;
+    options.supportsrideschedules = &apos;trues&apos;;
+    options.fastPass = &apos;false&apos;;
+    options.FastPassReturnTimes = &apos;false&apos;;
+
+    // Options for location faking
+    options.longitudeMin = 6.878342628;
+    options.longitudeMax = 6.877570152;
+    options.latitudeMin = 50.800659529;
+    options.latitudeMax = 50.799683077;
+
+    // Api options
+    options.apiKey = process.env.PHANTASIALAND_API_KEY;
+
+    options.poiUrl = process.env.PHANTASIALAND_POI_URL;
+    options.waitTimesURL = process.env.PHANTASIALAND_WAITTIMES_URL;
+    options.hoursURL = process.env.PHANTASIALAND_HOURS_URL;
+
+    // Language options
+    options.languages = process.env.LANGUAGES;
+
+    options.langoptions = `{&apos;en&apos;, &apos;fr&apos;, &apos;de&apos;, &apos;nl&apos;}`;
+
+    super(options);
+
+    // Check for existance
+    if (!this.config.poiUrl) throw new Error(&apos;Missing Phantasialand poi url!&apos;);
+    if (!this.config.apiKey) throw new Error(&apos;Missing Phantasialand apiKey!&apos;);
+    if (!this.config.waitTimesURL) throw new Error(&apos;Missing Phantasialand waittimes url!&apos;);
+    if (!this.config.hoursURL) throw new Error(&apos;Missing Phantasialand Operating Hours url!&apos;);
+    if (!this.config.languages) {
+      this.config.languages = &apos;en&apos;;
+    };
+
+    this.config.langpref = [`${this.config.languages}`, &apos;de&apos;];
+  }
+
+  /**
+  * Get Phantasialand POI data
+  * This data contains general ride names, descriptions etc.
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.Phantasialand();
+  *
+  * park.getPois().then((pois) =&gt; {
+  * console.log(pois)
+  * });
+  * @return {string} All P POIS without queuetimes
+  */
+  async getPOIS() {
+    const pickName = (title) =&gt; {
+      const n = this.config.langpref.find((lang) =&gt; title[lang]);
+      return n !== undefined ? title[n] : title;
+    };
+    return fetch(`${this.config.poiUrl}`,
+        {
+          method: &apos;GET&apos;,
+          data: {
+            compact: true,
+            access_token: this.config.apiKey,
+          },
+        },
+    )
+        .then((res) =&gt; res.json())
+        .then((rideData) =&gt; {
+          const rides = {};
+          rideData.forEach((ride) =&gt; {
+            let minAge = undefined;
+            let maxAge = undefined;
+            let minHeight = undefined;
+            let maxHeight = undefined;
+            let minHeightAccompanied = undefined;
+
+            if (ride.minAge) {
+              minAge = ride.minAge;
+            }
+            if (ride.maxAge) {
+              maxAge = ride.maxAge;
+            }
+            if (ride.minSize) {
+              minHeight = ride.minSize;
+            }
+            if (ride.maxSize) {
+              maxHeight = ride.maxSize;
+            }
+            if (ride.minSizeEscort) {
+              minHeightAccompanied = ride.minSizeEscort;
+            }
+            const restrictions = {
+              minAge,
+              minHeight,
+              minHeightAccompanied,
+              maxHeight,
+              maxAge,
+            };
+            const location = (ride.entrance &amp;&amp; ride.entrance.world) ? ride.entrance.world : undefined;
+            rides[ride.id] = {
+              name: pickName(ride.title),
+              id: ride.id,
+              location: {
+                area: ride.area,
+                longitude: location ? location.lng : null,
+                latitude: location ? location.lat : null,
+              },
+              meta: {
+                type: ride.category,
+                descriptions: {
+                  description: pickName(ride.description),
+                  short_description: pickName(ride.tagline),
+                },
+                restrictions: restrictions,
+              },
+            };
+          });
+          return Promise.resolve(rides);
+        });
+  }
+
+  /**
+   * Fetch service data
+   */
+  async buildServicePOI() {
+    return await this.cache.wrap(`servicedata`, async () =&gt; {
+      const rideData = await this.getPOIS();
+      const rides = {};
+      Object.keys(rideData).forEach((ride) =&gt; {
+        // We only want services
+        if (rideData[ride].meta.type !== &apos;SERVICE&apos;) return undefined;
+
+        const id = rideData[ride].id;
+
+        rides[id] = {
+          name: rideData[ride].name,
+          id: id,
+          location: {
+            area: rideData[ride].location.area,
+            longitude: rideData[ride].location.longitude,
+            latitude: rideData[ride].location.latitude,
+          },
+          meta: {
+            type: entityType.ride,
+            descriptions: {
+              description: rideData[ride].meta.descriptions.description,
+              short_description: rideData[ride].meta.descriptions.short_description,
+            },
+          },
+        };
+      });
+      return Promise.resolve(rides);
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+  }
+
+  /**
+   * Fetch shop data
+   */
+  async buildMerchandisePOI() {
+    return await this.cache.wrap(`shopdata`, async () =&gt; {
+      const rideData = await this.getPOIS();
+      const rides = {};
+      Object.keys(rideData).forEach((ride) =&gt; {
+        // We only want shops
+        if (rideData[ride].meta.type !== &apos;SHOPS&apos;) return undefined;
+
+        const id = rideData[ride].id;
+
+        rides[id] = {
+          name: rideData[ride].name,
+          id: id,
+          location: {
+            area: rideData[ride].location.area,
+            longitude: rideData[ride].location.longitude,
+            latitude: rideData[ride].location.latitude,
+          },
+          meta: {
+            type: entityType.ride,
+            descriptions: {
+              description: rideData[ride].meta.descriptions.description,
+              short_description: rideData[ride].meta.descriptions.short_description,
+            },
+          },
+        };
+      });
+      return Promise.resolve(rides);
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+  }
+
+  /**
+   * Fetch event data
+   */
+  async buildEventPOI() {
+    return await this.cache.wrap(`eventdata`, async () =&gt; {
+      const rideData = await this.getPOIS();
+      const rides = {};
+      Object.keys(rideData).forEach((ride) =&gt; {
+        // We only want event locations
+        if (rideData[ride].meta.type !== &apos;EVENT_LOCATIONS&apos;) return undefined;
+
+        const id = rideData[ride].id;
+
+        rides[id] = {
+          name: rideData[ride].name,
+          id: id,
+          location: {
+            area: rideData[ride].location.area,
+            longitude: rideData[ride].location.longitude,
+            latitude: rideData[ride].location.latitude,
+          },
+          meta: {
+            type: entityType.ride,
+            descriptions: {
+              description: rideData[ride].meta.descriptions.description,
+              short_description: rideData[ride].meta.descriptions.short_description,
+            },
+          },
+        };
+      });
+      return Promise.resolve(rides);
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+  }
+
+  /**
+   * Fetch hotel data
+   */
+  async buildHotelPOI() {
+    return await this.cache.wrap(`hoteldata`, async () =&gt; {
+      const rideData = await this.getPOIS();
+      const rides = {};
+      Object.keys(rideData).forEach((ride) =&gt; {
+        // We only want hotels
+        if (rideData[ride].meta.type !== &apos;PHANTASIALAND_HOTELS&apos;) return undefined;
+
+        const id = rideData[ride].id;
+
+        rides[id] = {
+          name: rideData[ride].name,
+          id: id,
+          location: {
+            area: rideData[ride].location.area,
+            longitude: rideData[ride].location.longitude,
+            latitude: rideData[ride].location.latitude,
+          },
+          meta: {
+            type: entityType.ride,
+            descriptions: {
+              description: rideData[ride].meta.descriptions.description,
+              short_description: rideData[ride].meta.descriptions.short_description,
+            },
+          },
+        };
+      });
+      return Promise.resolve(rides);
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+  }
+
+  /**
+   * Fetch hotel bar data
+   */
+  async buildHotelBarPOI() {
+    return await this.cache.wrap(`hotelbardata`, async () =&gt; {
+      const rideData = await this.getPOIS();
+      const rides = {};
+      Object.keys(rideData).forEach((ride) =&gt; {
+        // We only want hotel bars
+        if (rideData[ride].meta.type !== &apos;PHANTASIALAND_HOTELS_BARS&apos;) return undefined;
+
+        const id = rideData[ride].id;
+
+        rides[id] = {
+          name: rideData[ride].name,
+          id: id,
+          location: {
+            area: rideData[ride].location.area,
+            longitude: rideData[ride].location.longitude,
+            latitude: rideData[ride].location.latitude,
+          },
+          meta: {
+            type: entityType.ride,
+            descriptions: {
+              description: rideData[ride].meta.descriptions.description,
+              short_description: rideData[ride].meta.descriptions.short_description,
+            },
+          },
+        };
+      });
+      return Promise.resolve(rides);
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+  }
+
+  /**
+   * Fetch restaurant data
+   */
+  async buildRestaurantPOI() {
+    return await this.cache.wrap(`restdata`, async () =&gt; {
+      const rideData = await this.getPOIS();
+      const rides = {};
+      Object.keys(rideData).forEach((ride) =&gt; {
+        // We only want restaurants
+        if (rideData[ride].meta.type !== &apos;RESTAURANTS_AND_SNACKS&apos;) return undefined;
+
+        const id = rideData[ride].id;
+
+        rides[id] = {
+          name: rideData[ride].name,
+          id: id,
+          location: {
+            area: rideData[ride].location.area,
+            longitude: rideData[ride].location.longitude,
+            latitude: rideData[ride].location.latitude,
+          },
+          meta: {
+            type: entityType.ride,
+            descriptions: {
+              description: rideData[ride].meta.descriptions.description,
+              short_description: rideData[ride].meta.descriptions.short_description,
+            },
+          },
+        };
+      });
+      return Promise.resolve(rides);
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+  }
+
+  /**
+   * Fetch ride data
+   */
+  async buildRidePOI() {
+    return await this.cache.wrap(`ridedata`, async () =&gt; {
+      const rideData = await this.getPOIS();
+      const rides = {};
+      Object.keys(rideData).forEach((ride) =&gt; {
+        // We only want rides
+        if (rideData[ride].meta.type !== &apos;ATTRACTIONS&apos;) return undefined;
+
+        const id = rideData[ride].id;
+
+        rides[id] = {
+          name: rideData[ride].name,
+          id: id,
+          location: {
+            area: rideData[ride].location.area,
+            longitude: rideData[ride].location.longitude,
+            latitude: rideData[ride].location.latitude,
+          },
+          meta: {
+            type: entityType.ride,
+            descriptions: {
+              description: rideData[ride].meta.descriptions.description,
+              short_description: rideData[ride].meta.descriptions.short_description,
+            },
+            restrictions: rideData[ride].meta.restrictions,
+          },
+        };
+      });
+      return Promise.resolve(rides);
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+  }
+
+  /**
+   * Fetch wait times
+   */
+  async getWaitTime() {
+    return this.buildRidePOI().then((poi) =&gt; {
+      // We&apos;ll pretend we&apos;re actually in Phantasialand, cause we&apos;re cool
+      const RandomLocation = Location.randomBetween(this.config.longitudeMin, this.config.latitudeMin, this.config.longitudeMax, this.config.latitudeMax);
+
+      return fetch(`${this.config.waitTimesURL}?loc=${RandomLocation.latitude},${RandomLocation.longitude}&amp;compact=true&amp;access_token=${this.config.apiKey}`,
+          {
+            method: &apos;GET&apos;,
+          },
+      )
+          .then((res) =&gt; res.json())
+          .then((ride) =&gt; {
+            console.log(ride);
+            const rides = [];
+            ride.forEach((rideData) =&gt; {
+              let waitTime = &apos;0&apos;;
+              let active = &apos;false&apos;;
+              let state = queueType.closed;
+
+              // Check if ride is open and if it actually has a queuetime attached
+              if (rideData.open &amp;&amp; rideData.waitTime !== null) {
+                waitTime = rideData.waitTime;
+                active = &apos;true&apos;;
+                state = queueType.operating;
+              }
+
+              // Attach schedule if known, api communicates closingtimes at least (Shown on park signage)
+              let openTime = undefined;
+              let closingTime = undefined;
+              let opType = undefined;
+
+              if (rideData.opening &amp;&amp; rideData.closing) {
+                openTime = rideData.opening;
+                closingTime = rideData.closing;
+                opType = queueType.operating;
+              } else {
+                openTime = undefined;
+                closingTime = undefined;
+                opType = queueType.closed;
+              }
+
+              if (poi[rideData.poiId]) {
+                const rideobj = {
+                  name: poi[rideData.poiId].name,
+                  id: `Phantasialand_${poi[rideData.poiId].id}`,
+                  state: state,
+                  waitTime: waitTime,
+                  active: active,
+                  changedAt: rideData.updatedAt,
+                  location: poi[rideData.poiId].location,
+                  meta: poi[rideData.poiId].meta,
+                  schedule: {
+                    openTime: openTime,
+                    closingTime: closingTime,
+                    type: opType,
+                  },
+                };
+                rides.push(rideobj);
+              }
+            });
+            return Promise.resolve(rides);
+          });
+    });
+  }
+};
+
+export default Phantasialand;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -48,9 +48,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/location.js~location",
+    "class/lib/parks/location.js~Location.html",
+    "<span>Location</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/location.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/park.js~park",
     "class/lib/parks/park.js~Park.html",
     "<span>Park</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/park.js</span>",
+    "class"
+  ],
+  [
+    "@alexvv13/tpapi/lib/parks/phantasialand/phantasialand.js~phantasialand",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html",
+    "<span>Phantasialand</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/phantasialand/phantasialand.js</span>",
     "class"
   ],
   [
@@ -966,6 +978,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/location.js",
+    "file/lib/parks/location.js.html",
+    "lib/parks/location.js",
+    "file"
+  ],
+  [
+    "lib/parks/location.js~location.randombetween",
+    "class/lib/parks/location.js~Location.html#static-method-randomBetween",
+    "lib/parks/location.js~Location.randomBetween",
+    "method"
+  ],
+  [
     "lib/parks/park.js",
     "file/lib/parks/park.js.html",
     "lib/parks/park.js",
@@ -1041,6 +1065,72 @@ window.esdocSearchIndex = [
     "lib/parks/park.js~park#getwaittime",
     "class/lib/parks/park.js~Park.html#instance-method-getWaitTime",
     "lib/parks/park.js~Park#getWaitTime",
+    "method"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js",
+    "file/lib/parks/phantasialand/phantasialand.js.html",
+    "lib/parks/phantasialand/phantasialand.js",
+    "file"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#buildeventpoi",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-buildEventPOI",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#buildEventPOI",
+    "method"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#buildhotelbarpoi",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-buildHotelBarPOI",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#buildHotelBarPOI",
+    "method"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#buildhotelpoi",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-buildHotelPOI",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#buildHotelPOI",
+    "method"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#buildmerchandisepoi",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-buildMerchandisePOI",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#buildMerchandisePOI",
+    "method"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#buildrestaurantpoi",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-buildRestaurantPOI",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#buildRestaurantPOI",
+    "method"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#buildridepoi",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-buildRidePOI",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#buildRidePOI",
+    "method"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#buildservicepoi",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-buildServicePOI",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#buildServicePOI",
+    "method"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#constructor",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-constructor-constructor",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#getpois",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-getPOIS",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#getPOIS",
+    "method"
+  ],
+  [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#getwaittime",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-getWaitTime",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#getWaitTime",
     "method"
   ],
   [
