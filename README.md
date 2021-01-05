@@ -95,30 +95,24 @@ park.getWaitTime().then((poiData) => {
   "active": "false",
   "location": {
     "area": "Marerijk",
-    "latitude": "51.651211",
-    "longitude": "5.048955"
+    "latitude": 51.651211,
+    "longitude": 5.048955
   },
   "meta": {
     "category": [
-      "youngest-ones",
-      "whole-family"
+      "Youngest_Ones",
+      "Family"
     ],
-    "label": null,
     "description": "<p>Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the ‘Stoomcarrousel’ steam carousell, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.</p>",
     "short_description": "The old-fashioned fairground feeling",
-    "type": "attraction",
+    "type": "Attraction",
     "single_rider": "false",
     "fastPass": "false",
     "tags": [
-      "nophysicalhelp2",
-      "redwhitezones",
-      "placesallocated",
-      "leavingearlynotpossible2",
-      "transfernecessary",
-      "100undersupervision",
-      "indoorattraction",
-      "assistancedogs"
-    ]
+    ],
+    "restrictions": {
+      "minHeightAccompanied": "100 cm"
+    }
   }
 },
 {
@@ -129,31 +123,25 @@ park.getWaitTime().then((poiData) => {
   "active": "false",
   "location": {
     "area": "Reizenrijk",
-    "latitude": "51.652187",
-    "longitude": "5.052811"
+    "latitude": 51.652187,
+    "longitude": 5.052811
   },
   "meta": {
     "category": [
-      "thrillseekers"
+      "Thrillseekers",
     ],
-    "label": null,
     "description": "<p>The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.</p>",
     "short_description": "Lightning in the dark",
-    "type": "attraction",
+    "type": "Attraction",
     "single_rider": "false",
     "fastPass": "false",
     "tags": [
-      "nophysicalhelp2",
-      "redwhitezones",
-      "placesallocated",
-      "leavingearlynotpossible2",
-      "transfernecessary",
-      "minimum120",
-      "pregnantwomen",
-      "injuries",
-      "dizzy",
-      "indoorattraction"
-    ]
+      "mayGetDizzy",
+      "UnsuitableForPregnantWomen"
+    ],
+    "restrictions": {
+      "minHeight": "120 cm"
+    }
   }
 }
 ```
