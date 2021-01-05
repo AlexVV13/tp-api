@@ -43,13 +43,8 @@ This is a module which fetches queue times and operating hours, and returns it a
 In the directory where you're using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example, or copy below's example and fill in the fields yourself
 ```
 LANGUAGES= 'en'
-LANG_UPPER= 'EN'
 
 EFTELING_API_KEY= 
-EFTELING_APP_VERSION= 
-EFTELING_API_VERSION= 
-EFTELING_API_PLATFORM= 
-
 EFTELING_SEARCH_URL= 
 EFTELING_WAITTIMES_URL= 
 EFTELING_HIST_URL= 
@@ -58,6 +53,11 @@ EUROPAPARK_APIBASE=
 EUROPAPARK_LOGINSTRING= 
 EUROPAPARK_LOGIN= 
 EUROPAPARK_REFRESH= 
+
+PHANTASIALAND_API_KEY=
+PHANTASIALAND_POI_URL=
+PHANTASIALAND_WAITTIMES_URL=
+PHANTASIALAND_HOURS_URL=
 
 WALIBIHOLLAND_APIBASE= 
 WALIBIHOLLAND_APIURL= 
