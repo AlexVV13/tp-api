@@ -268,13 +268,13 @@ export class Efteling extends Park {
           const Family = poiData[poi].category.find((prop) =&gt; prop.indexOf(&apos;whole-family&apos;) === 0);
 
           if (Thrill !== undefined) {
-            category.push(&apos;Thrillseekers&apos;);
+            category.push(entityCategory.thrill);
           }
           if (Young !== undefined) {
-            category.push(&apos;Youngest_Ones&apos;);
+            category.push(entityCategory.youngest);
           }
           if (Family !== undefined) {
-            category.push(&apos;Family&apos;);
+            category.push(entityCategory.family);
           }
         }
 
@@ -353,7 +353,7 @@ export class Efteling extends Park {
 
         pois[poiData[poi].id] = {
           name: poiData[poi].name,
-          id: poiData[poi].id,
+          id: `Efteling_${poiData[poi].id}`,
           location: {
             area: poiData[poi].area,
             latitude: poiData[poi].location.latitude,
@@ -398,7 +398,7 @@ export class Efteling extends Park {
       if (poiData[poi].id === &apos;dezeszwanenrondvaart&apos; || poiData[poi].type === &apos;fairytale&apos;) {
         pois[poiData[poi].id] = {
           name: poiData[poi].name,
-          id: poiData[poi].id,
+          id: `Efteling_${poiData[poi].id}`,
           location: {
             area: poiData[poi].area,
             latitude: poiData[poi].location.latitude,
@@ -437,7 +437,7 @@ export class Efteling extends Park {
       if (poiData[poi].type === &apos;restaurant&apos;) {
         pois[poiData[poi].id] = {
           name: poiData[poi].name,
-          id: poiData[poi].id,
+          id: `Efteling_${poiData[poi].id}`,
           location: {
             area: poiData[poi].area,
             latitude: poiData[poi].location.latitude,
@@ -548,7 +548,7 @@ export class Efteling extends Park {
 
         pois[poiData[poi].id] = {
           name: poiData[poi].name,
-          id: poiData[poi].id,
+          id: `Efteling_${poiData[poi].id}`,
           location: {
             area: poiData[poi].area,
             latitude: poiData[poi].location.latitude,
@@ -589,7 +589,7 @@ export class Efteling extends Park {
       if (poiData[poi].type === &apos;merchandise&apos;) {
         pois[poiData[poi].id] = {
           name: poiData[poi].name,
-          id: poiData[poi].id,
+          id: `Efteling_${poiData[poi].id}`,
           location: {
             area: poiData[poi].area,
             latitude: poiData[poi].location.latitude,
