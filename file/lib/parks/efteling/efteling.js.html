@@ -41,6 +41,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/location.js~Location.html">Location</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityCategory">entityCategory</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityTags">entityTags</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-queueEntity">queueEntity</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
@@ -61,6 +62,7 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
 import fetch from &apos;node-fetch&apos;;
 import {queueType, entityType} from &apos;../types.js&apos;;
+import {entityCategory, entityTags} from &apos;../tags.js&apos;;
 import {Park} from &apos;../park.js&apos;;
 
 import dotenv from &apos;dotenv&apos;;
@@ -248,13 +250,6 @@ export class Efteling extends Park {
     const pois = {};
     let minHeightCM = undefined;
     let minHeightComp = undefined;
-    let wet = undefined;
-    let dizzyn = undefined;
-    let preg = undefined;
-    let weelchairtag = undefined;
-    let familypoi = undefined;
-    let thrillpoi = undefined;
-    let youngpoi = undefined;
     let fastPass = undefined;
     Object.keys(poiData).forEach((poi) =&gt; {
       if (poiData[poi].id === &apos;dezeszwanenrondvaart&apos; || poiData[poi].type === &apos;attraction&apos;) { // Yeah, somehow TSS is listed as fairytale.
@@ -265,33 +260,23 @@ export class Efteling extends Park {
           fastPass = &apos;false&apos;;
         }
         // Efteling tags
+        const category = [];
+        const tags = [];
         if (poiData[poi].category) {
           const Thrill = poiData[poi].category.find((prop) =&gt; prop.indexOf(&apos;thrillseekers&apos;) === 0);
           const Young = poiData[poi].category.find((prop) =&gt; prop.indexOf(&apos;youngest-ones&apos;) === 0);
           const Family = poiData[poi].category.find((prop) =&gt; prop.indexOf(&apos;whole-family&apos;) === 0);
 
           if (Thrill !== undefined) {
-            thrillpoi = &apos;Thrillseekers&apos;;
-          } else {
-            thrillpoi = undefined;
+            category.push(&apos;Thrillseekers&apos;);
           }
           if (Young !== undefined) {
-            youngpoi = &apos;Youngest_Ones&apos;;
-          } else {
-            youngpoi = undefined;
+            category.push(&apos;Youngest_Ones&apos;);
           }
           if (Family !== undefined) {
-            familypoi = &apos;Family&apos;;
-          } else {
-            familypoi = undefined;
+            category.push(&apos;Family&apos;);
           }
         }
-
-        const category = [
-          thrillpoi,
-          youngpoi,
-          familypoi,
-        ];
 
         if (poiData[poi].properties) {
           const minHeightProp = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;minimum&apos;) === 0);
@@ -300,6 +285,12 @@ export class Efteling extends Park {
           const weelchair = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;notaccessiblewheelchairs&apos;) === 0);
           const dizzyness = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;dizzy&apos;) === 0);
           const pregnant = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;pregnantwomen&apos;) === 0);
+          const transfer = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;transfernecessary&apos;) === 0);
+          const indoor = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;indoorattraction&apos;) === 0);
+          const outdoor = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;outdoorattraction&apos;) === 0);
+          const both = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;semicoveredattraction&apos;) === 0);
+          const injured = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;injuries&apos;) === 0);
+          const scary = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;anxiouseffects&apos;) === 0);
           if (minHeightProp !== undefined) {
             const minHeightNumber = Number(minHeightProp.slice(7));
             minHeightCM = minHeightNumber + &apos; cm&apos;;
@@ -315,27 +306,43 @@ export class Efteling extends Park {
           }
 
           if (maygetwet !== undefined) {
-            wet = &apos;mayGetWet&apos;;
-          } else {
-            wet = undefined;
+            tags.push(entityTags.wet);
           }
 
           if (weelchair !== undefined) {
-            weelchairtag = &apos;NotAccessibleWithWeelchair&apos;;
-          } else {
-            weelchairtag = undefined;
+            tags.push(entityTags.weelchair);
           }
 
           if (dizzyness !== undefined) {
-            dizzyn = &apos;mayGetDizzy&apos;;
-          } else {
-            dizzyn = undefined;
+            tags.push(entityTags.dizzy);
           }
 
           if (pregnant !== undefined) {
-            preg = &apos;UnsuitableForPregnantWomen&apos;;
-          } else {
-            preg = undefined;
+            tags.push(entityTags.pregnant);
+          }
+
+          if (transfer !== undefined) {
+            tags.push(entityTags.transfer);
+          }
+
+          if (injured !== undefined) {
+            tags.push(entityTags.injured);
+          }
+
+          if (indoor !== undefined) {
+            tags.push(entityTags.indoor);
+          }
+
+          if (outdoor !== undefined) {
+            tags.push(entityTags.outdoor);
+          }
+
+          if (both !== undefined) {
+            tags.push(entityTags.both);
+          }
+
+          if (scary !== undefined) {
+            tags.push(entityTags.scary);
           }
         }
 
@@ -347,29 +354,21 @@ export class Efteling extends Park {
         pois[poiData[poi].id] = {
           name: poiData[poi].name,
           id: poiData[poi].id,
-          waitTime: null,
-          state: null,
-          active: null,
           location: {
             area: poiData[poi].area,
             latitude: poiData[poi].location.latitude,
             longitude: poiData[poi].location.longitude,
           },
           meta: {
-            category: category,
+            category,
             description: poiData[poi].description,
             label: poiData[poi].label,
             short_description: poiData[poi].short_description,
             single_rider: poiData[poi].singlerider,
             fastPass: fastPass,
             type: entityType.ride,
-            tags: [
-              wet,
-              weelchairtag,
-              dizzyn,
-              preg,
-            ],
-            restrictions: restrictions,
+            tags,
+            restrictions,
           },
         };
       }
@@ -473,40 +472,77 @@ export class Efteling extends Park {
 
     if (!poiData) throw new Error(&apos;No PoiData for Efteling found!&apos;);
     const pois = {};
-    let wet = undefined;
-    let dizzyn = undefined;
-    let anxious = undefined;
-    let weelchairtag = undefined;
     Object.keys(poiData).forEach((poi) =&gt; {
       if (poiData[poi].type === &apos;show&apos;) {
+        // Efteling tags
+        const category = [];
+        const tags = [];
+        if (poiData[poi].category) {
+          const Thrill = poiData[poi].category.find((prop) =&gt; prop.indexOf(&apos;thrillseekers&apos;) === 0);
+          const Young = poiData[poi].category.find((prop) =&gt; prop.indexOf(&apos;youngest-ones&apos;) === 0);
+          const Family = poiData[poi].category.find((prop) =&gt; prop.indexOf(&apos;whole-family&apos;) === 0);
+
+          if (Thrill !== undefined) {
+            category.push(entityCategory.thrill);
+          }
+          if (Young !== undefined) {
+            category.push(entityCategory.youngest);
+          }
+          if (Family !== undefined) {
+            category.push(entityCategory.family);
+          }
+        }
+
         if (poiData[poi].properties) {
           const maygetwet = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;wet&apos;) === 0);
           const weelchair = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;notaccessiblewheelchairs&apos;) === 0);
           const dizzyness = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;dizzy&apos;) === 0);
-          const anxious1 = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;anxiouseffects&apos;) === 0);
+          const pregnant = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;pregnantwomen&apos;) === 0);
+          const transfer = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;transfernecessary&apos;) === 0);
+          const indoor = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;indoorattraction&apos;) === 0);
+          const outdoor = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;outdoorattraction&apos;) === 0);
+          const both = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;semicoveredattraction&apos;) === 0);
+          const injured = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;injuries&apos;) === 0);
+          const scary = poiData[poi].properties.find((prop) =&gt; prop.indexOf(&apos;anxiouseffects&apos;) === 0);
 
           if (maygetwet !== undefined) {
-            wet = &apos;mayGetWet&apos;;
-          } else {
-            wet = undefined;
+            tags.push(entityTags.wet);
           }
 
           if (weelchair !== undefined) {
-            weelchairtag = &apos;NotAccessibleWithWeelchair&apos;;
-          } else {
-            weelchairtag = undefined;
+            tags.push(entityTags.weelchair);
           }
 
           if (dizzyness !== undefined) {
-            dizzyn = &apos;mayGetDizzy&apos;;
-          } else {
-            dizzyn = undefined;
+            tags.push(entityTags.dizzy);
           }
 
-          if (anxious1 !== undefined) {
-            anxious = &apos;AnxiousEffects&apos;;
-          } else {
-            anxious = undefined;
+          if (pregnant !== undefined) {
+            tags.push(entityTags.pregnant);
+          }
+
+          if (transfer !== undefined) {
+            tags.push(entityTags.transfer);
+          }
+
+          if (injured !== undefined) {
+            tags.push(entityTags.injured);
+          }
+
+          if (indoor !== undefined) {
+            tags.push(entityTags.indoor);
+          }
+
+          if (outdoor !== undefined) {
+            tags.push(entityTags.outdoor);
+          }
+
+          if (both !== undefined) {
+            tags.push(entityTags.both);
+          }
+
+          if (scary !== undefined) {
+            tags.push(entityTags.scary);
           }
         }
 
@@ -519,15 +555,11 @@ export class Efteling extends Park {
             longitude: poiData[poi].location.longitude,
           },
           meta: {
+            category,
             description: poiData[poi].description,
             short_description: poiData[poi].short_description,
             type: entityType.show,
-            tags: [
-              wet,
-              weelchairtag,
-              dizzyn,
-              anxious,
-            ],
+            tags,
           },
         };
       }

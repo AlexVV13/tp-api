@@ -41,6 +41,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/location.js~Location.html">Location</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityCategory">entityCategory</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityTags">entityTags</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-queueEntity">queueEntity</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
@@ -123,59 +124,63 @@ park.getWaitTime().then((poiData) =&gt; {
 </code></pre>
 <h3 id="example-output">Example output</h3><p>(Shortened to keep it readable)</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">{
-  &quot;name&quot;: &quot;Stoomcarrousel&quot;,
-  &quot;id&quot;: &quot;Efteling_stoomcarrousel&quot;,
-  &quot;waitTime&quot;: &quot;0&quot;,
-  &quot;state&quot;: &quot;Closed&quot;,
-  &quot;active&quot;: &quot;false&quot;,
-  &quot;location&quot;: {
-    &quot;area&quot;: &quot;Marerijk&quot;,
-    &quot;latitude&quot;: 51.651211,
-    &quot;longitude&quot;: 5.048955
+  name: &apos;Stoomcarrousel&apos;,
+  id: &apos;Efteling_stoomcarrousel&apos;,
+  waitTime: &apos;0&apos;,
+  state: &apos;Closed&apos;,
+  active: &apos;false&apos;,
+  location: { 
+    area: &apos;Marerijk&apos;, 
+    latitude: 51.651211, 
+    longitude: 5.048955 
   },
-  &quot;meta&quot;: {
-    &quot;category&quot;: [
-      &quot;Youngest_Ones&quot;,
-      &quot;Family&quot;
+  meta: {
+    category: [
+      &apos;Youngest_Ones&apos;,
+      &apos;Family&apos;
     ],
-    &quot;description&quot;: &quot;&lt;p&gt;Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the &#x2018;Stoomcarrousel&#x2019; steam carousell, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.&lt;/p&gt;&quot;,
-    &quot;short_description&quot;: &quot;The old-fashioned fairground feeling&quot;,
-    &quot;type&quot;: &quot;Attraction&quot;,
-    &quot;single_rider&quot;: &quot;false&quot;,
-    &quot;fastPass&quot;: &quot;false&quot;,
-    &quot;tags&quot;: [
+    description: &apos;&lt;p&gt;Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the &#x2018;Stoomcarrousel&#x2019; steam carrousel, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.&lt;/p&gt;&apos;,
+    short_description: &apos;The old-fashioned fairground feeling&apos;,
+    type: &apos;Attraction&apos;,
+    single_rider: &apos;false&apos;,
+    fastPass: &apos;false&apos;,
+    tags: [
+      &apos;tranferNecessary&apos;,
+      &apos;IndoorRide&apos;
     ],
-    &quot;restrictions&quot;: {
-      &quot;minHeightAccompanied&quot;: &quot;100 cm&quot;
-    }
+    restrictions: {
+      &apos;minHeightAccompanied&apos;: &apos;100 cm&apos;
   }
 },
 {
-  &quot;name&quot;: &quot;Vogel Rok&quot;,
-  &quot;id&quot;: &quot;Efteling_vogelrok&quot;,
-  &quot;waitTime&quot;: &quot;0&quot;,
-  &quot;state&quot;: &quot;Closed&quot;,
-  &quot;active&quot;: &quot;false&quot;,
-  &quot;location&quot;: {
-    &quot;area&quot;: &quot;Reizenrijk&quot;,
-    &quot;latitude&quot;: 51.652187,
-    &quot;longitude&quot;: 5.052811
+  name: &apos;Vogel Rok&apos;,
+  id: &apos;Efteling_vogelrok&apos;,
+  waitTime: &apos;0&apos;,
+  state: &apos;Closed&apos;,
+  active: &apos;false&apos;,
+  location: { 
+    area: &apos;Reizenrijk&apos;, 
+    latitude: 51.652187, 
+    longitude: 5.052811 
   },
-  &quot;meta&quot;: {
-    &quot;category&quot;: [
-      &quot;Thrillseekers&quot;,
+  meta: {
+    category: [
+      &apos;Thrillseekers&apos;
     ],
-    &quot;description&quot;: &quot;&lt;p&gt;The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.&lt;/p&gt;&quot;,
-    &quot;short_description&quot;: &quot;Lightning in the dark&quot;,
-    &quot;type&quot;: &quot;Attraction&quot;,
-    &quot;single_rider&quot;: &quot;false&quot;,
-    &quot;fastPass&quot;: &quot;false&quot;,
-    &quot;tags&quot;: [
-      &quot;mayGetDizzy&quot;,
-      &quot;UnsuitableForPregnantWomen&quot;
+    description: &apos;&lt;p&gt;The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.&lt;/p&gt;&apos;,
+    short_description: &apos;Lightning in the dark&apos;,
+    type: &apos;Attraction&apos;,
+    single_rider: &apos;false&apos;,
+    fastPass: &apos;false&apos;,
+    tags: [
+      &apos;mayGetDizzy&apos;,
+      &apos;unsuitableForPregnantWomen&apos;,
+      &apos;tranferNecessary&apos;,
+      &apos;unsuitableWithInjuries&apos;,
+      &apos;IndoorRide&apos;
     ],
-    &quot;restrictions&quot;: {
-      &quot;minHeight&quot;: &quot;120 cm&quot;
+    restrictions: {
+      &apos;minHeight&apos;: &apos;120 cm&apos;
     }
   }
 }</code>

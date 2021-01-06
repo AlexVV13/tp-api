@@ -108,6 +108,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/tags.js~entitycategory",
+    "variable/index.html#static-variable-entityCategory",
+    "<span>entityCategory</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/tags.js</span>",
+    "variable"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/tags.js~entitytags",
     "variable/index.html#static-variable-entityTags",
     "<span>entityTags</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/tags.js</span>",
@@ -1065,6 +1071,12 @@ window.esdocSearchIndex = [
     "lib/parks/park.js~park#getservice",
     "class/lib/parks/park.js~Park.html#instance-method-getService",
     "lib/parks/park.js~Park#getService",
+    "method"
+  ],
+  [
+    "lib/parks/park.js~park#getshows",
+    "class/lib/parks/park.js~Park.html#instance-method-getShows",
+    "lib/parks/park.js~Park#getShows",
     "method"
   ],
   [

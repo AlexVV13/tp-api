@@ -41,6 +41,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/location.js~Location.html">Location</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityCategory">entityCategory</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityTags">entityTags</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-queueEntity">queueEntity</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
@@ -62,12 +63,13 @@
 import fetch from &apos;node-fetch&apos;;
 import {Park} from &apos;../park.js&apos;;
 import {entityType, queueType} from &apos;../types.js&apos;;
+import {entityCategory, entityTags} from &apos;../tags.js&apos;;
 
 import dotenv from &apos;dotenv&apos;;
 dotenv.config();
 
 /**
-* Walibi Belgium Park Object
+* Walibi Park Object
 * Make sure all environment variables are set in an .env file which should be in the main location.
 * Not setting these variables will make the module exit early without returning data.
 *
@@ -79,7 +81,7 @@ dotenv.config();
 */
 export class WalibiBase extends Park {
   /**
-  * Create a new Walibi Belgium Park object
+  * Create a new Walibi Park object
   * @param {object} options
   */
   constructor(options = {}) {
@@ -124,6 +126,13 @@ export class WalibiBase extends Park {
     return await this.getPOIS().then((rideData) =&gt; {
       const poi = [];
       rideData.wc.forEach((ride) =&gt; {
+        let description = undefined;
+        let shortdescription = undefined;
+        ride.additionalContent.forEach((desc) =&gt; {
+          description = desc.text;
+          shortdescription = desc.title;
+        });
+
         const poiData = {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
@@ -132,6 +141,8 @@ export class WalibiBase extends Park {
             longitude: ride.location.lon,
           },
           meta: {
+            description: description,
+            short_description: shortdescription,
             category: ride.category.name,
             type: entityType.service,
           },
@@ -151,6 +162,13 @@ export class WalibiBase extends Park {
     return await this.getPOIS().then((rideData) =&gt; {
       const poi = [];
       rideData.service.forEach((ride) =&gt; {
+        let description = undefined;
+        let shortdescription = undefined;
+        ride.additionalContent.forEach((desc) =&gt; {
+          description = desc.text;
+          shortdescription = desc.title;
+        });
+
         const poiData = {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
@@ -159,6 +177,8 @@ export class WalibiBase extends Park {
             longitude: ride.location.lon,
           },
           meta: {
+            description: description,
+            short_description: shortdescription,
             category: ride.category.name,
             type: entityType.service,
           },
@@ -178,6 +198,13 @@ export class WalibiBase extends Park {
     return await this.getPOIS().then((rideData) =&gt; {
       const poi = [];
       rideData.restaurant.forEach((ride) =&gt; {
+        let description = undefined;
+        let shortdescription = undefined;
+        ride.additionalContent.forEach((desc) =&gt; {
+          description = desc.text;
+          shortdescription = desc.title;
+        });
+
         const poiData = {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
@@ -186,6 +213,8 @@ export class WalibiBase extends Park {
             longitude: ride.location.lon,
           },
           meta: {
+            description: description,
+            short_description: shortdescription,
             category: ride.category.name,
             type: entityType.restaurant,
           },
@@ -205,6 +234,13 @@ export class WalibiBase extends Park {
     return await this.getPOIS().then((rideData) =&gt; {
       const poi = [];
       rideData.shop.forEach((ride) =&gt; {
+        let description = undefined;
+        let shortdescription = undefined;
+        ride.additionalContent.forEach((desc) =&gt; {
+          description = desc.text;
+          shortdescription = desc.title;
+        });
+
         const poiData = {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
@@ -213,6 +249,8 @@ export class WalibiBase extends Park {
             longitude: ride.location.lon,
           },
           meta: {
+            description: description,
+            short_description: shortdescription,
             category: ride.category.name,
             type: entityType.merchandise,
           },
@@ -232,6 +270,13 @@ export class WalibiBase extends Park {
     return await this.getPOIS().then((rideData) =&gt; {
       const poi = [];
       rideData.show.forEach((ride) =&gt; {
+        let description = undefined;
+        let shortdescription = undefined;
+        ride.additionalContent.forEach((desc) =&gt; {
+          description = desc.text;
+          shortdescription = desc.title;
+        });
+
         const poiData = {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
@@ -240,6 +285,8 @@ export class WalibiBase extends Park {
             longitude: ride.location.lon,
           },
           meta: {
+            description: description,
+            short_description: shortdescription,
             category: ride.category.name,
             type: entityType.show,
           },
@@ -258,7 +305,45 @@ export class WalibiBase extends Park {
   async buildRidePOI() {
     return await this.getPOIS().then((rideData) =&gt; {
       const poi = [];
+      let minHeightAccompanied = undefined;
+      let minHeight = undefined;
       rideData.entertainment.forEach((ride) =&gt; {
+        const category = [];
+        const tags = [];
+        if (ride.babyswitch === true) {
+          tags.push(entityTags.childSwap);
+        }
+        if (ride.category.name === &apos;Family&apos;) {
+          category.push(entityCategory.family);
+        }
+        if (ride.category.name === &apos;Kids&apos;) {
+          category.push(entityCategory.youngest);
+        }
+        if (ride.category.name === &apos;Thrills&apos;) {
+          category.push(entityCategory.thrill);
+        }
+
+        ride.parameters.forEach((param) =&gt; {
+          if (param.title === &apos;taille min accompagn&#xE9;&apos; || param.title === &apos;min accompanied heigh&apos;) {
+            minHeightAccompanied = param.value;
+          }
+          if (param.title === &apos;taille min non accompagn&#xE9;&apos; || param.title === &apos;min unaccompanied heigh&apos;) {
+            minHeight = param.value;
+          }
+        });
+
+        const restrictions = {
+          minHeightAccompanied,
+          minHeight,
+        };
+
+        let description = undefined;
+        let shortdescription = undefined;
+        ride.additionalContent.forEach((desc) =&gt; {
+          description = desc.text;
+          shortdescription = desc.title;
+        });
+
         const poiData = {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
@@ -267,8 +352,11 @@ export class WalibiBase extends Park {
             longitude: ride.location.lon,
           },
           meta: {
-            category: ride.category.name,
+            description: description,
+            short_description: shortdescription,
+            category,
             type: entityType.ride,
+            restrictions,
           },
         };
         poi.push(poiData);

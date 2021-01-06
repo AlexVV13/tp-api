@@ -41,6 +41,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/location.js~Location.html">Location</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityCategory">entityCategory</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityTags">entityTags</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-queueEntity">queueEntity</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
@@ -71,6 +72,16 @@ if (!languages) {
 };
 
 /**
+ * Possible types of categories
+ * @enum
+ */
+export const entityCategory = Object.freeze({
+  youngest: &apos;Youngest_Ones&apos;,
+  family: &apos;Family&apos;,
+  thrill: &apos;Thrillseekers&apos;,
+});
+
+/**
  * Possible types of tags
  * @enum
  */
@@ -81,6 +92,12 @@ export const entityTags = Object.freeze({
   weelchair: &apos;notAccesableWithWeelchair&apos;,
   childSwap: &apos;babySwap&apos;,
   dizzy: &apos;mayGetDizzy&apos;,
+  outdoor: &apos;OutdoorRide&apos;,
+  indoor: &apos;IndoorRide&apos;,
+  both: &apos;SemiCovered&apos;,
+  injured: &apos;unsuitableWithInjuries&apos;,
+  transfer: &apos;tranferNecessary&apos;,
+  onridePhoto: &apos;onridePhoto&apos;,
 });
 </code></pre>
 
