@@ -88,59 +88,63 @@ park.getWaitTime().then((poiData) => {
 (Shortened to keep it readable)
 ```javascript
 {
-  "name": "Stoomcarrousel",
-  "id": "Efteling_stoomcarrousel",
-  "waitTime": "0",
-  "state": "Closed",
-  "active": "false",
-  "location": {
-    "area": "Marerijk",
-    "latitude": 51.651211,
-    "longitude": 5.048955
+  name: 'Stoomcarrousel',
+  id: 'Efteling_stoomcarrousel',
+  waitTime: '0',
+  state: 'Closed',
+  active: 'false',
+  location: { 
+    area: 'Marerijk', 
+    latitude: 51.651211, 
+    longitude: 5.048955 
   },
-  "meta": {
-    "category": [
-      "Youngest_Ones",
-      "Family"
+  meta: {
+    category: [
+      'Youngest_Ones',
+      'Family'
     ],
-    "description": "<p>Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the ‘Stoomcarrousel’ steam carousell, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.</p>",
-    "short_description": "The old-fashioned fairground feeling",
-    "type": "Attraction",
-    "single_rider": "false",
-    "fastPass": "false",
-    "tags": [
+    description: '<p>Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the ‘Stoomcarrousel’ steam carrousel, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.</p>',
+    short_description: 'The old-fashioned fairground feeling',
+    type: 'Attraction',
+    single_rider: 'false',
+    fastPass: 'false',
+    tags: [
+      'tranferNecessary',
+      'IndoorRide'
     ],
-    "restrictions": {
-      "minHeightAccompanied": "100 cm"
-    }
+    restrictions: {
+      'minHeightAccompanied': '100 cm'
   }
 },
 {
-  "name": "Vogel Rok",
-  "id": "Efteling_vogelrok",
-  "waitTime": "0",
-  "state": "Closed",
-  "active": "false",
-  "location": {
-    "area": "Reizenrijk",
-    "latitude": 51.652187,
-    "longitude": 5.052811
+  name: 'Vogel Rok',
+  id: 'Efteling_vogelrok',
+  waitTime: '0',
+  state: 'Closed',
+  active: 'false',
+  location: { 
+    area: 'Reizenrijk', 
+    latitude: 51.652187, 
+    longitude: 5.052811 
   },
-  "meta": {
-    "category": [
-      "Thrillseekers",
+  meta: {
+    category: [
+      'Thrillseekers'
     ],
-    "description": "<p>The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.</p>",
-    "short_description": "Lightning in the dark",
-    "type": "Attraction",
-    "single_rider": "false",
-    "fastPass": "false",
-    "tags": [
-      "mayGetDizzy",
-      "UnsuitableForPregnantWomen"
+    description: '<p>The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.</p>',
+    short_description: 'Lightning in the dark',
+    type: 'Attraction',
+    single_rider: 'false',
+    fastPass: 'false',
+    tags: [
+      'mayGetDizzy',
+      'unsuitableForPregnantWomen',
+      'tranferNecessary',
+      'unsuitableWithInjuries',
+      'IndoorRide'
     ],
-    "restrictions": {
-      "minHeight": "120 cm"
+    restrictions: {
+      'minHeight': '120 cm'
     }
   }
 }

@@ -20,3 +20,4 @@ Key changes to new versions
 * 1.0.18 Extended EuropaPark with more data and added the other parks in the resort.
 * 1.0.19 Better understanding of VirtualLines in EuropaPark.
 * 1.0.20 Added a few more parks (PHL, WalibiRA).
+* 1.0.21 Added several tags and category types to the parks.
