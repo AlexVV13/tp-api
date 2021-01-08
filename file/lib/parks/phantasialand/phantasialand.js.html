@@ -145,6 +145,7 @@ export class Phantasialand extends Park {
   * @return {string} All P POIS without queuetimes
   */
   async getPOIS() {
+    // So phantasialand is kinda strange with this, but it provides ALL languages at once, set your env var as no one lang.
     const pickName = (title) =&gt; {
       const n = this.config.langpref.find((lang) =&gt; title[lang]);
       return n !== undefined ? title[n] : title;
@@ -152,10 +153,6 @@ export class Phantasialand extends Park {
     return fetch(`${this.config.poiUrl}`,
         {
           method: &apos;GET&apos;,
-          data: {
-            compact: true,
-            access_token: this.config.apiKey,
-          },
         },
     )
         .then((res) =&gt; res.json())

@@ -219,7 +219,7 @@ export class EuropaParkBase extends Park {
       let isVirtQueue = &apos;false&apos;; // Default poi isn&apos;t a virtqueue
       poiData.pois.forEach((ride) =&gt; {
         if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
-          if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers
+          if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers, really, why do they even exist?
           if (ride.name.indexOf(&apos;VirtualLine: &apos;) === 0) { // So EP reports virtlane as seperate map pointer, they send it as a stand-alone POI, assign the VirtQueue tag here.
             fastPass = &apos;true&apos;;
             isVirtQueue = &apos;true&apos;;
@@ -269,6 +269,7 @@ export class EuropaParkBase extends Park {
           } else if (ride.areaId == 28) {
             area = &apos;Spain&apos;;
           }
+          // To be clear, there are even more areas, but yeah, useless.
 
           // EuropaPark actually provides some cool tags which I&apos;ll attach here.
           let Producer = undefined;
