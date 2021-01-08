@@ -22,4 +22,4 @@ Key changes to new versions
 * 1.0.20 Added a few more parks (PHL, WalibiRA).
 * 1.0.21 Added several tags and category types to the parks.
 * 1.0.22 Added Toverland.
-* 1.0.23 Fixed Phantasialand's API.
+* 1.0.23.1 Fixed Phantasialand's API.
