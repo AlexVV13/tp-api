@@ -59,6 +59,9 @@ PHANTASIALAND_POI_URL=
 PHANTASIALAND_WAITTIMES_URL=
 PHANTASIALAND_HOURS_URL=
 
+TOVERLAND_APIBASE=
+TOVERLAND_TOKEN=
+
 WALIBIHOLLAND_APIBASE= 
 WALIBIHOLLAND_APIURL= 
 WALIBIBELGIUM_APIBASE=
@@ -165,6 +168,7 @@ park.getWaitTime().then((poiData) => {
 * Rulantica (tpapi.parks.Rulantica)
 * YULLBE (tpapi.parks.Yullbe)
 * Phantasialand (tpapi.parks.Phantasialand)
+* Toverland (tpapi.parks.Toverland)
 * Walibi Holland (tpapi.parks.WalibiHolland)
 * Walibi Belgium (tpapi.parks.WalibiBelgium)
 * Walibi Rhône-Alpes (tpapi.parks.WalibiRA)
@@ -180,6 +184,7 @@ Europa-Park |:heavy_check_mark:|:heavy_multiplication_x:
 Rulantica |:heavy_check_mark:|:heavy_multiplication_x:
 YULLBE |:heavy_check_mark:|:heavy_multiplication_x:
 Phantasialand |:heavy_check_mark:|:heavy_multiplication_x:
+Toverland |:heavy_check_mark:|:heavy_check_mark:
 Walibi Holland |:heavy_check_mark:|:heavy_multiplication_x:
 Walibi Belgium |:heavy_check_mark:|:heavy_multiplication_x:
 Walibi Rhône-Alpes |:heavy_check_mark:|:heavy_multiplication_x:
@@ -194,22 +199,24 @@ Walibi Rhône-Alpes |:heavy_check_mark:|:heavy_multiplication_x:
             name: (string: ride name),
             waitTime: (number: current wait time in minutes),
             active: (bool: is the ride currently active?),
+            state: (string: will either be "Operating", "Closed", "Refurbishment", or "Down"),
             location: (object: contains location data such as latlon
                  latitude: (number: ride's latitude),
                  longitude: (number: ride's longitude),
+                 area: (string: what area is this ride in?)
             meta: { (object: can contain various park-specific information about this ride - field may be null)
                 // examples of potential meta fields
+                description: { (object: can contain ride descriptions)
+                },
                 single_rider: (boolean: does this ride have a single rider line?),
                 type: (string: what is this poi?),
                 fastPass: (boolean: does this ride have a fastPass line?),
                 isVirtQueue: (boolean: is this entity a Virtual Queue?),
-                area: (string: section of the park this ride is located within),
                 tags: { (object: can contain various ride-specific tags, can be null and fields differ per park)
                 },
                 restrictions: { (object: can contain various ride-specific restrictions(minHeight etc), can be null and fields differ per park)
                 },
             },
-            status: (string: will either be "Operating", "Closed", "Refurbishment", or "Down"),
         },
         ...
     ]
@@ -270,6 +277,7 @@ Prints:
 * Rulantica [48.2605514, 7.7386819]: (Europe/Berlin)
 * YULLBE [48.266140769976715, 7.722050520358709]: (Europe/Berlin)
 * Phantasialand [50.798954, 6.879314]: (Europe/Berlin)
+* Toverland [51.397673285726114, 5.981651557822892]: (Europe/Amsterdam)
 * Walibi Belgium [50.7038852, 4.5960371]: (Europe/Brussels)
 * Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)
 * Walibi Rhône-Alpes [45.6198928, 5.5669562]: (Europe/Paris)
