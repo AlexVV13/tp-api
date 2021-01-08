@@ -251,7 +251,7 @@ export class Phantasialand extends Park {
         // We only want services
         if (rideData[ride].meta.type !== &apos;SERVICE&apos;) return undefined;
 
-        const id = rideData[ride];
+        const id = rideData[ride].id;
 
         rides[id] = {
           name: rideData[ride].name,
@@ -287,7 +287,7 @@ export class Phantasialand extends Park {
         // We only want shops
         if (rideData[ride].meta.type !== &apos;SHOPS&apos;) return undefined;
 
-        const id = rideData[ride];
+        const id = rideData[ride].id;
 
         rides[id] = {
           name: rideData[ride].name,
@@ -323,7 +323,7 @@ export class Phantasialand extends Park {
         // We only want event locations
         if (rideData[ride].meta.type !== &apos;EVENT_LOCATIONS&apos;) return undefined;
 
-        const id = rideData[ride];
+        const id = rideData[ride].id;
 
         rides[id] = {
           name: rideData[ride].name,
@@ -359,7 +359,7 @@ export class Phantasialand extends Park {
         // We only want hotels
         if (rideData[ride].meta.type !== &apos;PHANTASIALAND_HOTELS&apos;) return undefined;
 
-        const id = rideData[ride];
+        const id = rideData[ride].id;
 
         rides[id] = {
           name: rideData[ride].name,
@@ -395,7 +395,7 @@ export class Phantasialand extends Park {
         // We only want hotel bars
         if (rideData[ride].meta.type !== &apos;PHANTASIALAND_HOTELS_BARS&apos;) return undefined;
 
-        const id = rideData[ride];
+        const id = rideData[ride].id;
 
         rides[id] = {
           name: rideData[ride].name,
@@ -431,7 +431,7 @@ export class Phantasialand extends Park {
         // We only want restaurants
         if (rideData[ride].meta.type !== &apos;RESTAURANTS_AND_SNACKS&apos;) return undefined;
 
-        const id = rideData[ride];
+        const id = rideData[ride].id;
 
         rides[id] = {
           name: rideData[ride].name,
