@@ -153,14 +153,14 @@ export class Efteling extends Park {
             const poiData = {};
 
             data.hits.hit.forEach((hit) =&gt; {
-              if (hit.hide_in_app === &apos;true&apos;) return; // We don&apos;t want data that isn&apos;t displayed anyway
+              if (hit.hide_in_app === &apos;true&apos;) return; // We don&apos;t want data that isn&apos;t displayed anyway, if you want, just comment this line.
 
-              let singlerider = undefined;
+              let singlerider = undefined; // Efteling&apos;s Single Rider thing is actually, well, strange
 
               if (hit.fields.alternateid &amp;&amp; hit.fields.alternateid.indexOf(&apos;singlerider&apos;) === 0) {
-                singlerider = &apos;true&apos;;
+                singlerider = &apos;true&apos;; // Yay, this ride has single rider entries!
               } else {
-                singlerider = &apos;false&apos;;
+                singlerider = &apos;false&apos;; // Perhaps this is dezeszwanen (listed as boatride) or it&apos;s just not that special
               }
               // Base rides &amp; pois
               if (hit.fields) {
@@ -177,7 +177,7 @@ export class Efteling extends Park {
                   category: hit.fields.targetgroups,
                 };
 
-                // Define The six Swans &amp; Single Rider Queues
+                // Define The six Swans which loves to be lazy
                 if (hit.fields.alternateid &amp;&amp; hit.fields.alternatelabel === &apos;Boat ride&apos;) {
                   poiData[hit.fields.alternateid] = {
                     singlerider: &apos;false&apos;,
@@ -191,6 +191,7 @@ export class Efteling extends Park {
                     label: hit.fields.alternatelabel,
                     category: hit.fields.targetgroups,
                   };
+                // Build our single Rider entity
                 } else if (hit.fields.alternateid &amp;&amp; hit.fields.alternateid.indexOf(&apos;singlerider&apos;)) {
                   poiData[hit.fields.id].singleRiderId = hit.fields.alternateid;
                   poiData[hit.fields.alternateid] = {
@@ -207,9 +208,9 @@ export class Efteling extends Park {
                   };
                 }
 
-                // Get the location tags
-                if (hit.fields.latlon) {
-                  const latsplit = /([0-9.]+),([0-9.]+)/.exec(hit.fields.latlon);
+                // Get the location tags, according to it, Efteling also sits in the middle of nowhere, with some epic ride locations!
+                if (hit.fields.latlon &amp;&amp; hit.fields.latlon !== &apos;0.0,0.0&apos;) {
+                  const latsplit = /([0-9.]+),([0-9.]+)/.exec(hit.fields.latlon); // Serving latlon seperate is too difficult
                   if (latsplit) {
                     poiData[hit.fields.id].location = {
                       latitude: Number(latsplit[1]),
@@ -217,7 +218,7 @@ export class Efteling extends Park {
                     };
                   }
                   if (latsplit &amp;&amp; hit.fields.alternateid) {
-                    poiData[hit.fields.alternateid].location = {
+                    poiData[hit.fields.alternateid].location = { // Now our cute srl &amp; swans live!
                       latitude: Number(latsplit[1]),
                       longitude: Number(latsplit[2]),
                     };
@@ -227,7 +228,7 @@ export class Efteling extends Park {
             });
             return poiData;
           });
-    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+    }, 1000 * 60 * 60 * 12 /* cache for 12 hours because refetching is stupid */);
   }
 
   /**
@@ -253,7 +254,7 @@ export class Efteling extends Park {
     let fastPass = undefined;
     Object.keys(poiData).forEach((poi) =&gt; {
       if (poiData[poi].id === &apos;dezeszwanenrondvaart&apos; || poiData[poi].type === &apos;attraction&apos;) { // Yeah, somehow TSS is listed as fairytale.
-        // Ugly Python FP Tweak
+        // Ugly Python FP Tweak, fyi, this is the only fastPass ride.
         if (poiData[poi].name === &apos;Python&apos;) {
           fastPass = &apos;true&apos;;
         } else {
@@ -362,7 +363,7 @@ export class Efteling extends Park {
           meta: {
             category,
             description: poiData[poi].description,
-            label: poiData[poi].label,
+            label: poiData[poi].label, // SRL rides serve a label as covid measure I think, mostly called &lt;17 Line
             short_description: poiData[poi].short_description,
             single_rider: poiData[poi].singlerider,
             fastPass: fastPass,

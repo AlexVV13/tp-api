@@ -62,7 +62,7 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
 import fetch from &apos;node-fetch&apos;;
 import {Park} from &apos;../park.js&apos;;
-import {entityType, queueType} from &apos;../types.js&apos;;
+import {entityType, queueType, scheduleType} from &apos;../types.js&apos;;
 import {entityCategory, entityTags} from &apos;../tags.js&apos;;
 
 import dotenv from &apos;dotenv&apos;;
@@ -442,6 +442,43 @@ export class WalibiBase extends Park {
         .then((json) =&gt; {
           const Calendar = [];
           // Execute Calendar stuff here
+          // The calendar provides data for the whole year, however, we don&apos;t want past data.
+          Object.keys(json.opening_hours).forEach((key) =&gt; {
+            const now = moment().format(&apos;MM&apos;) + &apos;\/&apos; + moment().format(&apos;DD&apos;);
+
+            // Only continue if our hit is AFTER yesterday
+            if (moment(key).isSameOrAfter(moment(now))) {
+              let state = json.opening_hours[key].status;
+              let open = undefined;
+              let close = undefined;
+              const datesplit = key.split(&apos;/&apos;);
+              const date = currentYear + &apos;-&apos; + datesplit[0] + &apos;-&apos; + datesplit[1];
+              // Park is closed, nothing returned
+              if (state === &apos;closed&apos;) {
+                state = scheduleType.closed;
+                open = moment(`${date} 23:59`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
+                close = moment(`${date} 23:59`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
+                // Park is open, but sold out, strangely enough operating hours are removed as well
+              } else if (state === &apos;soldout&apos;) {
+                open = moment(`${date} 10:00`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
+                close = moment(`${date} 23:00`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
+                state = scheduleType.operating;
+                // Park is operating as normal
+              } else {
+                state = scheduleType.operating;
+                open = moment(`${date} ${json.opening_hours[key].mo_time}`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
+                close = moment(`${date} ${json.opening_hours[key].mc_time}`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
+              }
+
+              // Set the hours object
+              const hourobj = {
+                openingTime: open,
+                closingTime: close,
+                type: state,
+              };
+              Calendar.push(hourobj);
+            }
+          });
           return Promise.resolve(Calendar);
         });
   }
