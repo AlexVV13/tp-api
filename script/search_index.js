@@ -1266,12 +1266,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/parks/walibi/walibiholland.js~walibiholland#getophours",
-    "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getOpHours",
-    "lib/parks/walibi/walibiholland.js~WalibiHolland#getOpHours",
-    "method"
-  ],
-  [
     "lib/parks/walibi/walibiholland.js~walibiholland#getqueue",
     "class/lib/parks/walibi/walibiholland.js~WalibiHolland.html#instance-method-getQueue",
     "lib/parks/walibi/walibiholland.js~WalibiHolland#getQueue",

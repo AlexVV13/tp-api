@@ -4399,7 +4399,7 @@
     "__docId__": 210,
     "kind": "file",
     "name": "lib/parks/walibi/walibiholland.js",
-    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport {Park} from '../park.js';\nimport {entityType, queueType} from '../types.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Holland Park Object\n* Make sure all environment variables are set in an .env file which should be in the main location.\n* Not setting these variables will make the module exit early without returning data.\n*\n* This class is here to fetch the POI data and to attach queue times data to it.\n* After the fetches this data is send to the end user and from there he could do whatever he wants to do.\n*\n* Most park specific parameters are set already\n* @class\n*/\nexport class WalibiHolland extends Park {\n  /**\n  * Create a new Walibi Holland Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    options.name = options.name || 'Walibi Holland';\n    options.timezone = options.timezone || 'Europe/Amsterdam';\n\n    // Setting the cute fountain at the entrance as parks location\n    options.latitude = 52.4390338;\n    options.longitude = 5.7665651;\n\n    // Options for our park Object\n    options.supportswaittimes = 'true';\n    options.supportsschedule = 'false';\n    options.supportsrideschedules = 'false';\n    options.fastPass = 'true';\n    options.FastPassReturnTimes = 'false';\n\n    // API options\n    options.apiUrl = options.apiUrl || process.env.WALIBIHOLLAND_APIURL;\n    options.apiBase = options.apiBase || process.env.WALIBIHOLLAND_APIBASE;\n\n    // Language settings\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'de', 'nl'}`;\n\n    super(options);\n\n    // Check for existance\n    if (!this.config.apiUrl) throw new Error('Missing Walibi Holland apiUrl!');\n    if (!this.config.apiBase) throw new Error('Missing Walibi Holland apiBase!');\n    if (!this.config.languages) {\n      this.config.languages = 'en';\n    };\n  }\n\n  /**\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  * @return {string} All Walibi Holland POIS with queuetimes\n  */\n  async getQueue() {\n    return fetch(this.config.apiUrl,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.forEach((ride) => {\n            let waitTime = '0';\n            let state = queueType.closed;\n            let active = 'false';\n            if (ride.name !== 'Dummy1') { // They have a dummy ride to sell single shots in their fast-lane, mind=blown\n              if (ride.useVirtualQueue == 'true') { // VirtQueue enabled\n                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let's round them.\n                state = queueType.operating;\n              } else { // No virtQueue found, use the normal queue instead\n                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60\n                state = queueType.operating;\n              }\n              if (ride.state === 'closed_indefinitely') { // Closed but not closed but still closed\n                state = queueType.closed;\n                active = 'false';\n              } // Declare other states when park reopens\n              // POI Object with queues\n              const poiData = {\n                name: ride.name,\n                id: 'WalibiHolland_' + ride.shortId,\n                state: state,\n                active: active,\n                waitTime: waitTime,\n                meta: {\n                  type: entityType.ride,\n                },\n              };\n              poi.push(poiData);\n            }\n          });\n          return Promise.resolve(poi);\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  * @example\n  * import tpapi from '@alexvv13/tpapi';\n  *\n  * const park = new tpapi.park.WalibiHolland();\n  *\n  * park.getOpHours().then((hours) => {\n  * console.log(hours)\n  * });\n  * @return {string} All Walibi Holland calendar data\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.config.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          return Promise.resolve(Calendar);\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  * @return {string} All Walibi Holland calendar data\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.config.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          // The calendar provides data for the whole year, however, we don't want past data.\n          Object.keys(json.opening_hours).forEach((key) => {\n            const now = moment().format('MM') + '\\/' + moment().format('DD');\n\n            // Only continue if our hit is AFTER yesterday\n            if (moment(key).isSameOrAfter(moment(now))) {\n              let state = json.opening_hours[key].status;\n              let open = undefined;\n              let close = undefined;\n              const datesplit = key.split('/');\n              const date = currentYear + '-' + datesplit[0] + '-' + datesplit[1];\n              // Park is closed, nothing returned\n              if (state === 'closed') {\n                state = scheduleType.closed;\n                open = moment(`${date} 23:59`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n                close = moment(`${date} 23:59`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n                // Park is open, but sold out, strangely enough operating hours are removed as well\n              } else if (state === 'soldout') {\n                open = moment(`${date} 10:00`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n                close = moment(`${date} 23:00`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n                state = scheduleType.operating;\n                // Park is operating as normal\n              } else {\n                state = scheduleType.operating;\n                open = moment(`${date} ${json.opening_hours[key].mo_time}`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n                close = moment(`${date} ${json.opening_hours[key].mc_time}`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n              }\n\n              // Set the hours object\n              const hourobj = {\n                openingTime: open,\n                closingTime: close,\n                type: state,\n              };\n              Calendar.push(hourobj);\n            }\n          });\n          return Promise.resolve(Calendar);\n        });\n  }\n}\n\nexport default WalibiHolland;\n",
+    "content": "import moment from 'moment-timezone';\nimport fetch from 'node-fetch';\nimport {Park} from '../park.js';\nimport {entityType, queueType} from '../types.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Holland Park Object\n* Make sure all environment variables are set in an .env file which should be in the main location.\n* Not setting these variables will make the module exit early without returning data.\n*\n* This class is here to fetch the POI data and to attach queue times data to it.\n* After the fetches this data is send to the end user and from there he could do whatever he wants to do.\n*\n* Most park specific parameters are set already\n* @class\n*/\nexport class WalibiHolland extends Park {\n  /**\n  * Create a new Walibi Holland Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    options.name = options.name || 'Walibi Holland';\n    options.timezone = options.timezone || 'Europe/Amsterdam';\n\n    // Setting the cute fountain at the entrance as parks location\n    options.latitude = 52.4390338;\n    options.longitude = 5.7665651;\n\n    // Options for our park Object\n    options.supportswaittimes = 'true';\n    options.supportsschedule = 'false';\n    options.supportsrideschedules = 'false';\n    options.fastPass = 'true';\n    options.FastPassReturnTimes = 'false';\n\n    // API options\n    options.apiUrl = options.apiUrl || process.env.WALIBIHOLLAND_APIURL;\n    options.apiBase = options.apiBase || process.env.WALIBIHOLLAND_APIBASE;\n\n    // Language settings\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'de', 'nl'}`;\n\n    super(options);\n\n    // Check for existance\n    if (!this.config.apiUrl) throw new Error('Missing Walibi Holland apiUrl!');\n    if (!this.config.apiBase) throw new Error('Missing Walibi Holland apiBase!');\n    if (!this.config.languages) {\n      this.config.languages = 'en';\n    };\n  }\n\n  /**\n  * Get All POIS of Walibi Holland\n  * This data contains all the POIS in Walibi Holland, limited to their fast-lane services\n  * @return {string} All Walibi Holland POIS with queuetimes\n  */\n  async getQueue() {\n    return fetch(this.config.apiUrl,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((rideData) => {\n          const poi = [];\n          rideData.forEach((ride) => {\n            let waitTime = '0';\n            let state = queueType.closed;\n            let active = 'false';\n            if (ride.name !== 'Dummy1') { // They have a dummy ride to sell single shots in their fast-lane, mind=blown\n              if (ride.useVirtualQueue == 'true') { // VirtQueue enabled\n                waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let's round them.\n                state = queueType.operating;\n              } else { // No virtQueue found, use the normal queue instead\n                waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60\n                state = queueType.operating;\n              }\n              if (ride.state === 'closed_indefinitely') { // Closed but not closed but still closed\n                state = queueType.closed;\n                active = 'false';\n              } // Declare other states when park reopens\n              // POI Object with queues\n              const poiData = {\n                name: ride.name,\n                id: 'WalibiHolland_' + ride.shortId,\n                state: state,\n                active: active,\n                waitTime: waitTime,\n                meta: {\n                  type: entityType.ride,\n                },\n              };\n              poi.push(poiData);\n            }\n          });\n          return Promise.resolve(poi);\n        });\n  }\n\n  /**\n  * Get All Operating Hours of Walibi Holland\n  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.\n  * @return {string} All Walibi Holland calendar data\n  */\n  async getOpHours() {\n    const currentYear = moment().format('YYYY');\n    return fetch(\n        this.config.apiBase +\n          `/calendar/${currentYear}?_format=json`,\n        {\n          method: 'GET',\n        },\n    )\n        .then((res) => res.json())\n        .then((json) => {\n          const Calendar = [];\n          // Execute Calendar stuff here\n          // The calendar provides data for the whole year, however, we don't want past data.\n          Object.keys(json.opening_hours).forEach((key) => {\n            const now = moment().format('MM') + '\\/' + moment().format('DD');\n\n            // Only continue if our hit is AFTER yesterday\n            if (moment(key).isSameOrAfter(moment(now))) {\n              let state = json.opening_hours[key].status;\n              let open = undefined;\n              let close = undefined;\n              const datesplit = key.split('/');\n              const date = currentYear + '-' + datesplit[0] + '-' + datesplit[1];\n              // Park is closed, nothing returned\n              if (state === 'closed') {\n                state = scheduleType.closed;\n                open = moment(`${date} 23:59`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n                close = moment(`${date} 23:59`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n                // Park is open, but sold out, strangely enough operating hours are removed as well\n              } else if (state === 'soldout') {\n                open = moment(`${date} 10:00`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n                close = moment(`${date} 23:00`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n                state = scheduleType.operating;\n                // Park is operating as normal\n              } else {\n                state = scheduleType.operating;\n                open = moment(`${date} ${json.opening_hours[key].mo_time}`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n                close = moment(`${date} ${json.opening_hours[key].mc_time}`, 'YYYY-MM-DD HH:mm a', `${this.config.Timezone}`).format();\n              }\n\n              // Set the hours object\n              const hourobj = {\n                openingTime: open,\n                closingTime: close,\n                type: state,\n              };\n              Calendar.push(hourobj);\n            }\n          });\n          return Promise.resolve(Calendar);\n        });\n  }\n}\n\nexport default WalibiHolland;\n",
     "static": true,
     "longname": "/home/runner/work/tp-api/tp-api/lib/parks/walibi/walibiholland.js",
     "access": "public",
@@ -4488,10 +4488,7 @@
     "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getOpHours",
     "access": "public",
     "description": "Get All Operating Hours of Walibi Holland<br />This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.",
-    "examples": [
-      "import tpapi from '@alexvv13/tpapi';\n\nconst park = new tpapi.park.WalibiHolland();\n\npark.getOpHours().then((hours) => {\nconsole.log(hours)\n});"
-    ],
-    "lineNumber": 120,
+    "lineNumber": 112,
     "return": {
       "nullable": null,
       "types": [
@@ -4504,28 +4501,6 @@
   },
   {
     "__docId__": 215,
-    "kind": "method",
-    "name": "getOpHours",
-    "memberof": "lib/parks/walibi/walibiholland.js~WalibiHolland",
-    "generator": false,
-    "async": true,
-    "static": false,
-    "longname": "lib/parks/walibi/walibiholland.js~WalibiHolland#getOpHours",
-    "access": "public",
-    "description": "Get All Operating Hours of Walibi Holland<br />This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.",
-    "lineNumber": 142,
-    "return": {
-      "nullable": null,
-      "types": [
-        "string"
-      ],
-      "spread": false,
-      "description": "All Walibi Holland calendar data"
-    },
-    "params": []
-  },
-  {
-    "__docId__": 216,
     "kind": "file",
     "name": "lib/parks/walibi/walibira.js",
     "content": "import WalibiBase from './walibibase.js';\n\nimport dotenv from 'dotenv';\ndotenv.config();\n\n/**\n* Walibi Belgium Park Object\n* Make sure all environment variables are set in an .env file which should be in the main location.\n* Not setting these variables will make the module exit early without returning data.\n*\n* This class is here to fetch the POI data and to attach queue times data to it.\n* After the fetches this data is send to the end user and from there he could do whatever he wants to do.\n*\n* Most park specific parameters are set already\n* @class\n*/\nexport class WalibiRA extends WalibiBase {\n  /**\n  * Create a new Walibi RA Park object\n  * @param {object} options\n  */\n  constructor(options = {}) {\n    options.name = options.name || 'Walibi Rhône-Alpes';\n    options.timezone = options.timezone || 'Europe/Paris';\n\n    // Set the parking's entrance as the parks default location\n    options.latitude = 45.6198928;\n    options.longitude = 5.5669562;\n\n    // Options for our park Object\n    options.supportswaittimes = 'true';\n    options.supportsschedule = 'false';\n    options.supportsrideschedules = 'false';\n    options.fastPass = 'true';\n    options.FastPassReturnTimes = 'false';\n\n    // API options\n    options.apiBase = options.apiBase || process.env.WALIBIRA_APIBASE;\n\n    // Language settings\n    options.languages = options.languages || process.env.LANGUAGES;\n\n    options.langoptions = options.langoptions || `{'en', 'fr'}`;\n\n    super(options);\n  }\n}\n\nexport default WalibiRA;\n",
@@ -4536,7 +4511,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 217,
+    "__docId__": 216,
     "kind": "class",
     "name": "WalibiRA",
     "memberof": "lib/parks/walibi/walibira.js",
@@ -4560,7 +4535,7 @@
     ]
   },
   {
-    "__docId__": 218,
+    "__docId__": 217,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "lib/parks/walibi/walibira.js~WalibiRA",
@@ -4585,7 +4560,7 @@
     ]
   },
   {
-    "__docId__": 219,
+    "__docId__": 218,
     "kind": "file",
     "name": "lib/reusePromises.js",
     "content": "/**\n * Module that wraps re-using the same Promise multiple times.\n * This allows a function to be called multiple times before returning, but only return once.\n * Useful for latent network requests,\n *  such as requesting a document from multiple sources, but only making one HTTP request.\n */\n\nconst activeFunctions = [];\n\n/**\n * Find the active function with these arguments\n * @param {*} self\n * @param {function} fn\n * @param {string} argsSerialised\n * @return {number}\n * @private\n */\nfunction findActiveFunctionIndex(self, fn, argsSerialised) {\n  return activeFunctions.findIndex((x) => {\n    return x.self === self && x.fn === fn && x.args === argsSerialised;\n  });\n}\n\n/**\n * Reuse a function until it resolves\n * @param {*} self\n * @param {function} fn\n * @param  {...any} args Arguments to pass to the function\n * @return {Promise}\n */\nexport function reusePromise(self, fn, ...args) {\n  return _reusePromise(false, self, fn, ...args);\n}\n\n/**\n * Reuse a function, returning it's result forever\n * @param {*} self\n * @param {function} fn\n * @param  {...any} args Arguments to pass to the function\n * @return {Promise}\n */\nexport function reusePromiseForever(self, fn, ...args) {\n  return _reusePromise(true, self, fn, ...args);\n}\n\n/**\n * Internal call to run a Promise once time (and optionally keep result forever)\n * @param {boolean} useResultForever\n * @param {*} self\n * @param {function} fn\n * @param  {...any} args\n * @return {Promise}\n * @private\n */\nfunction _reusePromise(useResultForever, self, fn, ...args) {\n  // search for existing promise that hasn't resolved yet\n  const argsSerialise = args ? JSON.stringify(args) : null;\n  const existingFunctionIndex = findActiveFunctionIndex(self, fn, argsSerialise);\n  const existingFunction = existingFunctionIndex >= 0 ? activeFunctions[existingFunctionIndex] : undefined;\n  if (existingFunction) {\n    if (existingFunction.resolved) {\n      return existingFunction.value;\n    }\n    return existingFunction.promise;\n  }\n\n  const cleanupPendingFunction = () => {\n    const pendingFunctionIDX = findActiveFunctionIndex(self, fn, argsSerialise);\n    if (pendingFunctionIDX >= 0) {\n      if (!useResultForever) {\n      // clean up pending Promise\n        activeFunctions.splice(pendingFunctionIDX, 1);\n      }\n    }\n  };\n\n  // didn't find a pending existing promise, make a new one!\n  const newPromise = (self !== null && self !== undefined) ? fn.apply(self, args) : fn(...args);\n  newPromise.then((value) => {\n    // clean up our pending Promise\n    if (!useResultForever) {\n      cleanupPendingFunction();\n    } else {\n      const pendingFunctionIDX = findActiveFunctionIndex(self, fn, argsSerialise);\n      if (pendingFunctionIDX >= 0) {\n      // store result so we can re-use it for future calls\n        activeFunctions[pendingFunctionIDX].resolved = true;\n        activeFunctions[pendingFunctionIDX].value = value;\n      }\n    }\n\n    return value;\n  }).catch((err) => {\n    cleanupPendingFunction();\n    throw err;\n  });\n  activeFunctions.push({\n    fn,\n    self,\n    args: argsSerialise,\n    promise: newPromise,\n    resolved: false,\n  });\n  return newPromise;\n}\n\nexport default reusePromise;\n",
@@ -4596,7 +4571,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 220,
+    "__docId__": 219,
     "kind": "variable",
     "name": "activeFunctions",
     "memberof": "lib/reusePromises.js",
@@ -4616,7 +4591,7 @@
     "ignore": true
   },
   {
-    "__docId__": 221,
+    "__docId__": 220,
     "kind": "function",
     "name": "findActiveFunctionIndex",
     "memberof": "lib/reusePromises.js",
@@ -4673,7 +4648,7 @@
     "ignore": true
   },
   {
-    "__docId__": 222,
+    "__docId__": 221,
     "kind": "function",
     "name": "reusePromise",
     "memberof": "lib/reusePromises.js",
@@ -4729,7 +4704,7 @@
     }
   },
   {
-    "__docId__": 223,
+    "__docId__": 222,
     "kind": "function",
     "name": "reusePromiseForever",
     "memberof": "lib/reusePromises.js",
@@ -4785,7 +4760,7 @@
     }
   },
   {
-    "__docId__": 224,
+    "__docId__": 223,
     "kind": "function",
     "name": "_reusePromise",
     "memberof": "lib/reusePromises.js",

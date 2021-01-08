@@ -168,36 +168,6 @@ export class WalibiHolland extends Park {
   /**
   * Get All Operating Hours of Walibi Holland
   * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.
-  * @example
-  * import tpapi from &apos;@alexvv13/tpapi&apos;;
-  *
-  * const park = new tpapi.park.WalibiHolland();
-  *
-  * park.getOpHours().then((hours) =&gt; {
-  * console.log(hours)
-  * });
-  * @return {string} All Walibi Holland calendar data
-  */
-  async getOpHours() {
-    const currentYear = moment().format(&apos;YYYY&apos;);
-    return fetch(
-        this.config.apiBase +
-          `/calendar/${currentYear}?_format=json`,
-        {
-          method: &apos;GET&apos;,
-        },
-    )
-        .then((res) =&gt; res.json())
-        .then((json) =&gt; {
-          const Calendar = [];
-          // Execute Calendar stuff here
-          return Promise.resolve(Calendar);
-        });
-  }
-
-  /**
-  * Get All Operating Hours of Walibi Holland
-  * This data contains all the Operating Hours in Walibi Holland, fetched with currentyear.
   * @return {string} All Walibi Holland calendar data
   */
   async getOpHours() {
