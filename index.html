@@ -50,6 +50,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-toverland">parks/toverland</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/toverland/toverland.js~Toverland.html">Toverland</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibase.js~WalibiBase.html">WalibiBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
@@ -102,6 +103,9 @@ PHANTASIALAND_API_KEY=
 PHANTASIALAND_POI_URL=
 PHANTASIALAND_WAITTIMES_URL=
 PHANTASIALAND_HOURS_URL=
+
+TOVERLAND_APIBASE=
+TOVERLAND_TOKEN=
 
 WALIBIHOLLAND_APIBASE= 
 WALIBIHOLLAND_APIURL= 
@@ -195,6 +199,7 @@ park.getWaitTime().then((poiData) =&gt; {
 <li>Rulantica (tpapi.parks.Rulantica)</li>
 <li>YULLBE (tpapi.parks.Yullbe)</li>
 <li>Phantasialand (tpapi.parks.Phantasialand)</li>
+<li>Toverland (tpapi.parks.Toverland)</li>
 <li>Walibi Holland (tpapi.parks.WalibiHolland)</li>
 <li>Walibi Belgium (tpapi.parks.WalibiBelgium)</li>
 <li>Walibi Rh&#xF4;ne-Alpes (tpapi.parks.WalibiRA)</li>
@@ -236,6 +241,11 @@ park.getWaitTime().then((poiData) =&gt; {
 <td>:heavy_multiplication_x:</td>
 </tr>
 <tr>
+<td>Toverland</td>
+<td>:heavy_check_mark:</td>
+<td>:heavy_check_mark:</td>
+</tr>
+<tr>
 <td>Walibi Holland</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
@@ -258,22 +268,24 @@ park.getWaitTime().then((poiData) =&gt; {
         name: (string: ride name),
         waitTime: (number: current wait time in minutes),
         active: (bool: is the ride currently active?),
+        state: (string: will either be &quot;Operating&quot;, &quot;Closed&quot;, &quot;Refurbishment&quot;, or &quot;Down&quot;),
         location: (object: contains location data such as latlon
              latitude: (number: ride&apos;s latitude),
              longitude: (number: ride&apos;s longitude),
+             area: (string: what area is this ride in?)
         meta: { (object: can contain various park-specific information about this ride - field may be null)
             // examples of potential meta fields
+            description: { (object: can contain ride descriptions)
+            },
             single_rider: (boolean: does this ride have a single rider line?),
             type: (string: what is this poi?),
             fastPass: (boolean: does this ride have a fastPass line?),
             isVirtQueue: (boolean: is this entity a Virtual Queue?),
-            area: (string: section of the park this ride is located within),
             tags: { (object: can contain various ride-specific tags, can be null and fields differ per park)
             },
             restrictions: { (object: can contain various ride-specific restrictions(minHeight etc), can be null and fields differ per park)
             },
         },
-        status: (string: will either be &quot;Operating&quot;, &quot;Closed&quot;, &quot;Refurbishment&quot;, or &quot;Down&quot;),
     },
     ...
 ]</code>
@@ -363,6 +375,7 @@ for (const park in Parks) {
 <li>Rulantica [48.2605514, 7.7386819]: (Europe/Berlin)</li>
 <li>YULLBE [48.266140769976715, 7.722050520358709]: (Europe/Berlin)</li>
 <li>Phantasialand [50.798954, 6.879314]: (Europe/Berlin)</li>
+<li>Toverland [51.397673285726114, 5.981651557822892]: (Europe/Amsterdam)</li>
 <li>Walibi Belgium [50.7038852, 4.5960371]: (Europe/Brussels)</li>
 <li>Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)</li>
 <li>Walibi Rh&#xF4;ne-Alpes [45.6198928, 5.5669562]: (Europe/Paris)</li>

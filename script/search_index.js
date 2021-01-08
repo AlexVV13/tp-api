@@ -78,6 +78,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/toverland/toverland.js~toverland",
+    "class/lib/parks/toverland/toverland.js~Toverland.html",
+    "<span>Toverland</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/toverland/toverland.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/walibi/walibibase.js~walibibase",
     "class/lib/parks/walibi/walibibase.js~WalibiBase.html",
     "<span>WalibiBase</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibibase.js</span>",
@@ -1044,6 +1050,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/park.js~park#gethalloween",
+    "class/lib/parks/park.js~Park.html#instance-method-getHalloween",
+    "lib/parks/park.js~Park#getHalloween",
+    "method"
+  ],
+  [
     "lib/parks/park.js~park#getmerchandise",
     "class/lib/parks/park.js~Park.html#instance-method-getMerchandise",
     "lib/parks/park.js~Park#getMerchandise",
@@ -1162,6 +1174,66 @@ window.esdocSearchIndex = [
     "file/lib/parks/tags.js.html",
     "lib/parks/tags.js",
     "file"
+  ],
+  [
+    "lib/parks/toverland/toverland.js",
+    "file/lib/parks/toverland/toverland.js.html",
+    "lib/parks/toverland/toverland.js",
+    "file"
+  ],
+  [
+    "lib/parks/toverland/toverland.js~toverland#buildhalloweenpoi",
+    "class/lib/parks/toverland/toverland.js~Toverland.html#instance-method-buildHalloweenPOI",
+    "lib/parks/toverland/toverland.js~Toverland#buildHalloweenPOI",
+    "method"
+  ],
+  [
+    "lib/parks/toverland/toverland.js~toverland#buildmerchandisepoi",
+    "class/lib/parks/toverland/toverland.js~Toverland.html#instance-method-buildMerchandisePOI",
+    "lib/parks/toverland/toverland.js~Toverland#buildMerchandisePOI",
+    "method"
+  ],
+  [
+    "lib/parks/toverland/toverland.js~toverland#buildrestaurantpoi",
+    "class/lib/parks/toverland/toverland.js~Toverland.html#instance-method-buildRestaurantPOI",
+    "lib/parks/toverland/toverland.js~Toverland#buildRestaurantPOI",
+    "method"
+  ],
+  [
+    "lib/parks/toverland/toverland.js~toverland#buildridepoi",
+    "class/lib/parks/toverland/toverland.js~Toverland.html#instance-method-buildRidePOI",
+    "lib/parks/toverland/toverland.js~Toverland#buildRidePOI",
+    "method"
+  ],
+  [
+    "lib/parks/toverland/toverland.js~toverland#buildservicepoi",
+    "class/lib/parks/toverland/toverland.js~Toverland.html#instance-method-buildServicePOI",
+    "lib/parks/toverland/toverland.js~Toverland#buildServicePOI",
+    "method"
+  ],
+  [
+    "lib/parks/toverland/toverland.js~toverland#buildshowpoi",
+    "class/lib/parks/toverland/toverland.js~Toverland.html#instance-method-buildShowPOI",
+    "lib/parks/toverland/toverland.js~Toverland#buildShowPOI",
+    "method"
+  ],
+  [
+    "lib/parks/toverland/toverland.js~toverland#constructor",
+    "class/lib/parks/toverland/toverland.js~Toverland.html#instance-constructor-constructor",
+    "lib/parks/toverland/toverland.js~Toverland#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/toverland/toverland.js~toverland#getophours",
+    "class/lib/parks/toverland/toverland.js~Toverland.html#instance-method-getOpHours",
+    "lib/parks/toverland/toverland.js~Toverland#getOpHours",
+    "method"
+  ],
+  [
+    "lib/parks/toverland/toverland.js~toverland#getqueue",
+    "class/lib/parks/toverland/toverland.js~Toverland.html#instance-method-getQueue",
+    "lib/parks/toverland/toverland.js~Toverland#getQueue",
+    "method"
   ],
   [
     "lib/parks/types.js",

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/parks/toverland/toverland.js | @alexvv13/tpapi</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Api to fetch themepark data, such as queues, operating hours etc"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@alexvv13/tpapi"><meta property="twitter:description" content="Api to fetch themepark data, such as queues, operating hours etc"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/AlexVV13/tp-api"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCache">getCache</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parseConfig">parseConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromise">reusePromise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromiseForever">reusePromiseForever</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cache">cache</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheBase.js~CacheBase.html">CacheBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheLevel.js~CacheLevel.html">CacheLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheMemory.js~CacheMemory.html">CacheMemory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/scopedCache.js~ScopedCache.html">ScopedCache</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/location.js~Location.html">Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityCategory">entityCategory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityTags">entityTags</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-queueEntity">queueEntity</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-toverland">parks/toverland</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/toverland/toverland.js~Toverland.html">Toverland</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibase.js~WalibiBase.html">WalibiBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibira.js~WalibiRA.html">WalibiRA</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/toverland/toverland.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fetch from &apos;node-fetch&apos;;
+import moment from &apos;moment-timezone&apos;;
+import {Park} from &apos;../park.js&apos;;
+
+import dotenv from &apos;dotenv&apos;;
+import {entityType, queueType, scheduleType} from &apos;../types.js&apos;;
+dotenv.config();
+
+/**
+* Toverland Park Object
+* Make sure all environment variables are set in an .env file which should be in the main location.
+* Not setting these variables will make the module exit early without returning data.
+*
+* This class is here to fetch the POI data and to attach queue times data to it.
+* After the fetches this data is send to the end user and from there he could do whatever he wants to do.
+*
+* Most park specific parameters are set already
+* @class
+*/
+export class Toverland extends Park {
+  /**
+  * Create a new Toverland Park object
+  * @param {object} options
+  */
+  constructor(options = {}) {
+    options.name =&apos;Toverland&apos;;
+    options.timezone = &apos;Europe/Amsterdam&apos;;
+
+    // Setting the parks entrance as latlon
+    options.latitude = 51.397673285726114;
+    options.longitude = 5.981651557822892;
+
+    // Options for our park Object
+    options.supportswaittimes = &apos;true&apos;;
+    options.supportsschedule = &apos;true&apos;;
+    options.supportsrideschedules = &apos;true&apos;;
+    options.fastPass = &apos;false&apos;;
+    options.FastPassReturnTimes = &apos;false&apos;;
+
+    // API options
+    options.apiBase = process.env.TOVERLAND_APIBASE;
+    options.apiKey = process.env.TOVERLAND_TOKEN;
+    options.hoursUrl = process.env.TOVERLAND_HOURS;
+
+    // Language settings
+    options.languages = process.env.LANGUAGES;
+
+    options.langoptions = `{&apos;en&apos;, &apos;de&apos;, &apos;nl&apos;}`;
+
+    super(options);
+
+    // Check for existance
+    if (!this.config.apiBase) throw new Error(&apos;Missing Toverland apiBase!&apos;);
+    if (!this.config.apiKey) throw new Error(&apos;Missing Toverland apiKey!&apos;);
+    if (!this.config.hoursUrl) throw new Error(&apos;Missing Toverland Hours URL!&apos;);
+    if (!this.config.languages) {
+      this.config.languages = &apos;en&apos;;
+    };
+  }
+
+  /**
+  * Get All Ride POIS of Toverland
+  * This data contains all the ride POIS in Toverland.
+  * @return {string} All Toverland ride POI data
+  */
+  async buildRidePOI() {
+    return await this.cache.wrap(&apos;rides&apos;, async () =&gt; {
+      return fetch(`${this.config.apiBase}/park/ride/list`,
+          {
+            method: &apos;GET&apos;,
+            headers: {
+              &apos;Authorization&apos;: this.config.apiKey,
+            },
+          },
+      ).then((res) =&gt; res.json())
+          .then((ride) =&gt; {
+            const poi = {};
+            const lang = this.config.languages;
+            ride.forEach((pois) =&gt; {
+              // What a stupid area definition.
+              let area = undefined;
+              if (pois.area_id === &apos;1&apos;) {
+                area = &apos;Land van Toos&apos;;
+              } else if (pois.area_id === &apos;2&apos;) {
+                area = &apos;Wunderwald&apos;;
+              } else if (pois.area_id === &apos;3&apos;) {
+                area = &apos;Ithaka&apos;;
+              } else if (pois.area_id === &apos;4&apos;) {
+                area = &apos;De Magische Vallei&apos;;
+              } else if (pois.area_id === &apos;5&apos;) {
+                area = &apos;Port Laguna&apos;;
+              } else if (pois.area_id === &apos;6&apos;) {
+                area = &apos;Avalon&apos;;
+              }
+
+              const descr = pois.description[lang];
+              const shortdesc = pois.short_description[lang];
+
+              let minHeightCM = undefined;
+              let minHeightComp = undefined;
+              if (pois.minLength !== null) {
+                minHeightCM = pois.minLength + &apos;0 cm&apos;;
+              }
+              if (pois.supervision !== null) {
+                minHeightComp= pois.supervision + &apos;0 cm&apos;;
+              }
+              const restrictions = {
+                minHeight: minHeightCM,
+                minHeightAccompanied: minHeightComp,
+              };
+              poi[pois.id] = {
+                id: `Toverland_${pois.id}`,
+                name: pois.name,
+                location: {
+                  latitude: pois.latitude,
+                  longitude: pois.longitude,
+                  area: area,
+                },
+                meta: {
+                  description: descr,
+                  short_description: shortdesc,
+                  type: entityType.ride,
+                  restrictions,
+                },
+              };
+            });
+            return Promise.resolve(poi);
+          });
+    }, 1000 * 60 * 60 * 12); // 12 hours
+  };
+
+  /**
+  * Get All Restaurant POIS of Toverland
+  * This data contains all the Restaurant POIS in Toverland.
+  * @return {string} All Toverland Restaurant POI data
+  */
+  async buildRestaurantPOI() {
+    return await this.cache.wrap(&apos;restaurant&apos;, async () =&gt; {
+      return fetch(`${this.config.apiBase}/park/foodAndDrinks/list`,
+          {
+            method: &apos;GET&apos;,
+            headers: {
+              &apos;Authorization&apos;: this.config.apiKey,
+            },
+          },
+      ).then((res) =&gt; res.json())
+          .then((ride) =&gt; {
+            const poi = {};
+            const lang = this.config.languages;
+            ride.forEach((pois) =&gt; {
+              // What a stupid area definition.
+              let area = undefined;
+              if (pois.area_id === &apos;1&apos;) {
+                area = &apos;Land van Toos&apos;;
+              } else if (pois.area_id === &apos;2&apos;) {
+                area = &apos;Wunderwald&apos;;
+              } else if (pois.area_id === &apos;3&apos;) {
+                area = &apos;Ithaka&apos;;
+              } else if (pois.area_id === &apos;4&apos;) {
+                area = &apos;De Magische Vallei&apos;;
+              } else if (pois.area_id === &apos;5&apos;) {
+                area = &apos;Port Laguna&apos;;
+              } else if (pois.area_id === &apos;6&apos;) {
+                area = &apos;Avalon&apos;;
+              }
+
+              const descr = pois.description[lang];
+              const shortdesc = pois.short_description[lang];
+
+              poi[pois.id] = {
+                id: `Toverland_${pois.id}`,
+                name: pois.name,
+                location: {
+                  latitude: pois.latitude,
+                  longitude: pois.longitude,
+                  area: area,
+                },
+                meta: {
+                  description: descr,
+                  short_description: shortdesc,
+                  type: entityType.restaurant,
+                },
+              };
+            });
+            return Promise.resolve(poi);
+          });
+    }, 1000 * 60 * 60 * 12); // 12 hours
+  };
+
+  /**
+  * Get All POIS of Toverland
+  * This data contains all the POIS in Toverland.
+  * @return {string} All Toverland POI data
+  */
+  async buildMerchandisePOI() {
+    return await this.cache.wrap(&apos;merchandise&apos;, async () =&gt; {
+      return fetch(`${this.config.apiBase}/park/shop/list`,
+          {
+            method: &apos;GET&apos;,
+            headers: {
+              &apos;Authorization&apos;: this.config.apiKey,
+            },
+          },
+      ).then((res) =&gt; res.json())
+          .then((ride) =&gt; {
+            const poi = {};
+            const lang = this.config.languages;
+            ride.forEach((pois) =&gt; {
+              // What a stupid area definition.
+              let area = undefined;
+              if (pois.area_id === &apos;1&apos;) {
+                area = &apos;Land van Toos&apos;;
+              } else if (pois.area_id === &apos;2&apos;) {
+                area = &apos;Wunderwald&apos;;
+              } else if (pois.area_id === &apos;3&apos;) {
+                area = &apos;Ithaka&apos;;
+              } else if (pois.area_id === &apos;4&apos;) {
+                area = &apos;De Magische Vallei&apos;;
+              } else if (pois.area_id === &apos;5&apos;) {
+                area = &apos;Port Laguna&apos;;
+              } else if (pois.area_id === &apos;6&apos;) {
+                area = &apos;Avalon&apos;;
+              }
+
+              const descr = pois.description[lang];
+              const shortdesc = pois.short_description[lang];
+
+              poi[pois.id] = {
+                id: `Toverland_${pois.id}`,
+                name: pois.name,
+                location: {
+                  latitude: pois.latitude,
+                  longitude: pois.longitude,
+                  area: area,
+                },
+                meta: {
+                  description: descr,
+                  short_description: shortdesc,
+                  type: entityType.merchandise,
+                },
+              };
+            });
+            return Promise.resolve(poi);
+          });
+    }, 1000 * 60 * 60 * 12); // 12 hours
+  };
+
+  /**
+  * Get All POIS of Toverland
+  * This data contains all the POIS in Toverland.
+  * @return {string} All Toverland POI data
+  */
+  async buildShowPOI() {
+    return await this.cache.wrap(&apos;show&apos;, async () =&gt; {
+      return fetch(`${this.config.apiBase}/park/show/list`,
+          {
+            headers: {
+              &apos;Authorization&apos;: this.config.apiKey,
+            },
+          },
+      ).then((res) =&gt; res.json())
+          .then((ride) =&gt; {
+            const poi = {};
+            const lang = this.config.languages;
+            ride.forEach((pois) =&gt; {
+              // What a stupid area definition.
+              let area = undefined;
+              if (pois.area_id === &apos;1&apos;) {
+                area = &apos;Land van Toos&apos;;
+              } else if (pois.area_id === &apos;2&apos;) {
+                area = &apos;Wunderwald&apos;;
+              } else if (pois.area_id === &apos;3&apos;) {
+                area = &apos;Ithaka&apos;;
+              } else if (pois.area_id === &apos;4&apos;) {
+                area = &apos;De Magische Vallei&apos;;
+              } else if (pois.area_id === &apos;5&apos;) {
+                area = &apos;Port Laguna&apos;;
+              } else if (pois.area_id === &apos;6&apos;) {
+                area = &apos;Avalon&apos;;
+              }
+
+              const descr = pois.description[lang];
+              const shortdesc = pois.short_description[lang];
+
+              poi[pois.id] = {
+                id: `Toverland_${pois.id}`,
+                name: pois.name,
+                location: {
+                  latitude: pois.latitude,
+                  longitude: pois.longitude,
+                  area: area,
+                },
+                meta: {
+                  description: descr,
+                  short_description: shortdesc,
+                  type: entityType.shop,
+                },
+              };
+            });
+            return Promise.resolve(poi);
+          });
+    }, 1000 * 60 * 60 * 12); // 12 hours
+  };
+
+  /**
+  * Get All Halloween POIS of Toverland
+  * This data contains all the Halloween POIS in Toverland.
+  * @return {string} All Toverland Halloween POI data
+  */
+  async buildHalloweenPOI() {
+    return await this.cache.wrap(&apos;halloween&apos;, async () =&gt; {
+      return fetch(`${this.config.apiBase}/park/halloween/list`,
+          {
+            method: &apos;GET&apos;,
+            headers: {
+              &apos;Authorization&apos;: this.config.apiKey,
+            },
+          },
+      ).then((res) =&gt; res.json())
+          .then((ride) =&gt; {
+            const poi = {};
+            const lang = this.config.languages;
+            ride.forEach((pois) =&gt; {
+              // What a stupid area definition.
+              let area = undefined;
+              if (pois.area_id === &apos;1&apos;) {
+                area = &apos;Land van Toos&apos;;
+              } else if (pois.area_id === &apos;2&apos;) {
+                area = &apos;Wunderwald&apos;;
+              } else if (pois.area_id === &apos;3&apos;) {
+                area = &apos;Ithaka&apos;;
+              } else if (pois.area_id === &apos;4&apos;) {
+                area = &apos;De Magische Vallei&apos;;
+              } else if (pois.area_id === &apos;5&apos;) {
+                area = &apos;Port Laguna&apos;;
+              } else if (pois.area_id === &apos;6&apos;) {
+                area = &apos;Avalon&apos;;
+              }
+
+              const descr = pois.description[lang];
+              const shortdesc = pois.short_description[lang];
+
+              poi[pois.id] = {
+                id: `Toverland_${pois.id}`,
+                name: pois.name,
+                location: {
+                  latitude: pois.latitude,
+                  longitude: pois.longitude,
+                  area: area,
+                },
+                meta: {
+                  description: descr,
+                  short_description: shortdesc,
+                  type: entityType.halloween,
+                },
+              };
+            });
+            return Promise.resolve(poi);
+          });
+    }, 1000 * 60 * 60 * 12); // 12 hours
+  };
+
+  /**
+  * Get All Halloween POIS of Toverland
+  * This data contains all the Halloween POIS in Toverland.
+  * @return {string} All Toverland Halloween POI data
+  */
+  async buildServicePOI() {
+    return await this.cache.wrap(&apos;service&apos;, async () =&gt; {
+      return fetch(`${this.config.apiBase}/park/services/list`,
+          {
+            method: &apos;GET&apos;,
+            headers: {
+              &apos;Authorization&apos;: this.config.apiKey,
+            },
+          },
+      ).then((res) =&gt; res.json())
+          .then((ride) =&gt; {
+            const poi = {};
+            const lang = this.config.languages;
+            ride.forEach((pois) =&gt; {
+              // What a stupid area definition.
+              let area = undefined;
+              if (pois.area_id === &apos;1&apos;) {
+                area = &apos;Land van Toos&apos;;
+              } else if (pois.area_id === &apos;2&apos;) {
+                area = &apos;Wunderwald&apos;;
+              } else if (pois.area_id === &apos;3&apos;) {
+                area = &apos;Ithaka&apos;;
+              } else if (pois.area_id === &apos;4&apos;) {
+                area = &apos;De Magische Vallei&apos;;
+              } else if (pois.area_id === &apos;5&apos;) {
+                area = &apos;Port Laguna&apos;;
+              } else if (pois.area_id === &apos;6&apos;) {
+                area = &apos;Avalon&apos;;
+              }
+
+              let descr = undefined;
+              let shortdesc = undefined;
+              if (pois.description !== null) {
+                descr = pois.description[lang];
+                shortdesc = pois.short_description[lang];
+              } else {
+                descr = undefined;
+                shortdesc = undefined;
+              }
+
+              poi[pois.id] = {
+                id: `Toverland_${pois.id}`,
+                name: pois.name,
+                location: {
+                  latitude: pois.latitude,
+                  longitude: pois.longitude,
+                  area: area,
+                },
+                meta: {
+                  description: descr,
+                  short_description: shortdesc,
+                  type: entityType.service,
+                },
+              };
+            });
+            return Promise.resolve(poi);
+          });
+    }, 1000 * 60 * 60 * 12); // 12 hours
+  };
+
+  /**
+  * Build the Queue object here, cause thats cool
+  * @return {string} All Ride pois with queues attached
+  */
+  async getQueue() {
+    const rideData = await this.buildRidePOI();
+    // FYI, this link actually provides the buildRidePOI data, however, I prefer doing it this way since I don&apos;t like caching queues
+    return fetch(`${this.config.apiBase}/park/ride/operationInfo/list`,
+        {
+          method: &apos;GET&apos;,
+          headers: {
+            &apos;Authorization&apos;: this.config.apiKey,
+          },
+        },
+    ).then((res) =&gt; res.json())
+        .then((ride) =&gt; {
+          const rides = [];
+          ride.forEach((poi) =&gt; {
+            let state = poi.last_status.status.name.en;
+            let waitTime = null;
+            let active = null;
+            // Ride is closed
+            if (state === &apos;Closed&apos;) {
+              waitTime = &apos;0&apos;;
+              active = &apos;false&apos;;
+              state = queueType.closed;
+            // Ride is open, no queue known
+            } else if (state === &apos;Open without waiting time&apos;) {
+              waitTime = &apos;0&apos;;
+              active = &apos;true&apos;;
+              state = queueType.operating;
+            // Ride is open at some strange unknown times, depends on where the operator is
+            } else if (state === &apos;Variable schedule&apos;) {
+              waitTime = &apos;0&apos;;
+              active = &apos;true&apos;;
+              state = queueType.operating;
+            // Open, but somehow the last_waiting_time disappeared. Too bad...
+            } else if (state === &apos;Open&apos; &amp;&amp; !ride.last_waiting_time) {
+              waitTime = &apos;0&apos;;
+              active = &apos;true&apos;;
+              state = queueType.operating;
+            // Finally! It is normally open!
+            } else if (state === &apos;Open&apos;) {
+              waitTime = ride.last_waiting_time.waiting_time;
+              active = &apos;true&apos;;
+              state = queueType.operating;
+            // We&apos;ll assume ride is closed?
+            } else {
+              waitTime = &apos;0&apos;;
+              active = &apos;false&apos;;
+              state = queueType.down;
+            }
+
+            let openTime = undefined;
+            let closingTime = undefined;
+            let type = undefined;
+            if (Object.keys(poi.opening_times).length &lt; 1) {
+              openTime = moment(&apos;23:59&apos;, &apos;HH:mm&apos;).format();
+              closingTime = moment(&apos;23:59&apos;, &apos;HH:mm&apos;).format();
+              type = scheduleType.closed;
+            } else {
+              openTime = moment(poi.opening_times.start, &apos;YYYY-MM-DD HH:mm:ss&apos;).format();
+              closingTime = moment(poi.opening_times.end, &apos;YYYY-MM-DD HH:mm:ss&apos;).format();
+              type = scheduleType.operating;
+            }
+
+            if (rideData[poi.id]) {
+              const rideobj = {
+                id: rideData[poi.id].id,
+                name: rideData[poi.id].name,
+                waitTime: waitTime,
+                active: active,
+                state: state,
+                location: rideData[poi.id].location,
+                meta: rideData[poi.id].meta,
+                schedule: {
+                  openTime: openTime,
+                  closingTime: closingTime,
+                  type: type,
+                },
+              };
+              rides.push(rideobj);
+            }
+          });
+          return Promise.resolve(rides);
+        });
+  }
+
+  /**
+   * Get operating hours Toverland
+   * @return {string} Operating Hours for 1 week
+   */
+  async getOpHours() {
+    const weekday = moment().format(&apos;YYYY-MM-DD&apos;);
+    return fetch(`${this.config.hoursUrl}${weekday}&amp;L=3`,
+        {
+          method: &apos;GET&apos;,
+        },
+    ).then((res) =&gt; res.json())
+        .then((hours) =&gt; {
+          const Calendar = [];
+          Object.keys(hours.week).forEach((times) =&gt; {
+            const date = hours.week[times].date.full;
+            let open = undefined;
+            let close = undefined;
+            let state = undefined;
+            // Park is closed
+            if (hours.week[times].time_open == &apos;00:00&apos;) {
+              open = moment(`${date} 23:59`).format();
+              close = moment(`${date} 23:59`).format();
+              state = scheduleType.closed;
+            // Park is open
+            } else {
+              open = moment(`${date} ${hours.week[times].time_open}`).format();
+              close = moment(`${date} ${hours.week[times].time_close}`).format();
+              state = scheduleType.operating;
+            };
+            // Create the schedule object
+            const hourobj = {
+              openTime: open,
+              closingTime: close,
+              type: state,
+            };
+            Calendar.push(hourobj);
+          });
+          return Promise.resolve(Calendar);
+        });
+  }
+}
+
+export default Toverland;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

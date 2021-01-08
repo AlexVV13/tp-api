@@ -1,7 +1,7 @@
 {
-  "coverage": "96.71%",
-  "expectCount": 152,
-  "actualCount": 147,
+  "coverage": "96.93%",
+  "expectCount": 163,
+  "actualCount": 158,
   "files": {
     "lib/cache/cacheBase.js": {
       "expectCount": 14,
@@ -76,8 +76,8 @@
       "undocumentLines": []
     },
     "lib/parks/park.js": {
-      "expectCount": 14,
-      "actualCount": 14,
+      "expectCount": 15,
+      "actualCount": 15,
       "undocumentLines": []
     },
     "lib/parks/phantasialand/phantasialand.js": {
@@ -88,6 +88,11 @@
     "lib/parks/tags.js": {
       "expectCount": 3,
       "actualCount": 3,
+      "undocumentLines": []
+    },
+    "lib/parks/toverland/toverland.js": {
+      "expectCount": 10,
+      "actualCount": 10,
       "undocumentLines": []
     },
     "lib/parks/types.js": {
