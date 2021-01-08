@@ -251,11 +251,11 @@ export class Phantasialand extends Park {
         // We only want services
         if (rideData[ride].meta.type !== &apos;SERVICE&apos;) return undefined;
 
-        const id = rideData[ride].id;
+        const id = rideData[ride];
 
         rides[id] = {
           name: rideData[ride].name,
-          id: id,
+          id: `Phantasialand_${id}`,
           location: {
             area: rideData[ride].location.area,
             longitude: rideData[ride].location.longitude,
@@ -287,11 +287,11 @@ export class Phantasialand extends Park {
         // We only want shops
         if (rideData[ride].meta.type !== &apos;SHOPS&apos;) return undefined;
 
-        const id = rideData[ride].id;
+        const id = rideData[ride];
 
         rides[id] = {
           name: rideData[ride].name,
-          id: id,
+          id: `Phantasialand_${id}`,
           location: {
             area: rideData[ride].location.area,
             longitude: rideData[ride].location.longitude,
@@ -323,11 +323,11 @@ export class Phantasialand extends Park {
         // We only want event locations
         if (rideData[ride].meta.type !== &apos;EVENT_LOCATIONS&apos;) return undefined;
 
-        const id = rideData[ride].id;
+        const id = rideData[ride];
 
         rides[id] = {
           name: rideData[ride].name,
-          id: id,
+          id: `Phantasialand_${id}`,
           location: {
             area: rideData[ride].location.area,
             longitude: rideData[ride].location.longitude,
@@ -359,11 +359,11 @@ export class Phantasialand extends Park {
         // We only want hotels
         if (rideData[ride].meta.type !== &apos;PHANTASIALAND_HOTELS&apos;) return undefined;
 
-        const id = rideData[ride].id;
+        const id = rideData[ride];
 
         rides[id] = {
           name: rideData[ride].name,
-          id: id,
+          id: `Phantasialand_${id}`,
           location: {
             area: rideData[ride].location.area,
             longitude: rideData[ride].location.longitude,
@@ -395,11 +395,11 @@ export class Phantasialand extends Park {
         // We only want hotel bars
         if (rideData[ride].meta.type !== &apos;PHANTASIALAND_HOTELS_BARS&apos;) return undefined;
 
-        const id = rideData[ride].id;
+        const id = rideData[ride];
 
         rides[id] = {
           name: rideData[ride].name,
-          id: id,
+          id: `Phantasialand_${id}`,
           location: {
             area: rideData[ride].location.area,
             longitude: rideData[ride].location.longitude,
@@ -431,11 +431,11 @@ export class Phantasialand extends Park {
         // We only want restaurants
         if (rideData[ride].meta.type !== &apos;RESTAURANTS_AND_SNACKS&apos;) return undefined;
 
-        const id = rideData[ride].id;
+        const id = rideData[ride];
 
         rides[id] = {
           name: rideData[ride].name,
-          id: id,
+          id: `Phantasialand_${id}`,
           location: {
             area: rideData[ride].location.area,
             longitude: rideData[ride].location.longitude,
@@ -471,7 +471,7 @@ export class Phantasialand extends Park {
 
         rides[id] = {
           name: rideData[ride].name,
-          id: id,
+          id: `Phantasialand_${id}`,
           location: {
             area: rideData[ride].location.area,
             longitude: rideData[ride].location.longitude,
@@ -508,16 +508,18 @@ export class Phantasialand extends Park {
       )
           .then((res) =&gt; res.json())
           .then((ride) =&gt; {
-            console.log(ride);
             const rides = [];
-            ride.forEach((rideData) =&gt; {
+            // console.log(ride);
+            if (!ride) throw new Error(&apos;No queuedata found!&apos;);
+            Object.keys(ride).forEach((rideData) =&gt; {
+              console.log(ride[rideData].waitTime);
               let waitTime = &apos;0&apos;;
               let active = &apos;false&apos;;
               let state = queueType.closed;
 
               // Check if ride is open and if it actually has a queuetime attached
-              if (rideData.open &amp;&amp; rideData.waitTime !== null) {
-                waitTime = rideData.waitTime;
+              if (ride[rideData].open &amp;&amp; ride[rideData].waitTime !== null) {
+                waitTime = ride[rideData].waitTime;
                 active = &apos;true&apos;;
                 state = queueType.operating;
               }
@@ -527,9 +529,9 @@ export class Phantasialand extends Park {
               let closingTime = undefined;
               let opType = undefined;
 
-              if (rideData.opening &amp;&amp; rideData.closing) {
-                openTime = rideData.opening;
-                closingTime = rideData.closing;
+              if (ride[rideData].opening &amp;&amp; ride[rideData].closing) {
+                openTime = ride[rideData].opening;
+                closingTime = ride[rideData].closing;
                 opType = queueType.operating;
               } else {
                 openTime = undefined;
@@ -537,16 +539,16 @@ export class Phantasialand extends Park {
                 opType = queueType.closed;
               }
 
-              if (poi[rideData.poiId]) {
+              if (poi[ride[rideData].poiId]) {
                 const rideobj = {
-                  name: poi[rideData.poiId].name,
-                  id: `Phantasialand_${poi[rideData.poiId].id}`,
+                  name: poi[ride[rideData].poiId].name,
+                  id: poi[ride[rideData].poiId].id,
                   state: state,
                   waitTime: waitTime,
                   active: active,
-                  changedAt: rideData.updatedAt,
-                  location: poi[rideData.poiId].location,
-                  meta: poi[rideData.poiId].meta,
+                  changedAt: ride[rideData].updatedAt,
+                  location: poi[ride[rideData].poiId].location,
+                  meta: poi[ride[rideData].poiId].meta,
                   schedule: {
                     openTime: openTime,
                     closingTime: closingTime,
