@@ -61,6 +61,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/phantasialand/phantasialand.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fetch from &apos;node-fetch&apos;;
+import moment from &apos;moment-timezone&apos;;
 import {Park} from &apos;../park.js&apos;;
 import Location from &apos;../location.js&apos;;
 
@@ -529,11 +530,11 @@ export class Phantasialand extends Park {
               let closingTime = undefined;
               let opType = undefined;
 
-              if (ride[rideData].opening &amp;&amp; ride[rideData].closing) {
-                openTime = ride[rideData].opening;
-                closingTime = ride[rideData].closing;
+              if (ride[rideData].opening &amp;&amp; ride[rideData].closing) { // We got ridetimes so display them
+                openTime = moment(ride[rideData].opening).format();
+                closingTime = moment(ride[rideData].closing).format();
                 opType = queueType.operating;
-              } else {
+              } else { // Park is probably closed
                 openTime = undefined;
                 closingTime = undefined;
                 opType = queueType.closed;
@@ -550,7 +551,7 @@ export class Phantasialand extends Park {
                   location: poi[ride[rideData].poiId].location,
                   meta: poi[ride[rideData].poiId].meta,
                   schedule: {
-                    openTime: openTime,
+                    openingTime: openTime,
                     closingTime: closingTime,
                     type: opType,
                   },
