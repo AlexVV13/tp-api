@@ -606,8 +606,9 @@ export class Toverland extends Park {
             };
             // Create the schedule object
             const hourobj = {
-              openTime: open,
+              openingTime: open,
               closingTime: close,
+              date: date,
               type: state,
             };
             Calendar.push(hourobj);
