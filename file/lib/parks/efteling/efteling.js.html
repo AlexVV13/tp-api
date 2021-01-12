@@ -363,9 +363,11 @@ export class Efteling extends Park {
           },
           meta: {
             category,
-            description: poiData[poi].description,
+            descriptions: {
+              description: poiData[poi].description,
+              short_description: poiData[poi].short_description,
+            },
             label: poiData[poi].label, // SRL rides serve a label as covid measure I think, mostly called &lt;17 Line
-            short_description: poiData[poi].short_description,
             single_rider: poiData[poi].singlerider,
             fastPass: fastPass,
             type: entityType.ride,
@@ -407,8 +409,10 @@ export class Efteling extends Park {
             longitude: poiData[poi].location.longitude,
           },
           meta: {
-            description: poiData[poi].description,
-            short_description: poiData[poi].short_description,
+            descriptions: {
+              description: poiData[poi].description,
+              short_description: poiData[poi].short_description,
+            },
             type: entityType.fairytale,
           },
         };
@@ -446,8 +450,10 @@ export class Efteling extends Park {
             longitude: poiData[poi].location.longitude,
           },
           meta: {
-            description: poiData[poi].description,
-            short_description: poiData[poi].short_description,
+            descriptions: {
+              description: poiData[poi].description,
+              short_description: poiData[poi].short_description,
+            },
             type: entityType.restaurant,
           },
         };
@@ -558,8 +564,10 @@ export class Efteling extends Park {
           },
           meta: {
             category,
-            description: poiData[poi].description,
-            short_description: poiData[poi].short_description,
+            descriptions: {
+              description: poiData[poi].description,
+              short_description: poiData[poi].short_description,
+            },
             type: entityType.show,
             tags,
           },
@@ -598,8 +606,10 @@ export class Efteling extends Park {
             longitude: poiData[poi].location.longitude,
           },
           meta: {
-            description: poiData[poi].description,
-            short_description: poiData[poi].short_description,
+            descriptions: {
+              description: poiData[poi].description,
+              short_description: poiData[poi].short_description,
+            },
             type: entityType.merchandise,
           },
         };
@@ -653,8 +663,7 @@ export class Efteling extends Park {
                 meta: {
                   category: rideData[ride].meta.category,
                   label: rideData[ride].meta.label,
-                  description: rideData[ride].meta.description,
-                  short_description: rideData[ride].meta.short_description,
+                  descriptions: rideData[ride].meta.descriptions,
                   type: rideData[ride].meta.type,
                   single_rider: rideData[ride].meta.single_rider,
                   fastPass: rideData[ride].meta.fastPass,
@@ -721,8 +730,7 @@ export class Efteling extends Park {
                 meta: {
                   category: rideData[ridetime.Id].meta.category,
                   label: rideData[ridetime.Id].meta.label,
-                  description: rideData[ridetime.Id].meta.description,
-                  short_description: rideData[ridetime.Id].meta.short_description,
+                  descriptions: rideData[ridetime.Id].meta.descriptions,
                   type: rideData[ridetime.Id].meta.type,
                   single_rider: rideData[ridetime.Id].meta.single_rider,
                   singleRider: rideData[ridetime.Id].meta.singleRider,
