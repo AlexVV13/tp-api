@@ -111,7 +111,8 @@ TOVERLAND_TOKEN=
 WALIBIHOLLAND_APIBASE= 
 WALIBIHOLLAND_APIURL= 
 WALIBIBELGIUM_APIBASE=
-WALIBIRA_APIBASE=</code>
+WALIBIRA_APIBASE=
+BELLEWAERDE_APIBASE=</code>
 </code></pre><h2 id="usage">Usage</h2><h3 id="running-the-script">Running the script</h3><p>Run index.js for all parks <br>
 NOTE: If you use commonjs, it&apos;s REQUIRED to use the .mjs extension INSTEAD of .js! <br>
 Or create an .js file for yourself and do the following: <br></p>
@@ -204,6 +205,7 @@ park.getWaitTime().then((poiData) =&gt; {
 <li>Walibi Holland (tpapi.parks.WalibiHolland)</li>
 <li>Walibi Belgium (tpapi.parks.WalibiBelgium)</li>
 <li>Walibi Rh&#xF4;ne-Alpes (tpapi.parks.WalibiRA)</li>
+<li>Bellewaerde (tpapi.parks.Bellewaerde)</li>
 </ul>
 <p><!-- END_SUPPORTED_PARKS_LIST -->
 </p>
@@ -267,6 +269,12 @@ park.getWaitTime().then((poiData) =&gt; {
 </tr>
 <tr>
 <td>Walibi Rh&#xF4;ne-Alpes</td>
+<td>:heavy_check_mark:</td>
+<td>:heavy_check_mark:</td>
+<td>:heavy_multiplication_x:</td>
+</tr>
+<tr>
+<td>Bellewaerde</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
@@ -390,6 +398,7 @@ for (const park in Parks) {
 <li>Walibi Belgium [50.7038852, 4.5960371]: (Europe/Brussels)</li>
 <li>Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)</li>
 <li>Walibi Rh&#xF4;ne-Alpes [45.6198928, 5.5669562]: (Europe/Paris)</li>
+<li>Bellewaerde [50.846996, 2.947948]: (Europe/Brussels)</li>
 </ul>
 <p><!-- END_PARK_TIMEZONE_LIST -->
 </p>
