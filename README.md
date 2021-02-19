@@ -66,6 +66,7 @@ WALIBIHOLLAND_APIBASE=
 WALIBIHOLLAND_APIURL= 
 WALIBIBELGIUM_APIBASE=
 WALIBIRA_APIBASE=
+BELLEWAERDE_APIBASE=
 ```
 
 ## Usage
@@ -172,6 +173,7 @@ park.getWaitTime().then((poiData) => {
 * Walibi Holland (tpapi.parks.WalibiHolland)
 * Walibi Belgium (tpapi.parks.WalibiBelgium)
 * Walibi Rhône-Alpes (tpapi.parks.WalibiRA)
+* Bellewaerde (tpapi.parks.Bellewaerde)
 
 <!-- END_SUPPORTED_PARKS_LIST -->
 
@@ -188,6 +190,7 @@ Toverland |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
 Walibi Holland |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:
 Walibi Belgium |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:
 Walibi Rhône-Alpes |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:
+Bellewaerde |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:
 
 ## Result Objects
 
@@ -281,6 +284,7 @@ Prints:
 * Walibi Belgium [50.7038852, 4.5960371]: (Europe/Brussels)
 * Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)
 * Walibi Rhône-Alpes [45.6198928, 5.5669562]: (Europe/Paris)
+* Bellewaerde [50.846996, 2.947948]: (Europe/Brussels)
 
 <!-- END_PARK_TIMEZONE_LIST -->
 
