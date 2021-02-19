@@ -1,7 +1,7 @@
 {
-  "coverage": "96.93%",
-  "expectCount": 163,
-  "actualCount": 158,
+  "coverage": "96.96%",
+  "expectCount": 165,
+  "actualCount": 160,
   "files": {
     "lib/cache/cacheBase.js": {
       "expectCount": 14,
@@ -38,6 +38,16 @@
     "lib/configBase.js": {
       "expectCount": 4,
       "actualCount": 4,
+      "undocumentLines": []
+    },
+    "lib/parks/bellewaerde/bellewaerde.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    },
+    "lib/parks/cdaparks/cdabase.js": {
+      "expectCount": 11,
+      "actualCount": 11,
       "undocumentLines": []
     },
     "lib/parks/efteling/efteling.js": {
@@ -98,11 +108,6 @@
     "lib/parks/types.js": {
       "expectCount": 2,
       "actualCount": 2,
-      "undocumentLines": []
-    },
-    "lib/parks/walibi/walibibase.js": {
-      "expectCount": 11,
-      "actualCount": 11,
       "undocumentLines": []
     },
     "lib/parks/walibi/walibibelgium.js": {

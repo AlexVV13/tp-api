@@ -1,5 +1,17 @@
 window.esdocSearchIndex = [
   [
+    "@alexvv13/tpapi/lib/parks/bellewaerde/bellewaerde.js~bellewaerde",
+    "class/lib/parks/bellewaerde/bellewaerde.js~Bellewaerde.html",
+    "<span>Bellewaerde</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/bellewaerde/bellewaerde.js</span>",
+    "class"
+  ],
+  [
+    "@alexvv13/tpapi/lib/parks/cdaparks/cdabase.js~cdabase",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html",
+    "<span>CDABase</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/cdaparks/cdabase.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/cache/cachebase.js~cachebase",
     "class/lib/cache/cacheBase.js~CacheBase.html",
     "<span>CacheBase</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/cache/cacheBase.js</span>",
@@ -81,12 +93,6 @@ window.esdocSearchIndex = [
     "@alexvv13/tpapi/lib/parks/toverland/toverland.js~toverland",
     "class/lib/parks/toverland/toverland.js~Toverland.html",
     "<span>Toverland</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/toverland/toverland.js</span>",
-    "class"
-  ],
-  [
-    "@alexvv13/tpapi/lib/parks/walibi/walibibase.js~walibibase",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html",
-    "<span>WalibiBase</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/walibi/walibibase.js</span>",
     "class"
   ],
   [
@@ -726,6 +732,84 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/parks/bellewaerde/bellewaerde.js",
+    "file/lib/parks/bellewaerde/bellewaerde.js.html",
+    "lib/parks/bellewaerde/bellewaerde.js",
+    "file"
+  ],
+  [
+    "lib/parks/bellewaerde/bellewaerde.js~bellewaerde#constructor",
+    "class/lib/parks/bellewaerde/bellewaerde.js~Bellewaerde.html#instance-constructor-constructor",
+    "lib/parks/bellewaerde/bellewaerde.js~Bellewaerde#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js",
+    "file/lib/parks/cdaparks/cdabase.js.html",
+    "lib/parks/cdaparks/cdabase.js",
+    "file"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js~cdabase#buildmerchandisepoi",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildMerchandisePOI",
+    "lib/parks/cdaparks/cdabase.js~CDABase#buildMerchandisePOI",
+    "method"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js~cdabase#buildrestaurantpoi",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildRestaurantPOI",
+    "lib/parks/cdaparks/cdabase.js~CDABase#buildRestaurantPOI",
+    "method"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js~cdabase#buildridepoi",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildRidePOI",
+    "lib/parks/cdaparks/cdabase.js~CDABase#buildRidePOI",
+    "method"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js~cdabase#buildservicepoi",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildServicePOI",
+    "lib/parks/cdaparks/cdabase.js~CDABase#buildServicePOI",
+    "method"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js~cdabase#buildshowpoi",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildShowPOI",
+    "lib/parks/cdaparks/cdabase.js~CDABase#buildShowPOI",
+    "method"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js~cdabase#buildwcpoi",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildWCPOI",
+    "lib/parks/cdaparks/cdabase.js~CDABase#buildWCPOI",
+    "method"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js~cdabase#constructor",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-constructor-constructor",
+    "lib/parks/cdaparks/cdabase.js~CDABase#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js~cdabase#getophours",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-getOpHours",
+    "lib/parks/cdaparks/cdabase.js~CDABase#getOpHours",
+    "method"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js~cdabase#getpois",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-getPOIS",
+    "lib/parks/cdaparks/cdabase.js~CDABase#getPOIS",
+    "method"
+  ],
+  [
+    "lib/parks/cdaparks/cdabase.js~cdabase#getqueue",
+    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-getQueue",
+    "lib/parks/cdaparks/cdabase.js~CDABase#getQueue",
+    "method"
+  ],
+  [
     "lib/parks/efteling/efteling.js",
     "file/lib/parks/efteling/efteling.js.html",
     "lib/parks/efteling/efteling.js",
@@ -1240,72 +1324,6 @@ window.esdocSearchIndex = [
     "file/lib/parks/types.js.html",
     "lib/parks/types.js",
     "file"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js",
-    "file/lib/parks/walibi/walibibase.js.html",
-    "lib/parks/walibi/walibibase.js",
-    "file"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js~walibibase#buildmerchandisepoi",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildMerchandisePOI",
-    "lib/parks/walibi/walibibase.js~WalibiBase#buildMerchandisePOI",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js~walibibase#buildrestaurantpoi",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildRestaurantPOI",
-    "lib/parks/walibi/walibibase.js~WalibiBase#buildRestaurantPOI",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js~walibibase#buildridepoi",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildRidePOI",
-    "lib/parks/walibi/walibibase.js~WalibiBase#buildRidePOI",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js~walibibase#buildservicepoi",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildServicePOI",
-    "lib/parks/walibi/walibibase.js~WalibiBase#buildServicePOI",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js~walibibase#buildshowpoi",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildShowPOI",
-    "lib/parks/walibi/walibibase.js~WalibiBase#buildShowPOI",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js~walibibase#buildwcpoi",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-buildWCPOI",
-    "lib/parks/walibi/walibibase.js~WalibiBase#buildWCPOI",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js~walibibase#constructor",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-constructor-constructor",
-    "lib/parks/walibi/walibibase.js~WalibiBase#constructor",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js~walibibase#getophours",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-getOpHours",
-    "lib/parks/walibi/walibibase.js~WalibiBase#getOpHours",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js~walibibase#getpois",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-getPOIS",
-    "lib/parks/walibi/walibibase.js~WalibiBase#getPOIS",
-    "method"
-  ],
-  [
-    "lib/parks/walibi/walibibase.js~walibibase#getqueue",
-    "class/lib/parks/walibi/walibibase.js~WalibiBase.html#instance-method-getQueue",
-    "lib/parks/walibi/walibibase.js~WalibiBase#getQueue",
-    "method"
   ],
   [
     "lib/parks/walibi/walibibelgium.js",
