@@ -67,7 +67,7 @@ import {Park} from &apos;../park.js&apos;;
 import Location from &apos;../location.js&apos;;
 
 import dotenv from &apos;dotenv&apos;;
-import {entityType, queueType} from &apos;../types.js&apos;;
+import {entityType, queueType, scheduleType} from &apos;../types.js&apos;;
 import {entityCategory, entityTags} from &apos;../tags.js&apos;;
 dotenv.config();
 
@@ -534,11 +534,11 @@ export class Phantasialand extends Park {
               if (ride[rideData].opening &amp;&amp; ride[rideData].closing) { // We got ridetimes so display them
                 openTime = moment(ride[rideData].opening).format();
                 closingTime = moment(ride[rideData].closing).format();
-                opType = queueType.operating;
+                opType = scheduleType.operating;
               } else { // Park is probably closed
                 openTime = undefined;
                 closingTime = undefined;
-                opType = queueType.closed;
+                opType = scheduleType.closed;
               }
 
               if (poi[ride[rideData].poiId]) {
