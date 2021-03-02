@@ -1,6 +1,6 @@
 {
   "name": "@alexvv13/tpapi",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "type": "module",
   "description": "Api to fetch themepark data, such as queues, operating hours etc",
   "engines": {
@@ -10,7 +10,9 @@
   "main": "lib/index.js",
   "dependencies": {
     "cheerio": "^1.0.0-rc.5",
+    "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
+    "egoroof-blowfish": "^2.2.2",
     "esm": "^3.2.25",
     "level": "^6.0.1",
     "moment-timezone": "^0.5.32",
