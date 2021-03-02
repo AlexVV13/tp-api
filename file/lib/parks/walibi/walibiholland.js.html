@@ -141,14 +141,25 @@ export class WalibiHolland extends Park {
               if (ride.useVirtualQueue == true) { // VirtQueue enabled
                 waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let&apos;s round them.
                 state = queueType.operating;
+                active = true;
               } else { // No virtQueue found, use the normal queue instead
                 waitTime = ride.minWait / 60; // Walibi has some calculation issues or sth so divide our result by 60
                 state = queueType.operating;
+                active = true;
               }
               if (ride.state === &apos;closed_indefinitely&apos;) { // Closed but not closed but still closed
                 state = queueType.closed;
                 active = false;
-              } // Declare other states when park reopens
+              } else if (ride.state === &apos;not_operational&apos;) {
+                state = queueType.closed;
+                active = false;
+              }
+              // Declare other states when park reopens
+
+              let fastPass = false;
+              if (ride.useVirtualQueue === true || ride.useVirtualQueue === false) {
+                fastPass = true;
+              }
               // set location the hardcoded way because theyre initially listed in a seperate api :(
               let lat = undefined;
               let lon = undefined;
@@ -208,6 +219,7 @@ export class WalibiHolland extends Park {
                 },
                 meta: {
                   type: entityType.ride,
+                  fastPass: fastPass,
                 },
               };
               poi.push(poiData);
