@@ -91,11 +91,11 @@ export class WalibiBelgium extends CDABase {
     options.longitude = 4.5960371;
 
     // Options for our park Object
-    options.supportswaittimes = &apos;true&apos;;
-    options.supportsschedule = &apos;false&apos;;
-    options.supportsrideschedules = &apos;false&apos;;
-    options.fastPass = &apos;true&apos;;
-    options.FastPassReturnTimes = &apos;false&apos;;
+    options.supportswaittimes = true;
+    options.supportsschedule = false;
+    options.supportsrideschedules = false;
+    options.fastPass = true;
+    options.FastPassReturnTimes = false;
 
     // API options
     options.apiBase = options.apiBase || process.env.WALIBIBELGIUM_APIBASE;

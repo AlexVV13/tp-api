@@ -94,11 +94,11 @@ export class WalibiHolland extends Park {
     options.longitude = 5.7665651;
 
     // Options for our park Object
-    options.supportswaittimes = &apos;true&apos;;
-    options.supportsschedule = &apos;false&apos;;
-    options.supportsrideschedules = &apos;false&apos;;
-    options.fastPass = &apos;true&apos;;
-    options.FastPassReturnTimes = &apos;false&apos;;
+    options.supportswaittimes = true;
+    options.supportsschedule = false;
+    options.supportsrideschedules = false;
+    options.fastPass = true;
+    options.FastPassReturnTimes = false;
 
     // API options
     options.apiUrl = options.apiUrl || process.env.WALIBIHOLLAND_APIURL;
@@ -136,9 +136,9 @@ export class WalibiHolland extends Park {
           rideData.forEach((ride) =&gt; {
             let waitTime = &apos;0&apos;;
             let state = queueType.closed;
-            let active = &apos;false&apos;;
+            let active = false;
             if (ride.name !== &apos;Dummy1&apos;) { // They have a dummy ride to sell single shots in their fast-lane, mind=blown
-              if (ride.useVirtualQueue == &apos;true&apos;) { // VirtQueue enabled
+              if (ride.useVirtualQueue == true) { // VirtQueue enabled
                 waitTime = Math.round(ride.waitTimeMins); // Stupid API serves random numbers like 0.00010358, let&apos;s round them.
                 state = queueType.operating;
               } else { // No virtQueue found, use the normal queue instead
@@ -147,8 +147,53 @@ export class WalibiHolland extends Park {
               }
               if (ride.state === &apos;closed_indefinitely&apos;) { // Closed but not closed but still closed
                 state = queueType.closed;
-                active = &apos;false&apos;;
+                active = false;
               } // Declare other states when park reopens
+              // set location the hardcoded way because theyre initially listed in a seperate api :(
+              let lat = undefined;
+              let lon = undefined;
+              let area = undefined;
+              if (ride.name === &apos;Lost Gravity&apos;) {
+                lat = JSON.parse(&apos;52.442628&apos;);
+                lon = JSON.parse(&apos;5.766199&apos;);
+                area = &apos;Zero Zone&apos;;
+              } else if (ride.name === &apos;El Rio Grande&apos;) {
+                lat = JSON.parse(&apos;52.440264&apos;);
+                lon = JSON.parse(&apos;5.764119&apos;);
+                area = &apos;Exotic&apos;;
+              } else if (ride.name === &apos;Goliath&apos;) {
+                lat = JSON.parse(&apos;52.439853309732&apos;);
+                lon = JSON.parse(&apos;5.7610387061724&apos;);
+                area = &apos;Speedzone&apos;;
+              } else if (ride.name === &apos;Untamed&apos;) {
+                lat = JSON.parse(&apos;52.442665&apos;);
+                lon = JSON.parse(&apos;5.761206&apos;);
+                area = &apos;Wilderness&apos;;
+              } else if (ride.name === &apos;Space Shot&apos;) {
+                lat = JSON.parse(&apos;52.441688&apos;);
+                lon = JSON.parse(&apos;5.761082&apos;);
+                area = &apos;Speedzone&apos;;
+              } else if (ride.name === &apos;Speed of Sound&apos;) {
+                lat = JSON.parse(&apos;52.440535&apos;);
+                lon = JSON.parse(&apos;5.767824&apos;);
+                area = &apos;W.A.B. Plaza&apos;;
+              } else if (ride.name === &apos;Xpress: Platform 13&apos;) {
+                lat = JSON.parse(&apos;52.439772689391&apos;);
+                lon = JSON.parse(&apos;5.7654926519984&apos;);
+                area = &apos;Mainstreet&apos;;
+              } else if (ride.name === &apos;Crazy River&apos;) {
+                lat = JSON.parse(&apos;52.441924&apos;);
+                lon = JSON.parse(&apos;5.764769&apos;);
+                area = &apos;Zero Zone&apos;;
+              } else if (ride.name === &apos;Condor&apos;) {
+                lat = JSON.parse(&apos;52.440404970358&apos;);
+                lon = JSON.parse(&apos;5.7618163417733&apos;);
+                area = &apos;Exotic&apos;;
+              } else if (ride.name === &apos;Blast&apos;) {
+                lat = JSON.parse(&apos;52.441894&apos;);
+                lon = JSON.parse(&apos;5.763487&apos;);
+                area = &apos;Wilderness&apos;;
+              }
               // POI Object with queues
               const poiData = {
                 name: ride.name,
@@ -156,6 +201,11 @@ export class WalibiHolland extends Park {
                 state: state,
                 active: active,
                 waitTime: waitTime,
+                location: {
+                  latitude: lat,
+                  longitude: lon,
+                  area: area,
+                },
                 meta: {
                   type: entityType.ride,
                 },

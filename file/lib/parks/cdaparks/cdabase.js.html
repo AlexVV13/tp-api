@@ -139,8 +139,8 @@ export class CDABase extends Park {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
           location: {
-            latitude: ride.location.lat,
-            longitude: ride.location.lon,
+            latitude: JSON.parse(ride.location.lat),
+            longitude: JSON.parse(ride.location.lon),
           },
           meta: {
             description: description,
@@ -175,8 +175,8 @@ export class CDABase extends Park {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
           location: {
-            latitude: ride.location.lat,
-            longitude: ride.location.lon,
+            latitude: JSON.parse(ride.location.lat),
+            longitude: JSON.parse(ride.location.lon),
           },
           meta: {
             description: description,
@@ -211,8 +211,8 @@ export class CDABase extends Park {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
           location: {
-            latitude: ride.location.lat,
-            longitude: ride.location.lon,
+            latitude: JSON.parse(ride.location.lat),
+            longitude: JSON.parse(ride.location.lon),
           },
           meta: {
             description: description,
@@ -247,8 +247,8 @@ export class CDABase extends Park {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
           location: {
-            latitude: ride.location.lat,
-            longitude: ride.location.lon,
+            latitude: JSON.parse(ride.location.lat),
+            longitude: JSON.parse(ride.location.lon),
           },
           meta: {
             description: description,
@@ -283,8 +283,8 @@ export class CDABase extends Park {
           name: ride.title,
           id: `${this.config.name}_` + ride.uuid,
           location: {
-            latitude: ride.location.lat,
-            longitude: ride.location.lon,
+            latitude: JSON.parse(ride.location.lat),
+            longitude: JSON.parse(ride.location.lon),
           },
           meta: {
             description: description,
@@ -350,8 +350,8 @@ export class CDABase extends Park {
         let lon = undefined;
 
         if (ride.location) {
-          lat = ride.location.lat;
-          lon = ride.location.lon;
+          lat = JSON.parse(ride.location.lat);
+          lon = JSON.parse(ride.location.lon);
         }
 
         const poiData = {
@@ -391,11 +391,11 @@ export class CDABase extends Park {
         if (ride.waitingTime == -10) {
           waitTime = &apos;0&apos;;
           state = queueType.closed;
-          active = &apos;false&apos;;
+          active = false;
         } else {
           waitTime = ride.waitingTime;
           state = queueType.operating;
-          active = &apos;true&apos;;
+          active = true;
         }
 
         let minHeight = null;
@@ -413,8 +413,8 @@ export class CDABase extends Park {
         let lon = undefined;
 
         if (ride.location) {
-          lat = ride.location.lat;
-          lon = ride.location.lon;
+          lat = JSON.parse(ride.location.lat);
+          lon = JSON.parse(ride.location.lon);
         }
 
         const poiData = {

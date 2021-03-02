@@ -94,11 +94,11 @@ export class Toverland extends Park {
     options.longitude = 5.981651557822892;
 
     // Options for our park Object
-    options.supportswaittimes = &apos;true&apos;;
-    options.supportsschedule = &apos;true&apos;;
-    options.supportsrideschedules = &apos;true&apos;;
-    options.fastPass = &apos;false&apos;;
-    options.FastPassReturnTimes = &apos;false&apos;;
+    options.supportswaittimes = true;
+    options.supportsschedule = true;
+    options.supportsrideschedules = true;
+    options.fastPass = false;
+    options.FastPassReturnTimes = false;
 
     // API options
     options.apiBase = process.env.TOVERLAND_APIBASE;
@@ -175,8 +175,8 @@ export class Toverland extends Park {
                 id: `Toverland_${pois.id}`,
                 name: pois.name,
                 location: {
-                  latitude: pois.latitude,
-                  longitude: pois.longitude,
+                  latitude: JSON.parse(pois.latitude),
+                  longitude: JSON.parse(pois.longitude),
                   area: area,
                 },
                 meta: {
@@ -234,8 +234,8 @@ export class Toverland extends Park {
                 id: `Toverland_${pois.id}`,
                 name: pois.name,
                 location: {
-                  latitude: pois.latitude,
-                  longitude: pois.longitude,
+                  latitude: JSON.parse(pois.latitude),
+                  longitude: JSON.parse(pois.longitude),
                   area: area,
                 },
                 meta: {
@@ -292,8 +292,8 @@ export class Toverland extends Park {
                 id: `Toverland_${pois.id}`,
                 name: pois.name,
                 location: {
-                  latitude: pois.latitude,
-                  longitude: pois.longitude,
+                  latitude: JSON.parse(pois.latitude),
+                  longitude: JSON.parse(pois.longitude),
                   area: area,
                 },
                 meta: {
@@ -349,8 +349,8 @@ export class Toverland extends Park {
                 id: `Toverland_${pois.id}`,
                 name: pois.name,
                 location: {
-                  latitude: pois.latitude,
-                  longitude: pois.longitude,
+                  latitude: JSON.parse(pois.latitude),
+                  longitude: JSON.parse(pois.longitude),
                   area: area,
                 },
                 meta: {
@@ -407,8 +407,8 @@ export class Toverland extends Park {
                 id: `Toverland_${pois.id}`,
                 name: pois.name,
                 location: {
-                  latitude: pois.latitude,
-                  longitude: pois.longitude,
+                  latitude: JSON.parse(pois.latitude),
+                  longitude: JSON.parse(pois.longitude),
                   area: area,
                 },
                 meta: {
@@ -472,8 +472,8 @@ export class Toverland extends Park {
                 id: `Toverland_${pois.id}`,
                 name: pois.name,
                 location: {
-                  latitude: pois.latitude,
-                  longitude: pois.longitude,
+                  latitude: JSON.parse(pois.latitude),
+                  longitude: JSON.parse(pois.longitude),
                   area: area,
                 },
                 meta: {
@@ -512,32 +512,32 @@ export class Toverland extends Park {
             // Ride is closed
             if (state === &apos;Closed&apos;) {
               waitTime = &apos;0&apos;;
-              active = &apos;false&apos;;
+              active = false;
               state = queueType.closed;
             // Ride is open, no queue known
             } else if (state === &apos;Open without waiting time&apos;) {
               waitTime = &apos;0&apos;;
-              active = &apos;true&apos;;
+              active = true;
               state = queueType.operating;
             // Ride is open at some strange unknown times, depends on where the operator is
             } else if (state === &apos;Variable schedule&apos;) {
               waitTime = &apos;0&apos;;
-              active = &apos;true&apos;;
+              active = true;
               state = queueType.operating;
             // Open, but somehow the last_waiting_time disappeared. Too bad...
             } else if (state === &apos;Open&apos; &amp;&amp; !ride.last_waiting_time) {
               waitTime = &apos;0&apos;;
-              active = &apos;true&apos;;
+              active = true;
               state = queueType.operating;
             // Finally! It is normally open!
             } else if (state === &apos;Open&apos;) {
               waitTime = ride.last_waiting_time.waiting_time;
-              active = &apos;true&apos;;
+              active = true;
               state = queueType.operating;
             // We&apos;ll assume ride is closed?
             } else {
               waitTime = &apos;0&apos;;
-              active = &apos;false&apos;;
+              active = false;
               state = queueType.down;
             }
 

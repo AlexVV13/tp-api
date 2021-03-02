@@ -75,10 +75,10 @@ export class Entity extends ConfigBase {
    */
   constructor(options = {}) {
     // offline mode, never request any data, rely on manually serialised data to run
-    options.offline = options.offline || false;
+    options.offline = false;
 
     // generate a random Android user-agent if we aren&apos;t supplied one
-    options.useragent = options.useragent || null;
+    options.useragent = null;
 
     super(options);
 

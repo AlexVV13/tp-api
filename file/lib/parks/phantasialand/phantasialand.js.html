@@ -96,11 +96,11 @@ export class Phantasialand extends Park {
     options.longitude = 6.879314;
 
     // Options for our park Object
-    options.supportswaittimes = &apos;true&apos;;
-    options.supportsschedule = &apos;false&apos;;
+    options.supportswaittimes = true;
+    options.supportsschedule = false;
     options.supportsrideschedules = &apos;trues&apos;;
-    options.fastPass = &apos;false&apos;;
-    options.FastPassReturnTimes = &apos;false&apos;;
+    options.fastPass = false;
+    options.FastPassReturnTimes = false;
 
     // Options for location faking
     options.longitudeMin = 6.878342628;
@@ -516,13 +516,13 @@ export class Phantasialand extends Park {
             Object.keys(ride).forEach((rideData) =&gt; {
               console.log(ride[rideData].waitTime);
               let waitTime = &apos;0&apos;;
-              let active = &apos;false&apos;;
+              let active = false;
               let state = queueType.closed;
 
               // Check if ride is open and if it actually has a queuetime attached
               if (ride[rideData].open &amp;&amp; ride[rideData].waitTime !== null) {
                 waitTime = ride[rideData].waitTime;
-                active = &apos;true&apos;;
+                active = true;
                 state = queueType.operating;
               }
 

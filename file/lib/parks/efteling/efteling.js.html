@@ -95,11 +95,11 @@ export class Efteling extends Park {
     options.longitude = 5.049916835374731;
 
     // Options for our park Object
-    options.supportswaittimes = &apos;true&apos;;
-    options.supportsschedule = &apos;true&apos;;
-    options.supportsrideschedules = &apos;false&apos;;
-    options.fastPass = &apos;true&apos;;
-    options.FastPassReturnTimes = &apos;false&apos;;
+    options.supportswaittimes = true;
+    options.supportsschedule = true;
+    options.supportsrideschedules = false;
+    options.fastPass = true;
+    options.FastPassReturnTimes = false;
 
     // Api options
     options.apiKey = process.env.EFTELING_API_KEY;
@@ -155,14 +155,14 @@ export class Efteling extends Park {
             const poiData = {};
 
             data.hits.hit.forEach((hit) =&gt; {
-              if (hit.hide_in_app === &apos;true&apos;) return; // We don&apos;t want data that isn&apos;t displayed anyway, if you want, just comment this line.
+              if (hit.hide_in_app === true) return; // We don&apos;t want data that isn&apos;t displayed anyway, if you want, just comment this line.
 
               let singlerider = undefined; // Efteling&apos;s Single Rider thing is actually, well, strange
 
               if (hit.fields.alternateid &amp;&amp; hit.fields.alternateid.indexOf(&apos;singlerider&apos;) === 0) {
-                singlerider = &apos;true&apos;; // Yay, this ride has single rider entries!
+                singlerider = true; // Yay, this ride has single rider entries!
               } else {
-                singlerider = &apos;false&apos;; // Perhaps this is dezeszwanen (listed as boatride) or it&apos;s just not that special
+                singlerider = false; // Perhaps this is dezeszwanen (listed as boatride) or it&apos;s just not that special
               }
               // Base rides &amp; pois
               if (hit.fields) {
@@ -182,7 +182,7 @@ export class Efteling extends Park {
                 // Define The six Swans which loves to be lazy
                 if (hit.fields.alternateid &amp;&amp; hit.fields.alternatelabel === &apos;Boat ride&apos;) {
                   poiData[hit.fields.alternateid] = {
-                    singlerider: &apos;false&apos;,
+                    singlerider: false,
                     name: hit.fields.name,
                     id: hit.fields.alternateid,
                     type: hit.fields.category,
@@ -197,7 +197,7 @@ export class Efteling extends Park {
                 } else if (hit.fields.alternateid &amp;&amp; hit.fields.alternateid.indexOf(&apos;singlerider&apos;)) {
                   poiData[hit.fields.id].singleRiderId = hit.fields.alternateid;
                   poiData[hit.fields.alternateid] = {
-                    singlerider: &apos;true&apos;,
+                    singlerider: true,
                     name: hit.fields.name + &apos; Single Rider&apos;,
                     id: hit.fields.alternateid,
                     type: hit.fields.category,
@@ -258,9 +258,9 @@ export class Efteling extends Park {
       if (poiData[poi].id === &apos;dezeszwanenrondvaart&apos; || poiData[poi].type === &apos;attraction&apos;) { // Yeah, somehow TSS is listed as fairytale.
         // Ugly Python FP Tweak, fyi, this is the only fastPass ride.
         if (poiData[poi].name === &apos;Python&apos;) {
-          fastPass = &apos;true&apos;;
+          fastPass = true;
         } else {
-          fastPass = &apos;false&apos;;
+          fastPass = false;
         }
         // Efteling tags
         const category = [];
@@ -647,7 +647,7 @@ export class Efteling extends Park {
             // Update the variables to the closed rides
               rideData[ride].waitTime = &apos;0&apos;;
               rideData[ride].state = queueType.closed;
-              rideData[ride].active = &apos;false&apos;;
+              rideData[ride].active = false;
 
               // Create the ride Object
               const rideobj = {
@@ -686,27 +686,27 @@ export class Efteling extends Park {
 
             if (ridetime.State === &apos;gesloten&apos;) { // Ride closed
               state = queueType.closed;
-              active = &apos;false&apos;;
+              active = false;
               waitTime = &apos;0&apos;;
             } else if (ridetime.State === &apos;tijdelijkbuitenbedrijf&apos;) { // Ride went down for some reason
               state = queueType.down;
-              active = &apos;false&apos;;
+              active = false;
               waitTime = &apos;0&apos;;
             } else if (ridetime.State === &apos;inonderhoud&apos;) { // Ride in maintenance
               state = queueType.refurbishment;
-              active = &apos;false&apos;;
+              active = false;
               waitTime = &apos;0&apos;;
             } else if (ridetime.WaitingTime === undefined &amp;&amp; ridetime.State === &apos;open&apos;) { // Ride is open, no queuetime reported
               state = queueType.operating;
-              active = &apos;false&apos;;
+              active = false;
               waitTime = &apos;0&apos;;
             } else if (ridetime.WaitingTime === undefined &amp;&amp; ridetime.State !== &apos;open&apos;) { // Ride is closed
               state = queueType.closed;
-              active = &apos;false&apos;;
+              active = false;
               waitTime = &apos;0&apos;;
             } else { // Probably open, or some strange newly created frankensteined queue type
               state = queueType.operating;
-              active = &apos;true&apos;;
+              active = true;
               waitTime = ride.WaitingTime;
             }
 

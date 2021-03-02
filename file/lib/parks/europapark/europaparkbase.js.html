@@ -65,6 +65,8 @@
 import {scheduleType, entityType, queueType, fastPassStatus} from &apos;../types.js&apos;;
 import {Park} from &apos;../park.js&apos;;
 import moment from &apos;moment-timezone&apos;;
+import Blowfish from &apos;egoroof-blowfish&apos;;
+import crypto from &apos;crypto&apos;;
 
 import dotenv from &apos;dotenv&apos;;
 dotenv.config();
@@ -91,9 +93,12 @@ export class EuropaParkBase extends Park {
   constructor(options = {}) {
     // API options
     options.apiBase = process.env.EUROPAPARK_APIBASE;
-    options.credentials = process.env.EUROPAPARK_LOGINSTRING;
     options.loginurl = process.env.EUROPAPARK_LOGIN;
-    options.refresh = process.env.EUROPAPARK_REFRESH;
+    options.fbAppId = process.env.EUROPAPARK_FBAPPID;
+    options.fbApiKey = process.env.EUROPAPARK_FBAPIKEY;
+    options.fbProjectId = process.env.EUROPAPARK_FBPROJECTID;
+    options.encKey = process.env.EUROPAPARK_ENCKEY;
+    options.encIV = process.env.EUROPAPARK_ENCIV;
 
     // Languages
     options.languages = process.env.LANGUAGES;
@@ -104,12 +109,77 @@ export class EuropaParkBase extends Park {
 
     // Check for existance
     if (!this.config.apiBase) throw new Error(&apos;Missing Europa-Park apiBase!&apos;);
-    if (!this.config.credentials) throw new Error(&apos;Missing Europa-Park credentials!&apos;);
     if (!this.config.loginurl) throw new Error(&apos;Missing Europa-Park Login URL!&apos;);
-    if (!this.config.refresh) throw new Error(&apos;Missing Europa-Park Refresh URL!&apos;);
+    if (!this.config.fbAppId) throw new Error(&apos;Missing Europa-Park firebase app id!&apos;);
+    if (!this.config.fbApiKey) throw new Error(&apos;Missing Europa-Park api key!&apos;);
+    if (!this.config.fbProjectId) throw new Error(&apos;Missing Europa-Park firebase project id!&apos;);
+    if (!this.config.encKey) throw new Error(&apos;Missing Europa-Park enc key!&apos;);
+    if (!this.config.encIV) throw new Error(&apos;Missing Europa-Park enciv!&apos;);
     if (!this.config.languages) {
       this.config.languages = &apos;en&apos;;
     };
+
+    this.bf = new Blowfish(this.config.encKey, Blowfish.MODE.CBC, Blowfish.PADDING.PKCS5 );
+    this.bf.setIv(this.config.encIV);
+  }
+
+  /**
+   * Get or generate a Firebase device ID
+   */
+  async getFirebaseID() {
+    return await this.cache.wrap(&apos;fid&apos;, async () =&gt; {
+      try {
+        const fidByteArray = crypto.randomBytes(17).toJSON().data;
+        fidByteArray[0] = 0b01110000 + (fidByteArray[0] % 0b00010000);
+        const b64String = Buffer.from(String.fromCharCode(...fidByteArray))
+            .toString(&apos;base64&apos;)
+            .replace(/\+/g, &apos;-&apos;)
+            .replace(/\//g, &apos;_&apos;);
+        const fid = b64String.substr(0, 22);
+        return /^[cdef][\w-]{21}$/.test(fid) ? fid : &apos;&apos;;
+      } catch (e) {
+        this.emit(&apos;error&apos;, e);
+        console.log(e);
+        return &apos;&apos;;
+      }
+    }, 1000 * 60 * 60 * 24 * 8); // 8days
+  }
+
+  /**
+   * Get Europa Park config keys
+   */
+  async getConfig() {
+    return await this.cache.wrap(&apos;auth&apos;, async () =&gt; {
+      const fid = await this.getFirebaseID();
+
+      return fetch(
+          `https://firebaseremoteconfig.googleapis.com/v1/projects/${this.config.fbProjectId}/namespaces/firebase:fetch`,
+          {
+            method: &apos;POST&apos;,
+            headers: {
+              &apos;X-Goog-Api-Key&apos;: this.config.fbApiKey,
+            },
+            body: JSON.stringify({
+              &apos;appInstanceId&apos;: fid,
+              &apos;appId&apos;: this.config.fbAppId,
+              &apos;packageName&apos;: &apos;com.EuropaParkMackKG.EPGuide&apos;,
+              &apos;languageCode&apos;: &apos;en_GB&apos;,
+            }),
+          },
+      )
+          .then((res) =&gt; res.json())
+          .then((resp) =&gt; {
+            // console.log(resp);
+            const decrypt = (str) =&gt; {
+              console.log(str);
+              return this.bf.decode(Buffer.from(str, &apos;base64&apos;), Blowfish.TYPE.STRING);
+            };
+            return {
+              username: decrypt(resp.entries.v3_live_exozet_api_username),
+              password: decrypt(resp.entries.v3_live_exozet_api_password),
+            };
+          }, 1000 * 60 * 60 * 6); // 6 hours
+    });
   }
 
   /**
@@ -127,6 +197,7 @@ export class EuropaParkBase extends Park {
   * @return {string} EuropaPark refresh token
   */
   async loginEP() {
+    const auth = await this.getConfig();
     return fetch(this.config.apiBase +
       this.config.loginurl,
     {
@@ -134,49 +205,15 @@ export class EuropaParkBase extends Park {
       headers: {
         &apos;Content-Type&apos;: &apos;application/json&apos;,
       },
-      body: this.config.credentials,
+      body: JSON.stringify(auth),
     },
     )
         .then((res) =&gt; res.json())
         .then((login) =&gt; {
-          const refreshtoken = {&apos;refresh_token&apos;: login.refresh_token};
-          return Promise.resolve(refreshtoken);
+          const jwttoken = &apos;Bearer &apos; + login.token;
+          return Promise.resolve(jwttoken);
         });
   }
-
-  /**
-  * Refresh your just obtained ep token
-  * Tokens are 6 hrs valid, however there&apos;s no point in just calling this function without queues or sth else
-  * @example
-  * import tpapi from &apos;@alexvv13/tpapi&apos;;
-  *
-  * const park = new tpapi.park.EuropaPark();
-  *
-  * park.refreshEP().then((token) =&gt; {
-  * console.log(token)
-  * });
-  * @return {string} EuropaPark JWT Token
-  */
-  async refreshEP() {
-    return await this.cache.wrap(&apos;jwttoken&apos;, async () =&gt; {
-      return await this.loginEP().then((refreshtoken) =&gt; fetch(this.config.apiBase +
-        this.config.refresh,
-      {
-        method: &apos;POST&apos;,
-        headers: {
-          &apos;Content-Type&apos;: &apos;application/json&apos;,
-        },
-        body: JSON.stringify(refreshtoken),
-      },
-      )
-          .then((res) =&gt; res.json())
-          .then((jwt) =&gt; {
-            const jwttoken = &apos;Bearer &apos; + jwt.token;
-            return Promise.resolve(jwttoken);
-          }),
-      );
-    }, 1000 * 60 * 60 * 6); // 6 hours
-  };
 
   /**
   * Get All POIS of EuropaPark park
@@ -185,7 +222,7 @@ export class EuropaParkBase extends Park {
   */
   async getPOIS() {
     return await this.cache.wrap(&apos;poidata&apos;, async () =&gt; {
-      const jwttoken = await this.refreshEP();
+      const jwttoken = await this.loginEP();
 
       return fetch(this.config.apiBase +
         `pois/${this.config.languages}`,
@@ -216,21 +253,21 @@ export class EuropaParkBase extends Park {
       if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
 
       const poi = {};
-      let singleRider = &apos;false&apos;; // EP doesn&apos;t send these values
-      let fastPass = &apos;false&apos;; // Set fastpass to false as default
-      let isVirtQueue = &apos;false&apos;; // Default poi isn&apos;t a virtqueue
+      let singleRider = false; // EP doesn&apos;t send these values
+      let fastPass = false; // Set fastpass to false as default
+      let isVirtQueue = false; // Default poi isn&apos;t a virtqueue
       poiData.pois.forEach((ride) =&gt; {
         if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
           if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers, really, why do they even exist?
           if (ride.name.indexOf(&apos;VirtualLine: &apos;) === 0) { // So EP reports virtlane as seperate map pointer, they send it as a stand-alone POI, assign the VirtQueue tag here.
-            fastPass = &apos;true&apos;;
-            isVirtQueue = &apos;true&apos;;
+            fastPass = true;
+            isVirtQueue = true;
             const paren = ride.name.slice(13);
             parent = paren;
-            singleRider = &apos;true&apos;; // VirtLines are the SRL replacement
+            singleRider = true; // VirtLines are the SRL replacement
           } else { // Yay, it&apos;s not a Virtline entry!
-            fastPass = &apos;false&apos;;
-            isVirtQueue = &apos;false&apos;;
+            fastPass = false;
+            isVirtQueue = false;
             parent = null;
           }
           let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
@@ -745,7 +782,7 @@ export class EuropaParkBase extends Park {
   * @return {string} EP POIS with queues
   */
   async getQueue() {
-    const token = await this.refreshEP();
+    const token = await this.loginEP();
     const rideData = await this.buildRidePOI();
 
     return fetch(this.config.apiBase +
@@ -782,31 +819,31 @@ export class EuropaParkBase extends Park {
             if (ridetime.time &gt; 0 &amp;&amp; ridetime.time &lt; 91) {
               waitTime = ridetime.time;
               state = queueType.operating;
-              active = &apos;true&apos;;
+              active = true;
             } else if (ridetime.time === 91) {
               waitTime = 91;
               state = queueType.operating;
-              active = &apos;true&apos;;
+              active = true;
             } else if (ridetime.time === 333) {
               waitTime = 0;
               state = queueType.closed;
-              active = &apos;false&apos;;
+              active = false;
             } else if (ridetime.time === 666) {
               waitTime = 0;
               state = fastPassStatus.temporarilyFull;
-              active = &apos;false&apos;;
+              active = false;
             } else if (ridetime.time === 777) {
               waitTime = 0;
               state = fastPassStatus.finished;
-              active = &apos;false&apos;;
+              active = false;
             } else if (ridetime.status === 444 || ridetime.time === 555 || ridetime.time === 999) {
               waitTime = 0;
               state = queueType.down;
-              active = &apos;false&apos;;
+              active = false;
             } else if (ridetime.time === 222) {
               waitTime = 0;
               state = queueType.refurbishment;
-              active = &apos;false&apos;;
+              active = false;
             }
 
             if (rideData[ridetime.code]) { // Skip null variables
@@ -855,7 +892,7 @@ export class EuropaParkBase extends Park {
   * @return {string} EP park hours
   */
   async getHours() {
-    const token = await this.refreshEP();
+    const token = await this.loginEP();
 
     return fetch(
         this.config.apiBase +

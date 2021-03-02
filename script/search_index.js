@@ -984,6 +984,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "lib/parks/europapark/europaparkbase.js~europaparkbase#bf",
+    "class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-member-bf",
+    "lib/parks/europapark/europaparkbase.js~EuropaParkBase#bf",
+    "member"
+  ],
+  [
     "lib/parks/europapark/europaparkbase.js~europaparkbase#buildmerchandisepoi",
     "class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildMerchandisePOI",
     "lib/parks/europapark/europaparkbase.js~EuropaParkBase#buildMerchandisePOI",
@@ -1026,6 +1032,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/europapark/europaparkbase.js~europaparkbase#getconfig",
+    "class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getConfig",
+    "lib/parks/europapark/europaparkbase.js~EuropaParkBase#getConfig",
+    "method"
+  ],
+  [
+    "lib/parks/europapark/europaparkbase.js~europaparkbase#getfirebaseid",
+    "class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getFirebaseID",
+    "lib/parks/europapark/europaparkbase.js~EuropaParkBase#getFirebaseID",
+    "method"
+  ],
+  [
     "lib/parks/europapark/europaparkbase.js~europaparkbase#gethours",
     "class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getHours",
     "lib/parks/europapark/europaparkbase.js~EuropaParkBase#getHours",
@@ -1053,12 +1071,6 @@ window.esdocSearchIndex = [
     "lib/parks/europapark/europaparkbase.js~europaparkbase#loginep",
     "class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-loginEP",
     "lib/parks/europapark/europaparkbase.js~EuropaParkBase#loginEP",
-    "method"
-  ],
-  [
-    "lib/parks/europapark/europaparkbase.js~europaparkbase#refreshep",
-    "class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-refreshEP",
-    "lib/parks/europapark/europaparkbase.js~EuropaParkBase#refreshEP",
     "method"
   ],
   [
