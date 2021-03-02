@@ -171,7 +171,6 @@ export class EuropaParkBase extends Park {
           .then((resp) =&gt; {
             // console.log(resp);
             const decrypt = (str) =&gt; {
-              console.log(str);
               return this.bf.decode(Buffer.from(str, &apos;base64&apos;), Blowfish.TYPE.STRING);
             };
             return {
