@@ -292,7 +292,9 @@ Prints:
 - [ ] Add more parks
 - [X] Multi language support
 - [ ] Multiple Queue entities support
-- [X] Completely purge file-system
 - [X] Merge shared tasks to one function
 - [X] Generate a better infrastructure
+- [ ] Multi Language support for CDA parks
+- [ ] Update EuropaPark to new API (current setup still works but unsure for how long it'll work)
+- [ ] Update output
 
