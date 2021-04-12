@@ -179,18 +179,18 @@ park.getWaitTime().then((poiData) => {
 
 ## Features of the parks
 
-Park Name | Live Queues | Park Hours | Ride Schedules
------------- | ------------- | ---------- | -------------
-Efteling |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:
-Europa-Park |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_multiplication_x:
-Rulantica |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_multiplication_x:
-YULLBE |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_multiplication_x:
-Phantasialand |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_check_mark:
-Toverland |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
-Walibi Holland |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:
-Walibi Belgium |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:
-Walibi Rhône-Alpes |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:
-Bellewaerde |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:
+Park Name | Live Queues | Park Hours | Ride Schedules | Languages
+------------ | ------------- | ---------- | ------------- | -------------
+Efteling |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en, nl, de, fr
+Europa-Park |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_multiplication_x:|en, de, fr
+Rulantica |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_multiplication_x:|en, de, fr
+YULLBE |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_multiplication_x:|en, de, fr
+Phantasialand |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_check_mark:|en, nl, de, fr
+Toverland |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|en, nl, de
+Walibi Holland |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
+Walibi Belgium |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
+Walibi Rhône-Alpes |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
+Bellewaerde |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
 
 ## Result Objects
 
