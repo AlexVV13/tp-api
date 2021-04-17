@@ -169,7 +169,6 @@ export class EuropaParkBase extends Park {
       )
           .then((res) =&gt; res.json())
           .then((resp) =&gt; {
-            //console.log(resp);
             const decrypt = (str) =&gt; {
               return this.bf.decode(Buffer.from(str, &apos;base64&apos;), Blowfish.TYPE.STRING);
             };
@@ -236,7 +235,7 @@ export class EuropaParkBase extends Park {
           .then((rideData) =&gt; {
             return Promise.resolve(rideData); // Immediately return rideData, no need to fetch anything else here because their API is shit.
           });
-    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+    }, 1000 * 60 * 60 * 12 );
   };
 
   /**
