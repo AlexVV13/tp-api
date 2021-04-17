@@ -5,7 +5,9 @@ const park = new tpapi.parks.EuropaPark();
 
 // Print queues Example usage of Europa-Park
 park.getWaitTime().then((rideTimes) => {
-  console.log(rideTimes);
+  rideTimes.forEach((ride) => {
+    console.log(`${ride.name}: ${ride.waitTime} minutes wait | ${ride.state}`);
+  })
 });
 
-// You can also call getCalendar(), getPark() or getData()
+// You can also call getCalendar(), getPark()
