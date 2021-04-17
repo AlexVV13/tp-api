@@ -198,13 +198,13 @@ export class EuropaParkBase extends Park {
   async loginEP() {
     const auth = await this.getConfig();
     return fetch(this.config.loginurl,
-    {
-      method: &apos;POST&apos;,
-      headers: {
-        &apos;Content-Type&apos;: &apos;application/json&apos;,
+        {
+          method: &apos;POST&apos;,
+          headers: {
+            &apos;Content-Type&apos;: &apos;application/json&apos;,
+          },
+        body: JSON.stringify(auth),
       },
-      body: JSON.stringify(auth),
-    },
     )
         .then((res) =&gt; res.json())
         .then((login) =&gt; {
