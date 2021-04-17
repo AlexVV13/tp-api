@@ -203,8 +203,8 @@ export class EuropaParkBase extends Park {
           headers: {
             &apos;Content-Type&apos;: &apos;application/json&apos;,
           },
-        body: JSON.stringify(auth),
-      },
+          body: JSON.stringify(auth),
+        },
     )
         .then((res) =&gt; res.json())
         .then((login) =&gt; {
