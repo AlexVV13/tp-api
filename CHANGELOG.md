@@ -27,3 +27,4 @@ Key changes to new versions
 * 1.0.25 EuropaPark was dead, but it should now work again
 * 1.0.26 Fixed enums & Walibi Holland latlon
 * 1.0.27 Updated Europa-Park to their new API structure.
+* 1.0.28 Deleted the TRAVIS CI, since it has its own life by randomly failing builds and such. I don't like that attitude, don't ever come back. 
