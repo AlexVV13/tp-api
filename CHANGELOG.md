@@ -26,3 +26,4 @@ Key changes to new versions
 * 1.0.24 Added Bellewaerde and seperated WalibiBase to CDABase
 * 1.0.25 EuropaPark was dead, but it should now work again
 * 1.0.26 Fixed enums & Walibi Holland latlon
+* 1.0.27 Updated Europa-Park to their new API structure.

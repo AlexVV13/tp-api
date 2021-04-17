@@ -36,7 +36,7 @@ This is a module which fetches queue times and operating hours, and returns it a
 
 ## Install
 
-    npm install @alexvv13/tpapi --save
+    yarn add @alexvv13/tpapi
     
 
 ## ENV
@@ -162,7 +162,7 @@ park.getWaitTime().then((poiData) => {
 
 <!-- START_SUPPORTED_PARKS_LIST -->
 
-**8** Parks Supported
+**10** Parks Supported
 
 * Efteling (tpapi.parks.Efteling)
 * Europa-Park (tpapi.parks.EuropaPark)

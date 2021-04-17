@@ -1,7 +1,7 @@
 // Import all parks here
 import tpapi from '@alexvv13/tpapi';
 
-const park = new tpapi.parks.WalibiHolland();
+const park = new tpapi.parks.EuropaPark();
 
 // Print queues Example usage of Europa-Park
 park.getWaitTime().then((rideTimes) => {
