@@ -169,16 +169,17 @@ export class EuropaParkBase extends Park {
       )
           .then((res) =&gt; res.json())
           .then((resp) =&gt; {
-            // console.log(resp);
+            //console.log(resp);
             const decrypt = (str) =&gt; {
               return this.bf.decode(Buffer.from(str, &apos;base64&apos;), Blowfish.TYPE.STRING);
             };
             return {
-              username: decrypt(resp.entries.v3_live_exozet_api_username),
-              password: decrypt(resp.entries.v3_live_exozet_api_password),
+              client_id: decrypt(resp.entries.v3_live_android_exozet_api_username),
+              client_secret: decrypt(resp.entries.v3_live_android_exozet_api_password),
+              grant_type: &apos;client_credentials&apos;,
             };
-          }, 1000 * 60 * 60 * 6); // 6 hours
-    });
+          });
+    }, 1000 * 60 * 60 * 6); // 6 hours
   }
 
   /**
@@ -197,8 +198,7 @@ export class EuropaParkBase extends Park {
   */
   async loginEP() {
     const auth = await this.getConfig();
-    return fetch(this.config.apiBase +
-      this.config.loginurl,
+    return fetch(this.config.loginurl,
     {
       method: &apos;POST&apos;,
       headers: {
@@ -209,7 +209,7 @@ export class EuropaParkBase extends Park {
     )
         .then((res) =&gt; res.json())
         .then((login) =&gt; {
-          const jwttoken = &apos;Bearer &apos; + login.token;
+          const jwttoken = &apos;Bearer &apos; + login.access_token;
           return Promise.resolve(jwttoken);
         });
   }
@@ -255,6 +255,7 @@ export class EuropaParkBase extends Park {
       let singleRider = false; // EP doesn&apos;t send these values
       let fastPass = false; // Set fastpass to false as default
       let isVirtQueue = false; // Default poi isn&apos;t a virtqueue
+      console.log(poiData);
       poiData.pois.forEach((ride) =&gt; {
         if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
           if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers, really, why do they even exist?
