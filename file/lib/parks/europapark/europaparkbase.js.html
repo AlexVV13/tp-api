@@ -92,6 +92,7 @@ export class EuropaParkBase extends Park {
   */
   constructor(options = {}) {
     // API options
+    options.cachepoistime = process.env.CACHE_DURATION_POIS;
     options.apiBase = process.env.EUROPAPARK_APIBASE;
     options.loginurl = process.env.EUROPAPARK_LOGIN;
     options.fbAppId = process.env.EUROPAPARK_FBAPPID;
@@ -103,7 +104,7 @@ export class EuropaParkBase extends Park {
     // Languages
     options.languages = process.env.LANGUAGES;
 
-    options.langoptions = `{&apos;en&apos;, &apos;nl&apos;, &apos;de&apos;, &apos;fr&apos;}`; // Accidentally found that EP provides Dutch data, lmao
+    options.langoptions = `{&apos;en&apos;, &apos;nl&apos;, &apos;de&apos;, &apos;fr&apos;}`; // Accidentally found that EP provides Dutch data, lmao EDIT: IT&apos;S NEXT LEVEL HORRIBLE, DON&apos;T EVER ENABLE IT!
 
     super(options);
 
@@ -117,6 +118,9 @@ export class EuropaParkBase extends Park {
     if (!this.config.encIV) throw new Error(&apos;Missing Europa-Park enciv!&apos;);
     if (!this.config.languages) {
       this.config.languages = &apos;en&apos;;
+    };
+    if (!this.config.cachepoistime) {
+      this.config.cachepoistime = &apos;12&apos;;
     };
 
     this.bf = new Blowfish(this.config.encKey, Blowfish.MODE.CBC, Blowfish.PADDING.PKCS5 );
@@ -142,7 +146,7 @@ export class EuropaParkBase extends Park {
         console.log(e);
         return &apos;&apos;;
       }
-    }, 1000 * 60 * 60 * 24 * 8); // 8days
+    }, 1000 * 60 * 60 * 24 * 8); // 8 days DON&apos;T CHANGE
   }
 
   /**
@@ -178,22 +182,13 @@ export class EuropaParkBase extends Park {
               grant_type: &apos;client_credentials&apos;,
             };
           });
-    }, 1000 * 60 * 60 * 6); // 6 hours
+    }, 1000 * 60 * 60 * 6); // 6 hours, DON&apos;T CHANGE
   }
 
   /**
   * Login to EuropaPark API
-  * NEVER call this method without calling refresh() or getPOIS()!
   * Calling this method too fast can cause a perm block from the Macks
-  * @example
-  * import tpapi from &apos;@alexvv13/tpapi&apos;;
-  *
-  * const park = new tpapi.park.EuropaPark();
-  *
-  * park.loginEP().then((token) =&gt; {
-  * console.log(token)
-  * });
-  * @return {string} EuropaPark refresh token
+  * @return {string} EuropaPark JWT token
   */
   async loginEP() {
     const auth = await this.getConfig();
@@ -235,7 +230,7 @@ export class EuropaParkBase extends Park {
           .then((rideData) =&gt; {
             return Promise.resolve(rideData); // Immediately return rideData, no need to fetch anything else here because their API is shit.
           });
-    }, 1000 * 60 * 60 * 12 );
+    }, 1000 * 60 * 60 * this.config.cachepoistime );  
   };
 
   /**
@@ -248,13 +243,12 @@ export class EuropaParkBase extends Park {
     return await this.cache.wrap(`${this.config.parkId}-ridedata`, async () =&gt; { // Rebuilding the ride object each time is SLOOOOOWWWW
       const poiData = await this.getPOIS(); // Get the POI Data
 
-      if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
+      if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;); // API probably died, nothing new. Stay calm
 
       const poi = {};
       let singleRider = false; // EP doesn&apos;t send these values
       let fastPass = false; // Set fastpass to false as default
       let isVirtQueue = false; // Default poi isn&apos;t a virtqueue
-      console.log(poiData);
       poiData.pois.forEach((ride) =&gt; {
         if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
           if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers, really, why do they even exist?
@@ -283,7 +277,7 @@ export class EuropaParkBase extends Park {
           } else if (ride.areaId == 15) {
             area = &apos;Greece&apos;;
           } else if (ride.areaId == 16) {
-            area = `Grimm&apos;s Fairytale Forest`;
+            area = `Grimm&apos;s Fairytale Forest`; // Thanks for the single quote. Really helpful indeed
           } else if (ride.areaId == 17) {
             area = &apos;Netherlands&apos;;
           } else if (ride.areaId == 19) {
@@ -359,19 +353,19 @@ export class EuropaParkBase extends Park {
           let minAgeAccompanied = undefined;
           let maxHeight = undefined;
           if (ride.minHeight) {
-            minHeight = ride.minHeight;
+            minHeight = ride.minHeight; // Minimum length
           };
           if (ride.minHeightAdult) {
-            minHeightAccompanied = ride.minHeightAdult;
+            minHeightAccompanied = ride.minHeightAdult; // Minimum length accompanied, although, that&apos;s my guess
           };
           if (ride.minAge) {
-            minAge = ride.minAge;
+            minAge = ride.minAge; // RECOMMENDED minimum age. 
           };
           if (ride.minAgeAdult) {
-            minAgeAccompanied = ride.minAgeAdult;
+            minAgeAccompanied = ride.minAgeAdult; // The most epic entry every, a recommended minimum age whenever you&apos;re accompanied!!! Wow
           };
           if (ride.maxHeight) {
-            maxHeight = ride.maxHeight;
+            maxHeight = ride.maxHeight; // Some people wants to grow like 3m high and that has to stop.
           }
 
           const restrictions = {
@@ -410,7 +404,7 @@ export class EuropaParkBase extends Park {
         };
       });
       return Promise.resolve(poi);
-    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+    }, 1000 * 60 * 60 * this.config.cachepoistime );
   };
 
   /**
@@ -521,7 +515,7 @@ export class EuropaParkBase extends Park {
             maxHeight = ride.maxHeight;
           }
 
-          // Build the static object
+          // Build the static object - probably the only thing that&apos;ll ever appear here are fairytales and the macks house, not kidding, its listed
           poi[ride.code] = {
             name: ride.name,
             id: `${this.config.name}_` + ride.code,
@@ -556,7 +550,7 @@ export class EuropaParkBase extends Park {
         };
       });
       return Promise.resolve(poi);
-    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+    }, 1000 * 60 * 60 * this.config.cachepoistime );
   };
 
   /**
@@ -628,7 +622,7 @@ export class EuropaParkBase extends Park {
         };
       });
       return Promise.resolve(poi);
-    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+    }, 1000 * 60 * 60 * this.config.cachepoistime );
   };
 
   /**
@@ -700,7 +694,7 @@ export class EuropaParkBase extends Park {
         };
       });
       return Promise.resolve(poi);
-    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+    }, 1000 * 60 * 60 * this.config.cachepoistime );
   };
 
   /**
@@ -772,7 +766,7 @@ export class EuropaParkBase extends Park {
         };
       });
       return Promise.resolve(poi);
-    }, 1000 * 60 * 60 * 12 /* cache for 12 hours */);
+    }, 1000 * 60 * 60 * this.config.cachepoistime );
   };
 
   /**

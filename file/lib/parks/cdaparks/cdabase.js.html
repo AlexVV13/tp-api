@@ -88,7 +88,8 @@ export class CDABase extends Park {
   */
   constructor(options = {}) {
     // Language settings
-    options.languages = options.languages || process.env.LANGUAGES;
+    options.cachepoistime = process.env.CACHE_DURATION_POIS;
+    options.languages = process.env.LANGUAGES;
 
     options.langoptions = options.langoptions || `{&apos;en&apos;, &apos;de&apos;, &apos;nl&apos;}`;
 
@@ -98,6 +99,9 @@ export class CDABase extends Park {
     if (!this.config.apiBase) throw new Error(&apos;Missing Compagnie des Alpes apiBase!&apos;);
     if (!this.config.languages) {
       this.config.languages = &apos;en&apos;;
+    };
+    if (!this.config.cachepoistime) {
+      this.config.cachepoistime = &apos;12&apos;;
     };
   }
 

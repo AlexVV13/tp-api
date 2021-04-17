@@ -69,7 +69,7 @@
       "expectCount": 16,
       "actualCount": 15,
       "undocumentLines": [
-        59
+        63
       ]
     },
     "lib/parks/europapark/rulantica.js": {
