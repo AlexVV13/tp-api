@@ -141,67 +141,83 @@ park.getWaitTime().then((poiData) =&gt; {
 // You can also call getCalendar() or getData()</code>
 </code></pre>
 <h3 id="example-output">Example output</h3><p>(Shortened to keep it readable)</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">{
-  name: &apos;Stoomcarrousel&apos;,
-  id: &apos;Efteling_stoomcarrousel&apos;,
-  waitTime: 0,
-  state: &apos;Closed&apos;,
-  active: false,
-  location: { 
-    area: &apos;Marerijk&apos;, 
-    latitude: 51.651211, 
-    longitude: 5.048955 
+<pre><code class="lang-javascript"><code class="source-code prettyprint">[
+  {
+    &quot;name&quot;: &quot;Stoomcarrousel&quot;,
+    &quot;id&quot;: &quot;Efteling_stoomcarrousel&quot;,
+    &quot;type&quot;: &quot;Attraction&quot;,
+    &quot;location&quot;: {
+       &quot;area&quot;: &quot;Marerijk&quot;,
+       &quot;latitude&quot;: 51.651211,
+       &quot;longitude&quot;: 5.048955
+    },
+    &quot;queues&quot;: {
+       &quot;fastPass&quot;: {
+          &quot;fastPass&quot;: false
+       },
+       &quot;singlerider&quot;: {
+          &quot;singleRider&quot;: false
+       },
+       &quot;standBy&quot;: {
+          &quot;waitTime&quot;: 0,
+          &quot;status&quot;: &quot;Closed&quot;,
+          &quot;active&quot;: false
+       }
+    },
+    &quot;meta&quot;: {
+       &quot;descriptions&quot;: {
+        &quot;description&quot;:&quot;&lt;p&gt;Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the &#x2018;Stoomcarrousel&#x2019; steam carousell, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.&lt;/p&gt;&quot;,
+        &quot;short_description&quot;:&quot;The old-fashioned fairground feeling&quot;
+       },
+       &quot;restrictions&quot;: {
+          &quot;minHeightAccompanied&quot;: &quot;100 cm&quot;
+       },
+       &quot;tags&quot;: [
+          &quot;tranferNecessary&quot;,
+          &quot;IndoorRide&quot;
+       ]
+    }
   },
-  meta: {
-    category: [
-      &apos;Youngest_Ones&apos;,
-      &apos;Family&apos;
-    ],
-    description: &apos;&lt;p&gt;Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the &#x2018;Stoomcarrousel&#x2019; steam carrousel, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.&lt;/p&gt;&apos;,
-    short_description: &apos;The old-fashioned fairground feeling&apos;,
-    type: &apos;Attraction&apos;,
-    single_rider: false,
-    fastPass: false,
-    tags: [
-      &apos;tranferNecessary&apos;,
-      &apos;IndoorRide&apos;
-    ],
-    restrictions: {
-      &apos;minHeightAccompanied&apos;: &apos;100 cm&apos;
-  }
-},
-{
-  name: &apos;Vogel Rok&apos;,
-  id: &apos;Efteling_vogelrok&apos;,
-  waitTime: 0,
-  state: &apos;Closed&apos;,
-  active: false,
-  location: { 
-    area: &apos;Reizenrijk&apos;, 
-    latitude: 51.652187, 
-    longitude: 5.052811 
-  },
-  meta: {
-    category: [
-      &apos;Thrillseekers&apos;
-    ],
-    description: &apos;&lt;p&gt;The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.&lt;/p&gt;&apos;,
-    short_description: &apos;Lightning in the dark&apos;,
-    type: &apos;Attraction&apos;,
-    single_rider: false,
-    fastPass: false,
-    tags: [
-      &apos;mayGetDizzy&apos;,
-      &apos;unsuitableForPregnantWomen&apos;,
-      &apos;tranferNecessary&apos;,
-      &apos;unsuitableWithInjuries&apos;,
-      &apos;IndoorRide&apos;
-    ],
-    restrictions: {
-      &apos;minHeight&apos;: &apos;120 cm&apos;
+  {
+    &quot;name&quot;: &quot;Vogel Rok&quot;,
+    &quot;id&quot;: &quot;Efteling_vogelrok&quot;,
+    &quot;type&quot;: &quot;Attraction&quot;,
+    &quot;location&quot;: {
+       &quot;area&quot;: &quot;Reizenrijk&quot;,
+       &quot;latitude&quot;: 51.652187,
+       &quot;longitude&quot;: 5.052811
+    },
+    &quot;queues&quot;: {
+       &quot;fastPass&quot;: {
+          &quot;fastPass&quot;: false
+       },
+       &quot;singlerider&quot;: {
+          &quot;singleRider&quot;: false
+       },
+       &quot;standBy&quot;: {
+          &quot;waitTime&quot;: 0,
+          &quot;status&quot;: &quot;Closed&quot;,
+          &quot;active&quot;: false
+       }
+    },
+    &quot;meta&quot;: {
+       &quot;descriptions&quot;: {
+          &quot;description&quot;: &quot;&lt;p&gt;The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.&lt;/p&gt;&quot;,
+          &quot;short_description&quot;: &quot;Lightning in the dark&quot;
+       },
+       &quot;restrictions&quot;: {
+          &quot;minHeight&quot;: &quot;120 cm&quot;
+       },
+       &quot;tags&quot;: [
+          &quot;mayGetDizzy&quot;,
+          &quot;unsuitableForPregnantWomen&quot;,
+          &quot;tranferNecessary&quot;,
+          &quot;unsuitableWithInjuries&quot;,
+          &quot;IndoorRide&quot;
+       ]
     }
   }
-}</code>
+]</code>
 </code></pre>
 <h2 id="changelog">Changelog</h2><p><a href="CHANGELOG.md">View tp-api Changelog</a></p>
 <h2 id="parks-available">Parks available</h2><p><!-- START_SUPPORTED_PARKS_LIST -->
@@ -286,21 +302,21 @@ park.getWaitTime().then((poiData) =&gt; {
 <td>:heavy_check_mark:</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
-<td>en</td>
+<td>en, nl, fr</td>
 </tr>
 <tr>
 <td>Walibi Rh&#xF4;ne-Alpes</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
-<td>en</td>
+<td>en, fr</td>
 </tr>
 <tr>
 <td>Bellewaerde</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
-<td>en</td>
+<td>en, nl, fr</td>
 </tr>
 </tbody>
 </table>
@@ -431,9 +447,9 @@ for (const park in Parks) {
 <li>[ ] Multiple Queue entities support</li>
 <li>[X] Merge shared tasks to one function</li>
 <li>[X] Generate a better infrastructure</li>
-<li>[ ] Multi Language support for CDA parks</li>
-<li>[ ] Update EuropaPark to new API (current setup still works but unsure for how long it&apos;ll work)</li>
-<li>[ ] Update output</li>
+<li>[X] Multi Language support for CDA parks</li>
+<li>[X] Update EuropaPark to new API (current setup still works but unsure for how long it&apos;ll work)</li>
+<li>[-] Update output</li>
 </ul>
 </div>
 </div>

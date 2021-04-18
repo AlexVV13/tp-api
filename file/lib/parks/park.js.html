@@ -171,6 +171,56 @@ export class Park extends Entity {
   }
 
   /**
+  * Get all queues of a park
+  * @returns {string} park queues
+  */
+  async getWaitTimes() {
+    const queueData = await this.getQueue();
+
+    // No data returned, this is either because getPOIS failed, or because the queue API is down. Some parks don&apos;t report times when closed tho.
+    if (!queueData) throw new Error(&apos;Something went wrong, didnt return any queue data, is the API online?&apos;)
+
+    const queues = [];
+    Object.keys(queueData).forEach((queue) =&gt; {
+      const queueobj = {
+        name: queueData[queue].name,
+        id: queueData[queue].id,
+        type: queueData[queue].meta.type,
+        location: {
+          area: queueData[queue].location.area,
+          latitude: queueData[queue].location.latitude,
+          longitude: queueData[queue].location.longitude,
+        },
+        queues: {
+          fastPass: {
+            isVirtQueue: queueData[queue].meta.isVirtQueue,
+            fastPass: queueData[queue].meta.fastPass,
+            parent: queueData[queue].meta.parent,
+          },
+          singlerider: {
+            singleRider: queueData[queue].meta.single_rider,
+          },
+          standBy: {
+            waitTime: queueData[queue].waitTime,
+            status: queueData[queue].state,
+            active: queueData[queue].active,
+          }
+        },
+        meta: {
+          descriptions: {
+            description: queueData[queue].meta.descriptions.description,
+            short_description: queueData[queue].meta.descriptions.short_description,
+          },
+          restrictions: queueData[queue].meta.restrictions,
+          tags: queueData[queue].meta.tags
+        }
+      }
+      queues.push(queueobj);
+    });
+    return queues;
+  }
+
+  /**
   * Get All Rides of a park
   * This data contains all the rides.
   * @return {string} park rides

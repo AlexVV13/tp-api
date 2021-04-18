@@ -1200,6 +1200,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/park.js~park#getwaittimes",
+    "class/lib/parks/park.js~Park.html#instance-method-getWaitTimes",
+    "lib/parks/park.js~Park#getWaitTimes",
+    "method"
+  ],
+  [
     "lib/parks/phantasialand/phantasialand.js",
     "file/lib/parks/phantasialand/phantasialand.js.html",
     "lib/parks/phantasialand/phantasialand.js",

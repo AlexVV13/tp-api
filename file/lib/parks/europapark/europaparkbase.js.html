@@ -230,7 +230,7 @@ export class EuropaParkBase extends Park {
           .then((rideData) =&gt; {
             return Promise.resolve(rideData); // Immediately return rideData, no need to fetch anything else here because their API is shit.
           });
-    }, 1000 * 60 * 60 * this.config.cachepoistime );
+    }, 1000 * 60 * 60 * this.config.cachepoistime );  
   };
 
   /**
@@ -359,7 +359,7 @@ export class EuropaParkBase extends Park {
             minHeightAccompanied = ride.minHeightAdult; // Minimum length accompanied, although, that&apos;s my guess
           };
           if (ride.minAge) {
-            minAge = ride.minAge; // RECOMMENDED minimum age.
+            minAge = ride.minAge; // RECOMMENDED minimum age. 
           };
           if (ride.minAgeAdult) {
             minAgeAccompanied = ride.minAgeAdult; // The most epic entry every, a recommended minimum age whenever you&apos;re accompanied!!! Wow
@@ -809,31 +809,31 @@ export class EuropaParkBase extends Park {
             }
 
             // TO DO If ride isn&apos;t present in this api it just regrets it and returns nothing, however we at least want some tags.
-            if (ridetime.time &gt; 0 &amp;&amp; ridetime.time &lt; 91) {
+            if (ridetime.time &gt; 0 &amp;&amp; ridetime.time &lt; 91) { // Ride is open and there is a queuetime available
               waitTime = ridetime.time;
               state = queueType.operating;
               active = true;
-            } else if (ridetime.time === 91) {
+            } else if (ridetime.time === 91) { // Ride is open and queue is over 90 min, basically stupidly long
               waitTime = 91;
               state = queueType.operating;
               active = true;
-            } else if (ridetime.time === 333) {
+            } else if (ridetime.time === 333) { // Ride is closed
               waitTime = 0;
               state = queueType.closed;
               active = false;
-            } else if (ridetime.time === 666) {
+            } else if (ridetime.time === 666) { // FastPass is temporarily full, will reopen at a later time
               waitTime = 0;
               state = fastPassStatus.temporarilyFull;
               active = false;
-            } else if (ridetime.time === 777) {
+            } else if (ridetime.time === 777) { // FastPass is full, won&apos;t reopen at a later time
               waitTime = 0;
               state = fastPassStatus.finished;
               active = false;
-            } else if (ridetime.status === 444 || ridetime.time === 555 || ridetime.time === 999) {
+            } else if (ridetime.status === 444 || ridetime.time === 555 || ridetime.time === 999) { // Ride is down (down / ice / weather)
               waitTime = 0;
               state = queueType.down;
               active = false;
-            } else if (ridetime.time === 222) {
+            } else if (ridetime.time === 222) { // Ride is in maintenance (startup sequence is listed as maint as well lol)
               waitTime = 0;
               state = queueType.refurbishment;
               active = false;
