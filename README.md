@@ -216,9 +216,9 @@ YULLBE |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_multiplication_x:|en,
 Phantasialand |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_check_mark:|en, nl, de, fr
 Toverland |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|en, nl, de
 Walibi Holland |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
-Walibi Belgium |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
-Walibi Rhône-Alpes |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
-Bellewaerde |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
+Walibi Belgium |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en, nl, fr
+Walibi Rhône-Alpes |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en, fr
+Bellewaerde |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en, nl, fr
 
 ## Result Objects
 
