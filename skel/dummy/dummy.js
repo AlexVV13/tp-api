@@ -12,6 +12,8 @@ dotenv.config();
 *
 * This class is here to fetch the POI data and to attach queue times data to it.
 * After the fetches this data is send to the end user and from there he could do whatever he wants to do.
+* 
+* Note: if a park is part of a larger organization (like Walibi), you should extend the park to the organization, instead of park. Check Walibi Belgium as example
 *
 * Most park specific parameters are set already
 * @class
@@ -22,25 +24,25 @@ export class Dummy extends Park {
   * @param {object} options
   */
   constructor(options = {}) {
-    options.name = options.name || 'Dummy';
-    options.timezone = options.timezone || 'Europe/Amsterdam';
+    options.name = 'Dummy';
+    options.timezone = 'Europe/Amsterdam';
 
     // Park's entrance mostly, but if you really need it you could also pick the center of the park (i.e. Central Plaza in Disneyland)
     options.latitude = 52.4390338;
     options.longitude = 5.7665651;
 
     // Options for our park Object
-    options.supportswaittimes = 'true';
-    options.supportsschedule = 'false';
-    options.supportsrideschedules = 'false';
-    options.fastPass = 'true';
-    options.FastPassReturnTimes = 'false';
+    options.supportswaittimes = true;
+    options.supportsschedule = false;
+    options.supportsrideschedules = false;
+    options.fastPass = true;
+    options.FastPassReturnTimes = false;
 
     // Api options
-    options.apiUrl = options.apiUrl || process.env.DUMMY_APIURL;
-    options.apiKey = options.apiBase || process.env.DUMMY_APIKEY;
+    options.apiUrl = process.env.DUMMY_APIURL;
+    options.apiKey = process.env.DUMMY_APIKEY;
 
-    options.languages = options.languages || process.env.LANGUAGES;
+    options.languages = process.env.LANGUAGES;
 
     // What languages does this API support?
     options.langoptions = options.langoptions || `{'en', 'de', 'nl', 'es'}`;
@@ -53,10 +55,6 @@ export class Dummy extends Park {
       this.config.languages = 'en';
     };
   }
-
-  // Load the Dummy poidata
-  // const poidata = ('./data/parks/dummy/dummy_pois.json')
-  // const poimock = ('./data/parks/dummy/dummy_poi_mock.json')
 
   // Some parks have a seperate queue api, create an getPoi() function before the getQueue() function in that case.
   /**
@@ -135,7 +133,7 @@ export class Dummy extends Park {
     const currentYear = moment().format('YYYY');
     return fetch(
         this.config.apiBase +
-          `/calendar/${currentYear}?_format=json`,
+          `/calendar/${currentYear}?_format=json`, // Example, if there's no year or lang variable, this line probably won't exist.
         {
           method: 'GET',
         },
