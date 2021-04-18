@@ -406,7 +406,7 @@ export class CDABase extends Park {
         let minHeightCompanion = null;
 
         ride.parameters.forEach((param) =&gt; {
-          if (param.title === &apos;taille min accompagn&#xE9;&apos;) { // An english translation exists somewhere. 
+          if (param.title === &apos;taille min accompagn&#xE9;&apos;) { // An english translation exists somewhere.
             minHeightCompanion = param.value;
           } else if (param.title === &apos;taille min non accompagn&#xE9;&apos;) {
             minHeight = param.value;
