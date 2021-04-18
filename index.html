@@ -87,31 +87,44 @@
 <a href="#tasks">Tasks</a> <br></p>
 <h2 id="install">Install</h2><pre><code><code class="source-code prettyprint">yarn add @alexvv13/tpapi</code>
 </code></pre><h2 id="env">ENV</h2><p>In the directory where you&apos;re using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example, or copy below&apos;s example and fill in the fields yourself</p>
-<pre><code><code class="source-code prettyprint">LANGUAGES= &apos;en&apos;
+<pre><code><code class="source-code prettyprint">#Language
+LANGUAGES= &apos;en&apos;
 
-EFTELING_API_KEY= 
+#Efteling
+EFTELING_API_KEY=
 EFTELING_SEARCH_URL= 
 EFTELING_WAITTIMES_URL= 
 EFTELING_HIST_URL= 
 
-EUROPAPARK_APIBASE= 
-EUROPAPARK_LOGINSTRING= 
-EUROPAPARK_LOGIN= 
-EUROPAPARK_REFRESH= 
+#Europa-Park
+EUROPAPARK_APIBASE=
+EUROPAPARK_LOGIN=
+EUROPAPARK_FBAPPID=
+EUROPAPARK_FBAPIKEY=
+EUROPAPARK_FBPROJECTID=
+EUROPAPARK_ENCKEY=
+EUROPAPARK_ENCIV=
 
+#Phantasialand
 PHANTASIALAND_API_KEY=
 PHANTASIALAND_POI_URL=
 PHANTASIALAND_WAITTIMES_URL=
 PHANTASIALAND_HOURS_URL=
 
-TOVERLAND_APIBASE=
-TOVERLAND_TOKEN=
+#Toverland
+TOVERLAND_APIBASE= 
+TOVERLAND_TOKEN= 
+TOVERLAND_HOURS=
 
+#Compagnie des Alpes
 WALIBIHOLLAND_APIBASE= 
 WALIBIHOLLAND_APIURL= 
 WALIBIBELGIUM_APIBASE=
 WALIBIRA_APIBASE=
-BELLEWAERDE_APIBASE=</code>
+BELLEWAERDE_APIBASE=
+
+#Settings
+CACHE_DURATION_POIS= &apos;12&apos;</code>
 </code></pre><h2 id="usage">Usage</h2><h3 id="running-the-script">Running the script</h3><p>Run index.js for all parks <br>
 NOTE: If you use commonjs, it&apos;s REQUIRED to use the .mjs extension INSTEAD of .js! <br>
 Or create an .js file for yourself and do the following: <br></p>
@@ -131,9 +144,9 @@ park.getWaitTime().then((poiData) =&gt; {
 <pre><code class="lang-javascript"><code class="source-code prettyprint">{
   name: &apos;Stoomcarrousel&apos;,
   id: &apos;Efteling_stoomcarrousel&apos;,
-  waitTime: &apos;0&apos;,
+  waitTime: 0,
   state: &apos;Closed&apos;,
-  active: &apos;false&apos;,
+  active: false,
   location: { 
     area: &apos;Marerijk&apos;, 
     latitude: 51.651211, 
@@ -147,8 +160,8 @@ park.getWaitTime().then((poiData) =&gt; {
     description: &apos;&lt;p&gt;Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the &#x2018;Stoomcarrousel&#x2019; steam carrousel, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.&lt;/p&gt;&apos;,
     short_description: &apos;The old-fashioned fairground feeling&apos;,
     type: &apos;Attraction&apos;,
-    single_rider: &apos;false&apos;,
-    fastPass: &apos;false&apos;,
+    single_rider: false,
+    fastPass: false,
     tags: [
       &apos;tranferNecessary&apos;,
       &apos;IndoorRide&apos;
@@ -160,9 +173,9 @@ park.getWaitTime().then((poiData) =&gt; {
 {
   name: &apos;Vogel Rok&apos;,
   id: &apos;Efteling_vogelrok&apos;,
-  waitTime: &apos;0&apos;,
+  waitTime: 0,
   state: &apos;Closed&apos;,
-  active: &apos;false&apos;,
+  active: false,
   location: { 
     area: &apos;Reizenrijk&apos;, 
     latitude: 51.652187, 
@@ -175,8 +188,8 @@ park.getWaitTime().then((poiData) =&gt; {
     description: &apos;&lt;p&gt;The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.&lt;/p&gt;&apos;,
     short_description: &apos;Lightning in the dark&apos;,
     type: &apos;Attraction&apos;,
-    single_rider: &apos;false&apos;,
-    fastPass: &apos;false&apos;,
+    single_rider: false,
+    fastPass: false,
     tags: [
       &apos;mayGetDizzy&apos;,
       &apos;unsuitableForPregnantWomen&apos;,
@@ -324,10 +337,10 @@ park.getWaitTime().then((poiData) =&gt; {
         openingTime: (timeFormat timestamp: opening time for requested park - can be null if park is closed),
         closingTime: (timeFormat timestamp: closing time for requested park - can be null if park is closed),
         type: (string: &quot;Operating&quot; or &quot;Closed&quot;),
-        special: [ (array of &quot;special&quot; times for this day, usually Disney Extra Magic Hours or similar at other parks - field may be null)
+        special: [ (array of &quot;special&quot; times for this day, usually exclusive hours - field may be null)
           openingTime: (timeFormat timestamp: opening time for requested park),
           closingTime: (timeFormat timestamp: closing time for requested park),
-          type: (string: type of schedule eg. &quot;Extra Magic Hours&quot;, but can be &quot;Event&quot; or &quot;Special Ticketed Event&quot; or other)
+          type: (string: type of schedule eg. &quot;Passholder Event&quot;, but can be &quot;Event&quot; or &quot;Special Ticketed Event&quot; or other)
         ],
     },
     ...
