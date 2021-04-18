@@ -41,31 +41,44 @@ This is a module which fetches queue times and operating hours, and returns it a
 ## ENV
 In the directory where you're using tpapi, create an .env file and fill in the fields, an example can be found in the Github Repo, or in the ${path}/node_modules/@alexvv13/tpapi/.env.example, or copy below's example and fill in the fields yourself
 ```
+#Language
 LANGUAGES= 'en'
 
-EFTELING_API_KEY= 
+#Efteling
+EFTELING_API_KEY=
 EFTELING_SEARCH_URL= 
 EFTELING_WAITTIMES_URL= 
 EFTELING_HIST_URL= 
 
-EUROPAPARK_APIBASE= 
-EUROPAPARK_LOGINSTRING= 
-EUROPAPARK_LOGIN= 
-EUROPAPARK_REFRESH= 
+#Europa-Park
+EUROPAPARK_APIBASE=
+EUROPAPARK_LOGIN=
+EUROPAPARK_FBAPPID=
+EUROPAPARK_FBAPIKEY=
+EUROPAPARK_FBPROJECTID=
+EUROPAPARK_ENCKEY=
+EUROPAPARK_ENCIV=
 
+#Phantasialand
 PHANTASIALAND_API_KEY=
 PHANTASIALAND_POI_URL=
 PHANTASIALAND_WAITTIMES_URL=
 PHANTASIALAND_HOURS_URL=
 
-TOVERLAND_APIBASE=
-TOVERLAND_TOKEN=
+#Toverland
+TOVERLAND_APIBASE= 
+TOVERLAND_TOKEN= 
+TOVERLAND_HOURS=
 
+#Compagnie des Alpes
 WALIBIHOLLAND_APIBASE= 
 WALIBIHOLLAND_APIURL= 
 WALIBIBELGIUM_APIBASE=
 WALIBIRA_APIBASE=
 BELLEWAERDE_APIBASE=
+
+#Settings
+CACHE_DURATION_POIS= '12'
 ```
 
 ## Usage
@@ -93,9 +106,9 @@ park.getWaitTime().then((poiData) => {
 {
   name: 'Stoomcarrousel',
   id: 'Efteling_stoomcarrousel',
-  waitTime: '0',
+  waitTime: 0,
   state: 'Closed',
-  active: 'false',
+  active: false,
   location: { 
     area: 'Marerijk', 
     latitude: 51.651211, 
@@ -109,8 +122,8 @@ park.getWaitTime().then((poiData) => {
     description: '<p>Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the ‘Stoomcarrousel’ steam carrousel, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.</p>',
     short_description: 'The old-fashioned fairground feeling',
     type: 'Attraction',
-    single_rider: 'false',
-    fastPass: 'false',
+    single_rider: false,
+    fastPass: false,
     tags: [
       'tranferNecessary',
       'IndoorRide'
@@ -122,9 +135,9 @@ park.getWaitTime().then((poiData) => {
 {
   name: 'Vogel Rok',
   id: 'Efteling_vogelrok',
-  waitTime: '0',
+  waitTime: 0,
   state: 'Closed',
-  active: 'false',
+  active: false,
   location: { 
     area: 'Reizenrijk', 
     latitude: 51.652187, 
@@ -137,8 +150,8 @@ park.getWaitTime().then((poiData) => {
     description: '<p>The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.</p>',
     short_description: 'Lightning in the dark',
     type: 'Attraction',
-    single_rider: 'false',
-    fastPass: 'false',
+    single_rider: false,
+    fastPass: false,
     tags: [
       'mayGetDizzy',
       'unsuitableForPregnantWomen',
@@ -231,10 +244,10 @@ Bellewaerde |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
             openingTime: (timeFormat timestamp: opening time for requested park - can be null if park is closed),
             closingTime: (timeFormat timestamp: closing time for requested park - can be null if park is closed),
             type: (string: "Operating" or "Closed"),
-            special: [ (array of "special" times for this day, usually Disney Extra Magic Hours or similar at other parks - field may be null)
+            special: [ (array of "special" times for this day, usually exclusive hours - field may be null)
               openingTime: (timeFormat timestamp: opening time for requested park),
               closingTime: (timeFormat timestamp: closing time for requested park),
-              type: (string: type of schedule eg. "Extra Magic Hours", but can be "Event" or "Special Ticketed Event" or other)
+              type: (string: type of schedule eg. "Passholder Event", but can be "Event" or "Special Ticketed Event" or other)
             ],
         },
         ...
