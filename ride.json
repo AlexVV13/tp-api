@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Stoomcarrousel",
+    "id": "Efteling_stoomcarrousel",
+    "type": "Attraction",
+    "location": {
+       "area": "Marerijk",
+       "latitude": 51.651211,
+       "longitude": 5.048955
+    },
+    "queues": {
+       "fastPass": {
+          "fastPass": false
+       },
+       "singlerider": {
+          "singleRider": false
+       },
+       "standBy": {
+          "waitTime": 0,
+          "status": "Closed",
+          "active": false
+       }
+    },
+    "meta": {
+       "descriptions": {
+        "description":"<p>Would you like a horse, a carriage, a pig or another vehicle? Take your seat in the ‘Stoomcarrousel’ steam carousell, which is more than 100 years old, and lit it spin you around! Duration: varies.   Wheelchair access: via the exit from this attraction.</p>",
+        "short_description":"The old-fashioned fairground feeling"
+       },
+       "restrictions": {
+          "minHeightAccompanied": "100 cm"
+       },
+       "tags": [
+          "tranferNecessary",
+          "IndoorRide"
+       ]
+    }
+  },
+  {
+    "name": "Vogel Rok",
+    "id": "Efteling_vogelrok",
+    "type": "Attraction",
+    "location": {
+       "area": "Reizenrijk",
+       "latitude": 51.652187,
+       "longitude": 5.052811
+    },
+    "queues": {
+       "fastPass": {
+          "fastPass": false
+       },
+       "singlerider": {
+          "singleRider": false
+       },
+       "standBy": {
+          "waitTime": 0,
+          "status": "Closed",
+          "active": false
+       }
+    },
+    "meta": {
+       "descriptions": {
+          "description": "<p>The Vogel Rok is an exiting indoor rollercoaster in the dark. The rollercoaster does not completely turn over, but does zoom through the dark at 40 mph. You must be at least 1.20 meter tall for this attraction. Duration: almost 2 minutes.   Wheelchair access: via the usual entrance to this attraction until the bottom of the stairs. Call here. An employee will then come to meet you.</p>",
+          "short_description": "Lightning in the dark"
+       },
+       "restrictions": {
+          "minHeight": "120 cm"
+       },
+       "tags": [
+          "mayGetDizzy",
+          "unsuitableForPregnantWomen",
+          "tranferNecessary",
+          "unsuitableWithInjuries",
+          "IndoorRide"
+       ]
+    }
+  }
+]
