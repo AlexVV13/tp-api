@@ -329,7 +329,7 @@ export class CDABase extends Park {
           type: entityType.ride,
           restrictions: {},
         },
-      }
+      };
       poi[&apos;dfb82971-7cc2-4153-a57f-e4a54f222b93&apos;] = {
         name: &apos;Kondaa&apos;,
         id: `${this.config.name}_` + &apos;dfb82971-7cc2-4153-a57f-e4a54f222b93&apos;,
@@ -344,7 +344,7 @@ export class CDABase extends Park {
           type: entityType.ride,
           restrictions: {},
         },
-      }
+      };
       rideData.entertainment.forEach((ride) =&gt; {
         const category = [];
         const tags = [];
@@ -463,9 +463,9 @@ export class CDABase extends Park {
                   type: entityType.ride,
                   restrictions: rideData[ride.id].meta.restrictions,
                 },
-              })
+              });
             }
-          })
+          });
           return rides;
         });
   }

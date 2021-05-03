@@ -886,24 +886,24 @@ export class EuropaParkBase extends Park {
   */
   async getHours() {
     return await this.cache.wrap(&apos;season&apos;, async () =&gt; {
-    const token = await this.loginEP();
+      const token = await this.loginEP();
 
-    return fetch(
-        this.config.apiBase +
-          `seasons/en`,
-        {
-          method: &apos;GET&apos;,
-          headers: {
-            &apos;Content-Type&apos;: &apos;application/json&apos;,
-            &apos;JWTAuthorization&apos;: token,
+      return fetch(
+          this.config.apiBase +
+            `seasons/en`,
+          {
+            method: &apos;GET&apos;,
+            headers: {
+              &apos;Content-Type&apos;: &apos;application/json&apos;,
+              &apos;JWTAuthorization&apos;: token,
+            },
           },
-        },
-    )
-        .then((res) =&gt; res.json())
-        .then((json) =&gt; {
-          return Promise.resolve(json);
-        });
-      }, 1000 * 60 * 60 * 12 )
+      )
+          .then((res) =&gt; res.json())
+          .then((json) =&gt; {
+            return Promise.resolve(json);
+          });
+        }, 1000 * 60 * 60 * 12 );
   };
 
   /**
@@ -1034,7 +1034,7 @@ export class EuropaParkBase extends Park {
           stype = dates[date][date123].type;
           sdesc = dates[date][date123].description;
         }
-  
+
         calendar.push({
           date: date,
           type: type,
@@ -1046,11 +1046,11 @@ export class EuropaParkBase extends Park {
               closingTime: sclose,
               type: stype,
               description: sdesc,
-            }
-          ]
-        })
-      })
-    })
+            },
+          ],
+        });
+      });
+    });
     return calendar;
   }
 }
