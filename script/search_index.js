@@ -990,6 +990,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "lib/parks/europapark/europaparkbase.js~europaparkbase#buildhours",
+    "class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildHours",
+    "lib/parks/europapark/europaparkbase.js~EuropaParkBase#buildHours",
+    "method"
+  ],
+  [
     "lib/parks/europapark/europaparkbase.js~europaparkbase#buildmerchandisepoi",
     "class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildMerchandisePOI",
     "lib/parks/europapark/europaparkbase.js~EuropaParkBase#buildMerchandisePOI",
