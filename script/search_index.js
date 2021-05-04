@@ -1176,6 +1176,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/park.js~park#getride",
+    "class/lib/parks/park.js~Park.html#instance-method-getRide",
+    "lib/parks/park.js~Park#getRide",
+    "method"
+  ],
+  [
     "lib/parks/park.js~park#getrides",
     "class/lib/parks/park.js~Park.html#instance-method-getRides",
     "lib/parks/park.js~Park#getRides",

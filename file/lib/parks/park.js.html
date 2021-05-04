@@ -132,6 +132,41 @@ export class Park extends Entity {
   };
 
   /**
+   * @param {*} ride
+   * @return {string} ride data for a specific ride
+   */
+  async getRide(ride) {
+    const rides = await this.getQueue();
+    const ridearr = [];
+    return rides.find((ridedata) =&gt; {
+      if (ridedata.name === ride) {
+        ridearr.push({
+          name: ridedata.name,
+          id: ridedata.id,
+          type: ridedata.meta.type,
+          location: {
+            area: ridedata.location.area,
+            latitude: ridedata.location.latitude,
+            longitude: ridedata.location.longitude,
+          },
+          waitTime: ridedata.waitTime,
+          status: ridedata.status,
+          active: ridedata.active,
+          meta: {
+            descriptions: {
+              description: ridedata.meta.descriptions.description,
+              short_description: ridedata.meta.descriptions.short_description,
+            },
+            restrictions: ridedata.meta.restrictions,
+            tags: ridedata.meta.tags,
+          },
+        });
+        return ridearr;
+      }
+    });
+  }
+
+  /**
   * Get All Calendar Data of a specific park
   * This data contains all the calendar data of a specific Park
   * @example
