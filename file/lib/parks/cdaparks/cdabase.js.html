@@ -91,7 +91,7 @@ export class CDABase extends Park {
     options.cachepoistime = process.env.CACHE_DURATION_POIS;
     options.languages = process.env.LANGUAGES;
 
-    options.langoptions = options.langoptions || `{&apos;en&apos;, &apos;de&apos;, &apos;nl&apos;}`;
+    options.langoptions = `{&apos;en&apos;, &apos;de&apos;, &apos;nl&apos;}`;
 
     super(options);
 
@@ -141,7 +141,7 @@ export class CDABase extends Park {
 
         const poiData = {
           name: ride.title,
-          id: `${this.config.name}_` + ride.uuid,
+          id: ride.uuid,
           location: {
             latitude: JSON.parse(ride.location.lat),
             longitude: JSON.parse(ride.location.lon),
@@ -177,7 +177,7 @@ export class CDABase extends Park {
 
         const poiData = {
           name: ride.title,
-          id: `${this.config.name}_` + ride.uuid,
+          id: ride.uuid,
           location: {
             latitude: JSON.parse(ride.location.lat),
             longitude: JSON.parse(ride.location.lon),
@@ -213,7 +213,7 @@ export class CDABase extends Park {
 
         const poiData = {
           name: ride.title,
-          id: `${this.config.name}_` + ride.uuid,
+          id: ride.uuid,
           location: {
             latitude: JSON.parse(ride.location.lat),
             longitude: JSON.parse(ride.location.lon),
@@ -249,7 +249,7 @@ export class CDABase extends Park {
 
         const poiData = {
           name: ride.title,
-          id: `${this.config.name}_` + ride.uuid,
+          id: ride.uuid,
           location: {
             latitude: JSON.parse(ride.location.lat),
             longitude: JSON.parse(ride.location.lon),
@@ -285,7 +285,7 @@ export class CDABase extends Park {
 
         const poiData = {
           name: ride.title,
-          id: `${this.config.name}_` + ride.uuid,
+          id: ride.uuid,
           location: {
             latitude: JSON.parse(ride.location.lat),
             longitude: JSON.parse(ride.location.lon),
@@ -314,25 +314,10 @@ export class CDABase extends Park {
       let minHeightAccompanied = undefined;
       let minHeight = undefined;
 
-      // Work around for the 2 new rides Kondala &amp; Kondaa
+      // Work around for the ride Kondala
       poi[&apos;ae675412-bb70-48b9-9acf-e815fc9322e0&apos;] = {
         name: &apos;Kondala&apos;,
-        id: `${this.config.name}_` + &apos;ae675412-bb70-48b9-9acf-e815fc9322e0&apos;,
-        location: {
-          latitude: null,
-          longitude: null,
-        },
-        meta: {
-          description: null,
-          shortdescription: null,
-          category: [],
-          type: entityType.ride,
-          restrictions: {},
-        },
-      };
-      poi[&apos;dfb82971-7cc2-4153-a57f-e4a54f222b93&apos;] = {
-        name: &apos;Kondaa&apos;,
-        id: `${this.config.name}_` + &apos;dfb82971-7cc2-4153-a57f-e4a54f222b93&apos;,
+        id: &apos;ae675412-bb70-48b9-9acf-e815fc9322e0&apos;,
         location: {
           latitude: null,
           longitude: null,
@@ -392,7 +377,7 @@ export class CDABase extends Park {
 
         poi[ride.uuid] = {
           name: ride.title,
-          id: `${this.config.name}_` + ride.uuid,
+          id: ride.uuid,
           location: {
             latitude: lat,
             longitude: lon,
