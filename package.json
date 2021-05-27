@@ -28,7 +28,7 @@
     "eslint": "^7.15.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.0.0",
-    "eslint-plugin-mocha": "^8.0.0",
+    "eslint-plugin-mocha": "^9.0.0",
     "eslint-plugin-prettier": "^3.3.0"
   },
   "scripts": {
