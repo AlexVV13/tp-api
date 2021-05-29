@@ -1284,6 +1284,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#getophours",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-getOpHours",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#getOpHours",
+    "method"
+  ],
+  [
     "lib/parks/phantasialand/phantasialand.js~phantasialand#getpois",
     "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-getPOIS",
     "lib/parks/phantasialand/phantasialand.js~Phantasialand#getPOIS",

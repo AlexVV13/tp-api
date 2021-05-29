@@ -65,6 +65,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/phantasialand/phantasialand.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fetch from &apos;node-fetch&apos;;
 import moment from &apos;moment-timezone&apos;;
+import cheerio from &apos;cheerio&apos;;
 import {Park} from &apos;../park.js&apos;;
 import Location from &apos;../location.js&apos;;
 
@@ -499,6 +500,7 @@ export class Phantasialand extends Park {
 
   /**
    * Fetch wait times
+   * @return {string} ride wait times of Phantasialand
    */
   async getWaitTime() {
     return this.buildRidePOI().then((poi) =&gt; {
@@ -565,6 +567,79 @@ export class Phantasialand extends Park {
             return Promise.resolve(rides);
           });
     });
+  }
+
+  /**
+   * Get operating hours of phantasialand
+   * @return {string} calendar data
+   */
+  async getOpHours() {
+    const hours = [];
+    return fetch(`https://www.phantasialand.de/en/theme-park/opening-hours/`)
+        .then((res) =&gt; res.text())
+        .then((text) =&gt; {
+          const $ = cheerio.load(text);
+          const calendarData = JSON.parse($(&apos;.phl-date-picker&apos;).attr(&apos;data-calendar&apos;));
+          calendarData.forEach((calendar) =&gt; {
+            if (calendar.title === &apos;Geschlossen&apos;) {
+              Object.keys(calendar.days_selected).forEach((time) =&gt; {
+                const cal = {
+                  date: calendar.days_selected[time],
+                  openingTime: moment(&apos;23:59&apos;, &apos;HH:mm a&apos;).format(),
+                  closingTime: moment(&apos;23:59&apos;, &apos;HH:mm a&apos;).format(),
+                  type: scheduleType.closed,
+                  special: [],
+                };
+                hours.push(cal);
+              });
+            } else if (calendar.title === &apos;Park\u00f6ffnung: 09:00 \u2013 18:00 Uhr&apos;) {
+              Object.keys(calendar.days_selected).forEach((time) =&gt; {
+                const cal = {
+                  date: calendar.days_selected[time],
+                  openingTime: moment(&apos;09:00&apos;, &apos;HH:mm a&apos;).format(),
+                  closingTime: moment(&apos;18:00&apos;, &apos;HH:mm a&apos;).format(),
+                  type: scheduleType.operating,
+                  special: [],
+                };
+                hours.push(cal);
+              });
+            } else if (calendar.title === &apos;Park\u00f6ffnung: 09:00 \u2013 19:00 Uhr&apos;) {
+              Object.keys(calendar.days_selected).forEach((time) =&gt; {
+                const cal = {
+                  date: calendar.days_selected[time],
+                  openingTime: moment(&apos;09:00&apos;, &apos;HH:mm a&apos;).format(),
+                  closingTime: moment(&apos;19:00&apos;, &apos;HH:mm a&apos;).format(),
+                  type: scheduleType.operating,
+                  special: [],
+                };
+                hours.push(cal);
+              });
+            } else if (calendar.title === &apos;Silvester: 11:00 \u2013 18:00 Uhr&apos;) {
+              Object.keys(calendar.days_selected).forEach((time) =&gt; {
+                const cal = {
+                  date: calendar.days_selected[time],
+                  openingTime: moment(&apos;11:00&apos;, &apos;HH:mm a&apos;).format(),
+                  closingTime: moment(&apos;18:00&apos;, &apos;HH:mm a&apos;).format(),
+                  type: scheduleType.operating,
+                  special: [],
+                };
+                hours.push(cal);
+              });
+            } else if (calendar.title === &apos;Wintertraum: 11:00 \u2013 20:00 Uhr&apos;) {
+              Object.keys(calendar.days_selected).forEach((time) =&gt; {
+                const cal = {
+                  date: calendar.days_selected[time],
+                  openingTime: moment(&apos;09:00&apos;, &apos;HH:mm a&apos;).format(),
+                  closingTime: moment(&apos;20:00&apos;, &apos;HH:mm a&apos;).format(),
+                  type: scheduleType.operating,
+                  special: [],
+                };
+                hours.push(cal);
+              });
+            }
+          });
+          return Promise.resolve(hours);
+        });
   }
 };
 
