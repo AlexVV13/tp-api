@@ -63,11 +63,9 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/plopsa/plopsabase.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
-import fetch from &apos;node-fetch&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fetch from &apos;node-fetch&apos;;
 import {Park} from &apos;../park.js&apos;;
-import {entityType, queueType, scheduleType} from &apos;../types.js&apos;;
-import {entityCategory, entityTags} from &apos;../tags.js&apos;;
+import {entityType, queueType} from &apos;../types.js&apos;;
 
 import dotenv from &apos;dotenv&apos;;
 dotenv.config();
@@ -109,28 +107,28 @@ export class PlopsaBase extends Park {
 
   /**
    * Login to the Plopsa API
-   * @returns {string} accesstoken
+   * @return {string} accesstoken
    */
   async loginAPI() {
     const bodydata = {
       &apos;clientId&apos;: &apos;7xfwRB8iK1tbf3cYiABI%%2Fw%%3D%%3D&apos;,
-      &apos;clientSecret&apos;: &apos;6YqyzzOsaNkxDkHmwhgK%%2Fw%%3D%%3D&apos;
+      &apos;clientSecret&apos;: &apos;6YqyzzOsaNkxDkHmwhgK%%2Fw%%3D%%3D&apos;,
     };
-    return fetch(this.config.apiBase + 
+    return fetch(this.config.apiBase +
       `${this.config.languages}/api/v1.0/token/0001`,
-      {
-        method: &apos;POST&apos;,
-        headers: {
-          &apos;Content-Type&apos;: &apos;application/json&apos;,
-        },
-        body: JSON.stringify(bodydata),
-      }
-      )
-      .then((res) =&gt; res.json())
-      .then((data) =&gt; {
-        const token = data.accessToken
-        return token;
-      })
+    {
+      method: &apos;POST&apos;,
+      headers: {
+        &apos;Content-Type&apos;: &apos;application/json&apos;,
+      },
+      body: JSON.stringify(bodydata),
+    },
+    )
+        .then((res) =&gt; res.json())
+        .then((data) =&gt; {
+          const token = data.accessToken;
+          return token;
+        });
   }
 
   /**
@@ -166,7 +164,6 @@ export class PlopsaBase extends Park {
 
       Object.keys(rideData.en.attraction).forEach((ride) =&gt; {
         const category = [];
-        const tags = [];
 
         if (rideData.en.attraction[ride].minHeight) {
           minHeight = rideData.en.attraction[ride].minHeight;
@@ -184,11 +181,11 @@ export class PlopsaBase extends Park {
           maxHeight,
         };
 
-        let description = rideData.en.attraction[ride].description;
-        let shortdescription = undefined;
+        const description = rideData.en.attraction[ride].description;
+        const shortdescription = undefined;
 
-        let lat = undefined;
-        let lon = undefined;
+        const lat = undefined;
+        const lon = undefined;
 
         poi[rideData.en.attraction[ride].id] = {
           name: rideData.en.attraction[ride].name,
@@ -235,6 +232,7 @@ export class PlopsaBase extends Park {
             if (wait === null) {
               wait = 0;
               state = queueType.closed;
+              active = false;
             }
 
             if (rideData[ride.id]) {
@@ -269,7 +267,6 @@ export class PlopsaBase extends Park {
   */
   async getOpHours() {
     const token = await this.loginAPI();
-    const currentYear = moment().format(&apos;YYYY&apos;);
     return fetch(
         this.config.apiBase +
           `en/api/v1.0/calendar/plopsaland-de-panne?access_token=${token}`,
