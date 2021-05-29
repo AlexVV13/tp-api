@@ -125,6 +125,9 @@ export class EuropaParkBase extends Park {
       this.config.cachepoistime = &apos;12&apos;;
     };
 
+    /**
+     * Setup BlowFish
+     */
     this.bf = new Blowfish(this.config.encKey, Blowfish.MODE.CBC, Blowfish.PADDING.PKCS5 );
     this.bf.setIv(this.config.encIV);
   }
@@ -218,9 +221,10 @@ export class EuropaParkBase extends Park {
   async getPOIS() {
     return await this.cache.wrap(&apos;poidata&apos;, async () =&gt; {
       const jwttoken = await this.loginEP();
+      const checksum = (await this.cache.get(&apos;poi_checksum&apos;)) || 0;
 
       return fetch(this.config.apiBase +
-        `pois/${this.config.languages}`,
+        `latest/${this.config.languages}/live/${checksum}`,
       {
         headers: {
           &apos;Content-Type&apos;: &apos;application/json&apos;,
@@ -230,7 +234,18 @@ export class EuropaParkBase extends Park {
       )
           .then((res) =&gt; res.json())
           .then((rideData) =&gt; {
-            return Promise.resolve(rideData); // Immediately return rideData, no need to fetch anything else here because their API is shit.
+            if (rideData.error?.code === 404 &amp;&amp; checksum &gt; 0) {
+              // return old data, hasn&apos;t changed
+              return this.cache.get(&apos;poidata&apos;);
+            }
+            if (!rideData.package) return undefined;
+            const pois = [];
+            Object.keys(rideData.package.data).forEach((key) =&gt; {
+              rideData.package.data[key].forEach((poi) =&gt; {
+                pois.push(poi);
+              });
+            });
+            return Promise.resolve(pois); // Immediately return rideData, no need to fetch anything else here because their API is shit.
           });
     }, 1000 * 60 * 60 * this.config.cachepoistime );
   };
@@ -251,159 +266,161 @@ export class EuropaParkBase extends Park {
       let singleRider = false; // EP doesn&apos;t send these values
       let fastPass = false; // Set fastpass to false as default
       let isVirtQueue = false; // Default poi isn&apos;t a virtqueue
-      poiData.pois.forEach((ride) =&gt; {
-        if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
-          if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers, really, why do they even exist?
-          if (ride.name.indexOf(&apos;VirtualLine: &apos;) === 0) { // So EP reports virtlane as seperate map pointer, they send it as a stand-alone POI, assign the VirtQueue tag here.
-            fastPass = true;
-            isVirtQueue = true;
-            const paren = ride.name.slice(13);
-            parent = paren;
-            singleRider = true; // VirtLines are the SRL replacement
-          } else { // Yay, it&apos;s not a Virtline entry!
-            fastPass = false;
-            isVirtQueue = false;
-            parent = null;
-          }
-          let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
-          if (ride.areaId == 10) {
-            area = &apos;Adventureland&apos;;
-          } else if (ride.areaId == 11) {
-            area = &apos;Kingdom of the Minimoys&apos;;
-          } else if (ride.areaId == 12) {
-            area = &apos;Germany&apos;;
-          } else if (ride.areaId == 13) {
-            area = &apos;England&apos;;
-          } else if (ride.areaId == 14) {
-            area = &apos;France&apos;;
-          } else if (ride.areaId == 15) {
-            area = &apos;Greece&apos;;
-          } else if (ride.areaId == 16) {
-            area = `Grimm&apos;s Fairytale Forest`; // Thanks for the single quote. Really helpful indeed
-          } else if (ride.areaId == 17) {
-            area = &apos;Netherlands&apos;;
-          } else if (ride.areaId == 19) {
-            area = &apos;Ireland&apos;;
-          } else if (ride.areaId == 20) {
-            area = &apos;Iceland&apos;;
-          } else if (ride.areaId == 21) {
-            area = &apos;Italy&apos;;
-          } else if (ride.areaId == 22) {
-            area = &apos;Luxembourg&apos;;
-          } else if (ride.areaId == 23) {
-            area = &apos;Austria&apos;;
-          } else if (ride.areaId == 24) {
-            area = &apos;Portugal&apos;;
-          } else if (ride.areaId == 25) {
-            area = &apos;Russia&apos;;
-          } else if (ride.areaId == 26) {
-            area = &apos;Switzerland&apos;;
-          } else if (ride.areaId == 27) {
-            area = &apos;Scandinavia&apos;;
-          } else if (ride.areaId == 28) {
-            area = &apos;Spain&apos;;
-          }
-          // To be clear, there are even more areas, but yeah, useless.
+      poiData.forEach((ride) =&gt; {
+        if (ride.scopes) {
+          if (ride.type === &apos;attraction&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
+            if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers, really, why do they even exist?
+            if (ride.name.indexOf(&apos;VirtualLine: &apos;) === 0) { // So EP reports virtlane as seperate map pointer, they send it as a stand-alone POI, assign the VirtQueue tag here.
+              fastPass = true;
+              isVirtQueue = true;
+              const paren = ride.name.slice(13);
+              parent = paren;
+              singleRider = true; // VirtLines are the SRL replacement
+            } else { // Yay, it&apos;s not a Virtline entry!
+              fastPass = false;
+              isVirtQueue = false;
+              parent = null;
+            }
+            let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
+            if (ride.areaId == 10) {
+              area = &apos;Adventureland&apos;;
+            } else if (ride.areaId == 11) {
+              area = &apos;Kingdom of the Minimoys&apos;;
+            } else if (ride.areaId == 12) {
+              area = &apos;Germany&apos;;
+            } else if (ride.areaId == 13) {
+              area = &apos;England&apos;;
+            } else if (ride.areaId == 14) {
+              area = &apos;France&apos;;
+            } else if (ride.areaId == 15) {
+              area = &apos;Greece&apos;;
+            } else if (ride.areaId == 16) {
+              area = `Grimm&apos;s Fairytale Forest`; // Thanks for the single quote. Really helpful indeed
+            } else if (ride.areaId == 17) {
+              area = &apos;Netherlands&apos;;
+            } else if (ride.areaId == 19) {
+              area = &apos;Ireland&apos;;
+            } else if (ride.areaId == 20) {
+              area = &apos;Iceland&apos;;
+            } else if (ride.areaId == 21) {
+              area = &apos;Italy&apos;;
+            } else if (ride.areaId == 22) {
+              area = &apos;Luxembourg&apos;;
+            } else if (ride.areaId == 23) {
+              area = &apos;Austria&apos;;
+            } else if (ride.areaId == 24) {
+              area = &apos;Portugal&apos;;
+            } else if (ride.areaId == 25) {
+              area = &apos;Russia&apos;;
+            } else if (ride.areaId == 26) {
+              area = &apos;Switzerland&apos;;
+            } else if (ride.areaId == 27) {
+              area = &apos;Scandinavia&apos;;
+            } else if (ride.areaId == 28) {
+              area = &apos;Spain&apos;;
+            }
+            // To be clear, there are even more areas, but yeah, useless.
 
-          // EuropaPark actually provides some cool tags which I&apos;ll attach here.
-          let Producer = undefined;
-          let Opening = undefined;
-          let Capacity = undefined;
-          let Ridetime = undefined;
-          let TheoreticalCapacity = undefined;
-          let MaxGForce = undefined;
-          let MaxSpeed = undefined;
-          let Height = undefined;
+            // EuropaPark actually provides some cool tags which I&apos;ll attach here.
+            let Producer = undefined;
+            let Opening = undefined;
+            let Capacity = undefined;
+            let Ridetime = undefined;
+            let TheoreticalCapacity = undefined;
+            let MaxGForce = undefined;
+            let MaxSpeed = undefined;
+            let Height = undefined;
 
-          if (ride.attributes) {
-            Object.keys(ride.attributes).forEach((poiat) =&gt; {
-              if (ride.attributes[poiat].key === &apos;Producer&apos;) {
-                Producer = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Opening&apos;) {
-                Opening = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Capacity&apos;) {
-                Capacity = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Driving Time&apos;) {
-                Ridetime = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Theoretical Capacity&apos;) {
-                TheoreticalCapacity = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Max Acceleration&apos;) {
-                MaxGForce = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Max Speed&apos;) {
-                MaxSpeed = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Height&apos;) {
-                Height = ride.attributes[poiat].value;
-              }
-            });
-          }
+            if (ride.attributes) {
+              Object.keys(ride.attributes).forEach((poiat) =&gt; {
+                if (ride.attributes[poiat].key === &apos;Producer&apos;) {
+                  Producer = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Opening&apos;) {
+                  Opening = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Capacity&apos;) {
+                  Capacity = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Driving Time&apos;) {
+                  Ridetime = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Theoretical Capacity&apos;) {
+                  TheoreticalCapacity = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Max Acceleration&apos;) {
+                  MaxGForce = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Max Speed&apos;) {
+                  MaxSpeed = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Height&apos;) {
+                  Height = ride.attributes[poiat].value;
+                }
+              });
+            }
 
-          const tags = {
-            Producer,
-            Opening,
-            Capacity,
-            Ridetime,
-            TheoreticalCapacity,
-            MaxGForce,
-            MaxSpeed,
-            Height,
-          };
+            const tags = {
+              Producer,
+              Opening,
+              Capacity,
+              Ridetime,
+              TheoreticalCapacity,
+              MaxGForce,
+              MaxSpeed,
+              Height,
+            };
 
-          // And some restrictions.
-          let minHeight = undefined;
-          let minHeightAccompanied = undefined;
-          let minAge = undefined;
-          let minAgeAccompanied = undefined;
-          let maxHeight = undefined;
-          if (ride.minHeight) {
-            minHeight = ride.minHeight; // Minimum length
-          };
-          if (ride.minHeightAdult) {
-            minHeightAccompanied = ride.minHeightAdult; // Minimum length accompanied, although, that&apos;s my guess
-          };
-          if (ride.minAge) {
-            minAge = ride.minAge; // RECOMMENDED minimum age.
-          };
-          if (ride.minAgeAdult) {
-            minAgeAccompanied = ride.minAgeAdult; // The most epic entry every, a recommended minimum age whenever you&apos;re accompanied!!! Wow
-          };
-          if (ride.maxHeight) {
-            maxHeight = ride.maxHeight; // Some people wants to grow like 3m high and that has to stop.
-          }
+            // And some restrictions.
+            let minHeight = undefined;
+            let minHeightAccompanied = undefined;
+            let minAge = undefined;
+            let minAgeAccompanied = undefined;
+            let maxHeight = undefined;
+            if (ride.minHeight) {
+              minHeight = ride.minHeight; // Minimum length
+            };
+            if (ride.minHeightAdult) {
+              minHeightAccompanied = ride.minHeightAdult; // Minimum length accompanied, although, that&apos;s my guess
+            };
+            if (ride.minAge) {
+              minAge = ride.minAge; // RECOMMENDED minimum age.
+            };
+            if (ride.minAgeAdult) {
+              minAgeAccompanied = ride.minAgeAdult; // The most epic entry every, a recommended minimum age whenever you&apos;re accompanied!!! Wow
+            };
+            if (ride.maxHeight) {
+              maxHeight = ride.maxHeight; // Some people wants to grow like 3m high and that has to stop.
+            }
 
-          const restrictions = {
-            minHeight,
-            minHeightAccompanied,
-            minAge,
-            minAgeAccompanied,
-            maxHeight,
-          };
+            const restrictions = {
+              minHeight,
+              minHeightAccompanied,
+              minAge,
+              minAgeAccompanied,
+              maxHeight,
+            };
 
-          // Build the ride object
-          poi[ride.code] = {
-            name: ride.name,
-            id: `${this.config.name}_` + ride.code,
-            waitTime: null,
-            state: null,
-            active: null,
-            location: {
-              area: area,
-              latitude: ride.latitude,
-              longitude: ride.longitude,
-            },
-            meta: {
-              description: ride.description,
-              short_description: ride.excerpt,
-              single_rider: singleRider,
-              fastPass: fastPass,
-              parent: parent,
-              type: entityType.ride,
-              single_rider: singleRider,
-              isVirtQueue: isVirtQueue,
-              tags: tags,
-              restrictions: restrictions,
-            },
+            // Build the ride object
+            poi[ride.code] = {
+              name: ride.name,
+              id: `${this.config.name}_` + ride.code,
+              waitTime: null,
+              state: null,
+              active: null,
+              location: {
+                area: area,
+                latitude: ride.latitude,
+                longitude: ride.longitude,
+              },
+              meta: {
+                description: ride.description,
+                short_description: ride.excerpt,
+                single_rider: singleRider,
+                fastPass: fastPass,
+                parent: parent,
+                type: entityType.ride,
+                single_rider: singleRider,
+                isVirtQueue: isVirtQueue,
+                tags: tags,
+                restrictions: restrictions,
+              },
+            };
           };
-        };
+        }
       });
       return Promise.resolve(poi);
     }, 1000 * 60 * 60 * this.config.cachepoistime );
@@ -421,135 +438,137 @@ export class EuropaParkBase extends Park {
       if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
 
       const poi = {};
-      poiData.pois.forEach((ride) =&gt; {
-        if (ride.type === &apos;sight&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
-          if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers
-          let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
-          if (ride.areaId == 10) {
-            area = &apos;Adventureland&apos;;
-          } else if (ride.areaId == 11) {
-            area = &apos;Kingdom of the Minimoys&apos;;
-          } else if (ride.areaId == 12) {
-            area = &apos;Germany&apos;;
-          } else if (ride.areaId == 13) {
-            area = &apos;England&apos;;
-          } else if (ride.areaId == 14) {
-            area = &apos;France&apos;;
-          } else if (ride.areaId == 15) {
-            area = &apos;Greece&apos;;
-          } else if (ride.areaId == 16) {
-            area = `Grimm&apos;s Fairytale Forest`;
-          } else if (ride.areaId == 17) {
-            area = &apos;Netherlands&apos;;
-          } else if (ride.areaId == 19) {
-            area = &apos;Ireland&apos;;
-          } else if (ride.areaId == 20) {
-            area = &apos;Iceland&apos;;
-          } else if (ride.areaId == 21) {
-            area = &apos;Italy&apos;;
-          } else if (ride.areaId == 22) {
-            area = &apos;Luxembourg&apos;;
-          } else if (ride.areaId == 23) {
-            area = &apos;Austria&apos;;
-          } else if (ride.areaId == 24) {
-            area = &apos;Portugal&apos;;
-          } else if (ride.areaId == 25) {
-            area = &apos;Russia&apos;;
-          } else if (ride.areaId == 26) {
-            area = &apos;Switzerland&apos;;
-          } else if (ride.areaId == 27) {
-            area = &apos;Scandinavia&apos;;
-          } else if (ride.areaId == 28) {
-            area = &apos;Spain&apos;;
-          }
+      poiData.forEach((ride) =&gt; {
+        if (ride.scopes) {
+          if (ride.type === &apos;sight&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
+            if (ride.name.indexOf(&apos;Queue - &apos;) === 0) return; // Ignore the Queue Pointers
+            let area = &apos;Germany&apos;; // Really, this is the strangest empire thing ever
+            if (ride.areaId == 10) {
+              area = &apos;Adventureland&apos;;
+            } else if (ride.areaId == 11) {
+              area = &apos;Kingdom of the Minimoys&apos;;
+            } else if (ride.areaId == 12) {
+              area = &apos;Germany&apos;;
+            } else if (ride.areaId == 13) {
+              area = &apos;England&apos;;
+            } else if (ride.areaId == 14) {
+              area = &apos;France&apos;;
+            } else if (ride.areaId == 15) {
+              area = &apos;Greece&apos;;
+            } else if (ride.areaId == 16) {
+              area = `Grimm&apos;s Fairytale Forest`;
+            } else if (ride.areaId == 17) {
+              area = &apos;Netherlands&apos;;
+            } else if (ride.areaId == 19) {
+              area = &apos;Ireland&apos;;
+            } else if (ride.areaId == 20) {
+              area = &apos;Iceland&apos;;
+            } else if (ride.areaId == 21) {
+              area = &apos;Italy&apos;;
+            } else if (ride.areaId == 22) {
+              area = &apos;Luxembourg&apos;;
+            } else if (ride.areaId == 23) {
+              area = &apos;Austria&apos;;
+            } else if (ride.areaId == 24) {
+              area = &apos;Portugal&apos;;
+            } else if (ride.areaId == 25) {
+              area = &apos;Russia&apos;;
+            } else if (ride.areaId == 26) {
+              area = &apos;Switzerland&apos;;
+            } else if (ride.areaId == 27) {
+              area = &apos;Scandinavia&apos;;
+            } else if (ride.areaId == 28) {
+              area = &apos;Spain&apos;;
+            }
 
-          // EuropaPark actually provides some cool tags which I&apos;ll attach here.
-          let producer = null;
-          let opening = null;
-          let capacity = null;
-          let ridetime = null;
-          let thcapacity = null;
-          let gforce = null;
-          let maxspeed = null;
-          let height = null;
+            // EuropaPark actually provides some cool tags which I&apos;ll attach here.
+            let producer = null;
+            let opening = null;
+            let capacity = null;
+            let ridetime = null;
+            let thcapacity = null;
+            let gforce = null;
+            let maxspeed = null;
+            let height = null;
 
-          if (ride.attributes) {
-            Object.keys(ride.attributes).forEach((poiat) =&gt; {
-              if (ride.attributes[poiat].key === &apos;Producer&apos;) {
-                producer = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Opening&apos;) {
-                opening = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Capacity&apos;) {
-                capacity = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Driving Time&apos;) {
-                ridetime = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Theoretical Capacity&apos;) {
-                thcapacity = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Max Acceleration&apos;) {
-                gforce = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Max Speed&apos;) {
-                maxspeed = ride.attributes[poiat].value;
-              } else if (ride.attributes[poiat].key === &apos;Height&apos;) {
-                height = ride.attributes[poiat].value;
-              }
-            });
-          }
+            if (ride.attributes) {
+              Object.keys(ride.attributes).forEach((poiat) =&gt; {
+                if (ride.attributes[poiat].key === &apos;Producer&apos;) {
+                  producer = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Opening&apos;) {
+                  opening = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Capacity&apos;) {
+                  capacity = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Driving Time&apos;) {
+                  ridetime = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Theoretical Capacity&apos;) {
+                  thcapacity = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Max Acceleration&apos;) {
+                  gforce = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Max Speed&apos;) {
+                  maxspeed = ride.attributes[poiat].value;
+                } else if (ride.attributes[poiat].key === &apos;Height&apos;) {
+                  height = ride.attributes[poiat].value;
+                }
+              });
+            }
 
-          // And some restrictions.
-          let minHeight = null;
-          let minHeightAdult = null;
-          let minAge = null;
-          let minAgeAdult = null;
-          let maxHeight = null;
-          if (ride.minHeight) {
-            minHeight = ride.minHeight;
-          };
-          if (ride.minHeightAdult) {
-            minHeightAdult = ride.minHeightAdult;
-          };
-          if (ride.minAge) {
-            minAge = ride.minAge;
-          };
-          if (ride.minAgeAdult) {
-            minAgeAdult = ride.minAgeAdult;
-          };
-          if (ride.maxHeight) {
-            maxHeight = ride.maxHeight;
-          }
+            // And some restrictions.
+            let minHeight = null;
+            let minHeightAdult = null;
+            let minAge = null;
+            let minAgeAdult = null;
+            let maxHeight = null;
+            if (ride.minHeight) {
+              minHeight = ride.minHeight;
+            };
+            if (ride.minHeightAdult) {
+              minHeightAdult = ride.minHeightAdult;
+            };
+            if (ride.minAge) {
+              minAge = ride.minAge;
+            };
+            if (ride.minAgeAdult) {
+              minAgeAdult = ride.minAgeAdult;
+            };
+            if (ride.maxHeight) {
+              maxHeight = ride.maxHeight;
+            }
 
-          // Build the static object - probably the only thing that&apos;ll ever appear here are fairytales and the macks house, not kidding, its listed
-          poi[ride.code] = {
-            name: ride.name,
-            id: `${this.config.name}_` + ride.code,
-            location: {
-              area: area,
-              latitude: ride.latitude,
-              longitude: ride.longitude,
-            },
-            meta: {
-              description: ride.description,
-              short_description: ride.excerpt,
-              type: entityType.static,
-              tags: {
-                Producer: producer,
-                Capacity: capacity,
-                Opened: opening,
-                Duration: ridetime,
-                Theoretical_Capacity: thcapacity,
-                Max_GForce: gforce,
-                Max_Speed: maxspeed,
-                Height: height,
+            // Build the static object - probably the only thing that&apos;ll ever appear here are fairytales and the macks house, not kidding, its listed
+            poi[ride.code] = {
+              name: ride.name,
+              id: `${this.config.name}_` + ride.code,
+              location: {
+                area: area,
+                latitude: ride.latitude,
+                longitude: ride.longitude,
               },
-              restrictions: {
-                minHeight: minHeight,
-                minHeightAccompanied: minHeightAdult,
-                maxHeight: maxHeight,
-                minAge: minAge,
-                minAgeAccompanied: minAgeAdult,
+              meta: {
+                description: ride.description,
+                short_description: ride.excerpt,
+                type: entityType.static,
+                tags: {
+                  Producer: producer,
+                  Capacity: capacity,
+                  Opened: opening,
+                  Duration: ridetime,
+                  Theoretical_Capacity: thcapacity,
+                  Max_GForce: gforce,
+                  Max_Speed: maxspeed,
+                  Height: height,
+                },
+                restrictions: {
+                  minHeight: minHeight,
+                  minHeightAccompanied: minHeightAdult,
+                  maxHeight: maxHeight,
+                  minAge: minAge,
+                  minAgeAccompanied: minAgeAdult,
+                },
               },
-            },
+            };
           };
-        };
+        }
       });
       return Promise.resolve(poi);
     }, 1000 * 60 * 60 * this.config.cachepoistime );
@@ -567,61 +586,63 @@ export class EuropaParkBase extends Park {
       if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
 
       const poi = {};
-      poiData.pois.forEach((ride) =&gt; {
-        if (ride.type === &apos;gastronomy&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
-          let area = undefined; // Default, Hotel is included as well which adds new areas
-          if (ride.areaId == 10) {
-            area = &apos;Adventureland&apos;;
-          } else if (ride.areaId == 11) {
-            area = &apos;Kingdom of the Minimoys&apos;;
-          } else if (ride.areaId == 12) {
-            area = &apos;Germany&apos;;
-          } else if (ride.areaId == 13) {
-            area = &apos;England&apos;;
-          } else if (ride.areaId == 14) {
-            area = &apos;France&apos;;
-          } else if (ride.areaId == 15) {
-            area = &apos;Greece&apos;;
-          } else if (ride.areaId == 17) {
-            area = &apos;Netherlands&apos;;
-          } else if (ride.areaId == 19) {
-            area = &apos;Ireland&apos;;
-          } else if (ride.areaId == 20) {
-            area = &apos;Iceland&apos;;
-          } else if (ride.areaId == 21) {
-            area = &apos;Italy&apos;;
-          } else if (ride.areaId == 22) {
-            area = &apos;Luxembourg&apos;;
-          } else if (ride.areaId == 23) {
-            area = &apos;Austria&apos;;
-          } else if (ride.areaId == 24) {
-            area = &apos;Portugal&apos;;
-          } else if (ride.areaId == 25) {
-            area = &apos;Russia&apos;;
-          } else if (ride.areaId == 26) {
-            area = &apos;Switzerland&apos;;
-          } else if (ride.areaId == 27) {
-            area = &apos;Scandinavia&apos;;
-          } else if (ride.areaId == 28) {
-            area = &apos;Spain&apos;;
-          }
+      poiData.forEach((ride) =&gt; {
+        if (ride.scopes) {
+          if (ride.type === &apos;gastronomy&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
+            let area = undefined; // Default, Hotel is included as well which adds new areas
+            if (ride.areaId == 10) {
+              area = &apos;Adventureland&apos;;
+            } else if (ride.areaId == 11) {
+              area = &apos;Kingdom of the Minimoys&apos;;
+            } else if (ride.areaId == 12) {
+              area = &apos;Germany&apos;;
+            } else if (ride.areaId == 13) {
+              area = &apos;England&apos;;
+            } else if (ride.areaId == 14) {
+              area = &apos;France&apos;;
+            } else if (ride.areaId == 15) {
+              area = &apos;Greece&apos;;
+            } else if (ride.areaId == 17) {
+              area = &apos;Netherlands&apos;;
+            } else if (ride.areaId == 19) {
+              area = &apos;Ireland&apos;;
+            } else if (ride.areaId == 20) {
+              area = &apos;Iceland&apos;;
+            } else if (ride.areaId == 21) {
+              area = &apos;Italy&apos;;
+            } else if (ride.areaId == 22) {
+              area = &apos;Luxembourg&apos;;
+            } else if (ride.areaId == 23) {
+              area = &apos;Austria&apos;;
+            } else if (ride.areaId == 24) {
+              area = &apos;Portugal&apos;;
+            } else if (ride.areaId == 25) {
+              area = &apos;Russia&apos;;
+            } else if (ride.areaId == 26) {
+              area = &apos;Switzerland&apos;;
+            } else if (ride.areaId == 27) {
+              area = &apos;Scandinavia&apos;;
+            } else if (ride.areaId == 28) {
+              area = &apos;Spain&apos;;
+            }
 
-          // Build the restaurant object
-          poi[ride.code] = {
-            name: ride.name,
-            id: `${this.config.name}_` + ride.code,
-            location: {
-              area: area,
-              latitude: ride.latitude,
-              longitude: ride.longitude,
-            },
-            meta: {
-              description: ride.description,
-              short_description: ride.excerpt,
-              type: entityType.restaurant,
-            },
+            // Build the restaurant object
+            poi[ride.code] = {
+              name: ride.name,
+              id: `${this.config.name}_` + ride.code,
+              location: {
+                area: area,
+                latitude: ride.latitude,
+                longitude: ride.longitude,
+              },
+              meta: {
+                description: ride.description,
+                short_description: ride.excerpt,
+                type: entityType.restaurant,
+              },
+            };
           };
-        };
+        }
       });
       return Promise.resolve(poi);
     }, 1000 * 60 * 60 * this.config.cachepoistime );
@@ -639,61 +660,63 @@ export class EuropaParkBase extends Park {
       if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
 
       const poi = {};
-      poiData.pois.forEach((ride) =&gt; {
-        if (ride.type === &apos;shopping&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
-          let area = undefined; // Default, Hotel is included as well which adds new areas
-          if (ride.areaId == 10) {
-            area = &apos;Adventureland&apos;;
-          } else if (ride.areaId == 11) {
-            area = &apos;Kingdom of the Minimoys&apos;;
-          } else if (ride.areaId == 12) {
-            area = &apos;Germany&apos;;
-          } else if (ride.areaId == 13) {
-            area = &apos;England&apos;;
-          } else if (ride.areaId == 14) {
-            area = &apos;France&apos;;
-          } else if (ride.areaId == 15) {
-            area = &apos;Greece&apos;;
-          } else if (ride.areaId == 17) {
-            area = &apos;Netherlands&apos;;
-          } else if (ride.areaId == 19) {
-            area = &apos;Ireland&apos;;
-          } else if (ride.areaId == 20) {
-            area = &apos;Iceland&apos;;
-          } else if (ride.areaId == 21) {
-            area = &apos;Italy&apos;;
-          } else if (ride.areaId == 22) {
-            area = &apos;Luxembourg&apos;;
-          } else if (ride.areaId == 23) {
-            area = &apos;Austria&apos;;
-          } else if (ride.areaId == 24) {
-            area = &apos;Portugal&apos;;
-          } else if (ride.areaId == 25) {
-            area = &apos;Russia&apos;;
-          } else if (ride.areaId == 26) {
-            area = &apos;Switzerland&apos;;
-          } else if (ride.areaId == 27) {
-            area = &apos;Scandinavia&apos;;
-          } else if (ride.areaId == 28) {
-            area = &apos;Spain&apos;;
-          }
+      poiData.forEach((ride) =&gt; {
+        if (ride.scopes) {
+          if (ride.type === &apos;shopping&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
+            let area = undefined; // Default, Hotel is included as well which adds new areas
+            if (ride.areaId == 10) {
+              area = &apos;Adventureland&apos;;
+            } else if (ride.areaId == 11) {
+              area = &apos;Kingdom of the Minimoys&apos;;
+            } else if (ride.areaId == 12) {
+              area = &apos;Germany&apos;;
+            } else if (ride.areaId == 13) {
+              area = &apos;England&apos;;
+            } else if (ride.areaId == 14) {
+              area = &apos;France&apos;;
+            } else if (ride.areaId == 15) {
+              area = &apos;Greece&apos;;
+            } else if (ride.areaId == 17) {
+              area = &apos;Netherlands&apos;;
+            } else if (ride.areaId == 19) {
+              area = &apos;Ireland&apos;;
+            } else if (ride.areaId == 20) {
+              area = &apos;Iceland&apos;;
+            } else if (ride.areaId == 21) {
+              area = &apos;Italy&apos;;
+            } else if (ride.areaId == 22) {
+              area = &apos;Luxembourg&apos;;
+            } else if (ride.areaId == 23) {
+              area = &apos;Austria&apos;;
+            } else if (ride.areaId == 24) {
+              area = &apos;Portugal&apos;;
+            } else if (ride.areaId == 25) {
+              area = &apos;Russia&apos;;
+            } else if (ride.areaId == 26) {
+              area = &apos;Switzerland&apos;;
+            } else if (ride.areaId == 27) {
+              area = &apos;Scandinavia&apos;;
+            } else if (ride.areaId == 28) {
+              area = &apos;Spain&apos;;
+            }
 
-          // Build the merchandise object
-          poi[ride.code] = {
-            name: ride.name,
-            id: `${this.config.name}_` + ride.code,
-            location: {
-              area: area,
-              latitude: ride.latitude,
-              longitude: ride.longitude,
-            },
-            meta: {
-              description: ride.description,
-              short_description: ride.excerpt,
-              type: entityType.merchandise,
-            },
+            // Build the merchandise object
+            poi[ride.code] = {
+              name: ride.name,
+              id: `${this.config.name}_` + ride.code,
+              location: {
+                area: area,
+                latitude: ride.latitude,
+                longitude: ride.longitude,
+              },
+              meta: {
+                description: ride.description,
+                short_description: ride.excerpt,
+                type: entityType.merchandise,
+              },
+            };
           };
-        };
+        }
       });
       return Promise.resolve(poi);
     }, 1000 * 60 * 60 * this.config.cachepoistime );
@@ -711,61 +734,63 @@ export class EuropaParkBase extends Park {
       if (!poiData) throw new Error(&apos;No PoiData for EuropaPark found!&apos;);
 
       const poi = {};
-      poiData.pois.forEach((ride) =&gt; {
-        if (ride.type === &apos;service&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
-          let area = undefined; // Default, Hotel is included as well which adds new areas
-          if (ride.areaId == 10) {
-            area = &apos;Adventureland&apos;;
-          } else if (ride.areaId == 11) {
-            area = &apos;Kingdom of the Minimoys&apos;;
-          } else if (ride.areaId == 12) {
-            area = &apos;Germany&apos;;
-          } else if (ride.areaId == 13) {
-            area = &apos;England&apos;;
-          } else if (ride.areaId == 14) {
-            area = &apos;France&apos;;
-          } else if (ride.areaId == 15) {
-            area = &apos;Greece&apos;;
-          } else if (ride.areaId == 17) {
-            area = &apos;Netherlands&apos;;
-          } else if (ride.areaId == 19) {
-            area = &apos;Ireland&apos;;
-          } else if (ride.areaId == 20) {
-            area = &apos;Iceland&apos;;
-          } else if (ride.areaId == 21) {
-            area = &apos;Italy&apos;;
-          } else if (ride.areaId == 22) {
-            area = &apos;Luxembourg&apos;;
-          } else if (ride.areaId == 23) {
-            area = &apos;Austria&apos;;
-          } else if (ride.areaId == 24) {
-            area = &apos;Portugal&apos;;
-          } else if (ride.areaId == 25) {
-            area = &apos;Russia&apos;;
-          } else if (ride.areaId == 26) {
-            area = &apos;Switzerland&apos;;
-          } else if (ride.areaId == 27) {
-            area = &apos;Scandinavia&apos;;
-          } else if (ride.areaId == 28) {
-            area = &apos;Spain&apos;;
-          }
+      poiData.forEach((ride) =&gt; {
+        if (ride.scopes) {
+          if (ride.type === &apos;service&apos; &amp;&amp; ride.code !== null &amp;&amp; ride.scopes.indexOf(`${this.config.parkId}`) === 0) { // Return rides and pois which haven&apos;t null
+            let area = undefined; // Default, Hotel is included as well which adds new areas
+            if (ride.areaId == 10) {
+              area = &apos;Adventureland&apos;;
+            } else if (ride.areaId == 11) {
+              area = &apos;Kingdom of the Minimoys&apos;;
+            } else if (ride.areaId == 12) {
+              area = &apos;Germany&apos;;
+            } else if (ride.areaId == 13) {
+              area = &apos;England&apos;;
+            } else if (ride.areaId == 14) {
+              area = &apos;France&apos;;
+            } else if (ride.areaId == 15) {
+              area = &apos;Greece&apos;;
+            } else if (ride.areaId == 17) {
+              area = &apos;Netherlands&apos;;
+            } else if (ride.areaId == 19) {
+              area = &apos;Ireland&apos;;
+            } else if (ride.areaId == 20) {
+              area = &apos;Iceland&apos;;
+            } else if (ride.areaId == 21) {
+              area = &apos;Italy&apos;;
+            } else if (ride.areaId == 22) {
+              area = &apos;Luxembourg&apos;;
+            } else if (ride.areaId == 23) {
+              area = &apos;Austria&apos;;
+            } else if (ride.areaId == 24) {
+              area = &apos;Portugal&apos;;
+            } else if (ride.areaId == 25) {
+              area = &apos;Russia&apos;;
+            } else if (ride.areaId == 26) {
+              area = &apos;Switzerland&apos;;
+            } else if (ride.areaId == 27) {
+              area = &apos;Scandinavia&apos;;
+            } else if (ride.areaId == 28) {
+              area = &apos;Spain&apos;;
+            }
 
-          // Build the service object
-          poi[ride.code] = {
-            name: ride.name,
-            id: `${this.config.name}_` + ride.code,
-            location: {
-              area: area,
-              latitude: ride.latitude,
-              longitude: ride.longitude,
-            },
-            meta: {
-              description: ride.description,
-              short_description: ride.excerpt,
-              type: entityType.service,
-            },
+            // Build the service object
+            poi[ride.code] = {
+              name: ride.name,
+              id: `${this.config.name}_` + ride.code,
+              location: {
+                area: area,
+                latitude: ride.latitude,
+                longitude: ride.longitude,
+              },
+              meta: {
+                description: ride.description,
+                short_description: ride.excerpt,
+                type: entityType.service,
+              },
+            };
           };
-        };
+        }
       });
       return Promise.resolve(poi);
     }, 1000 * 60 * 60 * this.config.cachepoistime );
@@ -797,6 +822,7 @@ export class EuropaParkBase extends Park {
           // Declare default for rides that doesn&apos;t fetch right now
             let waitTime = null;
             let state = null;
+            let fpstate = null;
             let active = null; // Accepting null as value, since some rides never will join the queue api because they simply never have a queue
             // However, setting &apos;0&apos; &amp; state will set the ride all day closed, which isn&apos;t true obviously
 
@@ -825,11 +851,13 @@ export class EuropaParkBase extends Park {
               active = false;
             } else if (ridetime.time === 666) { // FastPass is temporarily full, will reopen at a later time
               waitTime = 0;
-              state = fastPassStatus.temporarilyFull;
+              fpstate = fastPassStatus.temporarilyFull;
+              state = queueType.closed;
               active = false;
             } else if (ridetime.time === 777) { // FastPass is full, won&apos;t reopen at a later time
               waitTime = 0;
-              state = fastPassStatus.finished;
+              fpstate = fastPassStatus.finished;
+              state = queueType.closed;
               active = false;
             } else if (ridetime.status === 444 || ridetime.time === 555 || ridetime.time === 999) { // Ride is down (down / ice / weather)
               waitTime = 0;
@@ -838,6 +866,10 @@ export class EuropaParkBase extends Park {
             } else if (ridetime.time === 222) { // Ride is in maintenance (startup sequence is listed as maint as well lol)
               waitTime = 0;
               state = queueType.refurbishment;
+              active = false;
+            } else {
+              waitTime = 0;
+              state = queueType.closed;
               active = false;
             }
 
@@ -850,7 +882,7 @@ export class EuropaParkBase extends Park {
                 name: rideData[ridetime.code].name,
                 id: rideData[ridetime.code].id,
                 waitTime: rideData[ridetime.code].waitTime,
-                state: rideData[ridetime.code].state,
+                status: rideData[ridetime.code].state,
                 active: rideData[ridetime.code].active,
                 location: {
                   area: rideData[ridetime.code].location.area,
@@ -858,6 +890,7 @@ export class EuropaParkBase extends Park {
                   longitude: rideData[ridetime.code].location.longitude,
                 },
                 fastPass: {
+                  status: fpstate,
                   returnTime: returntime,
                   isVirtQueue: rideData[ridetime.code].meta.isVirtQueue,
                   fastPass: rideData[ridetime.code].meta.fastPass,
