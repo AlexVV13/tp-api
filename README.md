@@ -213,7 +213,7 @@ Efteling |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en, nl,
 Europa-Park |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_multiplication_x:|en, de, fr
 Rulantica |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_multiplication_x:|en, de, fr
 YULLBE |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_multiplication_x:|en, de, fr
-Phantasialand |:heavy_check_mark:|:heavy_multiplication_x:|:heavy_check_mark:|en, nl, de, fr
+Phantasialand |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|en, nl, de, fr
 Toverland |:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|en, nl, de
 Walibi Holland |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
 Walibi Belgium |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en, nl, fr
@@ -324,5 +324,5 @@ Prints:
 - [X] Generate a better infrastructure
 - [X] Multi Language support for CDA parks
 - [X] Update EuropaPark to new API (current setup still works but unsure for how long it'll work)
-- [-] Update output
+- [ ] Update output
 
