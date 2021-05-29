@@ -219,7 +219,7 @@ export class EuropaParkBase extends Park {
   * @return {string} EP POIS without queues
   */
   async getPOIS() {
-    return await this.cache.wrap(&apos;poidata&apos;, async () =&gt; {
+    return await this.cache.wrap(&apos;poi&apos;, async () =&gt; {
       const jwttoken = await this.loginEP();
       const checksum = (await this.cache.get(&apos;poi_checksum&apos;)) || 0;
 
@@ -235,7 +235,7 @@ export class EuropaParkBase extends Park {
           .then((res) =&gt; res.json())
           .then((rideData) =&gt; {
             if (rideData.error?.code === 404 &amp;&amp; checksum &gt; 0) {
-              // return old data, hasn&apos;t changed
+              // Return the old data back, nothing is added nor removed
               return this.cache.get(&apos;poidata&apos;);
             }
             if (!rideData.package) return undefined;
@@ -245,6 +245,9 @@ export class EuropaParkBase extends Park {
                 pois.push(poi);
               });
             });
+            // Store the checksum and pois until things have changed.
+            this.cache.set(&apos;poidata&apos;, pois, Number.MAX_SAFE_INTEGER);
+            this.cache.set(&apos;poi_checksum&apos;, rideData.package.checksum);
             return Promise.resolve(pois); // Immediately return rideData, no need to fetch anything else here because their API is shit.
           });
     }, 1000 * 60 * 60 * this.config.cachepoistime );
