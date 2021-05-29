@@ -78,6 +78,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/plopsa/plopsabase.js~plopsabase",
+    "class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html",
+    "<span>PlopsaBase</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/plopsa/plopsabase.js</span>",
+    "class"
+  ],
+  [
+    "@alexvv13/tpapi/lib/parks/plopsa/plopsadepanne.js~plopsadepanne",
+    "class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html",
+    "<span>PlopsaDePanne</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/plopsa/plopsadepanne.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/europapark/rulantica.js~rulantica",
     "class/lib/parks/europapark/rulantica.js~Rulantica.html",
     "<span>Rulantica</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/europapark/rulantica.js</span>",
@@ -1281,6 +1293,60 @@ window.esdocSearchIndex = [
     "lib/parks/phantasialand/phantasialand.js~phantasialand#getwaittime",
     "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-getWaitTime",
     "lib/parks/phantasialand/phantasialand.js~Phantasialand#getWaitTime",
+    "method"
+  ],
+  [
+    "lib/parks/plopsa/plopsabase.js",
+    "file/lib/parks/plopsa/plopsabase.js.html",
+    "lib/parks/plopsa/plopsabase.js",
+    "file"
+  ],
+  [
+    "lib/parks/plopsa/plopsabase.js~plopsabase#buildridepoi",
+    "class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-method-buildRidePOI",
+    "lib/parks/plopsa/plopsabase.js~PlopsaBase#buildRidePOI",
+    "method"
+  ],
+  [
+    "lib/parks/plopsa/plopsabase.js~plopsabase#constructor",
+    "class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-constructor-constructor",
+    "lib/parks/plopsa/plopsabase.js~PlopsaBase#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/plopsa/plopsabase.js~plopsabase#getophours",
+    "class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-method-getOpHours",
+    "lib/parks/plopsa/plopsabase.js~PlopsaBase#getOpHours",
+    "method"
+  ],
+  [
+    "lib/parks/plopsa/plopsabase.js~plopsabase#getpois",
+    "class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-method-getPOIS",
+    "lib/parks/plopsa/plopsabase.js~PlopsaBase#getPOIS",
+    "method"
+  ],
+  [
+    "lib/parks/plopsa/plopsabase.js~plopsabase#getqueue",
+    "class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-method-getQueue",
+    "lib/parks/plopsa/plopsabase.js~PlopsaBase#getQueue",
+    "method"
+  ],
+  [
+    "lib/parks/plopsa/plopsabase.js~plopsabase#loginapi",
+    "class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-method-loginAPI",
+    "lib/parks/plopsa/plopsabase.js~PlopsaBase#loginAPI",
+    "method"
+  ],
+  [
+    "lib/parks/plopsa/plopsadepanne.js",
+    "file/lib/parks/plopsa/plopsadepanne.js.html",
+    "lib/parks/plopsa/plopsadepanne.js",
+    "file"
+  ],
+  [
+    "lib/parks/plopsa/plopsadepanne.js~plopsadepanne#constructor",
+    "class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html#instance-constructor-constructor",
+    "lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne#constructor",
     "method"
   ],
   [

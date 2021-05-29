@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">Rulantica | @alexvv13/tpapi</title>
+  <title data-ice="title">PlopsaDePanne | @alexvv13/tpapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -63,23 +63,23 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Rulantica from &apos;<span><a href="file/lib/parks/europapark/rulantica.js.html#lineNumber17">@alexvv13/tpapi/lib/parks/europapark/rulantica.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {PlopsaDePanne} from &apos;<span><a href="file/lib/parks/plopsa/plopsadepanne.js.html#lineNumber17">@alexvv13/tpapi/lib/parks/plopsa/plopsadepanne.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/lib/parks/europapark/rulantica.js.html#lineNumber17">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/lib/parks/plopsa/plopsadepanne.js.html#lineNumber17">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
-  <h1 data-ice="name">Rulantica</h1>
+  <h1 data-ice="name">PlopsaDePanne</h1>
 
   
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>events~EventEmitter</span> &#x2192; <span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span> &#x2192; <span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span> &#x2192; <span><a href="class/lib/parks/park.js~Park.html">Park</a></span> &#x2192; <span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span> &#x2192; Rulantica</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span>events~EventEmitter</span> &#x2192; <span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span> &#x2192; <span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span> &#x2192; <span><a href="class/lib/parks/park.js~Park.html">Park</a></span> &#x2192; <span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span> &#x2192; PlopsaDePanne</div></div>
   
   
   
@@ -89,7 +89,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>Rulantica Park Object<br>Make sure all environment variables are set in an .env file which should be in the main location.<br>Not setting these variables will make the module exit early without returning data.<br><br>This class is here to fetch the POI data and to attach queue times data to it.<br>After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br><br>NOTE: Dutch language is supported, however strange things occur, such as deletion of VirtualLine entries making rides appear twice as &apos;normal&apos;<br><br>This class contains some login and refresh functions, but NEVER call them if you don&apos;t need them.<br>Most park specific parameters are set already</p>
+  <div class="description" data-ice="description"><p>Plopsaland de Panne Park Object<br>Make sure all environment variables are set in an .env file which should be in the main location.<br>Not setting these variables will make the module exit early without returning data.<br><br>This class is here to fetch the POI data and to attach queue times data to it.<br>After the fetches this data is send to the end user and from there he could do whatever he wants to do.<br><br>Most park specific parameters are set already</p>
 </div>
   
 
@@ -122,13 +122,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Create a new Rulantica Park object</p>
+        <div data-ice="description"><p>Create a new Plopsaland de Panne Park object</p>
 </div>
       </div>
     </td>
@@ -1034,7 +1034,7 @@
 </table>
 
 <table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span></td></tr></thead>
+  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></td></tr></thead>
   <tbody>
   
   <tr data-ice="target">
@@ -1049,43 +1049,15 @@
       <div>
         <p>
           
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-member-bf">bf</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildHours">buildHours</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-method-buildRidePOI">buildRidePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Generate the calendar objects<br>@return{object} Object keyed to dates in YYYY-MM-DD format.</p>
+        <div data-ice="description"><p>Get All Rides of Plopsa<br>This data contains all the Ride POIS in Plopsa park</p>
 </div>
       </div>
     </td>
@@ -1108,13 +1080,13 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildMerchandisePOI">buildMerchandisePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-method-getOpHours">getOpHours</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Build EuropaPark park Merchandise object<br>This data contains general merchandise names, descriptions etc.</p>
+        <div data-ice="description"><p>Get All Operating Hours of Plopsa<br>This data contains all the Operating Hours in Plopsa, fetched with currentyear.</p>
 </div>
       </div>
     </td>
@@ -1137,13 +1109,13 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildRestaurantPOI">buildRestaurantPOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-method-getPOIS">getPOIS</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Build EuropaPark park restaurant object<br>This data contains general restaurant names, descriptions etc.</p>
+        <div data-ice="description"><p>Get All POIS of Plopsa<br>This data contains all the POIS in Plopsa</p>
 </div>
       </div>
     </td>
@@ -1166,13 +1138,13 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildRidePOI">buildRidePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-method-getQueue">getQueue</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Build EuropaPark park ride object<br>This data contains general ride names, descriptions etc.</p>
+        <div data-ice="description"><p>Get All Queues of Plopsa<br>This data contains all the POIS in Plopsa park</p>
 </div>
       </div>
     </td>
@@ -1195,274 +1167,13 @@
           
           <span data-ice="async">async</span>
           
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildServicePOI">buildServicePOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-method-loginAPI">loginAPI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Build EuropaPark park Service object<br>This data contains general service names, descriptions etc.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-buildStaticPOI">buildStaticPOI</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Build EuropaPark park static object<br>This data contains general ride names, descriptions etc.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-fetchHours">fetchHours</a></span></span><span class="code" data-ice="signature">(date: <span>moment</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get All Operating Hours of EuropaPark<br>This data contains all the Operating Hours in EuropaPark.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getConfig">getConfig</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get Europa Park config keys</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getFirebaseID">getFirebaseID</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get or generate a Firebase device ID</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getHours">getHours</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get All Operating Hours of EuropaPark<br>This data contains all the Operating Hours in EuropaPark, fetched with currentyear.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getOpHours">getOpHours</a></span></span><span class="code" data-ice="signature">(): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get Operating Calendar for this park<br>@return{object} Object keyed to dates in YYYY-MM-DD format.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getPOIS">getPOIS</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get All POIS of EuropaPark park<br>This data contains all the POIS in EuropaPark</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-getQueue">getQueue</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get All Queues of EuropaPark park<br>This data contains all the Queues in EuropaPark park, attached with pois above.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          <span data-ice="async">async</span>
-          
-          <span class="code" data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-method-loginEP">loginEP</a></span></span><span class="code" data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Login to EuropaPark API<br>Calling this method too fast can cause a perm block from the Macks</p>
+        <div data-ice="description"><p>Login to the Plopsa API</p>
 </div>
       </div>
     </td>
@@ -1491,17 +1202,17 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/lib/parks/europapark/rulantica.js.html#lineNumber22">source</a></span></span>
+      <span data-ice="source"><span><a href="file/lib/parks/plopsa/plopsadepanne.js.html#lineNumber22">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Create a new Rulantica Park object</p>
+  <div data-ice="description"><p>Create a new Plopsaland de Panne Park object</p>
 </div>
 
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html#instance-constructor-constructor">EuropaParkBase#constructor</a></span></div>
+  <div data-ice="override"><h4>Override:</h4><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html#instance-constructor-constructor">PlopsaBase#constructor</a></span></div>
 
   <div data-ice="properties"><div data-ice="properties">
   <h4 data-ice="title">Params:</h4>
