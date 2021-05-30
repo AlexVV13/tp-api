@@ -77,6 +77,12 @@ WALIBIBELGIUM_APIBASE=
 WALIBIRA_APIBASE=
 BELLEWAERDE_APIBASE=
 
+#Plopsa
+PLOPSALAND_APIBASE=
+PLOPSALAND_APIID=
+HOLIDAY_APIBASE=
+HOLIDAY_APIID=
+
 #Settings
 CACHE_DURATION_POIS= '12'
 ```
@@ -202,6 +208,8 @@ park.getWaitTime().then((poiData) => {
 * Walibi Belgium (tpapi.parks.WalibiBelgium)
 * Walibi Rhône-Alpes (tpapi.parks.WalibiRA)
 * Bellewaerde (tpapi.parks.Bellewaerde)
+* Plopsaland de Panne (tpapi.parks.PlopsDePanne)
+* Holiday Park (tpapi.parks.HolidayPark)
 
 <!-- END_SUPPORTED_PARKS_LIST -->
 
@@ -219,6 +227,8 @@ Walibi Holland |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|e
 Walibi Belgium |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en, nl, fr
 Walibi Rhône-Alpes |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en, fr
 Bellewaerde |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en, nl, fr
+Plopsaland De Panne |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
+Holiday Park |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
 
 ## Result Objects
 
@@ -313,6 +323,8 @@ Prints:
 * Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)
 * Walibi Rhône-Alpes [45.6198928, 5.5669562]: (Europe/Paris)
 * Bellewaerde [50.846996, 2.947948]: (Europe/Brussels)
+* Plopsaland de Panne [51.080586, 2.600836]: (Europe/Brussels)
+* Holiday Park [49.317787, 8.300378]: (Europe/Berlin)
 
 <!-- END_PARK_TIMEZONE_LIST -->
 

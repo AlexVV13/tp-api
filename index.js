@@ -7,7 +7,7 @@ const park = new tpapi.parks.EuropaPark();
 park.getWaitTimes().then((rideTimes) => {
   rideTimes.forEach((ride) => {
     console.log(`${ride.name}: ${ride.queues.standBy.waitTime} minutes wait | ${ride.queues.standBy.status}`);
-  })
+  });
 });
 
 // You can also call getCalendar(), getPark()

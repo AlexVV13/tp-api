@@ -30,3 +30,4 @@ Key changes to new versions
 * 1.0.28 Deleted the TRAVIS CI, since it has its own life by randomly failing builds and such. I don't like that attitude, don't ever come back.
 * 1.0.29 Redone infrastructure, CDA parks now support multi langages (except Walibi Holland)
 * 1.0.30 Added the possibility to search for seperate rides in the API.
+* 1.0.31 Added 2 Plopsa Parks, redone parts Europa-Park and added schedules to Phantasialand
