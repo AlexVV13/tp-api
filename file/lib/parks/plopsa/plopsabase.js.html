@@ -52,7 +52,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/holidaypark.js~HolidayPark.html">HolidayPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html">PlopsaDePanne</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-toverland">parks/toverland</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/toverland/toverland.js~Toverland.html">Toverland</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
@@ -65,7 +66,8 @@
 <div class="content" data-ice="content"><h1 data-ice="title">lib/parks/plopsa/plopsabase.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import fetch from &apos;node-fetch&apos;;
 import {Park} from &apos;../park.js&apos;;
-import {entityType, queueType} from &apos;../types.js&apos;;
+import {entityType, queueType, scheduleType} from &apos;../types.js&apos;;
+import moment from &apos;moment-timezone&apos;;
 
 import dotenv from &apos;dotenv&apos;;
 dotenv.config();
@@ -97,6 +99,7 @@ export class PlopsaBase extends Park {
 
     // Check for existance
     if (!this.config.apiBase) throw new Error(&apos;Missing Plopsa apiBase!&apos;);
+    if (!this.config.apiId) throw new Error(&apos;Missing Plopsa apiId!&apos;);
     if (!this.config.languages) {
       this.config.languages = &apos;en&apos;;
     };
@@ -139,7 +142,7 @@ export class PlopsaBase extends Park {
   async getPOIS() {
     const token = await this.loginAPI();
     return fetch(this.config.apiBase +
-      `${this.config.languages}/api/v1.0/details/all/plopsaland-de-panne/attraction?access_token=${token}`,
+      `${this.config.languages}/api/v1.0/details/all/${this.config.apiId}/attraction?access_token=${token}`,
     {
       method: &apos;GET&apos;,
     },
@@ -216,7 +219,7 @@ export class PlopsaBase extends Park {
     const token = await this.loginAPI();
     const rideData = await this.buildRidePOI();
     return fetch(this.config.apiBase +
-      `en/api/v1.0/waitingTime/plopsaland-de-panne/attraction?access_token=${token}`,
+      `en/api/v1.0/waitingTime/${this.config.apiId}/attraction?access_token=${token}`,
     {
       method: &apos;GET&apos;,
     },
@@ -269,13 +272,67 @@ export class PlopsaBase extends Park {
     const token = await this.loginAPI();
     return fetch(
         this.config.apiBase +
-          `en/api/v1.0/calendar/plopsaland-de-panne?access_token=${token}`,
+          `en/api/v1.0/calendar/${this.config.apiId}?access_token=${token}`,
         {
           method: &apos;GET&apos;,
         },
     )
         .then((res) =&gt; res.json())
         .then((json) =&gt; {
+          const calendar = [];
+          Object.keys(json.en.months).forEach((date) =&gt; {
+            Object.keys(json.en.months[date].openOn).forEach((dates) =&gt; {
+              const datename = moment(dates).format(&apos;YYYY-MM-DD&apos;);
+              let openTime = undefined;
+              let closeTime = undefined;
+              let type = undefined;
+
+              // Define the different opening types
+              if (json.en.months[date].openOn[dates].label === &apos;10.00 - 18.00&apos;) {
+                openTime = moment(`${datename} 10:00`).format();
+                closeTime = moment(`${datename} 18:00`).format();
+                type = scheduleType.operating;
+              } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 17:30&apos;) {
+                openTime = moment(`${datename} 10:00`).format();
+                closeTime = moment(`${datename} 17:30`).format();
+                type = scheduleType.operating;
+              } else if (json.en.months[date].openOn[dates].label === &apos;Sold out&apos;) {
+                openTime = moment(`${datename} 10:00`).format();
+                closeTime = moment(`${datename} 22:30`).format();
+                type = scheduleType.operating;
+              } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 19:00&apos;) {
+                openTime = moment(`${datename} 10:00`).format();
+                closeTime = moment(`${datename} 19:00`).format();
+                type = scheduleType.operating;
+              } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 22:30&apos;) {
+                openTime = moment(`${datename} 10:00`).format();
+                closeTime = moment(`${datename} 22:30`).format();
+                type = scheduleType.operating;
+              } else if (json.en.months[date].openOn[dates].label === &apos;Only Mayaland Indoor: 10.30 - 16.30&apos;) {
+                openTime = moment(`${datename} 10:30`).format();
+                closeTime = moment(`${datename} 16:30`).format();
+                type = scheduleType.operating;
+              } else if (json.en.months[date].openOn[dates].label === &apos;Open&apos;) { // Wtf???
+                openTime = moment(`${datename} 10:00`).format();
+                closeTime = moment(`${datename} 19:00`).format();
+                type = scheduleType.operating;
+              } else {
+                openTime = moment(`${datename} 23:59`).format();
+                closeTime = moment(`${datename} 23:59`).format();
+                type = scheduleType.closed;
+              }
+
+              // Create the schedule object
+              const schedule = {
+                openingTime: openTime,
+                closingTime: closeTime,
+                type: type,
+                date: datename,
+              };
+              calendar.push(schedule);
+            });
+          });
+          return Promise.resolve(calendar);
         });
   }
 }

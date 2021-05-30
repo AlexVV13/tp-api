@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">lib/parks/walibi/walibibelgium.js | @alexvv13/tpapi</title>
+  <title data-ice="title">lib/parks/plopsa/holidaypark.js | @alexvv13/tpapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -63,14 +63,14 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/walibi/walibibelgium.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import CDABase from &apos;../cdaparks/cdabase.js&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/plopsa/holidaypark.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import PlopsaBase from &apos;./plopsabase.js&apos;;
 
 import dotenv from &apos;dotenv&apos;;
 dotenv.config();
 
 /**
-* Walibi Belgium Park Object
+* Holiday Park Park Object
 * Make sure all environment variables are set in an .env file which should be in the main location.
 * Not setting these variables will make the module exit early without returning data.
 *
@@ -80,18 +80,18 @@ dotenv.config();
 * Most park specific parameters are set already
 * @class
 */
-export class WalibiBelgium extends CDABase {
+export class HolidayPark extends PlopsaBase {
   /**
-  * Create a new Walibi Belgium Park object
+  * Create a new Holiday Park Park object
   * @param {object} options
   */
   constructor(options = {}) {
-    options.name = options.name || &apos;Walibi Belgium&apos;;
-    options.timezone = options.timezone || &apos;Europe/Brussels&apos;;
+    options.name = &apos;Holiday Park&apos;;
+    options.timezone = &apos;Europe/Berlin&apos;;
 
     // Set the parking&apos;s entrance as the parks default location
-    options.latitude = 50.7038852;
-    options.longitude = 4.5960371;
+    options.latitude = 49.317787;
+    options.longitude = 8.300378;
 
     // Options for our park Object
     options.supportswaittimes = true;
@@ -101,18 +101,19 @@ export class WalibiBelgium extends CDABase {
     options.FastPassReturnTimes = false;
 
     // API options
-    options.apiBase = options.apiBase || process.env.WALIBIBELGIUM_APIBASE;
+    options.apiBase = process.env.HOLIDAY_APIBASE;
+    options.apiId = process.env.HOLIDAY_APIID;
 
     // Language settings
-    options.languages = options.languages || process.env.LANGUAGES;
+    options.languages = process.env.LANGUAGES;
 
-    options.langoptions = options.langoptions || `{&apos;en&apos;, &apos;de&apos;, &apos;nl&apos;}`;
+    options.langoptions = `{&apos;en&apos;, &apos;de&apos;, &apos;nl&apos;}`;
 
     super(options);
   }
 }
 
-export default WalibiBelgium;
+export default HolidayPark;
 </code></pre>
 
 </div>

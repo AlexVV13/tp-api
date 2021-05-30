@@ -52,7 +52,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/holidaypark.js~HolidayPark.html">HolidayPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html">PlopsaDePanne</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-toverland">parks/toverland</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/toverland/toverland.js~Toverland.html">Toverland</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
@@ -124,6 +125,12 @@ WALIBIHOLLAND_APIURL=
 WALIBIBELGIUM_APIBASE=
 WALIBIRA_APIBASE=
 BELLEWAERDE_APIBASE=
+
+#Plopsa
+PLOPSALAND_APIBASE=
+PLOPSALAND_APIID=
+HOLIDAY_APIBASE=
+HOLIDAY_APIID=
 
 #Settings
 CACHE_DURATION_POIS= &apos;12&apos;</code>
@@ -236,6 +243,8 @@ park.getWaitTime().then((poiData) =&gt; {
 <li>Walibi Belgium (tpapi.parks.WalibiBelgium)</li>
 <li>Walibi Rh&#xF4;ne-Alpes (tpapi.parks.WalibiRA)</li>
 <li>Bellewaerde (tpapi.parks.Bellewaerde)</li>
+<li>Plopsaland de Panne (tpapi.parks.PlopsDePanne)</li>
+<li>Holiday Park (tpapi.parks.HolidayPark)</li>
 </ul>
 <p><!-- END_SUPPORTED_PARKS_LIST -->
 </p>
@@ -319,6 +328,20 @@ park.getWaitTime().then((poiData) =&gt; {
 <td>:heavy_check_mark:</td>
 <td>:heavy_multiplication_x:</td>
 <td>en, nl, fr</td>
+</tr>
+<tr>
+<td>Plopsaland De Panne</td>
+<td>:heavy_check_mark:</td>
+<td>:heavy_check_mark:</td>
+<td>:heavy_multiplication_x:</td>
+<td>en</td>
+</tr>
+<tr>
+<td>Holiday Park</td>
+<td>:heavy_check_mark:</td>
+<td>:heavy_check_mark:</td>
+<td>:heavy_multiplication_x:</td>
+<td>en</td>
 </tr>
 </tbody>
 </table>
@@ -440,6 +463,8 @@ for (const park in Parks) {
 <li>Walibi Holland [52.4390338, 5.7665651]: (Europe/Amsterdam)</li>
 <li>Walibi Rh&#xF4;ne-Alpes [45.6198928, 5.5669562]: (Europe/Paris)</li>
 <li>Bellewaerde [50.846996, 2.947948]: (Europe/Brussels)</li>
+<li>Plopsaland de Panne [51.080586, 2.600836]: (Europe/Brussels)</li>
+<li>Holiday Park [49.317787, 8.300378]: (Europe/Berlin)</li>
 </ul>
 <p><!-- END_PARK_TIMEZONE_LIST -->
 </p>

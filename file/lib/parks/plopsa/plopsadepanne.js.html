@@ -52,7 +52,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/holidaypark.js~HolidayPark.html">HolidayPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html">PlopsaDePanne</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-toverland">parks/toverland</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/toverland/toverland.js~Toverland.html">Toverland</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
@@ -89,8 +90,8 @@ export class PlopsaDePanne extends PlopsaBase {
     options.timezone = &apos;Europe/Brussels&apos;;
 
     // Set the parking&apos;s entrance as the parks default location
-    options.latitude = 50.7038852;
-    options.longitude = 4.5960371;
+    options.latitude = 51.080586;
+    options.longitude = 2.600836;
 
     // Options for our park Object
     options.supportswaittimes = true;
@@ -101,6 +102,7 @@ export class PlopsaDePanne extends PlopsaBase {
 
     // API options
     options.apiBase = process.env.PLOPSALAND_APIBASE;
+    options.apiId = process.env.PLOPSALAND_APIID;
 
     // Language settings
     options.languages = process.env.LANGUAGES;

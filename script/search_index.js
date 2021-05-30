@@ -60,6 +60,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/plopsa/holidaypark.js~holidaypark",
+    "class/lib/parks/plopsa/holidaypark.js~HolidayPark.html",
+    "<span>HolidayPark</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/plopsa/holidaypark.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/location.js~location",
     "class/lib/parks/location.js~Location.html",
     "<span>Location</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/location.js</span>",
@@ -1299,6 +1305,18 @@ window.esdocSearchIndex = [
     "lib/parks/phantasialand/phantasialand.js~phantasialand#getqueue",
     "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-getQueue",
     "lib/parks/phantasialand/phantasialand.js~Phantasialand#getQueue",
+    "method"
+  ],
+  [
+    "lib/parks/plopsa/holidaypark.js",
+    "file/lib/parks/plopsa/holidaypark.js.html",
+    "lib/parks/plopsa/holidaypark.js",
+    "file"
+  ],
+  [
+    "lib/parks/plopsa/holidaypark.js~holidaypark#constructor",
+    "class/lib/parks/plopsa/holidaypark.js~HolidayPark.html#instance-constructor-constructor",
+    "lib/parks/plopsa/holidaypark.js~HolidayPark#constructor",
     "method"
   ],
   [

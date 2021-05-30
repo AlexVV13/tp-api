@@ -52,7 +52,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/holidaypark.js~HolidayPark.html">HolidayPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html">PlopsaDePanne</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-toverland">parks/toverland</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/toverland/toverland.js~Toverland.html">Toverland</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
@@ -149,20 +150,22 @@ export class WalibiHolland extends Park {
                 state = queueType.operating;
                 active = true;
               }
-              if (ride.state === &apos;closed_indefinitely&apos;) { // Closed but not closed but still closed
-                state = queueType.closed;
+              if (ride.state === &apos;closed_indefinitely&apos;) { // Ride is listed as Down, however, when all rides are closing for the night, it has the same status lol.
+                state = queueType.down;
                 active = false;
-              } else if (ride.state === &apos;not_operational&apos;) {
+              } else if (ride.state === &apos;not_operational&apos;) { // Ride is not operational (today?)
                 state = queueType.closed;
                 active = false;
               }
               // Declare other states when park reopens
 
+              const updated = moment(ride.bufferQueueLastModified).format();
+
               let fastPass = false;
               if (ride.useVirtualQueue === true || ride.useVirtualQueue === false) {
                 fastPass = true;
               }
-              // set location the hardcoded way because theyre initially listed in a seperate api :(
+              // set location the hardcoded way because they&apos;re initially listed in a seperate api
               let lat = undefined;
               let lon = undefined;
               let area = undefined;
@@ -214,6 +217,7 @@ export class WalibiHolland extends Park {
                 state: state,
                 active: active,
                 waitTime: waitTime,
+                changedAt: updated,
                 location: {
                   latitude: lat,
                   longitude: lon,

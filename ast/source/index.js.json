@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 1460,
+  "end": 1551,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 65,
+      "line": 68,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 1460,
+    "end": 1551,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 65,
+        "line": 68,
         "column": 0
       }
     },
@@ -1011,20 +1011,89 @@
               }
             }
           }
+        ]
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 783,
+        "end": 839,
+        "loc": {
+          "start": {
+            "line": 21,
+            "column": 0
+          },
+          "end": {
+            "line": 21,
+            "column": 56
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportDefaultSpecifier",
+            "start": 790,
+            "end": 801,
+            "loc": {
+              "start": {
+                "line": 21,
+                "column": 7
+              },
+              "end": {
+                "line": 21,
+                "column": 18
+              }
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 790,
+              "end": 801,
+              "loc": {
+                "start": {
+                  "line": 21,
+                  "column": 7
+                },
+                "end": {
+                  "line": 21,
+                  "column": 18
+                },
+                "identifierName": "HolidayPark"
+              },
+              "name": "HolidayPark"
+            }
+          }
         ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 807,
+          "end": 838,
+          "loc": {
+            "start": {
+              "line": 21,
+              "column": 24
+            },
+            "end": {
+              "line": 21,
+              "column": 55
+            }
+          },
+          "extra": {
+            "rawValue": "./parks/plopsa/holidaypark.js",
+            "raw": "'./parks/plopsa/holidaypark.js'"
+          },
+          "value": "./parks/plopsa/holidaypark.js"
+        },
         "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n* Export all parks as string\n",
-            "start": 784,
-            "end": 819,
+            "start": 841,
+            "end": 876,
             "loc": {
               "start": {
-                "line": 22,
+                "line": 23,
                 "column": 0
               },
               "end": {
-                "line": 24,
+                "line": 25,
                 "column": 2
               }
             }
@@ -1033,44 +1102,44 @@
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 820,
-        "end": 1459,
+        "start": 877,
+        "end": 1550,
         "loc": {
           "start": {
-            "line": 25,
+            "line": 26,
             "column": 0
           },
           "end": {
-            "line": 64,
+            "line": 67,
             "column": 2
           }
         },
         "declaration": {
           "type": "ObjectExpression",
-          "start": 835,
-          "end": 1458,
+          "start": 892,
+          "end": 1549,
           "loc": {
             "start": {
-              "line": 25,
+              "line": 26,
               "column": 15
             },
             "end": {
-              "line": 64,
+              "line": 67,
               "column": 1
             }
           },
           "properties": [
             {
               "type": "ObjectProperty",
-              "start": 839,
-              "end": 1143,
+              "start": 896,
+              "end": 1217,
               "loc": {
                 "start": {
-                  "line": 26,
+                  "line": 27,
                   "column": 2
                 },
                 "end": {
-                  "line": 44,
+                  "line": 46,
                   "column": 3
                 }
               },
@@ -1079,15 +1148,15 @@
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 839,
-                "end": 844,
+                "start": 896,
+                "end": 901,
                 "loc": {
                   "start": {
-                    "line": 26,
+                    "line": 27,
                     "column": 2
                   },
                   "end": {
-                    "line": 26,
+                    "line": 27,
                     "column": 7
                   },
                   "identifierName": "parks"
@@ -1097,30 +1166,30 @@
               },
               "value": {
                 "type": "ObjectExpression",
-                "start": 846,
-                "end": 1143,
+                "start": 903,
+                "end": 1217,
                 "loc": {
                   "start": {
-                    "line": 26,
+                    "line": 27,
                     "column": 9
                   },
                   "end": {
-                    "line": 44,
+                    "line": 46,
                     "column": 3
                   }
                 },
                 "properties": [
                   {
                     "type": "ObjectProperty",
-                    "start": 868,
-                    "end": 876,
+                    "start": 925,
+                    "end": 933,
                     "loc": {
                       "start": {
-                        "line": 28,
+                        "line": 29,
                         "column": 4
                       },
                       "end": {
-                        "line": 28,
+                        "line": 29,
                         "column": 12
                       }
                     },
@@ -1129,15 +1198,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 868,
-                      "end": 876,
+                      "start": 925,
+                      "end": 933,
                       "loc": {
                         "start": {
-                          "line": 28,
+                          "line": 29,
                           "column": 4
                         },
                         "end": {
-                          "line": 28,
+                          "line": 29,
                           "column": 12
                         },
                         "identifierName": "Efteling"
@@ -1147,15 +1216,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 868,
-                      "end": 876,
+                      "start": 925,
+                      "end": 933,
                       "loc": {
                         "start": {
-                          "line": 28,
+                          "line": 29,
                           "column": 4
                         },
                         "end": {
-                          "line": 28,
+                          "line": 29,
                           "column": 12
                         },
                         "identifierName": "Efteling"
@@ -1166,15 +1235,15 @@
                       {
                         "type": "CommentLine",
                         "value": " Efteling",
-                        "start": 852,
-                        "end": 863,
+                        "start": 909,
+                        "end": 920,
                         "loc": {
                           "start": {
-                            "line": 27,
+                            "line": 28,
                             "column": 4
                           },
                           "end": {
-                            "line": 27,
+                            "line": 28,
                             "column": 15
                           }
                         }
@@ -1186,15 +1255,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 900,
-                    "end": 910,
+                    "start": 957,
+                    "end": 967,
                     "loc": {
                       "start": {
-                        "line": 30,
+                        "line": 31,
                         "column": 4
                       },
                       "end": {
-                        "line": 30,
+                        "line": 31,
                         "column": 14
                       }
                     },
@@ -1203,15 +1272,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 900,
-                      "end": 910,
+                      "start": 957,
+                      "end": 967,
                       "loc": {
                         "start": {
-                          "line": 30,
+                          "line": 31,
                           "column": 4
                         },
                         "end": {
-                          "line": 30,
+                          "line": 31,
                           "column": 14
                         },
                         "identifierName": "EuropaPark"
@@ -1221,15 +1290,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 900,
-                      "end": 910,
+                      "start": 957,
+                      "end": 967,
                       "loc": {
                         "start": {
-                          "line": 30,
+                          "line": 31,
                           "column": 4
                         },
                         "end": {
-                          "line": 30,
+                          "line": 31,
                           "column": 14
                         },
                         "identifierName": "EuropaPark"
@@ -1240,15 +1309,15 @@
                       {
                         "type": "CommentLine",
                         "value": " EuropaPark",
-                        "start": 882,
-                        "end": 895,
+                        "start": 939,
+                        "end": 952,
                         "loc": {
                           "start": {
-                            "line": 29,
+                            "line": 30,
                             "column": 4
                           },
                           "end": {
-                            "line": 29,
+                            "line": 30,
                             "column": 17
                           }
                         }
@@ -1260,15 +1329,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 916,
-                    "end": 925,
+                    "start": 973,
+                    "end": 982,
                     "loc": {
                       "start": {
-                        "line": 31,
+                        "line": 32,
                         "column": 4
                       },
                       "end": {
-                        "line": 31,
+                        "line": 32,
                         "column": 13
                       }
                     },
@@ -1277,15 +1346,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 916,
-                      "end": 925,
+                      "start": 973,
+                      "end": 982,
                       "loc": {
                         "start": {
-                          "line": 31,
+                          "line": 32,
                           "column": 4
                         },
                         "end": {
-                          "line": 31,
+                          "line": 32,
                           "column": 13
                         },
                         "identifierName": "Rulantica"
@@ -1294,15 +1363,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 916,
-                      "end": 925,
+                      "start": 973,
+                      "end": 982,
                       "loc": {
                         "start": {
-                          "line": 31,
+                          "line": 32,
                           "column": 4
                         },
                         "end": {
-                          "line": 31,
+                          "line": 32,
                           "column": 13
                         },
                         "identifierName": "Rulantica"
@@ -1315,15 +1384,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 931,
-                    "end": 937,
+                    "start": 988,
+                    "end": 994,
                     "loc": {
                       "start": {
-                        "line": 32,
+                        "line": 33,
                         "column": 4
                       },
                       "end": {
-                        "line": 32,
+                        "line": 33,
                         "column": 10
                       }
                     },
@@ -1332,15 +1401,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 931,
-                      "end": 937,
+                      "start": 988,
+                      "end": 994,
                       "loc": {
                         "start": {
-                          "line": 32,
+                          "line": 33,
                           "column": 4
                         },
                         "end": {
-                          "line": 32,
+                          "line": 33,
                           "column": 10
                         },
                         "identifierName": "Yullbe"
@@ -1349,15 +1418,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 931,
-                      "end": 937,
+                      "start": 988,
+                      "end": 994,
                       "loc": {
                         "start": {
-                          "line": 32,
+                          "line": 33,
                           "column": 4
                         },
                         "end": {
-                          "line": 32,
+                          "line": 33,
                           "column": 10
                         },
                         "identifierName": "Yullbe"
@@ -1370,15 +1439,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 964,
-                    "end": 977,
+                    "start": 1021,
+                    "end": 1034,
                     "loc": {
                       "start": {
-                        "line": 34,
+                        "line": 35,
                         "column": 4
                       },
                       "end": {
-                        "line": 34,
+                        "line": 35,
                         "column": 17
                       }
                     },
@@ -1387,15 +1456,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 964,
-                      "end": 977,
+                      "start": 1021,
+                      "end": 1034,
                       "loc": {
                         "start": {
-                          "line": 34,
+                          "line": 35,
                           "column": 4
                         },
                         "end": {
-                          "line": 34,
+                          "line": 35,
                           "column": 17
                         },
                         "identifierName": "Phantasialand"
@@ -1405,15 +1474,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 964,
-                      "end": 977,
+                      "start": 1021,
+                      "end": 1034,
                       "loc": {
                         "start": {
-                          "line": 34,
+                          "line": 35,
                           "column": 4
                         },
                         "end": {
-                          "line": 34,
+                          "line": 35,
                           "column": 17
                         },
                         "identifierName": "Phantasialand"
@@ -1424,15 +1493,15 @@
                       {
                         "type": "CommentLine",
                         "value": " Phantasialand",
-                        "start": 943,
-                        "end": 959,
+                        "start": 1000,
+                        "end": 1016,
                         "loc": {
                           "start": {
-                            "line": 33,
+                            "line": 34,
                             "column": 4
                           },
                           "end": {
-                            "line": 33,
+                            "line": 34,
                             "column": 20
                           }
                         }
@@ -1444,15 +1513,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 1000,
-                    "end": 1009,
+                    "start": 1057,
+                    "end": 1066,
                     "loc": {
                       "start": {
-                        "line": 36,
+                        "line": 37,
                         "column": 4
                       },
                       "end": {
-                        "line": 36,
+                        "line": 37,
                         "column": 13
                       }
                     },
@@ -1461,15 +1530,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 1000,
-                      "end": 1009,
+                      "start": 1057,
+                      "end": 1066,
                       "loc": {
                         "start": {
-                          "line": 36,
+                          "line": 37,
                           "column": 4
                         },
                         "end": {
-                          "line": 36,
+                          "line": 37,
                           "column": 13
                         },
                         "identifierName": "Toverland"
@@ -1479,15 +1548,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 1000,
-                      "end": 1009,
+                      "start": 1057,
+                      "end": 1066,
                       "loc": {
                         "start": {
-                          "line": 36,
+                          "line": 37,
                           "column": 4
                         },
                         "end": {
-                          "line": 36,
+                          "line": 37,
                           "column": 13
                         },
                         "identifierName": "Toverland"
@@ -1498,15 +1567,15 @@
                       {
                         "type": "CommentLine",
                         "value": " Toverland",
-                        "start": 983,
-                        "end": 995,
+                        "start": 1040,
+                        "end": 1052,
                         "loc": {
                           "start": {
-                            "line": 35,
+                            "line": 36,
                             "column": 4
                           },
                           "end": {
-                            "line": 35,
+                            "line": 36,
                             "column": 16
                           }
                         }
@@ -1518,15 +1587,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 1042,
-                    "end": 1055,
+                    "start": 1099,
+                    "end": 1112,
                     "loc": {
                       "start": {
-                        "line": 38,
+                        "line": 39,
                         "column": 4
                       },
                       "end": {
-                        "line": 38,
+                        "line": 39,
                         "column": 17
                       }
                     },
@@ -1535,15 +1604,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 1042,
-                      "end": 1055,
+                      "start": 1099,
+                      "end": 1112,
                       "loc": {
                         "start": {
-                          "line": 38,
+                          "line": 39,
                           "column": 4
                         },
                         "end": {
-                          "line": 38,
+                          "line": 39,
                           "column": 17
                         },
                         "identifierName": "WalibiBelgium"
@@ -1553,15 +1622,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 1042,
-                      "end": 1055,
+                      "start": 1099,
+                      "end": 1112,
                       "loc": {
                         "start": {
-                          "line": 38,
+                          "line": 39,
                           "column": 4
                         },
                         "end": {
-                          "line": 38,
+                          "line": 39,
                           "column": 17
                         },
                         "identifierName": "WalibiBelgium"
@@ -1572,15 +1641,15 @@
                       {
                         "type": "CommentLine",
                         "value": " Compagnie des Alpes",
-                        "start": 1015,
-                        "end": 1037,
+                        "start": 1072,
+                        "end": 1094,
                         "loc": {
                           "start": {
-                            "line": 37,
+                            "line": 38,
                             "column": 4
                           },
                           "end": {
-                            "line": 37,
+                            "line": 38,
                             "column": 26
                           }
                         }
@@ -1592,15 +1661,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 1061,
-                    "end": 1074,
+                    "start": 1118,
+                    "end": 1131,
                     "loc": {
                       "start": {
-                        "line": 39,
+                        "line": 40,
                         "column": 4
                       },
                       "end": {
-                        "line": 39,
+                        "line": 40,
                         "column": 17
                       }
                     },
@@ -1609,15 +1678,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 1061,
-                      "end": 1074,
+                      "start": 1118,
+                      "end": 1131,
                       "loc": {
                         "start": {
-                          "line": 39,
+                          "line": 40,
                           "column": 4
                         },
                         "end": {
-                          "line": 39,
+                          "line": 40,
                           "column": 17
                         },
                         "identifierName": "WalibiHolland"
@@ -1626,15 +1695,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 1061,
-                      "end": 1074,
+                      "start": 1118,
+                      "end": 1131,
                       "loc": {
                         "start": {
-                          "line": 39,
+                          "line": 40,
                           "column": 4
                         },
                         "end": {
-                          "line": 39,
+                          "line": 40,
                           "column": 17
                         },
                         "identifierName": "WalibiHolland"
@@ -1647,15 +1716,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 1080,
-                    "end": 1088,
+                    "start": 1137,
+                    "end": 1145,
                     "loc": {
                       "start": {
-                        "line": 40,
+                        "line": 41,
                         "column": 4
                       },
                       "end": {
-                        "line": 40,
+                        "line": 41,
                         "column": 12
                       }
                     },
@@ -1664,15 +1733,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 1080,
-                      "end": 1088,
+                      "start": 1137,
+                      "end": 1145,
                       "loc": {
                         "start": {
-                          "line": 40,
+                          "line": 41,
                           "column": 4
                         },
                         "end": {
-                          "line": 40,
+                          "line": 41,
                           "column": 12
                         },
                         "identifierName": "WalibiRA"
@@ -1681,15 +1750,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 1080,
-                      "end": 1088,
+                      "start": 1137,
+                      "end": 1145,
                       "loc": {
                         "start": {
-                          "line": 40,
+                          "line": 41,
                           "column": 4
                         },
                         "end": {
-                          "line": 40,
+                          "line": 41,
                           "column": 12
                         },
                         "identifierName": "WalibiRA"
@@ -1702,15 +1771,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 1094,
-                    "end": 1105,
+                    "start": 1151,
+                    "end": 1162,
                     "loc": {
                       "start": {
-                        "line": 41,
+                        "line": 42,
                         "column": 4
                       },
                       "end": {
-                        "line": 41,
+                        "line": 42,
                         "column": 15
                       }
                     },
@@ -1719,15 +1788,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 1094,
-                      "end": 1105,
+                      "start": 1151,
+                      "end": 1162,
                       "loc": {
                         "start": {
-                          "line": 41,
+                          "line": 42,
                           "column": 4
                         },
                         "end": {
-                          "line": 41,
+                          "line": 42,
                           "column": 15
                         },
                         "identifierName": "Bellewaerde"
@@ -1736,15 +1805,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 1094,
-                      "end": 1105,
+                      "start": 1151,
+                      "end": 1162,
                       "loc": {
                         "start": {
-                          "line": 41,
+                          "line": 42,
                           "column": 4
                         },
                         "end": {
-                          "line": 41,
+                          "line": 42,
                           "column": 15
                         },
                         "identifierName": "Bellewaerde"
@@ -1757,15 +1826,15 @@
                   },
                   {
                     "type": "ObjectProperty",
-                    "start": 1125,
-                    "end": 1138,
+                    "start": 1182,
+                    "end": 1195,
                     "loc": {
                       "start": {
-                        "line": 43,
+                        "line": 44,
                         "column": 4
                       },
                       "end": {
-                        "line": 43,
+                        "line": 44,
                         "column": 17
                       }
                     },
@@ -1774,15 +1843,15 @@
                     "computed": false,
                     "key": {
                       "type": "Identifier",
-                      "start": 1125,
-                      "end": 1138,
+                      "start": 1182,
+                      "end": 1195,
                       "loc": {
                         "start": {
-                          "line": 43,
+                          "line": 44,
                           "column": 4
                         },
                         "end": {
-                          "line": 43,
+                          "line": 44,
                           "column": 17
                         },
                         "identifierName": "PlopsaDePanne"
@@ -1792,15 +1861,15 @@
                     },
                     "value": {
                       "type": "Identifier",
-                      "start": 1125,
-                      "end": 1138,
+                      "start": 1182,
+                      "end": 1195,
                       "loc": {
                         "start": {
-                          "line": 43,
+                          "line": 44,
                           "column": 4
                         },
                         "end": {
-                          "line": 43,
+                          "line": 44,
                           "column": 17
                         },
                         "identifierName": "PlopsaDePanne"
@@ -1811,20 +1880,75 @@
                       {
                         "type": "CommentLine",
                         "value": " Plopsa",
-                        "start": 1111,
-                        "end": 1120,
+                        "start": 1168,
+                        "end": 1177,
                         "loc": {
                           "start": {
-                            "line": 42,
+                            "line": 43,
                             "column": 4
                           },
                           "end": {
-                            "line": 42,
+                            "line": 43,
                             "column": 13
                           }
                         }
                       }
                     ],
+                    "extra": {
+                      "shorthand": true
+                    }
+                  },
+                  {
+                    "type": "ObjectProperty",
+                    "start": 1201,
+                    "end": 1212,
+                    "loc": {
+                      "start": {
+                        "line": 45,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 45,
+                        "column": 15
+                      }
+                    },
+                    "method": false,
+                    "shorthand": true,
+                    "computed": false,
+                    "key": {
+                      "type": "Identifier",
+                      "start": 1201,
+                      "end": 1212,
+                      "loc": {
+                        "start": {
+                          "line": 45,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 45,
+                          "column": 15
+                        },
+                        "identifierName": "HolidayPark"
+                      },
+                      "name": "HolidayPark"
+                    },
+                    "value": {
+                      "type": "Identifier",
+                      "start": 1201,
+                      "end": 1212,
+                      "loc": {
+                        "start": {
+                          "line": 45,
+                          "column": 4
+                        },
+                        "end": {
+                          "line": 45,
+                          "column": 15
+                        },
+                        "identifierName": "HolidayPark"
+                      },
+                      "name": "HolidayPark"
+                    },
                     "extra": {
                       "shorthand": true
                     }
@@ -1835,15 +1959,15 @@
             },
             {
               "type": "ObjectProperty",
-              "start": 1147,
-              "end": 1455,
+              "start": 1221,
+              "end": 1546,
               "loc": {
                 "start": {
-                  "line": 45,
+                  "line": 47,
                   "column": 2
                 },
                 "end": {
-                  "line": 63,
+                  "line": 66,
                   "column": 3
                 }
               },
@@ -1852,15 +1976,15 @@
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 1147,
-                "end": 1155,
+                "start": 1221,
+                "end": 1229,
                 "loc": {
                   "start": {
-                    "line": 45,
+                    "line": 47,
                     "column": 2
                   },
                   "end": {
-                    "line": 45,
+                    "line": 47,
                     "column": 10
                   },
                   "identifierName": "allParks"
@@ -1869,30 +1993,30 @@
               },
               "value": {
                 "type": "ArrayExpression",
-                "start": 1157,
-                "end": 1455,
+                "start": 1231,
+                "end": 1546,
                 "loc": {
                   "start": {
-                    "line": 45,
+                    "line": 47,
                     "column": 12
                   },
                   "end": {
-                    "line": 63,
+                    "line": 66,
                     "column": 3
                   }
                 },
                 "elements": [
                   {
                     "type": "Identifier",
-                    "start": 1179,
-                    "end": 1187,
+                    "start": 1253,
+                    "end": 1261,
                     "loc": {
                       "start": {
-                        "line": 47,
+                        "line": 49,
                         "column": 4
                       },
                       "end": {
-                        "line": 47,
+                        "line": 49,
                         "column": 12
                       },
                       "identifierName": "Efteling"
@@ -1902,15 +2026,15 @@
                       {
                         "type": "CommentLine",
                         "value": " Efteling",
-                        "start": 1163,
-                        "end": 1174,
+                        "start": 1237,
+                        "end": 1248,
                         "loc": {
                           "start": {
-                            "line": 46,
+                            "line": 48,
                             "column": 4
                           },
                           "end": {
-                            "line": 46,
+                            "line": 48,
                             "column": 15
                           }
                         }
@@ -1919,15 +2043,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1212,
-                    "end": 1222,
+                    "start": 1286,
+                    "end": 1296,
                     "loc": {
                       "start": {
-                        "line": 49,
+                        "line": 51,
                         "column": 4
                       },
                       "end": {
-                        "line": 49,
+                        "line": 51,
                         "column": 14
                       },
                       "identifierName": "EuropaPark"
@@ -1937,15 +2061,15 @@
                       {
                         "type": "CommentLine",
                         "value": " Europa-Park",
-                        "start": 1193,
-                        "end": 1207,
+                        "start": 1267,
+                        "end": 1281,
                         "loc": {
                           "start": {
-                            "line": 48,
+                            "line": 50,
                             "column": 4
                           },
                           "end": {
-                            "line": 48,
+                            "line": 50,
                             "column": 18
                           }
                         }
@@ -1954,15 +2078,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1228,
-                    "end": 1237,
+                    "start": 1302,
+                    "end": 1311,
                     "loc": {
                       "start": {
-                        "line": 50,
+                        "line": 52,
                         "column": 4
                       },
                       "end": {
-                        "line": 50,
+                        "line": 52,
                         "column": 13
                       },
                       "identifierName": "Rulantica"
@@ -1971,15 +2095,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1243,
-                    "end": 1249,
+                    "start": 1317,
+                    "end": 1323,
                     "loc": {
                       "start": {
-                        "line": 51,
+                        "line": 53,
                         "column": 4
                       },
                       "end": {
-                        "line": 51,
+                        "line": 53,
                         "column": 10
                       },
                       "identifierName": "Yullbe"
@@ -1988,15 +2112,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1276,
-                    "end": 1289,
+                    "start": 1350,
+                    "end": 1363,
                     "loc": {
                       "start": {
-                        "line": 53,
+                        "line": 55,
                         "column": 4
                       },
                       "end": {
-                        "line": 53,
+                        "line": 55,
                         "column": 17
                       },
                       "identifierName": "Phantasialand"
@@ -2006,15 +2130,15 @@
                       {
                         "type": "CommentLine",
                         "value": " Phantasialand",
-                        "start": 1255,
-                        "end": 1271,
+                        "start": 1329,
+                        "end": 1345,
                         "loc": {
                           "start": {
-                            "line": 52,
+                            "line": 54,
                             "column": 4
                           },
                           "end": {
-                            "line": 52,
+                            "line": 54,
                             "column": 20
                           }
                         }
@@ -2023,15 +2147,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1312,
-                    "end": 1321,
+                    "start": 1386,
+                    "end": 1395,
                     "loc": {
                       "start": {
-                        "line": 55,
+                        "line": 57,
                         "column": 4
                       },
                       "end": {
-                        "line": 55,
+                        "line": 57,
                         "column": 13
                       },
                       "identifierName": "Toverland"
@@ -2041,15 +2165,15 @@
                       {
                         "type": "CommentLine",
                         "value": " Toverland",
-                        "start": 1295,
-                        "end": 1307,
+                        "start": 1369,
+                        "end": 1381,
                         "loc": {
                           "start": {
-                            "line": 54,
+                            "line": 56,
                             "column": 4
                           },
                           "end": {
-                            "line": 54,
+                            "line": 56,
                             "column": 16
                           }
                         }
@@ -2058,15 +2182,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1354,
-                    "end": 1367,
+                    "start": 1428,
+                    "end": 1441,
                     "loc": {
                       "start": {
-                        "line": 57,
+                        "line": 59,
                         "column": 4
                       },
                       "end": {
-                        "line": 57,
+                        "line": 59,
                         "column": 17
                       },
                       "identifierName": "WalibiBelgium"
@@ -2076,15 +2200,15 @@
                       {
                         "type": "CommentLine",
                         "value": " Compagnie des Alpes",
-                        "start": 1327,
-                        "end": 1349,
+                        "start": 1401,
+                        "end": 1423,
                         "loc": {
                           "start": {
-                            "line": 56,
+                            "line": 58,
                             "column": 4
                           },
                           "end": {
-                            "line": 56,
+                            "line": 58,
                             "column": 26
                           }
                         }
@@ -2093,15 +2217,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1373,
-                    "end": 1386,
+                    "start": 1447,
+                    "end": 1460,
                     "loc": {
                       "start": {
-                        "line": 58,
+                        "line": 60,
                         "column": 4
                       },
                       "end": {
-                        "line": 58,
+                        "line": 60,
                         "column": 17
                       },
                       "identifierName": "WalibiHolland"
@@ -2110,15 +2234,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1392,
-                    "end": 1400,
+                    "start": 1466,
+                    "end": 1474,
                     "loc": {
                       "start": {
-                        "line": 59,
+                        "line": 61,
                         "column": 4
                       },
                       "end": {
-                        "line": 59,
+                        "line": 61,
                         "column": 12
                       },
                       "identifierName": "WalibiRA"
@@ -2127,15 +2251,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1406,
-                    "end": 1417,
+                    "start": 1480,
+                    "end": 1491,
                     "loc": {
                       "start": {
-                        "line": 60,
+                        "line": 62,
                         "column": 4
                       },
                       "end": {
-                        "line": 60,
+                        "line": 62,
                         "column": 15
                       },
                       "identifierName": "Bellewaerde"
@@ -2144,15 +2268,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1437,
-                    "end": 1450,
+                    "start": 1511,
+                    "end": 1524,
                     "loc": {
                       "start": {
-                        "line": 62,
+                        "line": 64,
                         "column": 4
                       },
                       "end": {
-                        "line": 62,
+                        "line": 64,
                         "column": 17
                       },
                       "identifierName": "PlopsaDePanne"
@@ -2162,20 +2286,37 @@
                       {
                         "type": "CommentLine",
                         "value": " Plopsa",
-                        "start": 1423,
-                        "end": 1432,
+                        "start": 1497,
+                        "end": 1506,
                         "loc": {
                           "start": {
-                            "line": 61,
+                            "line": 63,
                             "column": 4
                           },
                           "end": {
-                            "line": 61,
+                            "line": 63,
                             "column": 13
                           }
                         }
                       }
                     ]
+                  },
+                  {
+                    "type": "Identifier",
+                    "start": 1530,
+                    "end": 1541,
+                    "loc": {
+                      "start": {
+                        "line": 65,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 65,
+                        "column": 15
+                      },
+                      "identifierName": "HolidayPark"
+                    },
+                    "name": "HolidayPark"
                   }
                 ]
               }
@@ -2185,15 +2326,15 @@
             {
               "type": "CommentBlock",
               "value": "*\n* Export all parks as string\n",
-              "start": 784,
-              "end": 819,
+              "start": 841,
+              "end": 876,
               "loc": {
                 "start": {
-                  "line": 22,
+                  "line": 23,
                   "column": 0
                 },
                 "end": {
-                  "line": 24,
+                  "line": 25,
                   "column": 2
                 }
               }
@@ -2205,15 +2346,15 @@
           {
             "type": "CommentBlock",
             "value": "*\n* Export all parks as string\n",
-            "start": 784,
-            "end": 819,
+            "start": 841,
+            "end": 876,
             "loc": {
               "start": {
-                "line": 22,
+                "line": 23,
                 "column": 0
               },
               "end": {
-                "line": 24,
+                "line": 25,
                 "column": 2
               }
             }
@@ -2339,15 +2480,15 @@
     {
       "type": "CommentBlock",
       "value": "*\n* Export all parks as string\n",
-      "start": 784,
-      "end": 819,
+      "start": 841,
+      "end": 876,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 23,
           "column": 0
         },
         "end": {
-          "line": 24,
+          "line": 25,
           "column": 2
         }
       }
@@ -2355,15 +2496,15 @@
     {
       "type": "CommentLine",
       "value": " Efteling",
-      "start": 852,
-      "end": 863,
+      "start": 909,
+      "end": 920,
       "loc": {
         "start": {
-          "line": 27,
+          "line": 28,
           "column": 4
         },
         "end": {
-          "line": 27,
+          "line": 28,
           "column": 15
         }
       }
@@ -2371,15 +2512,15 @@
     {
       "type": "CommentLine",
       "value": " EuropaPark",
-      "start": 882,
-      "end": 895,
+      "start": 939,
+      "end": 952,
       "loc": {
         "start": {
-          "line": 29,
+          "line": 30,
           "column": 4
         },
         "end": {
-          "line": 29,
+          "line": 30,
           "column": 17
         }
       }
@@ -2387,15 +2528,15 @@
     {
       "type": "CommentLine",
       "value": " Phantasialand",
-      "start": 943,
-      "end": 959,
+      "start": 1000,
+      "end": 1016,
       "loc": {
         "start": {
-          "line": 33,
+          "line": 34,
           "column": 4
         },
         "end": {
-          "line": 33,
+          "line": 34,
           "column": 20
         }
       }
@@ -2403,15 +2544,15 @@
     {
       "type": "CommentLine",
       "value": " Toverland",
-      "start": 983,
-      "end": 995,
+      "start": 1040,
+      "end": 1052,
       "loc": {
         "start": {
-          "line": 35,
+          "line": 36,
           "column": 4
         },
         "end": {
-          "line": 35,
+          "line": 36,
           "column": 16
         }
       }
@@ -2419,15 +2560,15 @@
     {
       "type": "CommentLine",
       "value": " Compagnie des Alpes",
-      "start": 1015,
-      "end": 1037,
+      "start": 1072,
+      "end": 1094,
       "loc": {
         "start": {
-          "line": 37,
+          "line": 38,
           "column": 4
         },
         "end": {
-          "line": 37,
+          "line": 38,
           "column": 26
         }
       }
@@ -2435,15 +2576,15 @@
     {
       "type": "CommentLine",
       "value": " Plopsa",
-      "start": 1111,
-      "end": 1120,
+      "start": 1168,
+      "end": 1177,
       "loc": {
         "start": {
-          "line": 42,
+          "line": 43,
           "column": 4
         },
         "end": {
-          "line": 42,
+          "line": 43,
           "column": 13
         }
       }
@@ -2451,15 +2592,15 @@
     {
       "type": "CommentLine",
       "value": " Efteling",
-      "start": 1163,
-      "end": 1174,
+      "start": 1237,
+      "end": 1248,
       "loc": {
         "start": {
-          "line": 46,
+          "line": 48,
           "column": 4
         },
         "end": {
-          "line": 46,
+          "line": 48,
           "column": 15
         }
       }
@@ -2467,15 +2608,15 @@
     {
       "type": "CommentLine",
       "value": " Europa-Park",
-      "start": 1193,
-      "end": 1207,
+      "start": 1267,
+      "end": 1281,
       "loc": {
         "start": {
-          "line": 48,
+          "line": 50,
           "column": 4
         },
         "end": {
-          "line": 48,
+          "line": 50,
           "column": 18
         }
       }
@@ -2483,15 +2624,15 @@
     {
       "type": "CommentLine",
       "value": " Phantasialand",
-      "start": 1255,
-      "end": 1271,
+      "start": 1329,
+      "end": 1345,
       "loc": {
         "start": {
-          "line": 52,
+          "line": 54,
           "column": 4
         },
         "end": {
-          "line": 52,
+          "line": 54,
           "column": 20
         }
       }
@@ -2499,15 +2640,15 @@
     {
       "type": "CommentLine",
       "value": " Toverland",
-      "start": 1295,
-      "end": 1307,
+      "start": 1369,
+      "end": 1381,
       "loc": {
         "start": {
-          "line": 54,
+          "line": 56,
           "column": 4
         },
         "end": {
-          "line": 54,
+          "line": 56,
           "column": 16
         }
       }
@@ -2515,15 +2656,15 @@
     {
       "type": "CommentLine",
       "value": " Compagnie des Alpes",
-      "start": 1327,
-      "end": 1349,
+      "start": 1401,
+      "end": 1423,
       "loc": {
         "start": {
-          "line": 56,
+          "line": 58,
           "column": 4
         },
         "end": {
-          "line": 56,
+          "line": 58,
           "column": 26
         }
       }
@@ -2531,15 +2672,15 @@
     {
       "type": "CommentLine",
       "value": " Plopsa",
-      "start": 1423,
-      "end": 1432,
+      "start": 1497,
+      "end": 1506,
       "loc": {
         "start": {
-          "line": 61,
+          "line": 63,
           "column": 4
         },
         "end": {
-          "line": 61,
+          "line": 63,
           "column": 13
         }
       }
@@ -4122,17 +4263,150 @@
       }
     },
     {
-      "type": "CommentBlock",
-      "value": "*\n* Export all parks as string\n",
-      "start": 784,
-      "end": 819,
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 783,
+      "end": 789,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 21,
           "column": 0
         },
         "end": {
-          "line": 24,
+          "line": 21,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "HolidayPark",
+      "start": 790,
+      "end": 801,
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 7
+        },
+        "end": {
+          "line": 21,
+          "column": 18
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "from",
+      "start": 802,
+      "end": 806,
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 19
+        },
+        "end": {
+          "line": 21,
+          "column": 23
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./parks/plopsa/holidaypark.js",
+      "start": 807,
+      "end": 838,
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 24
+        },
+        "end": {
+          "line": 21,
+          "column": 55
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 838,
+      "end": 839,
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 55
+        },
+        "end": {
+          "line": 21,
+          "column": 56
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n* Export all parks as string\n",
+      "start": 841,
+      "end": 876,
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 0
+        },
+        "end": {
+          "line": 25,
           "column": 2
         }
       }
@@ -4152,15 +4426,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 820,
-      "end": 826,
+      "start": 877,
+      "end": 883,
       "loc": {
         "start": {
-          "line": 25,
+          "line": 26,
           "column": 0
         },
         "end": {
-          "line": 25,
+          "line": 26,
           "column": 6
         }
       }
@@ -4180,15 +4454,15 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 827,
-      "end": 834,
+      "start": 884,
+      "end": 891,
       "loc": {
         "start": {
-          "line": 25,
+          "line": 26,
           "column": 7
         },
         "end": {
-          "line": 25,
+          "line": 26,
           "column": 14
         }
       }
@@ -4205,15 +4479,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 835,
-      "end": 836,
+      "start": 892,
+      "end": 893,
       "loc": {
         "start": {
-          "line": 25,
+          "line": 26,
           "column": 15
         },
         "end": {
-          "line": 25,
+          "line": 26,
           "column": 16
         }
       }
@@ -4231,15 +4505,15 @@
         "binop": null
       },
       "value": "parks",
-      "start": 839,
-      "end": 844,
+      "start": 896,
+      "end": 901,
       "loc": {
         "start": {
-          "line": 26,
+          "line": 27,
           "column": 2
         },
         "end": {
-          "line": 26,
+          "line": 27,
           "column": 7
         }
       }
@@ -4257,15 +4531,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 844,
-      "end": 845,
+      "start": 901,
+      "end": 902,
       "loc": {
         "start": {
-          "line": 26,
+          "line": 27,
           "column": 7
         },
         "end": {
-          "line": 26,
+          "line": 27,
           "column": 8
         }
       }
@@ -4282,15 +4556,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 846,
-      "end": 847,
+      "start": 903,
+      "end": 904,
       "loc": {
         "start": {
-          "line": 26,
+          "line": 27,
           "column": 9
         },
         "end": {
-          "line": 26,
+          "line": 27,
           "column": 10
         }
       }
@@ -4298,15 +4572,15 @@
     {
       "type": "CommentLine",
       "value": " Efteling",
-      "start": 852,
-      "end": 863,
+      "start": 909,
+      "end": 920,
       "loc": {
         "start": {
-          "line": 27,
+          "line": 28,
           "column": 4
         },
         "end": {
-          "line": 27,
+          "line": 28,
           "column": 15
         }
       }
@@ -4324,15 +4598,15 @@
         "binop": null
       },
       "value": "Efteling",
-      "start": 868,
-      "end": 876,
+      "start": 925,
+      "end": 933,
       "loc": {
         "start": {
-          "line": 28,
+          "line": 29,
           "column": 4
         },
         "end": {
-          "line": 28,
+          "line": 29,
           "column": 12
         }
       }
@@ -4350,15 +4624,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 876,
-      "end": 877,
+      "start": 933,
+      "end": 934,
       "loc": {
         "start": {
-          "line": 28,
+          "line": 29,
           "column": 12
         },
         "end": {
-          "line": 28,
+          "line": 29,
           "column": 13
         }
       }
@@ -4366,15 +4640,15 @@
     {
       "type": "CommentLine",
       "value": " EuropaPark",
-      "start": 882,
-      "end": 895,
+      "start": 939,
+      "end": 952,
       "loc": {
         "start": {
-          "line": 29,
+          "line": 30,
           "column": 4
         },
         "end": {
-          "line": 29,
+          "line": 30,
           "column": 17
         }
       }
@@ -4392,15 +4666,15 @@
         "binop": null
       },
       "value": "EuropaPark",
-      "start": 900,
-      "end": 910,
+      "start": 957,
+      "end": 967,
       "loc": {
         "start": {
-          "line": 30,
+          "line": 31,
           "column": 4
         },
         "end": {
-          "line": 30,
+          "line": 31,
           "column": 14
         }
       }
@@ -4418,15 +4692,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 910,
-      "end": 911,
+      "start": 967,
+      "end": 968,
       "loc": {
         "start": {
-          "line": 30,
+          "line": 31,
           "column": 14
         },
         "end": {
-          "line": 30,
+          "line": 31,
           "column": 15
         }
       }
@@ -4444,15 +4718,15 @@
         "binop": null
       },
       "value": "Rulantica",
-      "start": 916,
-      "end": 925,
+      "start": 973,
+      "end": 982,
       "loc": {
         "start": {
-          "line": 31,
+          "line": 32,
           "column": 4
         },
         "end": {
-          "line": 31,
+          "line": 32,
           "column": 13
         }
       }
@@ -4470,15 +4744,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 925,
-      "end": 926,
+      "start": 982,
+      "end": 983,
       "loc": {
         "start": {
-          "line": 31,
+          "line": 32,
           "column": 13
         },
         "end": {
-          "line": 31,
+          "line": 32,
           "column": 14
         }
       }
@@ -4496,15 +4770,15 @@
         "binop": null
       },
       "value": "Yullbe",
-      "start": 931,
-      "end": 937,
+      "start": 988,
+      "end": 994,
       "loc": {
         "start": {
-          "line": 32,
+          "line": 33,
           "column": 4
         },
         "end": {
-          "line": 32,
+          "line": 33,
           "column": 10
         }
       }
@@ -4522,15 +4796,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 937,
-      "end": 938,
+      "start": 994,
+      "end": 995,
       "loc": {
         "start": {
-          "line": 32,
+          "line": 33,
           "column": 10
         },
         "end": {
-          "line": 32,
+          "line": 33,
           "column": 11
         }
       }
@@ -4538,15 +4812,15 @@
     {
       "type": "CommentLine",
       "value": " Phantasialand",
-      "start": 943,
-      "end": 959,
+      "start": 1000,
+      "end": 1016,
       "loc": {
         "start": {
-          "line": 33,
+          "line": 34,
           "column": 4
         },
         "end": {
-          "line": 33,
+          "line": 34,
           "column": 20
         }
       }
@@ -4564,15 +4838,15 @@
         "binop": null
       },
       "value": "Phantasialand",
-      "start": 964,
-      "end": 977,
+      "start": 1021,
+      "end": 1034,
       "loc": {
         "start": {
-          "line": 34,
+          "line": 35,
           "column": 4
         },
         "end": {
-          "line": 34,
+          "line": 35,
           "column": 17
         }
       }
@@ -4590,15 +4864,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 977,
-      "end": 978,
+      "start": 1034,
+      "end": 1035,
       "loc": {
         "start": {
-          "line": 34,
+          "line": 35,
           "column": 17
         },
         "end": {
-          "line": 34,
+          "line": 35,
           "column": 18
         }
       }
@@ -4606,15 +4880,15 @@
     {
       "type": "CommentLine",
       "value": " Toverland",
-      "start": 983,
-      "end": 995,
+      "start": 1040,
+      "end": 1052,
       "loc": {
         "start": {
-          "line": 35,
+          "line": 36,
           "column": 4
         },
         "end": {
-          "line": 35,
+          "line": 36,
           "column": 16
         }
       }
@@ -4632,15 +4906,15 @@
         "binop": null
       },
       "value": "Toverland",
-      "start": 1000,
-      "end": 1009,
+      "start": 1057,
+      "end": 1066,
       "loc": {
         "start": {
-          "line": 36,
+          "line": 37,
           "column": 4
         },
         "end": {
-          "line": 36,
+          "line": 37,
           "column": 13
         }
       }
@@ -4658,15 +4932,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1009,
-      "end": 1010,
+      "start": 1066,
+      "end": 1067,
       "loc": {
         "start": {
-          "line": 36,
+          "line": 37,
           "column": 13
         },
         "end": {
-          "line": 36,
+          "line": 37,
           "column": 14
         }
       }
@@ -4674,15 +4948,15 @@
     {
       "type": "CommentLine",
       "value": " Compagnie des Alpes",
-      "start": 1015,
-      "end": 1037,
+      "start": 1072,
+      "end": 1094,
       "loc": {
         "start": {
-          "line": 37,
+          "line": 38,
           "column": 4
         },
         "end": {
-          "line": 37,
+          "line": 38,
           "column": 26
         }
       }
@@ -4700,15 +4974,15 @@
         "binop": null
       },
       "value": "WalibiBelgium",
-      "start": 1042,
-      "end": 1055,
+      "start": 1099,
+      "end": 1112,
       "loc": {
         "start": {
-          "line": 38,
+          "line": 39,
           "column": 4
         },
         "end": {
-          "line": 38,
+          "line": 39,
           "column": 17
         }
       }
@@ -4726,15 +5000,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1055,
-      "end": 1056,
+      "start": 1112,
+      "end": 1113,
       "loc": {
         "start": {
-          "line": 38,
+          "line": 39,
           "column": 17
         },
         "end": {
-          "line": 38,
+          "line": 39,
           "column": 18
         }
       }
@@ -4752,15 +5026,15 @@
         "binop": null
       },
       "value": "WalibiHolland",
-      "start": 1061,
-      "end": 1074,
+      "start": 1118,
+      "end": 1131,
       "loc": {
         "start": {
-          "line": 39,
+          "line": 40,
           "column": 4
         },
         "end": {
-          "line": 39,
+          "line": 40,
           "column": 17
         }
       }
@@ -4778,15 +5052,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1074,
-      "end": 1075,
+      "start": 1131,
+      "end": 1132,
       "loc": {
         "start": {
-          "line": 39,
+          "line": 40,
           "column": 17
         },
         "end": {
-          "line": 39,
+          "line": 40,
           "column": 18
         }
       }
@@ -4804,15 +5078,15 @@
         "binop": null
       },
       "value": "WalibiRA",
-      "start": 1080,
-      "end": 1088,
+      "start": 1137,
+      "end": 1145,
       "loc": {
         "start": {
-          "line": 40,
+          "line": 41,
           "column": 4
         },
         "end": {
-          "line": 40,
+          "line": 41,
           "column": 12
         }
       }
@@ -4830,15 +5104,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1088,
-      "end": 1089,
+      "start": 1145,
+      "end": 1146,
       "loc": {
         "start": {
-          "line": 40,
+          "line": 41,
           "column": 12
         },
         "end": {
-          "line": 40,
+          "line": 41,
           "column": 13
         }
       }
@@ -4856,15 +5130,15 @@
         "binop": null
       },
       "value": "Bellewaerde",
-      "start": 1094,
-      "end": 1105,
+      "start": 1151,
+      "end": 1162,
       "loc": {
         "start": {
-          "line": 41,
+          "line": 42,
           "column": 4
         },
         "end": {
-          "line": 41,
+          "line": 42,
           "column": 15
         }
       }
@@ -4882,15 +5156,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1105,
-      "end": 1106,
+      "start": 1162,
+      "end": 1163,
       "loc": {
         "start": {
-          "line": 41,
+          "line": 42,
           "column": 15
         },
         "end": {
-          "line": 41,
+          "line": 42,
           "column": 16
         }
       }
@@ -4898,15 +5172,15 @@
     {
       "type": "CommentLine",
       "value": " Plopsa",
-      "start": 1111,
-      "end": 1120,
+      "start": 1168,
+      "end": 1177,
       "loc": {
         "start": {
-          "line": 42,
+          "line": 43,
           "column": 4
         },
         "end": {
-          "line": 42,
+          "line": 43,
           "column": 13
         }
       }
@@ -4924,15 +5198,15 @@
         "binop": null
       },
       "value": "PlopsaDePanne",
-      "start": 1125,
-      "end": 1138,
+      "start": 1182,
+      "end": 1195,
       "loc": {
         "start": {
-          "line": 43,
+          "line": 44,
           "column": 4
         },
         "end": {
-          "line": 43,
+          "line": 44,
           "column": 17
         }
       }
@@ -4950,16 +5224,68 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1138,
-      "end": 1139,
+      "start": 1195,
+      "end": 1196,
       "loc": {
         "start": {
-          "line": 43,
+          "line": 44,
           "column": 17
         },
         "end": {
-          "line": 43,
+          "line": 44,
           "column": 18
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "HolidayPark",
+      "start": 1201,
+      "end": 1212,
+      "loc": {
+        "start": {
+          "line": 45,
+          "column": 4
+        },
+        "end": {
+          "line": 45,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 1212,
+      "end": 1213,
+      "loc": {
+        "start": {
+          "line": 45,
+          "column": 15
+        },
+        "end": {
+          "line": 45,
+          "column": 16
         }
       }
     },
@@ -4975,15 +5301,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1142,
-      "end": 1143,
+      "start": 1216,
+      "end": 1217,
       "loc": {
         "start": {
-          "line": 44,
+          "line": 46,
           "column": 2
         },
         "end": {
-          "line": 44,
+          "line": 46,
           "column": 3
         }
       }
@@ -5001,15 +5327,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1143,
-      "end": 1144,
+      "start": 1217,
+      "end": 1218,
       "loc": {
         "start": {
-          "line": 44,
+          "line": 46,
           "column": 3
         },
         "end": {
-          "line": 44,
+          "line": 46,
           "column": 4
         }
       }
@@ -5027,15 +5353,15 @@
         "binop": null
       },
       "value": "allParks",
-      "start": 1147,
-      "end": 1155,
+      "start": 1221,
+      "end": 1229,
       "loc": {
         "start": {
-          "line": 45,
+          "line": 47,
           "column": 2
         },
         "end": {
-          "line": 45,
+          "line": 47,
           "column": 10
         }
       }
@@ -5053,15 +5379,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1155,
-      "end": 1156,
+      "start": 1229,
+      "end": 1230,
       "loc": {
         "start": {
-          "line": 45,
+          "line": 47,
           "column": 10
         },
         "end": {
-          "line": 45,
+          "line": 47,
           "column": 11
         }
       }
@@ -5079,15 +5405,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1157,
-      "end": 1158,
+      "start": 1231,
+      "end": 1232,
       "loc": {
         "start": {
-          "line": 45,
+          "line": 47,
           "column": 12
         },
         "end": {
-          "line": 45,
+          "line": 47,
           "column": 13
         }
       }
@@ -5095,15 +5421,15 @@
     {
       "type": "CommentLine",
       "value": " Efteling",
-      "start": 1163,
-      "end": 1174,
+      "start": 1237,
+      "end": 1248,
       "loc": {
         "start": {
-          "line": 46,
+          "line": 48,
           "column": 4
         },
         "end": {
-          "line": 46,
+          "line": 48,
           "column": 15
         }
       }
@@ -5121,15 +5447,15 @@
         "binop": null
       },
       "value": "Efteling",
-      "start": 1179,
-      "end": 1187,
+      "start": 1253,
+      "end": 1261,
       "loc": {
         "start": {
-          "line": 47,
+          "line": 49,
           "column": 4
         },
         "end": {
-          "line": 47,
+          "line": 49,
           "column": 12
         }
       }
@@ -5147,15 +5473,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1187,
-      "end": 1188,
+      "start": 1261,
+      "end": 1262,
       "loc": {
         "start": {
-          "line": 47,
+          "line": 49,
           "column": 12
         },
         "end": {
-          "line": 47,
+          "line": 49,
           "column": 13
         }
       }
@@ -5163,15 +5489,15 @@
     {
       "type": "CommentLine",
       "value": " Europa-Park",
-      "start": 1193,
-      "end": 1207,
+      "start": 1267,
+      "end": 1281,
       "loc": {
         "start": {
-          "line": 48,
+          "line": 50,
           "column": 4
         },
         "end": {
-          "line": 48,
+          "line": 50,
           "column": 18
         }
       }
@@ -5189,15 +5515,15 @@
         "binop": null
       },
       "value": "EuropaPark",
-      "start": 1212,
-      "end": 1222,
+      "start": 1286,
+      "end": 1296,
       "loc": {
         "start": {
-          "line": 49,
+          "line": 51,
           "column": 4
         },
         "end": {
-          "line": 49,
+          "line": 51,
           "column": 14
         }
       }
@@ -5215,15 +5541,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1222,
-      "end": 1223,
+      "start": 1296,
+      "end": 1297,
       "loc": {
         "start": {
-          "line": 49,
+          "line": 51,
           "column": 14
         },
         "end": {
-          "line": 49,
+          "line": 51,
           "column": 15
         }
       }
@@ -5241,15 +5567,15 @@
         "binop": null
       },
       "value": "Rulantica",
-      "start": 1228,
-      "end": 1237,
+      "start": 1302,
+      "end": 1311,
       "loc": {
         "start": {
-          "line": 50,
+          "line": 52,
           "column": 4
         },
         "end": {
-          "line": 50,
+          "line": 52,
           "column": 13
         }
       }
@@ -5267,15 +5593,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1237,
-      "end": 1238,
+      "start": 1311,
+      "end": 1312,
       "loc": {
         "start": {
-          "line": 50,
+          "line": 52,
           "column": 13
         },
         "end": {
-          "line": 50,
+          "line": 52,
           "column": 14
         }
       }
@@ -5293,15 +5619,15 @@
         "binop": null
       },
       "value": "Yullbe",
-      "start": 1243,
-      "end": 1249,
+      "start": 1317,
+      "end": 1323,
       "loc": {
         "start": {
-          "line": 51,
+          "line": 53,
           "column": 4
         },
         "end": {
-          "line": 51,
+          "line": 53,
           "column": 10
         }
       }
@@ -5319,15 +5645,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1249,
-      "end": 1250,
+      "start": 1323,
+      "end": 1324,
       "loc": {
         "start": {
-          "line": 51,
+          "line": 53,
           "column": 10
         },
         "end": {
-          "line": 51,
+          "line": 53,
           "column": 11
         }
       }
@@ -5335,15 +5661,15 @@
     {
       "type": "CommentLine",
       "value": " Phantasialand",
-      "start": 1255,
-      "end": 1271,
+      "start": 1329,
+      "end": 1345,
       "loc": {
         "start": {
-          "line": 52,
+          "line": 54,
           "column": 4
         },
         "end": {
-          "line": 52,
+          "line": 54,
           "column": 20
         }
       }
@@ -5361,15 +5687,15 @@
         "binop": null
       },
       "value": "Phantasialand",
-      "start": 1276,
-      "end": 1289,
+      "start": 1350,
+      "end": 1363,
       "loc": {
         "start": {
-          "line": 53,
+          "line": 55,
           "column": 4
         },
         "end": {
-          "line": 53,
+          "line": 55,
           "column": 17
         }
       }
@@ -5387,15 +5713,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1289,
-      "end": 1290,
+      "start": 1363,
+      "end": 1364,
       "loc": {
         "start": {
-          "line": 53,
+          "line": 55,
           "column": 17
         },
         "end": {
-          "line": 53,
+          "line": 55,
           "column": 18
         }
       }
@@ -5403,15 +5729,15 @@
     {
       "type": "CommentLine",
       "value": " Toverland",
-      "start": 1295,
-      "end": 1307,
+      "start": 1369,
+      "end": 1381,
       "loc": {
         "start": {
-          "line": 54,
+          "line": 56,
           "column": 4
         },
         "end": {
-          "line": 54,
+          "line": 56,
           "column": 16
         }
       }
@@ -5429,15 +5755,15 @@
         "binop": null
       },
       "value": "Toverland",
-      "start": 1312,
-      "end": 1321,
+      "start": 1386,
+      "end": 1395,
       "loc": {
         "start": {
-          "line": 55,
+          "line": 57,
           "column": 4
         },
         "end": {
-          "line": 55,
+          "line": 57,
           "column": 13
         }
       }
@@ -5455,15 +5781,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1321,
-      "end": 1322,
+      "start": 1395,
+      "end": 1396,
       "loc": {
         "start": {
-          "line": 55,
+          "line": 57,
           "column": 13
         },
         "end": {
-          "line": 55,
+          "line": 57,
           "column": 14
         }
       }
@@ -5471,15 +5797,15 @@
     {
       "type": "CommentLine",
       "value": " Compagnie des Alpes",
-      "start": 1327,
-      "end": 1349,
+      "start": 1401,
+      "end": 1423,
       "loc": {
         "start": {
-          "line": 56,
+          "line": 58,
           "column": 4
         },
         "end": {
-          "line": 56,
+          "line": 58,
           "column": 26
         }
       }
@@ -5497,15 +5823,15 @@
         "binop": null
       },
       "value": "WalibiBelgium",
-      "start": 1354,
-      "end": 1367,
+      "start": 1428,
+      "end": 1441,
       "loc": {
         "start": {
-          "line": 57,
+          "line": 59,
           "column": 4
         },
         "end": {
-          "line": 57,
+          "line": 59,
           "column": 17
         }
       }
@@ -5523,15 +5849,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1367,
-      "end": 1368,
+      "start": 1441,
+      "end": 1442,
       "loc": {
         "start": {
-          "line": 57,
+          "line": 59,
           "column": 17
         },
         "end": {
-          "line": 57,
+          "line": 59,
           "column": 18
         }
       }
@@ -5549,15 +5875,15 @@
         "binop": null
       },
       "value": "WalibiHolland",
-      "start": 1373,
-      "end": 1386,
+      "start": 1447,
+      "end": 1460,
       "loc": {
         "start": {
-          "line": 58,
+          "line": 60,
           "column": 4
         },
         "end": {
-          "line": 58,
+          "line": 60,
           "column": 17
         }
       }
@@ -5575,15 +5901,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1386,
-      "end": 1387,
+      "start": 1460,
+      "end": 1461,
       "loc": {
         "start": {
-          "line": 58,
+          "line": 60,
           "column": 17
         },
         "end": {
-          "line": 58,
+          "line": 60,
           "column": 18
         }
       }
@@ -5601,15 +5927,15 @@
         "binop": null
       },
       "value": "WalibiRA",
-      "start": 1392,
-      "end": 1400,
+      "start": 1466,
+      "end": 1474,
       "loc": {
         "start": {
-          "line": 59,
+          "line": 61,
           "column": 4
         },
         "end": {
-          "line": 59,
+          "line": 61,
           "column": 12
         }
       }
@@ -5627,15 +5953,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1400,
-      "end": 1401,
+      "start": 1474,
+      "end": 1475,
       "loc": {
         "start": {
-          "line": 59,
+          "line": 61,
           "column": 12
         },
         "end": {
-          "line": 59,
+          "line": 61,
           "column": 13
         }
       }
@@ -5653,15 +5979,15 @@
         "binop": null
       },
       "value": "Bellewaerde",
-      "start": 1406,
-      "end": 1417,
+      "start": 1480,
+      "end": 1491,
       "loc": {
         "start": {
-          "line": 60,
+          "line": 62,
           "column": 4
         },
         "end": {
-          "line": 60,
+          "line": 62,
           "column": 15
         }
       }
@@ -5679,15 +6005,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1417,
-      "end": 1418,
+      "start": 1491,
+      "end": 1492,
       "loc": {
         "start": {
-          "line": 60,
+          "line": 62,
           "column": 15
         },
         "end": {
-          "line": 60,
+          "line": 62,
           "column": 16
         }
       }
@@ -5695,15 +6021,15 @@
     {
       "type": "CommentLine",
       "value": " Plopsa",
-      "start": 1423,
-      "end": 1432,
+      "start": 1497,
+      "end": 1506,
       "loc": {
         "start": {
-          "line": 61,
+          "line": 63,
           "column": 4
         },
         "end": {
-          "line": 61,
+          "line": 63,
           "column": 13
         }
       }
@@ -5721,15 +6047,15 @@
         "binop": null
       },
       "value": "PlopsaDePanne",
-      "start": 1437,
-      "end": 1450,
+      "start": 1511,
+      "end": 1524,
       "loc": {
         "start": {
-          "line": 62,
+          "line": 64,
           "column": 4
         },
         "end": {
-          "line": 62,
+          "line": 64,
           "column": 17
         }
       }
@@ -5747,16 +6073,68 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1450,
-      "end": 1451,
+      "start": 1524,
+      "end": 1525,
       "loc": {
         "start": {
-          "line": 62,
+          "line": 64,
           "column": 17
         },
         "end": {
-          "line": 62,
+          "line": 64,
           "column": 18
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "HolidayPark",
+      "start": 1530,
+      "end": 1541,
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 4
+        },
+        "end": {
+          "line": 65,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 1541,
+      "end": 1542,
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 15
+        },
+        "end": {
+          "line": 65,
+          "column": 16
         }
       }
     },
@@ -5773,15 +6151,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1454,
-      "end": 1455,
+      "start": 1545,
+      "end": 1546,
       "loc": {
         "start": {
-          "line": 63,
+          "line": 66,
           "column": 2
         },
         "end": {
-          "line": 63,
+          "line": 66,
           "column": 3
         }
       }
@@ -5799,15 +6177,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1455,
-      "end": 1456,
+      "start": 1546,
+      "end": 1547,
       "loc": {
         "start": {
-          "line": 63,
+          "line": 66,
           "column": 3
         },
         "end": {
-          "line": 63,
+          "line": 66,
           "column": 4
         }
       }
@@ -5824,15 +6202,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1457,
-      "end": 1458,
+      "start": 1548,
+      "end": 1549,
       "loc": {
         "start": {
-          "line": 64,
+          "line": 67,
           "column": 0
         },
         "end": {
-          "line": 64,
+          "line": 67,
           "column": 1
         }
       }
@@ -5850,15 +6228,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1458,
-      "end": 1459,
+      "start": 1549,
+      "end": 1550,
       "loc": {
         "start": {
-          "line": 64,
+          "line": 67,
           "column": 1
         },
         "end": {
-          "line": 64,
+          "line": 67,
           "column": 2
         }
       }
@@ -5876,15 +6254,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1460,
-      "end": 1460,
+      "start": 1551,
+      "end": 1551,
       "loc": {
         "start": {
-          "line": 65,
+          "line": 68,
           "column": 0
         },
         "end": {
-          "line": 65,
+          "line": 68,
           "column": 0
         }
       }
