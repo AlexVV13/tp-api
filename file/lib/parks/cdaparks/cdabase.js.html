@@ -316,22 +316,6 @@ export class CDABase extends Park {
       let minHeightAccompanied = undefined;
       let minHeight = undefined;
 
-      // Work around for the ride Kondala
-      poi[&apos;ae675412-bb70-48b9-9acf-e815fc9322e0&apos;] = {
-        name: &apos;Kondala&apos;,
-        id: &apos;ae675412-bb70-48b9-9acf-e815fc9322e0&apos;,
-        location: {
-          latitude: null,
-          longitude: null,
-        },
-        meta: {
-          description: null,
-          shortdescription: null,
-          category: [],
-          type: entityType.ride,
-          restrictions: {},
-        },
-      };
       rideData.entertainment.forEach((ride) =&gt; {
         const category = [];
         const tags = [];
