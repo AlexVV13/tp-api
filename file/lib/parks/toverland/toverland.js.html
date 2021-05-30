@@ -527,13 +527,13 @@ export class Toverland extends Park {
               active = true;
               state = queueType.operating;
             // Open, but somehow the last_waiting_time disappeared. Too bad...
-            } else if (state === &apos;Open&apos; &amp;&amp; !ride.last_waiting_time) {
+            } else if (state === &apos;Open&apos; &amp;&amp; !poi.last_waiting_time) {
               waitTime = &apos;0&apos;;
               active = true;
               state = queueType.operating;
             // Finally! It is normally open!
             } else if (state === &apos;Open&apos;) {
-              waitTime = ride.last_waiting_time.waiting_time;
+              waitTime = poi.last_waiting_time.waiting_time;
               active = true;
               state = queueType.operating;
             // We&apos;ll assume ride is closed?
@@ -551,8 +551,8 @@ export class Toverland extends Park {
               closingTime = moment(&apos;23:59&apos;, &apos;HH:mm&apos;).format();
               type = scheduleType.closed;
             } else {
-              openTime = moment(poi.opening_times.start, &apos;YYYY-MM-DD HH:mm:ss&apos;).format();
-              closingTime = moment(poi.opening_times.end, &apos;YYYY-MM-DD HH:mm:ss&apos;).format();
+              openTime = moment(poi.opening_times.start, &apos;YYYY-MM-DD HH:mm&apos;).format();
+              closingTime = moment(poi.opening_times.end, &apos;YYYY-MM-DD HH:mm&apos;).format();
               type = scheduleType.operating;
             }
 
