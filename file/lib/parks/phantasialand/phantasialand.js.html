@@ -502,7 +502,7 @@ export class Phantasialand extends Park {
    * Fetch wait times
    * @return {string} ride wait times of Phantasialand
    */
-  async getWaitTime() {
+  async getQueue() {
     return this.buildRidePOI().then((poi) =&gt; {
       // We&apos;ll pretend we&apos;re actually in Phantasialand, cause we&apos;re cool
       const RandomLocation = Location.randomBetween(this.config.longitudeMin, this.config.latitudeMin, this.config.longitudeMax, this.config.latitudeMax);
@@ -540,12 +540,20 @@ export class Phantasialand extends Park {
                 closingTime = moment(ride[rideData].closing).format();
                 opType = scheduleType.operating;
               } else { // Park is probably closed
-                openTime = undefined;
-                closingTime = undefined;
+                openTime = moment(&apos;23:59&apos;, &apos;HH:mm a&apos;).format();
+                closingTime = moment(&apos;23:59&apos;, &apos;HH:mm a&apos;).format();
                 opType = scheduleType.closed;
               }
 
+              const schedule = {
+                openingtTime: openTime,
+                closingTime: closingTime,
+                type: opType,
+              };
+
               if (poi[ride[rideData].poiId]) {
+                poi[ride[rideData].poiId].meta.schedule = schedule; // Attach the schedule data to the meta object.
+
                 const rideobj = {
                   name: poi[ride[rideData].poiId].name,
                   id: poi[ride[rideData].poiId].id,
@@ -555,11 +563,6 @@ export class Phantasialand extends Park {
                   changedAt: ride[rideData].updatedAt,
                   location: poi[ride[rideData].poiId].location,
                   meta: poi[ride[rideData].poiId].meta,
-                  schedule: {
-                    openingTime: openTime,
-                    closingTime: closingTime,
-                    type: opType,
-                  },
                 };
                 rides.push(rideobj);
               }

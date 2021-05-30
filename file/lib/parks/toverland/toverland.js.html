@@ -556,7 +556,15 @@ export class Toverland extends Park {
               type = scheduleType.operating;
             }
 
+            const schedule = {
+              openingTime: openTime,
+              closingTime: closingTime,
+              type: type,
+            };
+
             if (rideData[poi.id]) {
+              rideData[poi.id].meta.schedule = schedule; // Attach the ride schedules to the meta object.
+
               const rideobj = {
                 id: rideData[poi.id].id,
                 name: rideData[poi.id].name,
@@ -565,11 +573,6 @@ export class Toverland extends Park {
                 status: state,
                 location: rideData[poi.id].location,
                 meta: rideData[poi.id].meta,
-                schedule: {
-                  openTime: openTime,
-                  closingTime: closingTime,
-                  type: type,
-                },
               };
               rides.push(rideobj);
             }

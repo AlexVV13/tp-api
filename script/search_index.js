@@ -1296,9 +1296,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "lib/parks/phantasialand/phantasialand.js~phantasialand#getwaittime",
-    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-getWaitTime",
-    "lib/parks/phantasialand/phantasialand.js~Phantasialand#getWaitTime",
+    "lib/parks/phantasialand/phantasialand.js~phantasialand#getqueue",
+    "class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html#instance-method-getQueue",
+    "lib/parks/phantasialand/phantasialand.js~Phantasialand#getQueue",
     "method"
   ],
   [
