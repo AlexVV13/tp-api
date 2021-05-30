@@ -280,58 +280,72 @@ export class PlopsaBase extends Park {
         .then((res) =&gt; res.json())
         .then((json) =&gt; {
           const calendar = [];
-          Object.keys(json.en.months).forEach((date) =&gt; {
-            Object.keys(json.en.months[date].openOn).forEach((dates) =&gt; {
-              const datename = moment(dates).format(&apos;YYYY-MM-DD&apos;);
-              let openTime = undefined;
-              let closeTime = undefined;
-              let type = undefined;
+          if (!json.en) { // If the parks are closed nothing is returned at all
+            const date = moment().format(&apos;YYYY-MM-DD&apos;);
+            const time = moment(&apos;23:59&apos;, &apos;HH:mm a&apos;).format();
+            const type = scheduleType.closed;
+            const schedule = {
+              openingTime: time,
+              closingTime: time,
+              type: type,
+              date: date,
+            };
+            calendar.push(schedule);
+            return calendar;
+          } else {
+            Object.keys(json.en.months).forEach((date) =&gt; {
+              Object.keys(json.en.months[date].openOn).forEach((dates) =&gt; {
+                const datename = moment(dates).format(&apos;YYYY-MM-DD&apos;);
+                let openTime = undefined;
+                let closeTime = undefined;
+                let type = undefined;
 
-              // Define the different opening types
-              if (json.en.months[date].openOn[dates].label === &apos;10.00 - 18.00&apos;) {
-                openTime = moment(`${datename} 10:00`).format();
-                closeTime = moment(`${datename} 18:00`).format();
-                type = scheduleType.operating;
-              } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 17:30&apos;) {
-                openTime = moment(`${datename} 10:00`).format();
-                closeTime = moment(`${datename} 17:30`).format();
-                type = scheduleType.operating;
-              } else if (json.en.months[date].openOn[dates].label === &apos;Sold out&apos;) {
-                openTime = moment(`${datename} 10:00`).format();
-                closeTime = moment(`${datename} 22:30`).format();
-                type = scheduleType.operating;
-              } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 19:00&apos;) {
-                openTime = moment(`${datename} 10:00`).format();
-                closeTime = moment(`${datename} 19:00`).format();
-                type = scheduleType.operating;
-              } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 22:30&apos;) {
-                openTime = moment(`${datename} 10:00`).format();
-                closeTime = moment(`${datename} 22:30`).format();
-                type = scheduleType.operating;
-              } else if (json.en.months[date].openOn[dates].label === &apos;Only Mayaland Indoor: 10.30 - 16.30&apos;) {
-                openTime = moment(`${datename} 10:30`).format();
-                closeTime = moment(`${datename} 16:30`).format();
-                type = scheduleType.operating;
-              } else if (json.en.months[date].openOn[dates].label === &apos;Open&apos;) { // Wtf???
-                openTime = moment(`${datename} 10:00`).format();
-                closeTime = moment(`${datename} 19:00`).format();
-                type = scheduleType.operating;
-              } else {
-                openTime = moment(`${datename} 23:59`).format();
-                closeTime = moment(`${datename} 23:59`).format();
-                type = scheduleType.closed;
-              }
+                // Define the different opening types
+                if (json.en.months[date].openOn[dates].label === &apos;10.00 - 18.00&apos;) {
+                  openTime = moment(`${datename} 10:00`).format();
+                  closeTime = moment(`${datename} 18:00`).format();
+                  type = scheduleType.operating;
+                } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 17:30&apos;) {
+                  openTime = moment(`${datename} 10:00`).format();
+                  closeTime = moment(`${datename} 17:30`).format();
+                  type = scheduleType.operating;
+                } else if (json.en.months[date].openOn[dates].label === &apos;Sold out&apos;) {
+                  openTime = moment(`${datename} 10:00`).format();
+                  closeTime = moment(`${datename} 22:30`).format();
+                  type = scheduleType.operating;
+                } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 19:00&apos;) {
+                  openTime = moment(`${datename} 10:00`).format();
+                  closeTime = moment(`${datename} 19:00`).format();
+                  type = scheduleType.operating;
+                } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 22:30&apos;) {
+                  openTime = moment(`${datename} 10:00`).format();
+                  closeTime = moment(`${datename} 22:30`).format();
+                  type = scheduleType.operating;
+                } else if (json.en.months[date].openOn[dates].label === &apos;Only Mayaland Indoor: 10.30 - 16.30&apos;) {
+                  openTime = moment(`${datename} 10:30`).format();
+                  closeTime = moment(`${datename} 16:30`).format();
+                  type = scheduleType.operating;
+                } else if (json.en.months[date].openOn[dates].label === &apos;Open&apos;) { // Wtf???
+                  openTime = moment(`${datename} 10:00`).format();
+                  closeTime = moment(`${datename} 19:00`).format();
+                  type = scheduleType.operating;
+                } else {
+                  openTime = moment(`${datename} 23:59`).format();
+                  closeTime = moment(`${datename} 23:59`).format();
+                  type = scheduleType.closed;
+                }
 
-              // Create the schedule object
-              const schedule = {
-                openingTime: openTime,
-                closingTime: closeTime,
-                type: type,
-                date: datename,
-              };
-              calendar.push(schedule);
+                // Create the schedule object
+                const schedule = {
+                  openingTime: openTime,
+                  closingTime: closeTime,
+                  type: type,
+                  date: datename,
+                };
+                calendar.push(schedule);
+              });
             });
-          });
+          }
           return Promise.resolve(calendar);
         });
   }
