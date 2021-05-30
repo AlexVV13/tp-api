@@ -551,8 +551,8 @@ export class Toverland extends Park {
               closingTime = moment(&apos;23:59&apos;, &apos;HH:mm&apos;).format();
               type = scheduleType.closed;
             } else {
-              openTime = moment(poi.opening_times.start, &apos;YYYY-MM-DD HH:mm&apos;).format();
-              closingTime = moment(poi.opening_times.end, &apos;YYYY-MM-DD HH:mm&apos;).format();
+              openTime = moment(poi.opening_times[0].start).format();
+              closingTime = moment(poi.opening_times[0].end).format();
               type = scheduleType.operating;
             }
 
