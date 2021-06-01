@@ -90,9 +90,9 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@alexvv13/tpapi/lib/parks/plopsa/plopsadepanne.js~plopsadepanne",
-    "class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html",
-    "<span>PlopsaDePanne</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/plopsa/plopsadepanne.js</span>",
+    "@alexvv13/tpapi/lib/parks/plopsa/plopsadepanne.js~plopsalanddepanne",
+    "class/lib/parks/plopsa/plopsadepanne.js~PlopsalandDePanne.html",
+    "<span>PlopsalandDePanne</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/plopsa/plopsadepanne.js</span>",
     "class"
   ],
   [
@@ -768,39 +768,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/parks/cdaparks/cdabase.js~cdabase#buildmerchandisepoi",
-    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildMerchandisePOI",
-    "lib/parks/cdaparks/cdabase.js~CDABase#buildMerchandisePOI",
-    "method"
-  ],
-  [
-    "lib/parks/cdaparks/cdabase.js~cdabase#buildrestaurantpoi",
-    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildRestaurantPOI",
-    "lib/parks/cdaparks/cdabase.js~CDABase#buildRestaurantPOI",
-    "method"
-  ],
-  [
     "lib/parks/cdaparks/cdabase.js~cdabase#buildridepoi",
     "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildRidePOI",
     "lib/parks/cdaparks/cdabase.js~CDABase#buildRidePOI",
-    "method"
-  ],
-  [
-    "lib/parks/cdaparks/cdabase.js~cdabase#buildservicepoi",
-    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildServicePOI",
-    "lib/parks/cdaparks/cdabase.js~CDABase#buildServicePOI",
-    "method"
-  ],
-  [
-    "lib/parks/cdaparks/cdabase.js~cdabase#buildshowpoi",
-    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildShowPOI",
-    "lib/parks/cdaparks/cdabase.js~CDABase#buildShowPOI",
-    "method"
-  ],
-  [
-    "lib/parks/cdaparks/cdabase.js~cdabase#buildwcpoi",
-    "class/lib/parks/cdaparks/cdabase.js~CDABase.html#instance-method-buildWCPOI",
-    "lib/parks/cdaparks/cdabase.js~CDABase#buildWCPOI",
     "method"
   ],
   [
@@ -1368,9 +1338,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "lib/parks/plopsa/plopsadepanne.js~plopsadepanne#constructor",
-    "class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html#instance-constructor-constructor",
-    "lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne#constructor",
+    "lib/parks/plopsa/plopsadepanne.js~plopsalanddepanne#constructor",
+    "class/lib/parks/plopsa/plopsadepanne.js~PlopsalandDePanne.html#instance-constructor-constructor",
+    "lib/parks/plopsa/plopsadepanne.js~PlopsalandDePanne#constructor",
     "method"
   ],
   [

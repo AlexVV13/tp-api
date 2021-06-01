@@ -54,7 +54,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/holidaypark.js~HolidayPark.html">HolidayPark</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html">PlopsaDePanne</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsalandDePanne.html">PlopsalandDePanne</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-toverland">parks/toverland</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/toverland/toverland.js~Toverland.html">Toverland</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
@@ -106,7 +106,6 @@ export class Efteling extends Park {
 
     // Api options
     options.apiKey = process.env.EFTELING_API_KEY;
-
     options.searchURL = process.env.EFTELING_SEARCH_URL;
     options.waitTimesURL = process.env.EFTELING_WAITTIMES_URL;
     options.histURL = process.env.EFTELING_HIST_URL;
@@ -131,17 +130,10 @@ export class Efteling extends Park {
   /**
   * Get Efteling POI data
   * This data contains general ride names, descriptions etc.
-  * @example
-  * import tpapi from &apos;@alexvv13/tpapi&apos;;
-  *
-  * const park = new tpapi.park.Efteling();
-  *
-  * park.getPois().then((pois) =&gt; {
-  * console.log(pois)
-  * });
   * @return {string} All Efteling POIS without queuetimes
   */
   async getPOIS() {
+    // First check if cache data is available
     return await this.cache.wrap(&apos;poidata&apos;, async () =&gt; {
       return fetch(this.config.searchURL +
         `search?q.parser=structured&amp;size=1000&amp;q=(and (phrase field%3Dlanguage &apos;$${this.config.languages}&apos;))`,
@@ -154,7 +146,10 @@ export class Efteling extends Park {
       )
           .then((res) =&gt; res.json())
           .then((data) =&gt; {
+            // No data is found, return an Error
             if (!data) throw new Error(&apos;No PoiData received from Efteling!&apos;); // We didn&apos;t get any data
+
+            // Create the object
             const poiData = {};
 
             data.hits.hit.forEach((hit) =&gt; {
@@ -169,6 +164,7 @@ export class Efteling extends Park {
               }
               // Base rides &amp; pois
               if (hit.fields) {
+                // Create the poi object
                 poiData[hit.fields.id] = {
                   singlerider: singlerider,
                   name: hit.fields.name,
@@ -239,14 +235,6 @@ export class Efteling extends Park {
   /**
   * Build Efteling ride object
   * This data contains general ride names, descriptions etc.
-  * @example
-  * import tpapi from &apos;@alexvv13/tpapi&apos;;
-  *
-  * const park = new tpapi.park.Efteling();
-  *
-  * park.buildRidePOI().then((pois) =&gt; {
-  * console.log(pois)
-  * });
   * @return {string} All Efteling ride POIS without queuetimes
   */
   async buildRidePOI() {

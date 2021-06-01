@@ -54,7 +54,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/holidaypark.js~HolidayPark.html">HolidayPark</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html">PlopsaDePanne</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsalandDePanne.html">PlopsalandDePanne</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-toverland">parks/toverland</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/toverland/toverland.js~Toverland.html">Toverland</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
@@ -93,7 +93,7 @@ export class PlopsaBase extends Park {
     options.cachepoistime = process.env.CACHE_DURATION_POIS;
     options.languages = process.env.LANGUAGES;
 
-    options.langoptions = options.langoptions || `{&apos;en&apos;, &apos;de&apos;, &apos;nl&apos;}`;
+    options.langoptions = options.langoptions;
 
     super(options);
 
@@ -113,10 +113,12 @@ export class PlopsaBase extends Park {
    * @return {string} accesstoken
    */
   async loginAPI() {
+    // In order to login we have to act like a mobile device
     const bodydata = {
       &apos;clientId&apos;: &apos;7xfwRB8iK1tbf3cYiABI%%2Fw%%3D%%3D&apos;,
       &apos;clientSecret&apos;: &apos;6YqyzzOsaNkxDkHmwhgK%%2Fw%%3D%%3D&apos;,
     };
+
     return fetch(this.config.apiBase +
       `${this.config.languages}/api/v1.0/token/0001`,
     {
@@ -130,7 +132,7 @@ export class PlopsaBase extends Park {
         .then((res) =&gt; res.json())
         .then((data) =&gt; {
           const token = data.accessToken;
-          return token;
+          return token; // Return the access token and don&apos;t save it since its expiration time is almost instant
         });
   }
 
@@ -140,7 +142,9 @@ export class PlopsaBase extends Park {
   * @return {string} All Plopsa POIS
   */
   async getPOIS() {
+    // Obtain the access token
     const token = await this.loginAPI();
+
     return fetch(this.config.apiBase +
       `${this.config.languages}/api/v1.0/details/all/${this.config.apiId}/attraction?access_token=${token}`,
     {
@@ -149,7 +153,7 @@ export class PlopsaBase extends Park {
     )
         .then((res) =&gt; res.json())
         .then((rideData) =&gt; {
-          return Promise.resolve(rideData);
+          return Promise.resolve(rideData); // Return all the attraction data immediately
         });
   }
 
@@ -159,15 +163,20 @@ export class PlopsaBase extends Park {
   * @return {string} All Plopsa ride POIS
   */
   async buildRidePOI() {
+    // First fetch the ride data
     return await this.getPOIS().then((rideData) =&gt; {
       const poi = [];
+
+      // Declare default height values
       let minHeightAccompanied = undefined;
       let minHeight = undefined;
       let maxHeight = undefined;
 
-      Object.keys(rideData.en.attraction).forEach((ride) =&gt; {
+      Object.keys(rideData.en.attraction).forEach((ride) =&gt; { // This only fetches English data
+        // Categories, however Plopsa doesn&apos;t use them
         const category = [];
 
+        // Add the values of the height restrictions
         if (rideData.en.attraction[ride].minHeight) {
           minHeight = rideData.en.attraction[ride].minHeight;
         }
@@ -178,18 +187,22 @@ export class PlopsaBase extends Park {
           maxHeight = rideData.en.attraction[ride].maxHeight;
         }
 
+        // Create the restrictions Object
         const restrictions = {
           minHeightAccompanied,
           minHeight,
           maxHeight,
         };
 
+        // Description is served, short_desc isn&apos;t
         const description = rideData.en.attraction[ride].description;
         const shortdescription = undefined;
 
+        // Plopsaland doesn&apos;t send latlon values
         const lat = undefined;
         const lon = undefined;
 
+        // Create the ride object
         poi[rideData.en.attraction[ride].id] = {
           name: rideData.en.attraction[ride].name,
           id: rideData.en.attraction[ride].id,
@@ -206,7 +219,7 @@ export class PlopsaBase extends Park {
           },
         };
       });
-      return Promise.resolve(poi);
+      return Promise.resolve(poi); // Return all rides
     });
   }
 
@@ -216,8 +229,10 @@ export class PlopsaBase extends Park {
   * @return {string} All Plopsa POIS with queuetimes
   */
   async getQueue() {
+    // Obtain token and ridedata first
     const token = await this.loginAPI();
     const rideData = await this.buildRidePOI();
+
     return fetch(this.config.apiBase +
       `en/api/v1.0/waitingTime/${this.config.apiId}/attraction?access_token=${token}`,
     {
@@ -226,18 +241,23 @@ export class PlopsaBase extends Park {
     )
         .then((res) =&gt; res.json())
         .then((waitData) =&gt; {
+          // Create the ride array
           const rides = [];
+
           waitData.en.forEach((ride) =&gt; {
+            // Declare default values (Plopsa doesn&apos;t send down or maintenance)
             let wait = ride.currentWaitingTime;
             let state = queueType.operating;
             let active = true;
 
+            // Only includes dead and unfinished rides.
             if (wait === null) {
               wait = 0;
               state = queueType.closed;
               active = false;
             }
 
+            // If the entity exists in the queue api and ride data, build the ride object with queues
             if (rideData[ride.id]) {
               rides.push({
                 name: rideData[ride.id].name,
@@ -279,12 +299,15 @@ export class PlopsaBase extends Park {
     )
         .then((res) =&gt; res.json())
         .then((json) =&gt; {
+          // Calendar array
           const calendar = [];
-          if (!json.en) { // If the parks are closed nothing is returned at all
+
+          if (!json.en) { // If the parks are closed nothing is returned at all so build an entity for today saying it&apos;s closed.
             const date = moment().format(&apos;YYYY-MM-DD&apos;);
             const time = moment(&apos;23:59&apos;, &apos;HH:mm a&apos;).format();
             const type = scheduleType.closed;
             const schedule = {
+              name: &apos;Closed&apos;,
               openingTime: time,
               closingTime: time,
               type: type,
@@ -294,49 +317,61 @@ export class PlopsaBase extends Park {
             return calendar;
           } else {
             Object.keys(json.en.months).forEach((date) =&gt; {
+              // The API only returns data if open, in seperate month objects.
               Object.keys(json.en.months[date].openOn).forEach((dates) =&gt; {
+                // Create default values
                 const datename = moment(dates).format(&apos;YYYY-MM-DD&apos;);
                 let openTime = undefined;
                 let closeTime = undefined;
                 let type = undefined;
+                let name = undefined;
 
                 // Define the different opening types
                 if (json.en.months[date].openOn[dates].label === &apos;10.00 - 18.00&apos;) {
                   openTime = moment(`${datename} 10:00`).format();
                   closeTime = moment(`${datename} 18:00`).format();
                   type = scheduleType.operating;
+                  name = &apos;Open from 10:00 - 18:00&apos;;
                 } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 17:30&apos;) {
                   openTime = moment(`${datename} 10:00`).format();
                   closeTime = moment(`${datename} 17:30`).format();
                   type = scheduleType.operating;
+                  name = &apos;Open from 10:00 - 17:30&apos;;
                 } else if (json.en.months[date].openOn[dates].label === &apos;Sold out&apos;) {
                   openTime = moment(`${datename} 10:00`).format();
-                  closeTime = moment(`${datename} 22:30`).format();
+                  closeTime = moment(`${datename} 23:00`).format(); // Longest possible closing time is 23:00+2:00
                   type = scheduleType.operating;
+                  name = &apos;Park sold out, longest possible opening hours are in place&apos;;
                 } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 19:00&apos;) {
                   openTime = moment(`${datename} 10:00`).format();
                   closeTime = moment(`${datename} 19:00`).format();
                   type = scheduleType.operating;
+                  name = &apos;Open from 10:00 - 19:00&apos;;
                 } else if (json.en.months[date].openOn[dates].label === &apos;10.00 - 22:30&apos;) {
                   openTime = moment(`${datename} 10:00`).format();
                   closeTime = moment(`${datename} 22:30`).format();
                   type = scheduleType.operating;
-                } else if (json.en.months[date].openOn[dates].label === &apos;Only Mayaland Indoor: 10.30 - 16.30&apos;) {
+                  name = &apos;Open from 10:00 - 22:30&apos;;
+                } else if (json.en.months[date].openOn[dates].label === &apos;Only Mayaland Indoor: 10.30 - 16.30&apos;) { // Only for De Panne
                   openTime = moment(`${datename} 10:30`).format();
                   closeTime = moment(`${datename} 16:30`).format();
                   type = scheduleType.operating;
-                } else if (json.en.months[date].openOn[dates].label === &apos;Open&apos;) { // Wtf???
+                  name = &apos;Mayaland Indoor open from 10:30 - 16:30&apos;;
+                } else if (json.en.months[date].openOn[dates].label === &apos;Open&apos;) { // Wtf??? Open withour hours, cool
                   openTime = moment(`${datename} 10:00`).format();
                   closeTime = moment(`${datename} 19:00`).format();
                   type = scheduleType.operating;
+                  name = &apos;Open without hours, 10-19 hours are in place&apos;;
                 } else {
                   openTime = moment(`${datename} 23:59`).format();
                   closeTime = moment(`${datename} 23:59`).format();
                   type = scheduleType.closed;
+                  name = &apos;Closed&apos;;
                 }
 
                 // Create the schedule object
                 const schedule = {
+                  name: name,
                   openingTime: openTime,
                   closingTime: closeTime,
                   type: type,

@@ -54,7 +54,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/holidaypark.js~HolidayPark.html">HolidayPark</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsaDePanne.html">PlopsaDePanne</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsalandDePanne.html">PlopsalandDePanne</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-toverland">parks/toverland</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/toverland/toverland.js~Toverland.html">Toverland</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
@@ -104,7 +104,7 @@ export class CDABase extends Park {
       this.config.languages = &apos;en&apos;;
     };
     if (!this.config.cachepoistime) {
-      this.config.cachepoistime = &apos;12&apos;;
+      this.config.cachepoistime = &apos;12&apos;; // Default cache value is 12 hours
     };
   }
 
@@ -122,188 +122,9 @@ export class CDABase extends Park {
     )
         .then((res) =&gt; res.json())
         .then((rideData) =&gt; {
+          // Immediately return ridedata
           return Promise.resolve(rideData);
         });
-  }
-
-  /**
-  * Get All wc of Compagnie des Alpes
-  * This data contains all the wc POIS in Compagnie des Alpes park
-  * @return {string} All Compagnie des Alpes wc POIS
-  */
-  async buildWCPOI() {
-    return await this.getPOIS().then((rideData) =&gt; {
-      const poi = [];
-      rideData.wc.forEach((ride) =&gt; {
-        let description = undefined;
-        let shortdescription = undefined;
-        ride.additionalContent.forEach((desc) =&gt; {
-          description = desc.text;
-          shortdescription = desc.title;
-        });
-
-        const poiData = {
-          name: ride.title,
-          id: ride.uuid,
-          location: {
-            latitude: JSON.parse(ride.location.lat),
-            longitude: JSON.parse(ride.location.lon),
-          },
-          meta: {
-            description: description,
-            short_description: shortdescription,
-            category: ride.category.name,
-            type: entityType.service,
-          },
-        };
-        poi.push(poiData);
-      });
-      return Promise.resolve(poi);
-    });
-  }
-
-  /**
-  * Get All Service of Compagnie des Alpes
-  * This data contains all the SERVICE POIS in Compagnie des Alpes park
-  * @return {string} All Compagnie des Alpes POIS
-  */
-  async buildServicePOI() {
-    return await this.getPOIS().then((rideData) =&gt; {
-      const poi = [];
-      rideData.service.forEach((ride) =&gt; {
-        let description = undefined;
-        let shortdescription = undefined;
-        ride.additionalContent.forEach((desc) =&gt; {
-          description = desc.text;
-          shortdescription = desc.title;
-        });
-
-        const poiData = {
-          name: ride.title,
-          id: ride.uuid,
-          location: {
-            latitude: JSON.parse(ride.location.lat),
-            longitude: JSON.parse(ride.location.lon),
-          },
-          meta: {
-            description: description,
-            short_description: shortdescription,
-            category: ride.category.name,
-            type: entityType.service,
-          },
-        };
-        poi.push(poiData);
-      });
-      return Promise.resolve(poi);
-    });
-  }
-
-  /**
-  * Get All restaurant of Compagnie des Alpes
-  * This data contains all the restaurant POIS in Compagnie des Alpes park
-  * @return {string} All Compagnie des Alpes restaurant POIS
-  */
-  async buildRestaurantPOI() {
-    return await this.getPOIS().then((rideData) =&gt; {
-      const poi = [];
-      rideData.restaurant.forEach((ride) =&gt; {
-        let description = undefined;
-        let shortdescription = undefined;
-        ride.additionalContent.forEach((desc) =&gt; {
-          description = desc.text;
-          shortdescription = desc.title;
-        });
-
-        const poiData = {
-          name: ride.title,
-          id: ride.uuid,
-          location: {
-            latitude: JSON.parse(ride.location.lat),
-            longitude: JSON.parse(ride.location.lon),
-          },
-          meta: {
-            description: description,
-            short_description: shortdescription,
-            category: ride.category.name,
-            type: entityType.restaurant,
-          },
-        };
-        poi.push(poiData);
-      });
-      return Promise.resolve(poi);
-    });
-  }
-
-  /**
-  * Get All shops of Compagnie des Alpes
-  * This data contains all the shop POIS in Compagnie des Alpes park
-  * @return {string} All Compagnie des Alpes shop POIS
-  */
-  async buildMerchandisePOI() {
-    return await this.getPOIS().then((rideData) =&gt; {
-      const poi = [];
-      rideData.shop.forEach((ride) =&gt; {
-        let description = undefined;
-        let shortdescription = undefined;
-        ride.additionalContent.forEach((desc) =&gt; {
-          description = desc.text;
-          shortdescription = desc.title;
-        });
-
-        const poiData = {
-          name: ride.title,
-          id: ride.uuid,
-          location: {
-            latitude: JSON.parse(ride.location.lat),
-            longitude: JSON.parse(ride.location.lon),
-          },
-          meta: {
-            description: description,
-            short_description: shortdescription,
-            category: ride.category.name,
-            type: entityType.merchandise,
-          },
-        };
-        poi.push(poiData);
-      });
-      return Promise.resolve(poi);
-    });
-  }
-
-  /**
-  * Get All Show of Compagnie des Alpes
-  * This data contains all the Show POIS in Compagnie des Alpes park
-  * @return {string} All Compagnie des Alpes show POIS
-  */
-  async buildShowPOI() {
-    return await this.getPOIS().then((rideData) =&gt; {
-      const poi = [];
-      rideData.show.forEach((ride) =&gt; {
-        let description = undefined;
-        let shortdescription = undefined;
-        ride.additionalContent.forEach((desc) =&gt; {
-          description = desc.text;
-          shortdescription = desc.title;
-        });
-
-        const poiData = {
-          name: ride.title,
-          id: ride.uuid,
-          location: {
-            latitude: JSON.parse(ride.location.lat),
-            longitude: JSON.parse(ride.location.lon),
-          },
-          meta: {
-            description: description,
-            short_description: shortdescription,
-            category: ride.category.name,
-            type: entityType.show,
-          },
-        };
-        poi.push(poiData);
-      });
-      return Promise.resolve(poi);
-    });
   }
 
   /**
@@ -312,14 +133,20 @@ export class CDABase extends Park {
   * @return {string} All Compagnie des Alpes ride POIS
   */
   async buildRidePOI() {
+    // Obtain the POIS
     return await this.getPOIS().then((rideData) =&gt; {
+      // POI array
       const poi = [];
+
+      // Set initial height values
       let minHeightAccompanied = undefined;
       let minHeight = undefined;
 
       rideData.entertainment.forEach((ride) =&gt; {
         const category = [];
         const tags = [];
+
+        // Add tags and categories
         if (ride.babyswitch === true) {
           tags.push(entityTags.childSwap);
         }
@@ -333,6 +160,7 @@ export class CDABase extends Park {
           category.push(entityCategory.thrill);
         }
 
+        // Min height values, sometimes in french, sometimes in english
         ride.parameters.forEach((param) =&gt; {
           if (param.title === &apos;taille min accompagn&#xE9;&apos; || param.title === &apos;min accompanied heigh&apos;) {
             minHeightAccompanied = param.value;
@@ -349,6 +177,8 @@ export class CDABase extends Park {
 
         let description = undefined;
         let shortdescription = undefined;
+
+        // Add descriptions
         ride.additionalContent.forEach((desc) =&gt; {
           description = desc.text;
           shortdescription = desc.title;
@@ -357,11 +187,13 @@ export class CDABase extends Park {
         let lat = undefined;
         let lon = undefined;
 
+        // Add location
         if (ride.location) {
           lat = JSON.parse(ride.location.lat);
           lon = JSON.parse(ride.location.lon);
         }
 
+        // Build the POI object
         poi[ride.uuid] = {
           name: ride.title,
           id: ride.uuid,
@@ -388,6 +220,7 @@ export class CDABase extends Park {
   * @return {string} All Compagnie des Alpes POIS with queuetimes
   */
   async getQueue() {
+    // Obtain ridedata first
     const rideData = await this.buildRidePOI();
     return fetch(this.config.apiBase +
       `${this.config.languages}/api/waiting_time`,
@@ -397,17 +230,21 @@ export class CDABase extends Park {
     )
         .then((res) =&gt; res.json())
         .then((waitData) =&gt; {
+          // Ride array
           const rides = [];
+
           waitData.forEach((ride) =&gt; {
+            // Set default values
             let wait = null;
             let state = null;
             let active = null;
 
+            // Add the queuetime and ride status
             if (ride.status === &apos;closed&apos;) {
               wait = 0;
               state = queueType.closed;
               active = false;
-            } else if (ride.status === &apos;outoforder&apos;) {
+            } else if (ride.status === &apos;outoforder&apos;) { // Seems to be maintenance?
               wait = 0;
               state = queueType.refurbishment;
               active = false;
@@ -417,6 +254,7 @@ export class CDABase extends Park {
               active = true;
             }
 
+            // Attach queue if the poi exists
             if (rideData[ride.id]) {
               rides.push({
                 name: rideData[ride.id].name,
@@ -448,6 +286,7 @@ export class CDABase extends Park {
   * @return {string} All Compagnie des Alpes calendar data
   */
   async getOpHours() {
+    // Declare the currentyear for the URL
     const currentYear = moment().format(&apos;YYYY&apos;);
     return fetch(
         this.config.apiBase +
@@ -458,31 +297,40 @@ export class CDABase extends Park {
     )
         .then((res) =&gt; res.json())
         .then((json) =&gt; {
+          // Calendar object
           const Calendar = [];
-          // Execute Calendar stuff here
+
           // The calendar provides data for the whole year, however, we don&apos;t want past data.
           Object.keys(json.opening_hours).forEach((key) =&gt; {
             const now = moment().format(&apos;MM&apos;) + &apos;\/&apos; + moment().format(&apos;DD&apos;);
 
             // Only continue if our hit is AFTER yesterday
             if (moment(key).isSameOrAfter(moment(now))) {
+              // Declare default statusses
               let state = json.opening_hours[key].status;
               let open = undefined;
               let close = undefined;
+              let name = undefined;
+
+              // Split the date object
               const datesplit = key.split(&apos;/&apos;);
               const date = currentYear + &apos;-&apos; + datesplit[0] + &apos;-&apos; + datesplit[1];
+
               // Park is closed, nothing returned
               if (state === &apos;closed&apos;) {
+                name = &apos;Closed&apos;;
                 state = scheduleType.closed;
                 open = moment(`${date} 23:59`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
                 close = moment(`${date} 23:59`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
-                // Park is open, but sold out, strangely enough operating hours are removed as well
+              // Park is open, but sold out, strangely enough operating hours are removed as well
               } else if (state === &apos;soldout&apos;) {
+                name = &apos;Sold out, using longest possible hours&apos;;
                 open = moment(`${date} 10:00`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
                 close = moment(`${date} 23:00`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
                 state = scheduleType.operating;
-                // Park is operating as normal
+              // Park is operating as normal
               } else {
+                name = &apos;Open&apos;;
                 state = scheduleType.operating;
                 open = moment(`${date} ${json.opening_hours[key].mo_time}`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
                 close = moment(`${date} ${json.opening_hours[key].mc_time}`, &apos;YYYY-MM-DD HH:mm a&apos;, `${this.config.Timezone}`).format();
@@ -490,6 +338,7 @@ export class CDABase extends Park {
 
               // Set the hours object
               const hourobj = {
+                name: name,
                 openingTime: open,
                 closingTime: close,
                 date: date,
