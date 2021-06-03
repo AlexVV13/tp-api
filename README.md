@@ -1,5 +1,5 @@
 # Themeparks-API
-Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don't expect anything too cool tho.</br>
+API to fetch ride pois, queue times and operating hours.</br>
 
 ![Unit Test](https://github.com/alexvv13/tp-api/workflows/Unit%20Test/badge.svg)
 ![Documentation Build](https://github.com/alexvv13/tp-api/workflows/ESDoc/badge.svg)
@@ -14,7 +14,7 @@ Themeparks API loosely based on existing examples, however I wanted to kill some
 [NPM Package](https://www.npmjs.com/package/@alexvv13/tpapi "NPM Package") </br>
 
 ## About
-This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it's not perfect, but it works. It's just being build to work and return data, not to be efficient anyway.
+This is a module which fetches queue times and operating hours, and returns it as JSON to the user.
 
 ## Table of Contents
 [About](#about)</br>
@@ -196,7 +196,7 @@ park.getWaitTime().then((poiData) => {
 
 <!-- START_SUPPORTED_PARKS_LIST -->
 
-**10** Parks Supported
+**12** Parks Supported
 
 * Efteling (tpapi.parks.Efteling)
 * Europa-Park (tpapi.parks.EuropaPark)
@@ -267,6 +267,7 @@ Holiday Park |:heavy_check_mark:|:heavy_check_mark:|:heavy_multiplication_x:|en
     [
         {
             date: (dateFormat timestamp: day this schedule applies),
+            name: (string: Operating type name (ie 'Open', 'Closed', 'Event'),
             openingTime: (timeFormat timestamp: opening time for requested park - can be null if park is closed),
             closingTime: (timeFormat timestamp: closing time for requested park - can be null if park is closed),
             type: (string: "Operating" or "Closed"),
