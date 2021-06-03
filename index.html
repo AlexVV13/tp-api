@@ -63,7 +63,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="themeparks-api">Themeparks-API</h1><p>Themeparks API loosely based on existing examples, however I wanted to kill some time and then this came up. Don&apos;t expect anything too cool tho.<br></p>
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="themeparks-api">Themeparks-API</h1><p>API to fetch ride pois, queue times and operating hours.<br></p>
 <p><img src="https://github.com/alexvv13/tp-api/workflows/Unit%20Test/badge.svg" alt="Unit Test">
 <img src="https://github.com/alexvv13/tp-api/workflows/ESDoc/badge.svg" alt="Documentation Build">
 <img src="https://github.com/alexvv13/tp-api/workflows/Node.js%20CI/badge.svg" alt="Node.js CI"></p>
@@ -72,7 +72,7 @@
 <p><img src="https://img.shields.io/snyk/vulnerabilities/github/alexvv13/tp-api.svg" alt="Snyk Vulnerabilities for GitHub Repo"> <br></p>
 <p><a href="https://alexvv13.github.io/tp-api" title="API Documentation">API documentation</a> <br>
 <a href="https://www.npmjs.com/package/@alexvv13/tpapi" title="NPM Package">NPM Package</a> <br></p>
-<h2 id="about">About</h2><p>This is a module which fetches queue times and operating hours, and returns it as JSON to the user, the data could be used for anything, a website, a discordjs bot, some personal stuff or whatever. Be aware it&apos;s not perfect, but it works. It&apos;s just being build to work and return data, not to be efficient anyway.</p>
+<h2 id="about">About</h2><p>This is a module which fetches queue times and operating hours, and returns it as JSON to the user.</p>
 <h2 id="table-of-contents">Table of Contents</h2><p><a href="#about">About</a><br>
 <a href="#table-of-contents">Table of Contents</a> <br>
 <a href="#install">Install</a> <br>
@@ -231,7 +231,7 @@ park.getWaitTime().then((poiData) =&gt; {
 <h2 id="changelog">Changelog</h2><p><a href="CHANGELOG.md">View tp-api Changelog</a></p>
 <h2 id="parks-available">Parks available</h2><p><!-- START_SUPPORTED_PARKS_LIST -->
 </p>
-<p><strong>10</strong> Parks Supported</p>
+<p><strong>12</strong> Parks Supported</p>
 <ul>
 <li>Efteling (tpapi.parks.Efteling)</li>
 <li>Europa-Park (tpapi.parks.EuropaPark)</li>
@@ -375,6 +375,7 @@ park.getWaitTime().then((poiData) =&gt; {
 </code></pre><h3 id="schedules">Schedules</h3><pre><code><code class="source-code prettyprint">[
     {
         date: (dateFormat timestamp: day this schedule applies),
+        name: (string: Operating type name (ie &apos;Open&apos;, &apos;Closed&apos;, &apos;Event&apos;),
         openingTime: (timeFormat timestamp: opening time for requested park - can be null if park is closed),
         closingTime: (timeFormat timestamp: closing time for requested park - can be null if park is closed),
         type: (string: &quot;Operating&quot; or &quot;Closed&quot;),
