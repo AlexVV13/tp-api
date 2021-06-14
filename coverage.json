@@ -1,7 +1,7 @@
 {
-  "coverage": "97.17%",
-  "expectCount": 177,
-  "actualCount": 172,
+  "coverage": "97.23%",
+  "expectCount": 181,
+  "actualCount": 176,
   "files": {
     "lib/cache/cacheBase.js": {
       "expectCount": 14,
@@ -78,6 +78,11 @@
     "lib/parks/europapark/yullbe.js": {
       "expectCount": 2,
       "actualCount": 2,
+      "undocumentLines": []
+    },
+    "lib/parks/hansapark/hansapark.js": {
+      "expectCount": 4,
+      "actualCount": 4,
       "undocumentLines": []
     },
     "lib/parks/location.js": {

@@ -60,6 +60,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@alexvv13/tpapi/lib/parks/hansapark/hansapark.js~hansapark",
+    "class/lib/parks/hansapark/hansapark.js~HansaPark.html",
+    "<span>HansaPark</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/hansapark/hansapark.js</span>",
+    "class"
+  ],
+  [
     "@alexvv13/tpapi/lib/parks/plopsa/holidaypark.js~holidaypark",
     "class/lib/parks/plopsa/holidaypark.js~HolidayPark.html",
     "<span>HolidayPark</span> <span class=\"search-result-import-path\">@alexvv13/tpapi/lib/parks/plopsa/holidaypark.js</span>",
@@ -1089,6 +1095,30 @@ window.esdocSearchIndex = [
     "lib/parks/europapark/yullbe.js~yullbe#constructor",
     "class/lib/parks/europapark/yullbe.js~Yullbe.html#instance-constructor-constructor",
     "lib/parks/europapark/yullbe.js~Yullbe#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/hansapark/hansapark.js",
+    "file/lib/parks/hansapark/hansapark.js.html",
+    "lib/parks/hansapark/hansapark.js",
+    "file"
+  ],
+  [
+    "lib/parks/hansapark/hansapark.js~hansapark#constructor",
+    "class/lib/parks/hansapark/hansapark.js~HansaPark.html#instance-constructor-constructor",
+    "lib/parks/hansapark/hansapark.js~HansaPark#constructor",
+    "method"
+  ],
+  [
+    "lib/parks/hansapark/hansapark.js~hansapark#getophours",
+    "class/lib/parks/hansapark/hansapark.js~HansaPark.html#instance-method-getOpHours",
+    "lib/parks/hansapark/hansapark.js~HansaPark#getOpHours",
+    "method"
+  ],
+  [
+    "lib/parks/hansapark/hansapark.js~hansapark#getqueue",
+    "class/lib/parks/hansapark/hansapark.js~HansaPark.html#instance-method-getQueue",
+    "lib/parks/hansapark/hansapark.js~HansaPark#getQueue",
     "method"
   ],
   [

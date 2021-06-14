@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">lib/parks/hansapark/hansapark.js | @alexvv13/tpapi</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Api to fetch themepark data, such as queues, operating hours etc"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@alexvv13/tpapi"><meta property="twitter:description" content="Api to fetch themepark data, such as queues, operating hours etc"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/AlexVV13/tp-api"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/configBase.js~ConfigBase.html">ConfigBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getCache">getCache</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-parseConfig">parseConfig</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromise">reusePromise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-reusePromiseForever">reusePromiseForever</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#cache">cache</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheBase.js~CacheBase.html">CacheBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheLevel.js~CacheLevel.html">CacheLevel</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/cacheMemory.js~CacheMemory.html">CacheMemory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/cache/scopedCache.js~ScopedCache.html">ScopedCache</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks">parks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/entity.js~Entity.html">Entity</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/location.js~Location.html">Location</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/park.js~Park.html">Park</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityCategory">entityCategory</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-entityTags">entityTags</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-queueEntity">queueEntity</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-bellewaerde">parks/bellewaerde</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/bellewaerde/bellewaerde.js~Bellewaerde.html">Bellewaerde</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-cdaparks">parks/cdaparks</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/cdaparks/cdabase.js~CDABase.html">CDABase</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-efteling">parks/efteling</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/efteling/efteling.js~Efteling.html">Efteling</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-europapark">parks/europapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europapark.js~EuropaPark.html">EuropaPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/europaparkbase.js~EuropaParkBase.html">EuropaParkBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/rulantica.js~Rulantica.html">Rulantica</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/europapark/yullbe.js~Yullbe.html">Yullbe</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-hansapark">parks/hansapark</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/hansapark/hansapark.js~HansaPark.html">HansaPark</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-phantasialand">parks/phantasialand</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/phantasialand/phantasialand.js~Phantasialand.html">Phantasialand</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-plopsa">parks/plopsa</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/holidaypark.js~HolidayPark.html">HolidayPark</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsabase.js~PlopsaBase.html">PlopsaBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/plopsa/plopsadepanne.js~PlopsalandDePanne.html">PlopsalandDePanne</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-toverland">parks/toverland</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/toverland/toverland.js~Toverland.html">Toverland</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#parks-walibi">parks/walibi</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibibelgium.js~WalibiBelgium.html">WalibiBelgium</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibiholland.js~WalibiHolland.html">WalibiHolland</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/lib/parks/walibi/walibira.js~WalibiRA.html">WalibiRA</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">lib/parks/hansapark/hansapark.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import moment from &apos;moment-timezone&apos;;
+import fetch from &apos;node-fetch&apos;;
+import {Park} from &apos;../park.js&apos;;
+
+import dotenv from &apos;dotenv&apos;;
+dotenv.config();
+
+/**
+* Hansa-Park Park Object
+* Make sure all environment variables are set in an .env file which should be in the main location.
+* Not setting these variables will make the module exit early without returning data.
+*
+* This class is here to fetch the POI data and to attach queue times data to it.
+* After the fetches this data is send to the end user and from there he could do whatever he wants to do.
+*
+* Most park specific parameters are set already
+* @class
+*/
+export class HansaPark extends Park {
+  /**
+  * Create a new Hansa-Park Park object
+  * @param {object} options
+  */
+  constructor(options = {}) {
+    options.name = &apos;Hansa-Park&apos;;
+    options.timezone = &apos;Europe/Berlin&apos;;
+
+    // Setting the parks entrance as it&apos;s default location
+    options.latitude = 0.00;
+    options.longitude = 0.00;
+
+    // Options for our park Object
+    options.supportswaittimes = true;
+    options.supportsschedule = true;
+    options.supportsrideschedules = true;
+    options.fastPass = false;
+    options.FastPassReturnTimes = false;
+
+    // Api options
+    options.waitTimesURL = process.env.HANSAPARK_WAITTIMES_URL;
+    options.hoursURL = process.env.HANSAPARK_HIST_URL;
+
+    // Language options
+    options.languages = process.env.LANGUAGES;
+
+    options.langoptions = `{&apos;en&apos;, &apos;de&apos;}`;
+
+    super(options);
+
+    // Check for existance
+    if (!this.config.waitTimesURL) throw new Error(&apos;Missing Hansa-Park waittimes url!&apos;);
+    if (!this.config.hoursURL) throw new Error(&apos;Missing Hansa-Park Operating Hours url!&apos;);
+    if (!this.config.languages) {
+      this.config.languages = &apos;en&apos;;
+    };
+  }
+
+  /**
+  * Get Hansa-Park QueueTimes data
+  * This data contains the queue data, we&apos;ll assign them to the earlier fetched pois
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.Hansa-Park();
+  *
+  * park.getQueue().then((queue) =&gt; {
+  * console.log(queue)
+  * });
+  * @return {string} All Hansa-Park POIS with queuetimes
+  */
+  async getQueue() {
+    return fetch(this.config.waitTimesURL,
+        {
+          method: &apos;GET&apos;,
+        },
+    )
+        .then((res) =&gt; res.json())
+        .then((json) =&gt; {
+          console.log(json);
+        });
+  };
+
+  /**
+  * Get Hansa-Park Park Hours data
+  * This data contains the hours data, used to display the operating hours of Hansa-Park
+  * @example
+  * import tpapi from &apos;@alexvv13/tpapi&apos;;
+  *
+  * const park = new tpapi.park.Hansa-Park();
+  *
+  * park.getOpHours().then((hours) =&gt; {
+  * console.log(hours)
+  * });
+  * @return {string} All Hansa-Park Operating Hours for 1mo
+  */
+  async getOpHours() {
+    const currentYear = moment().format(&apos;YYYY&apos;);
+    const currentMonth = moment().format(&apos;MM&apos;);
+
+    return fetch(
+        this.config.hoursURL +
+        `&amp;month=${currentMonth}&amp;year=${currentYear}&amp;offset=1`,
+        {
+          method: &apos;GET&apos;,
+        },
+    )
+        .then((res) =&gt; res.json())
+        .then((json) =&gt; {
+          console.log(json);
+        });
+  }
+};
+
+export default HansaPark;
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
